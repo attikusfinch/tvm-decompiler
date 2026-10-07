@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Regression harness ###
+regression/node_modules/
+regression/artifacts/

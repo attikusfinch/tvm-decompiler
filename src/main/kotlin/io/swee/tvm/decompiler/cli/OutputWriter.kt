@@ -1,9 +1,25 @@
 package io.swee.tvm.decompiler.cli
 
 import io.swee.tvm.decompiler.api.TvmDecompilerResult
+import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.File
 
 object OutputWriter {
+
+    fun json(result: TvmDecompilerResult, includeStdlib: Boolean = true, includeFiles: Boolean = true): String =
+        ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(mapOf(
+            "complete" to result.complete,
+            "diagnostics" to result.diagnostics,
+            "files" to if (includeFiles) result.files.filter { includeStdlib || it.name != "stdlib.fc" } else emptyList()
+        ))
+
+    fun writeJson(result: TvmDecompilerResult, outputDir: File? = null, includeStdlib: Boolean = true, includeFiles: Boolean = true) {
+        val content = json(result, includeStdlib, includeFiles)
+        if (outputDir == null) println(content) else {
+            outputDir.mkdirs()
+            File(outputDir, "result.json").writeText(content + "\n")
+        }
+    }
 
     fun write(result: TvmDecompilerResult, outputDir: File? = null, includeStdlib: Boolean = true) {
         if (outputDir == null) {

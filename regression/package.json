@@ -1,0 +1,20 @@
+{
+  "name": "tvm-decompiler-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Reproducible black-box checks for the swap.coffee TVM to FunC decompiler",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "corpus": "node scripts/corpus.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "acton": "node scripts/check-acton.mjs",
+    "verify": "node scripts/corpus.mjs --local --native --strict"
+  },
+  "dependencies": {
+    "@ton-community/func-js": "0.11.0",
+    "@ton/core": "0.63.1",
+    "@ton/crypto": "3.3.0",
+    "@ton/sandbox": "0.45.0"
+  }
+}

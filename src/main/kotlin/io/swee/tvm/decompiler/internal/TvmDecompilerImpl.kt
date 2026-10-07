@@ -2,10 +2,12 @@ package io.swee.tvm.decompiler.internal
 
 import io.swee.tvm.decompiler.api.TvmDecompiler
 import io.swee.tvm.decompiler.api.TvmDecompilerResult
+import io.swee.tvm.decompiler.api.DecompilationDiagnostic
 import io.swee.tvm.decompiler.internal.ir.BranchFoldingPass
 import io.swee.tvm.decompiler.internal.ir.CopyCoalescingPass
 import io.swee.tvm.decompiler.internal.ir.DeadPhiEliminationPass
 import io.swee.tvm.decompiler.internal.ir.IRNode
+import io.swee.tvm.decompiler.internal.ir.IRNodeVisitor
 import io.swee.tvm.decompiler.internal.ir.RedundantStoreEliminationPass
 import io.swee.tvm.decompiler.internal.ir.TypeResolutionPass
 import io.swee.tvm.decompiler.internal.instructions.*
@@ -34,7 +36,10 @@ object TvmDecompilerImpl : TvmDecompiler {
     data class ResultFile(override val name: String, override val content: String) : TvmDecompilerResult.File {
     }
 
-    data class Result(override val files: List<ResultFile>) : TvmDecompilerResult {
+    data class Result(
+        override val files: List<ResultFile>,
+        override val diagnostics: List<DecompilationDiagnostic> = emptyList()
+    ) : TvmDecompilerResult {
     }
 
     data class ParsedFunction(
@@ -164,6 +169,19 @@ object TvmDecompilerImpl : TvmDecompiler {
             parseFunction(registry, it.value, signatures, callrefMapping, options)
         }
 
+        // Collect from the actual IR, before optimization. Speculative loop/branch
+        // parses do not leak diagnostics from discarded blocks into the result.
+        val diagnostics = mutableListOf<DecompilationDiagnostic>()
+        for (parsed in parsedCallrefs + parsedFunctions) {
+            parsed.function.accept(object : IRNodeVisitor {
+                override fun visit(node: IRNode.Comment) {
+                    node.diagnostic?.let {
+                        diagnostics += it.copy(methodId = parsed.function.methodId.toString())
+                    }
+                }
+            })
+        }
+
         val allFunctions = (parsedCallrefs + parsedFunctions).map { parsed ->
             val function = parsed.function
             TypeResolutionPass.run(function, parsed.seeds)
@@ -201,7 +219,8 @@ object TvmDecompilerImpl : TvmDecompiler {
             listOf(
                 ResultFile("main.fc", rootPrinter.print(rootNode)),
                 ResultFile("stdlib.fc", stdlibContent)
-            )
+            ),
+            diagnostics.distinct()
         )
     }
 
@@ -251,9 +270,9 @@ object TvmDecompilerImpl : TvmDecompiler {
 
         val codeBlock = try {
             parseCodeBlock(registry, builder, data.instructions, true)
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
             logger.warning("Exception during parsing of $functionName: ${e.message}")
-            IRNode.CodeBlock(listOf())
+            failedFunctionBlock(e)
         }
 
         return ParsedFunction(
@@ -296,9 +315,9 @@ object TvmDecompilerImpl : TvmDecompiler {
 
         val codeBlock = try {
             parseCodeBlock(registry, builder, instList, true)
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
             logger.warning("Exception during parsing of $functionName: ${e.message}")
-            IRNode.CodeBlock(listOf())
+            failedFunctionBlock(e)
         }
 
         return ParsedFunction(
@@ -320,7 +339,13 @@ object TvmDecompilerImpl : TvmDecompiler {
         nextElements: MutableList<TvmInst>
     ) {
         if (!registry.parse(ctx, inst, nextElements)) {
-            ctx.appendNode(IRNode.Comment("unparsed: ${inst.mnemonic} $inst"))
+            ctx.appendNode(IRNode.Comment("unparsed: ${inst.mnemonic} $inst",
+                DecompilationDiagnostic(
+                    DecompilationDiagnostic.Kind.UNSUPPORTED_INSTRUCTION,
+                    "No parser for ${inst.mnemonic}",
+                    mnemonic = inst.mnemonic,
+                    location = inst.location.toString()
+                )))
         }
     }
 
@@ -361,10 +386,18 @@ object TvmDecompilerImpl : TvmDecompiler {
                     i += (nextElementsSizePrev - nextElements.size)
                 }
                 if (ctx.hasDiverged) break
-            } catch (ex: Throwable) {
+            } catch (ex: Exception) {
                 logger.warning("Exception during instruction parsing: ${inst.mnemonic} $inst — ${ex.message}")
-                ctx.appendNode(IRNode.Comment("exception: ${inst.mnemonic}\n${ex.message}"))
+                ctx.appendNode(IRNode.Comment("exception: ${inst.mnemonic}\n${ex.message}",
+                    DecompilationDiagnostic(
+                        DecompilationDiagnostic.Kind.PARSER_ERROR,
+                        ex.message ?: ex.javaClass.simpleName,
+                        mnemonic = inst.mnemonic,
+                        location = inst.location.toString()
+                    )))
                 break
+            } finally {
+                ctx.remainingInstructions = null
             }
         }
         if (ctx.isExpression && !ctx.hasDiverged) {
@@ -378,4 +411,12 @@ object TvmDecompilerImpl : TvmDecompiler {
 
         return ctx.build()
     }
+
+    private fun failedFunctionBlock(error: Exception) = IRNode.CodeBlock(listOf(
+        IRNode.Comment("exception: function parsing failed\n${error.message}",
+            DecompilationDiagnostic(
+                DecompilationDiagnostic.Kind.FUNCTION_ERROR,
+                error.message ?: error.javaClass.simpleName
+            ))
+    ))
 }

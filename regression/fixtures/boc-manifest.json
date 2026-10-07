@@ -1,0 +1,56 @@
+[
+  {
+    "id": "balance-pair",
+    "boc": "bocs/balance-pair.boc",
+    "source": "corpus.mjs",
+    "bytes": 45,
+    "sha256": "06d043e0c0443017a16bc7571168a72e9a806e88db8063a59f4a301cbcc76b7a",
+    "codeHash": "d5a82325cb4394d27697aa951385648c2de9eb4051ea5e4be437e48ae1c63e5e",
+    "expectedPatchedStatus": "passed"
+  },
+  {
+    "id": "getparam",
+    "boc": "bocs/getparam.boc",
+    "source": "corpus.mjs",
+    "bytes": 50,
+    "sha256": "e5f77bd9360cec1f04bfa39d8a102c6e4d009c4b787304bb82c09f52eeba42e1",
+    "codeHash": "f85823f85e505fc459034507928e3dbe7ce190a79279067a39e274fbc2c67c90",
+    "expectedPatchedStatus": "passed"
+  },
+  {
+    "id": "embedded-ref-cell",
+    "boc": "bocs/embedded-ref-cell.boc",
+    "source": "corpus.mjs",
+    "bytes": 50,
+    "sha256": "b4b83c213c5525c64133f6f7e50ee3e720b20824b201f4201da693b8aaa402e1",
+    "codeHash": "e656cb4263635005c70e013bc0627b5ab991237e73c265d2eaea48d31e5dc097",
+    "expectedPatchedStatus": "passed"
+  },
+  {
+    "id": "dynamic-continuation",
+    "boc": "bocs/dynamic-continuation.boc",
+    "source": "corpus.mjs",
+    "bytes": 47,
+    "sha256": "7d7634843abdce0a19678e2956eec9e773ed3ae6c346e579d64ac2ac77f6c3a0",
+    "codeHash": "b4979d6740fc31e229aa11a9e2140e608fb7a26c30f97f83a7b8ecdfe10e3b23",
+    "expectedPatchedStatus": "incomplete"
+  },
+  {
+    "id": "try-catch",
+    "boc": "bocs/try-catch.boc",
+    "source": "corpus.mjs",
+    "bytes": 84,
+    "sha256": "b1a8ccd9ea423505ac2cbc1daa3e8c46bc21aa543c756683c3755586447e3bc3",
+    "codeHash": "ef9c708435fc7886013dbf219f622ce74bf7b7635082cff2a1aadd05df8b640c",
+    "expectedPatchedStatus": "incomplete"
+  },
+  {
+    "id": "acton-counter",
+    "boc": "bocs/acton-counter.boc",
+    "source": "acton/README.md",
+    "expectedPatchedStatus": "passed",
+    "bytes": 225,
+    "sha256": "dd966fe715571cda1566814fad0ab2157225d1400fdd2eb72a7ed2f2ed8b6218",
+    "codeHash": "15407004a66e0cf95a67c39edbb54a531dfdb6df93fb7d365fae57a34b874747"
+  }
+]

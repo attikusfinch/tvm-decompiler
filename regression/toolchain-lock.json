@@ -1,0 +1,33 @@
+{
+  "acton": {
+    "version": "1.0.0",
+    "commit": "3a4f0dc"
+  },
+  "ton": {
+    "version": "v2026.08",
+    "commit": "3d478cbde854be03a18ab2a59f8fc3c565cf7d14",
+    "source": "https://github.com/ton-blockchain/ton/releases/tag/v2026.08",
+    "assets": [
+      {
+        "name": "fift.exe",
+        "url": "https://github.com/ton-blockchain/ton/releases/download/v2026.08/fift.exe",
+        "sha256": "fe76ec0cdedcbf5aa4fb05532d0c3176e418c481e3d189333b8651d10d9dbe37"
+      },
+      {
+        "name": "func.exe",
+        "url": "https://github.com/ton-blockchain/ton/releases/download/v2026.08/func.exe",
+        "sha256": "04d092b78f71a30b120f806cd5949596098f1efcc41c71a29085312a307477e1"
+      },
+      {
+        "name": "smartcont_lib.zip",
+        "url": "https://github.com/ton-blockchain/ton/releases/download/v2026.08/smartcont_lib.zip",
+        "sha256": "00d51c916a0ee89e0c147c3508a29b985f3f1aeeaf54a604254ad7799845297a"
+      }
+    ]
+  },
+  "jdk": {
+    "version": "jdk-17.0.20.1+1",
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_windows_hotspot_17.0.20.1_1.zip",
+    "sha256": "e53a79c3c3d86865bd7e787903884331068e71321714ffd44f145785affc7cb0"
+  }
+}

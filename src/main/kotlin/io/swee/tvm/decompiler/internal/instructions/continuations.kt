@@ -658,8 +658,7 @@ private fun handleCallById(ctx: IrBlockBuilder, methodId: java.math.BigInteger, 
     val sig = ctx.callSignatures?.get(methodId)
 
     if (sig == null) {
-        ctx.appendNode(IRNode.Comment("unresolved call $functionName"))
-        return
+        error("Unresolved call $functionName")
     }
 
     val args = (0 until sig.nArgs).map { i ->

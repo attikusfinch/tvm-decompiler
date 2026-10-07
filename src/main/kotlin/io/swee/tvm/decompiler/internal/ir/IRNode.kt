@@ -1,6 +1,7 @@
 package io.swee.tvm.decompiler.internal.ir
 
 import io.swee.tvm.decompiler.internal.*
+import io.swee.tvm.decompiler.api.DecompilationDiagnostic
 import org.ton.bytecode.TvmCell
 import java.math.BigInteger
 
@@ -95,7 +96,7 @@ sealed interface IRNode {
         override fun accept0(visitor: IRNodeVisitor) = visitor.visit(this)
     }
 
-    class Comment(val comment: String) : IRNode {
+    class Comment(val comment: String, val diagnostic: DecompilationDiagnostic? = null) : IRNode {
         override fun accept0(visitor: IRNodeVisitor) = visitor.visit(this)
     }
 

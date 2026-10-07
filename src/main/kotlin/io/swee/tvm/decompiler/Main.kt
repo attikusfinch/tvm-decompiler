@@ -25,6 +25,12 @@ fun main(args: Array<String>) {
         val exact by option(ArgType.Boolean, shortName = "e", fullName = "exact", description = "Byte-exact mode: keep asm_* wrappers for constant-slice opcodes")
             .default(false)
 
+        val json by option(ArgType.Boolean, fullName = "json", description = "Output JSON with complete, diagnostics and files (result.json with -o)")
+            .default(false)
+
+        val strict by option(ArgType.Boolean, fullName = "strict", description = "Reject partial results with exit code 2; omit partial files")
+            .default(false)
+
         override fun execute() {
             val bocFormat = when (format) {
                 "auto" -> BocFormat.AUTO
@@ -40,7 +46,15 @@ fun main(args: Array<String>) {
                 val result: TvmDecompilerResult = facade.decompileBoc(boc, exact)
 
                 val outputDir = output?.let { File(it) }
-                OutputWriter.write(result, outputDir, includeStdlib = !noStdlib)
+                if (!result.complete) {
+                    System.err.println("Partial decompilation: ${result.diagnostics.size} diagnostic(s)")
+                    result.diagnostics.forEach {
+                        System.err.println("${it.kind}: method=${it.methodId} ${it.mnemonic ?: ""} ${it.location ?: ""}: ${it.message}")
+                    }
+                }
+                if (json) OutputWriter.writeJson(result, outputDir, includeStdlib = !noStdlib, includeFiles = !strict || result.complete)
+                else if (!strict || result.complete) OutputWriter.write(result, outputDir, includeStdlib = !noStdlib)
+                if (strict && !result.complete) exitProcess(2)
             } catch (e: Exception) {
                 System.err.println("Error: ${e.message}")
                 exitProcess(1)

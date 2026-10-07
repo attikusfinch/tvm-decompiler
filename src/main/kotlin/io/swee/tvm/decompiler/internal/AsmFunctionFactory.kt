@@ -92,7 +92,9 @@ object AsmFunctionFactory {
 
                 if (operand.type == Cp0InstructionRegistry.TvmCp0InstBytecodeOperandType.SUBSLICE ||
                     operand.type == Cp0InstructionRegistry.TvmCp0InstBytecodeOperandType.REF) {
-                    embeddedFiftLiterals.add(Literals.cellLiteral(value as org.ton.bytecode.TvmCell))
+                    val cell = value as org.ton.bytecode.TvmCell
+                    embeddedFiftLiterals.add(if (operand.type == Cp0InstructionRegistry.TvmCp0InstBytecodeOperandType.REF)
+                        Literals.cellReferenceLiteral(cell) else Literals.cellLiteral(cell))
                     continue
                 }
 
@@ -125,7 +127,8 @@ object AsmFunctionFactory {
                 "_" + stackLengthVars.values.joinToString("_") { it.first.toString() }
             } else ""
             val (effectiveName, asmBody) = if (embeddedFiftLiterals.isNotEmpty()) {
-                val suffix = embeddedFiftLiterals.joinToString("_") { it.replace(Regex("[^a-fA-F0-9]"), "") }
+                val suffix = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256")
+                    .digest(embeddedFiftLiterals.joinToString(" ").toByteArray(Charsets.UTF_8)))
                 val fiftPrefix = embeddedFiftLiterals.joinToString(" ")
                 "${fnName}${arraySuffix}_$suffix" to "\"$fiftPrefix $mnemonic\""
             } else if (arraySuffix.isNotEmpty()) {

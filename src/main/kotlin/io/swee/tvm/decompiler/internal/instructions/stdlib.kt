@@ -1,7 +1,9 @@
 package io.swee.tvm.decompiler.internal.instructions
 
 import io.swee.tvm.decompiler.internal.*
+import io.swee.tvm.decompiler.internal.TvmStackEntryType
 import io.swee.tvm.decompiler.internal.instructions.Cp0InstructionRegistry.TvmCp0InstValueFlowOutputsEntry
+import io.swee.tvm.decompiler.internal.ir.IRNode
 import org.ton.bytecode.*
 
 class StdlibRegistry(
@@ -147,8 +149,24 @@ class StdlibRegistry(
         for ((_, instData) in cp0InstructionRegistry.instructions) {
             if (!processed.add(instData.instClass)) continue
 
+            if (instData.instDescriptionRaw.mnemonic == "GETPARAM") {
+                registerEmbeddedParameter(registry, instData, mapOf(
+                    0 to TvmStackEntryType.INT, 1 to TvmStackEntryType.INT, 2 to TvmStackEntryType.INT,
+                    3 to TvmStackEntryType.INT, 4 to TvmStackEntryType.INT, 5 to TvmStackEntryType.INT,
+                    6 to TvmStackEntryType.INT,
+                    7 to TvmStackEntryType.TUPLE(listOf(TvmStackEntryType.INT, TvmStackEntryType.CELL)),
+                    8 to TvmStackEntryType.SLICE, 9 to TvmStackEntryType.CELL, 10 to TvmStackEntryType.CELL,
+                    11 to TvmStackEntryType.TUPLE(listOf(TvmStackEntryType.INT, TvmStackEntryType.CELL)),
+                    12 to TvmStackEntryType.INT, 13 to TvmStackEntryType.TUPLE(emptyList()),
+                    14 to TvmStackEntryType.TUPLE(emptyList()), 15 to TvmStackEntryType.INT
+                ))
+            }
+
             if (!registry.hasNonConditionalParser(instData.instClass)) {
                 val instDescRaw = instData.instDescriptionRaw
+                if (instDescRaw.mnemonic == "INMSGPARAM") {
+                    registerInMsgParamInstruction(registry, instData)
+                }
                 if (instDescRaw.controlFlow.branches.isNotEmpty()) {
                     continue
                 }
@@ -180,6 +198,57 @@ class StdlibRegistry(
                 )
             }
         }
+    }
+
+    private fun registerInMsgParamInstruction(
+        registry: ParserRegistry,
+        instData: Cp0InstructionRegistry.InstructionData
+    ) {
+        // The selector is encoded in the instruction, not supplied on the TVM stack.
+        // Different selectors also have different result types, so they must not share
+        // a single polymorphic asm wrapper (FunC requires a fixed result width).
+        val types = mapOf(
+            0 to TvmStackEntryType.INT,
+            1 to TvmStackEntryType.INT,
+            2 to TvmStackEntryType.SLICE,
+            3 to TvmStackEntryType.INT,
+            4 to TvmStackEntryType.INT,
+            5 to TvmStackEntryType.INT,
+            6 to TvmStackEntryType.INT,
+            7 to TvmStackEntryType.INT
+        )
+        registerEmbeddedParameter(registry, instData, types)
+    }
+
+    private fun registerEmbeddedParameter(
+        registry: ParserRegistry,
+        instData: Cp0InstructionRegistry.InstructionData,
+        types: Map<Int, TvmStackEntryType>
+    ) {
+        val mnemonic = instData.instDescriptionRaw.mnemonic
+        val selector = instData.instDescriptionRaw.bytecode.operands.single().name
+        registry.register(
+            instData.instClass,
+            ParserLevel.MANUAL,
+            { ctx, inst ->
+                val index = InstValueAccessor.getValue(inst, selector).toString().toInt()
+                val result = StackEntry.Simple(types.getValue(index), StackEntryName.Const("inmsg_$index"))
+                ctx.stackPush(result)
+                ctx.appendNode(IRNode.VariableDeclaration(
+                    listOf(result),
+                    IRNode.FunctionCall(
+                        "asm_${mnemonic}_$index",
+                        emptyList(),
+                        "\"$index $mnemonic\"",
+                        instData.isPure()
+                    )
+                ))
+                true
+            },
+            predicate = { instructions ->
+                InstValueAccessor.getValue(instructions.first(), selector).toString().toInt() in types
+            }
+        )
     }
 
     private fun registerAsmFunction(
