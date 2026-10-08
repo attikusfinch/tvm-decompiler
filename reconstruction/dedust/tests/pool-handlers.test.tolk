@@ -6,11 +6,16 @@ import "@acton/types/transaction"
 import "../CpmmPoolV2/storage"
 import "../CpmmPoolV2/wallets"
 import "../CpmmPoolV2/messages"
+import "../CpmmPoolV2/payout-config"
 
 fun handlerNone():any_address asm "b{00} PUSHSLICE"
 
 get fun `test recovered Pool V2 code equals mainnet`() {
     expect(build("CpmmPoolV2").hash()).toEqual(build("pool-v2-oracle","oracles/CpmmPoolV2.boc").hash());
+}
+
+get fun `test recovered Pool V1 code equals mainnet`() {
+    expect(build("CpmmPoolV1").hash()).toEqual(build("pool-v1-oracle","oracles/CpmmPoolV1.boc").hash());
 }
 
 fun handlerState(status:PoolStatus,owner:any_address,asset:any_address,wallet:any_address):PoolStorage {
@@ -31,15 +36,45 @@ fun handlerExit(result:SendResult,code:int) {
     expect(compute.data.load().exitCode).toEqual(code);
 }
 
-fun deployHandlerCandidate(storage:PoolStorage):address {
+fun deployHandlerCandidate(storage:PoolStorage,revision:int=2):address {
     testing.setNow(1700000000);
     testing.registerLibrary(build("CpmmDeposit"));testing.registerLibrary(build("CpmmPosition"));testing.registerLibrary(build("CpmmAffiliateAccount"));
     val sender=testing.treasury("handler-deployer");
-    val destination:AutoDeployAddress={stateInit:{code:build("PoolCandidate","CpmmPoolV2/candidate.tolk"),data:storage.toCell()}};
+    val code=revision == 1 ? build("CpmmPoolV1") : build("CpmmPoolV2");
+    val destination:AutoDeployAddress={stateInit:{code,data:storage.toCell()}};
     val result=destination.calculateAddress();testing.setShardAccount(result,null);
     handlerExit(testing.processSingleTraceStep(sender.address,createMessage({bounce:BounceMode.NoBounce,value:ton("1"),dest:destination,
         body:ProvidePoolState{queryId:0,includeConfig:false,includeFees:false,includeCodeHash:false,includeRewards:false}})),0);
     return result;
+}
+
+get fun `test complete Pool revisions allocate different protocol shares with independently calculated swap state`() {
+    val owner=testing.treasury("handler-swap-owner");
+    val asset=testing.treasury("handler-swap-asset").address as any_address;
+    val wallet=testing.treasury("handler-swap-wallet").address as any_address;
+    val options:PoolPayoutOptions={destination:owner.address as any_address,extraGas:0,payload:null,wrapPayload:false};
+    val payout=PoolExtendedPayout{fulfill:options,reject:options,excessesTo:owner.address as any_address}.toCell();
+    val payment=beginCell().storeUint(0xc442500f,32).storeCoins(0).storeUint(0,40).storeDict(null).storeBool(false).storeBool(false).endCell();
+    val netInput=100000000*10000/10030;
+    val output=netInput*200000000000/(100000000000+netInput);
+    val baseFee=100000000-netInput;
+    var revision=1;
+    while(revision <= 2) {
+        var initial=handlerState(PoolInitialized{},owner.address as any_address,asset,wallet);
+        initial.depositActive=true;initial.swapActive=true;
+        val pool=deployHandlerCandidate(initial,revision);
+        handlerExit(testing.processSingleTraceStep(owner.address,createMessage({bounce:BounceMode.NoBounce,value:ton("5"),dest:pool,
+            body:PayNative{queryId:9,amount:100000000,payment,payout}})),0);
+        val state=net.runGetMethod<PoolData>(pool,81689,[]);
+        val protocol=baseFee*(revision == 1 ? 30 : 20)/100;
+        val creator=(baseFee-protocol)*2500/10000;
+        val lp=baseFee-protocol-creator;
+        expect(state.reserveX).toEqual(100000000000+netInput);expect(state.reserveY).toEqual(200000000000-output);
+        expect(state.protocolX).toEqual(7+protocol);expect(state.creatorX).toEqual(13+creator);
+        expect(state.xCheckpoint).toEqual(19+lp*(1<<120)/1000000);
+        expect(state.protocolY).toEqual(11);expect(state.creatorY).toEqual(17);expect(state.yCheckpoint).toEqual(23);
+        revision+=1;
+    }
 }
 
 get fun `test readable full pool init schedules wallet then reply completes both lookup directions`() {

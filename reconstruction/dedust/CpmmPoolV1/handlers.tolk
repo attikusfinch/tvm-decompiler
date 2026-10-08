@@ -1,17 +1,18 @@
-// Byte-identical readable Pool V2 incoming handlers.
+// Byte-identical Pool V1 incoming handlers; shared handlers are imported from V2.
 import "@stdlib/gas-payments"
-import "storage"
-import "messages"
-import "wallets"
-import "transfers"
+import "../CpmmPoolV2/storage"
+import "../CpmmPoolV2/messages"
+import "../CpmmPoolV2/wallets"
+import "../CpmmPoolV2/transfers"
 import "processing"
-import "settlement"
-import "payment"
-import "payout-config"
-import "routing"
-import "liquidity-handlers"
-import "claim-handlers"
-import "transaction-context"
+import "transfers-v1"
+import "../CpmmPoolV2/settlement"
+import "../CpmmPoolV2/payment"
+import "../CpmmPoolV2/payout-config"
+import "../CpmmPoolV2/routing"
+import "../CpmmPoolV2/liquidity-handlers"
+import "../CpmmPoolV2/claim-handlers"
+import "../CpmmPoolV2/transaction-context"
 
 fun poolExceptionHasContext(value:unknown):bool asm "ISTUPLE"
 fun poolExceptionContext(value:unknown):(any_address,PoolPayoutOptions) asm "5 UNTUPLE"
@@ -44,25 +45,22 @@ fun initializePool(storage:PoolStorage,message:InitPool,in:PoolInboundContext) {
         var extra=PoolExtra.fromCell(storage.extra);
         if(config.assetX.isInternal()) {
             val (isNew,resolver)=schedulePoolWallets(mutate extra.wallets,config.assetX,config.customResolvers);
-            if(isNew) {requestPoolWalletAddress(resolver,message.queryId);requested+=1;}
+            if(isNew) {requestPoolWalletAddressV1(resolver,message.queryId);requested+=1;}
         }
         if(config.assetY.isInternal()) {
             val (isNew,resolver)=schedulePoolWallets(mutate extra.wallets,config.assetY,config.customResolvers);
-            if(isNew) {requestPoolWalletAddress(resolver,message.queryId);requested+=1;}
+            if(isNew) {requestPoolWalletAddressV1(resolver,message.queryId);requested+=1;}
         }
         var reward=config.allowedRewards.findFirst();
         while(reward.isFound) {
             val allowed=reward.loadValue();
             if(allowed.asset.isInternal()) {
                 val (isNew,resolver)=schedulePoolWallets(mutate extra.wallets,allowed.asset,config.customResolvers);
-                if(isNew) {requestPoolWalletAddress(resolver,message.queryId);requested+=1;}
+                if(isNew) {requestPoolWalletAddressV1(resolver,message.queryId);requested+=1;}
             }
             reward=config.allowedRewards.iterateNext(reward);
         }
-        val processingFee=max(calculateGasFee(0,25000),10000000);
-        val requestForwardFee=calculateForwardFee(0,364,1);
-        val replyForwardFee=calculateForwardFee(0,1,364);
-        val resolverCost=requestForwardFee+processingFee+replyForwardFee;
+        val resolverCost=(calculateForwardFee(0,364,1)+calculateGasFee(0,25000))+calculateForwardFee(0,1,364);
         assert(initialCost+(resolverCost+calculateGasFee(0,14500))*requested <= in.valueCoins()) throw 25;
         storage.extra=extra.toCell();
         reserveToncoinsOnBalance(50000000,2);

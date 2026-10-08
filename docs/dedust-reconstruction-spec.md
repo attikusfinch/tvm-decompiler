@@ -45,11 +45,11 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **4/21 families**: CPMM Deposit,
-AffiliateAccount, Position and Pool V2. Pool V2's complete 10032-byte serialized
+Readable byte-identical recovery is **5/21 families**: CPMM Deposit,
+AffiliateAccount, Position, Pool V1 and Pool V2. Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **68 tests**. The whole-Pool fixture compares
-109 message probes and 12 getter probes, including outgoing amounts, exact gas
+The shared Acton project passes **70 tests**. Each whole-Pool fixture compares
+116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
 
@@ -58,7 +58,16 @@ compatibility import. The exact dispatcher fixture adds 113 isolated probes.
 Wallet scheduling retains the full map record's original stack width; handler
 branches, lazy transaction reads, liquidity updates, optional state fields,
 refunds and callback evaluation now preserve the original instructions and
-reference boundaries. The next complete contract is Pool V1; 17 families remain.
+reference boundaries.
+
+Pool V1 also passes complete serialized BOC equality and all ten method dictionary
+comparisons. It shares unchanged modules through relative source imports, keeping
+separate incoming handlers, method 20 and resolver sender for revision differences.
+Protocol fee share is 30% in V1 and 20% in V2; V1 lacks V2's minimum resolver fee.
+Independent swap calculations cover both directions and all fee selectors, while
+native Acton tests execute both full revisions and check fee/checkpoint/reserve
+updates. Source dependency collection retains directory layout and hashes every
+imported file. Next: the Classic contracts; **16 families remain**.
 
 ## Recovery history
 

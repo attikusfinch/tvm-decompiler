@@ -21,6 +21,27 @@ export async function tolkVersion() {
   return { backend:'acton', acton:(await run(command,[...prefix,'--version'],{ timeout:30000,windowsHide:true })).stdout.trim() };
 }
 
+// Collect editable local imports under one project root. The root main file is
+// a compiler entry shim; relative imports keep their original directory layout.
+export async function loadTolkSources(project, entry) {
+  const base = path.resolve(project), entryPath = path.resolve(base, entry);
+  const sources = {'main.tolk': `import "${entry.replaceAll('\\', '/').replace(/\.tolk$/, '')}"\n`};
+  const pending = [entryPath];
+  while (pending.length) {
+    const file = pending.pop();
+    if (!file.startsWith(base + path.sep)) throw new Error('Tolk import escapes project: ' + file);
+    const name = path.relative(base, file).replaceAll('\\', '/');
+    if (Object.hasOwn(sources, name)) continue;
+    const content = await fs.readFile(file, 'utf8');
+    sources[name] = content;
+    for (const [, dependency] of content.matchAll(/^\s*import\s+"([^"]+)"/gm)) {
+      if (dependency.startsWith('@')) continue;
+      pending.push(path.resolve(path.dirname(file), dependency.endsWith('.tolk') ? dependency : dependency + '.tolk'));
+    }
+  }
+  return sources;
+}
+
 export async function compileTolk({ sources }) {
   const workspace = path.join(root, 'artifacts/tolk-build');
   await fs.mkdir(workspace, { recursive:true });

@@ -4,16 +4,16 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { Cell } from '@ton/core';
 import { root, compareBoc, writeJson, run } from './lib.mjs';
-import { compileTolk, tolkVersion } from './tolk.mjs';
+import { compileTolk, tolkVersion, loadTolkSources } from './tolk.mjs';
 import { assembleExact, disassembleExact, firstCellDifference } from './exact-assembly.mjs';
 import { checkDeposit } from './dedust-deposit-fixtures.mjs';
 import { checkAffiliate } from './dedust-affiliate-fixtures.mjs';
 import { checkPosition } from './dedust-position-fixtures.mjs';
-import { checkPool } from './dedust-pool-fixtures.mjs';
+import { checkPool, checkPoolV1 } from './dedust-pool-fixtures.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV2:checkPool};
+const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));
@@ -27,10 +27,7 @@ for(const entry of manifest.contracts) {
     try { source=await fs.readFile(path.join(project,entry.name,'main.tolk'),'utf8'); }
     catch(error) { if(error.code!=='ENOENT') throw error; }
     if(source) {
-        const sources={'main.tolk':source};
-        for(const name of await fs.readdir(path.join(project,entry.name))) {
-            if(name!=='main.tolk'&&name.endsWith('.tolk')) sources[name]=await fs.readFile(path.join(project,entry.name,name),'utf8');
-        }
+        const sources=await loadTolkSources(project,entry.name+'/main.tolk');
         const compiled=await compileTolk({sources});
         assert.equal(compiled.status,'ok',entry.name+': '+compiled.message);
         const raw=Buffer.from(compiled.codeBoc,'base64');

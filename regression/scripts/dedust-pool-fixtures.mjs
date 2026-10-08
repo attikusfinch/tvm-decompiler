@@ -5,9 +5,13 @@ import {Address, ExternalAddress, Cell, Dictionary, beginCell, contractAddress} 
 import {root, compareMessages, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk} from './tolk.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust'),directory=path.join(root,'artifacts/dedust-pool-handlers');
+const project=path.resolve(root,'../reconstruction/dedust');
 
-export async function checkPool(oracle,candidate) {
+export const checkPoolV1=(oracle,candidate)=>checkPool(oracle,candidate,{protocolPercent:30});
+
+export async function checkPool(oracle,candidate,{protocolPercent=20}={}) {
+assert.ok([20,30].includes(protocolPercent),'known protocol fee revision');
+const directory=path.join(root,'artifacts',protocolPercent===30?'dedust-pool-handlers-v1':'dedust-pool-handlers');
 await fs.mkdir(directory,{recursive:true});
 const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},parse:s=>s.asCell()},c.refs[0]);
 const originalMethods=methods(Cell.fromBoc(oracle)[0]),candidateMethods=methods(Cell.fromBoc(candidate)[0]);
@@ -93,8 +97,29 @@ await check('init bad creator fee',{...defaults,status:0,creatorFee:5001},init(9
 await check('init equal assets',{...defaults,status:0,y:null},init(9),{exit:26});
 await check('init already initialized',defaults,init(9),{exit:20});
 await check('init insufficient upfront gas',{...defaults,status:0},init(9),{exit:25,value:1000000n});
-await check('init insufficient final gas after resolver send',{...defaults,status:0},init(9),{exit:25,value:60000000n});
+await check('init insufficient final gas after resolver send',{...defaults,status:0},init(9),{exit:25,value:57000000n});
+await check('init resolver-fee revision boundary',{...defaults,status:0},init(9),{exit:protocolPercent===30?0:25,value:60000000n});
 await check('init malformed config',{...defaults,status:0,configCell:empty},init(9),{exit:9});
+
+// Independently calculate the complete swap state for both directions and all
+// fee selectors. V1 allocates 30% of base fees to protocol; V2 allocates 20%.
+for(const feeIn of [0,1,2])for(const xToY of [true,false]) {
+    const amount=100000000n,feeFromInput=feeIn===0 || (feeIn===1?xToY:!xToY);
+    const netInput=feeFromInput?amount*10000n/10030n:amount;
+    const input=xToY?defaults.reserveX:defaults.reserveY,output=xToY?defaults.reserveY:defaults.reserveX;
+    const grossOutput=netInput*output/(input+netInput);
+    const totalFee=feeFromInput?amount-netInput:grossOutput-grossOutput*10000n/10030n;
+    const protocol=totalFee*BigInt(protocolPercent)/100n,creator=(totalFee-protocol)*2500n/10000n;
+    const checkpoint=(totalFee-protocol-creator)*(1n<<120n)/defaults.liquidity,fromY=xToY!==feeFromInput;
+    const updatedFees=beginCell().storeCoins(7n+(fromY?0n:protocol)).storeCoins(11n+(fromY?protocol:0n))
+        .storeCoins(13n+(fromY?0n:creator)).storeCoins(17n+(fromY?creator:0n))
+        .storeVarUint(19n+(fromY?0n:checkpoint),5).storeVarUint(23n+(fromY?checkpoint:0n),5).endCell();
+    const o={...defaults,feeIn};
+    const expected=state({...o,feesCell:updatedFees,reserveX:defaults.reserveX+(xToY?netInput:-grossOutput),
+        reserveY:defaults.reserveY+(xToY?-grossOutput:netInput)});
+    await check(`independent swap fee=${feeIn} xToY=${xToY} protocol=${protocolPercent}%`,o,xToY?native():jetton(),
+        {from:xToY?sender:walletY,expectedState:expected});
+}
 await check('wallet reply wrong status',defaults,walletReply(9,walletY),{from:resolver,exit:21});
 const pending=dict().set(key(resolver),addressCell(jettonY));
 const unregistered={...defaults,status:1,byAssets:dict(),byWallets:dict(),pending};
@@ -236,6 +261,6 @@ for(const [status,liquidity]of [[0,1000000n],[1,1000000n],[2,1000000n],[2,0n]]) 
 }
 
 const comparison=compareBoc(oracle,Cell.fromBoc(candidate)[0].toBoc({idx:false,crc32:true}));
-assert.equal(comparison.sameSerializedBoc,true,'whole Pool V2 serialized BOC bytes');
+assert.equal(comparison.sameSerializedBoc,true,'whole Pool serialized BOC bytes');
 return {getters:getterCases.flatMap(c=>c.result),messages:cases,getterCases,exactMethodIds,incomingDecoderHash,comparison};
 }

@@ -1,5 +1,5 @@
 {
-  "scope": "Byte-identical readable Pool V2: all 16 incoming variants and all 3 getters; state/actions/outgoing balances/gas and independent expectations",
+  "scope": "Byte-identical readable Pool V1: all 16 incoming variants and all 3 getters; state/actions/outgoing balances/gas and independent expectations",
   "exactMethodIds": [
     0,
     19,
@@ -18,14 +18,14 @@
     "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
   },
   "sourceSha256": {
-    "main.tolk": "e11110ac296b8d6ca4cd6788117a0054b0f24f5b0beb48550ff53013da67c452",
-    "CpmmPoolV2/main.tolk": "e5e0c4a6962894f23d43d7588f1d93baecfd856f8f2ec28e9289281ed86d295a",
+    "main.tolk": "66a5337465dc916736aea5502df4ebb98a7995dae785d307966acec4106d77f3",
+    "CpmmPoolV1/main.tolk": "849afcad3ea9eef21642eac9cc993ac30e30a75cf1c1693a6c8cffcb8ffb074f",
     "CpmmPoolV2/transaction-context.tolk": "e1cbfccf5831bb33933eed26ef2b1c826c5dc841ef6075487482eba54d734ee4",
     "CpmmPoolV2/storage.tolk": "e7750062dbdee5c52fba6db3947a89a45f4089af266497a3407271cd640385b6",
     "CpmmPoolV2/rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
     "CpmmPoolV2/wallets.tolk": "57b0fe296cc8439ed3046dbcdfc949108e7d0ae1b7aefb597f47d91d82318a94",
     "CpmmPoolV2/messages.tolk": "99ce1df230acfdb11c509e8a5a125fdbcbaf67b47d70481a1eab31cf63b36444",
-    "CpmmPoolV2/handlers.tolk": "b2cbeb6d98fd60e790b03aa09dda4746f2ef74db8808988442645635cb393a3a",
+    "CpmmPoolV1/handlers.tolk": "61e82bfeaf83adc478ecd390ee3ea037e2e31a65b4659530862f166280f773d9",
     "CpmmPoolV2/claim-handlers.tolk": "a8454c88b436c0cd30ebc4e0cebe8cd289dd85b7144974912d4ed41c61e13aa1",
     "CpmmPoolV2/payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
     "CpmmPoolV2/transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
@@ -40,18 +40,19 @@
     "CpmmPoolV2/compat-address.tolk": "8a624258542425f60322be9da1b2c12472b4b93cf13d9b6c68c403c49ac4aaf5",
     "CpmmPoolV2/addresses.tolk": "021e568c4ab6e4631d4e9c059480dbd39cf90c39ff967787f8b6595748efa061",
     "CpmmPoolV2/routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
-    "CpmmPoolV2/processing.tolk": "f91d69d4394e1a161cae325ae56632674eeefd9573bda16f297581d7c1ec6930",
+    "CpmmPoolV1/transfers-v1.tolk": "3aaecb4c13f3fe89772b84ef1817ae79822f80f51c4be922ed7bd446ebf1d206",
+    "CpmmPoolV1/processing.tolk": "e6fbecda9d3fd2b02e27e55d2fc26e59d7130c00af8ec4fba23836bd7471adfd",
     "CpmmPoolV2/affiliate-deployment.tolk": "063d6d5e008c8b099ef2e6a940a03bfdb9933d8f337427730939ba9b95a8ee5a",
     "CpmmPoolV2/reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
     "CpmmPoolV2/getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c"
   },
   "comparison": {
-    "originalHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
-    "recompiledHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+    "originalHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+    "recompiledHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
     "sameCodeCell": true,
     "sameSerializedBoc": true,
-    "originalBytes": 10032,
-    "recompiledBytes": 10032
+    "originalBytes": 10014,
+    "recompiledBytes": 10014
   },
   "limitations": [
     "Finite independent behavior probes; original spelling and variable names are not recoverable from code bytes"
@@ -1001,12 +1002,12 @@
       "before": {
         "exitCode": 0,
         "dataHash": "afbbf1c4b92efdacbf094fe6def677688854a7e096ca9a7a9474e5eb172fb38f",
-        "gasUsed": "8834"
+        "gasUsed": "8785"
       },
       "after": {
         "exitCode": 0,
         "dataHash": "afbbf1c4b92efdacbf094fe6def677688854a7e096ca9a7a9474e5eb172fb38f",
-        "gasUsed": "8834"
+        "gasUsed": "8785"
       }
     },
     {
@@ -1019,12 +1020,12 @@
       "before": {
         "exitCode": 0,
         "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
-        "gasUsed": "12393"
+        "gasUsed": "12177"
       },
       "after": {
         "exitCode": 0,
         "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
-        "gasUsed": "12393"
+        "gasUsed": "12177"
       }
     },
     {
@@ -1037,12 +1038,12 @@
       "before": {
         "exitCode": 0,
         "dataHash": "09d5c3906901a351248c32719566fb6ef6d6ec9076ba3aa80ef3b40c67ef3548",
-        "gasUsed": "16705"
+        "gasUsed": "16422"
       },
       "after": {
         "exitCode": 0,
         "dataHash": "09d5c3906901a351248c32719566fb6ef6d6ec9076ba3aa80ef3b40c67ef3548",
-        "gasUsed": "16705"
+        "gasUsed": "16422"
       }
     },
     {
@@ -1055,12 +1056,12 @@
       "before": {
         "exitCode": 0,
         "dataHash": "d61b0390367c57472cf0143025134a654015d53b4d1133eb083a4f2c9807e915",
-        "gasUsed": "14564"
+        "gasUsed": "14348"
       },
       "after": {
         "exitCode": 0,
         "dataHash": "d61b0390367c57472cf0143025134a654015d53b4d1133eb083a4f2c9807e915",
-        "gasUsed": "14564"
+        "gasUsed": "14348"
       }
     },
     {
@@ -1073,12 +1074,12 @@
       "before": {
         "exitCode": 0,
         "dataHash": "4a4743bde86229b3c751517668a5d7922a9cbe95c5feaf692ca3f7cf2d86594e",
-        "gasUsed": "19020"
+        "gasUsed": "18737"
       },
       "after": {
         "exitCode": 0,
         "dataHash": "4a4743bde86229b3c751517668a5d7922a9cbe95c5feaf692ca3f7cf2d86594e",
-        "gasUsed": "19020"
+        "gasUsed": "18737"
       }
     },
     {
@@ -1163,12 +1164,12 @@
       "before": {
         "exitCode": 25,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9556"
+        "gasUsed": "9422"
       },
       "after": {
         "exitCode": 25,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9556"
+        "gasUsed": "9422"
       }
     },
     {
@@ -1176,17 +1177,17 @@
       "label": "init resolver-fee revision boundary",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
-      "expectedOriginalExit": 25,
+      "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
-        "exitCode": 25,
-        "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9556"
+        "exitCode": 0,
+        "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
+        "gasUsed": "12177"
       },
       "after": {
-        "exitCode": 25,
-        "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9556"
+        "exitCode": 0,
+        "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
+        "gasUsed": "12177"
       }
     },
     {
@@ -1208,110 +1209,110 @@
       }
     },
     {
-      "name": "independent swap fee=0 xToY=true protocol=20%",
-      "label": "independent swap fee=0 xToY=true protocol=20%",
+      "name": "independent swap fee=0 xToY=true protocol=30%",
+      "label": "independent swap fee=0 xToY=true protocol=30%",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
+        "dataHash": "10d35be79fd61b810d758c6c7265e56a575a870d7ba23b7fcc59a8d314b1b4e8",
         "gasUsed": "28725"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
+        "dataHash": "10d35be79fd61b810d758c6c7265e56a575a870d7ba23b7fcc59a8d314b1b4e8",
         "gasUsed": "28725"
       }
     },
     {
-      "name": "independent swap fee=0 xToY=false protocol=20%",
-      "label": "independent swap fee=0 xToY=false protocol=20%",
+      "name": "independent swap fee=0 xToY=false protocol=30%",
+      "label": "independent swap fee=0 xToY=false protocol=30%",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
+        "dataHash": "1b0590b6e988a178fd47734de619146b6e7a1072c14f159bc73616c60f310990",
         "gasUsed": "28387"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
+        "dataHash": "1b0590b6e988a178fd47734de619146b6e7a1072c14f159bc73616c60f310990",
         "gasUsed": "28387"
       }
     },
     {
-      "name": "independent swap fee=1 xToY=true protocol=20%",
-      "label": "independent swap fee=1 xToY=true protocol=20%",
+      "name": "independent swap fee=1 xToY=true protocol=30%",
+      "label": "independent swap fee=1 xToY=true protocol=30%",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "9e9ddd0a3010e483c740ca15fb5334abb16116a84687f3f7c35265fb52bc2689",
+        "dataHash": "fc1f73fad5c2808dfdb169ccf956d8816f73597ce87a4956d87799c4f9d208ed",
         "gasUsed": "28952"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "9e9ddd0a3010e483c740ca15fb5334abb16116a84687f3f7c35265fb52bc2689",
+        "dataHash": "fc1f73fad5c2808dfdb169ccf956d8816f73597ce87a4956d87799c4f9d208ed",
         "gasUsed": "28952"
       }
     },
     {
-      "name": "independent swap fee=1 xToY=false protocol=20%",
-      "label": "independent swap fee=1 xToY=false protocol=20%",
+      "name": "independent swap fee=1 xToY=false protocol=30%",
+      "label": "independent swap fee=1 xToY=false protocol=30%",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "3210c9ef4e9fc9a2c193b9ae2da7dd3d1b0ea50f28377d9aa3b0a4fd75d260d4",
+        "dataHash": "5d1c4c2067a17683a4c8b7503aebf7024db88568131d9323c3da006fe31bcfde",
         "gasUsed": "28752"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "3210c9ef4e9fc9a2c193b9ae2da7dd3d1b0ea50f28377d9aa3b0a4fd75d260d4",
+        "dataHash": "5d1c4c2067a17683a4c8b7503aebf7024db88568131d9323c3da006fe31bcfde",
         "gasUsed": "28752"
       }
     },
     {
-      "name": "independent swap fee=2 xToY=true protocol=20%",
-      "label": "independent swap fee=2 xToY=true protocol=20%",
+      "name": "independent swap fee=2 xToY=true protocol=30%",
+      "label": "independent swap fee=2 xToY=true protocol=30%",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "56e2657c88ec6136887f4b02108ebc62a1feabd855b9af50b0aa9b612f43426e",
+        "dataHash": "9819bfc8f6e9aa3148073382a8fbc95a462d19ab31478f129d302b2abbbe3b0b",
         "gasUsed": "28915"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "56e2657c88ec6136887f4b02108ebc62a1feabd855b9af50b0aa9b612f43426e",
+        "dataHash": "9819bfc8f6e9aa3148073382a8fbc95a462d19ab31478f129d302b2abbbe3b0b",
         "gasUsed": "28915"
       }
     },
     {
-      "name": "independent swap fee=2 xToY=false protocol=20%",
-      "label": "independent swap fee=2 xToY=false protocol=20%",
+      "name": "independent swap fee=2 xToY=false protocol=30%",
+      "label": "independent swap fee=2 xToY=false protocol=30%",
       "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "e958872ec41721ce527e21b0e149eb8fa88f55639f40c8879cee5bc29b4c154c",
+        "dataHash": "88943c9a40539ad38835a0031d4c51697e19775dabb0a41a52e70531344e308f",
         "gasUsed": "28699"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "e958872ec41721ce527e21b0e149eb8fa88f55639f40c8879cee5bc29b4c154c",
+        "dataHash": "88943c9a40539ad38835a0031d4c51697e19775dabb0a41a52e70531344e308f",
         "gasUsed": "28699"
       }
     },
@@ -1522,12 +1523,12 @@
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
+        "dataHash": "10d35be79fd61b810d758c6c7265e56a575a870d7ba23b7fcc59a8d314b1b4e8",
         "gasUsed": "28725"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
+        "dataHash": "10d35be79fd61b810d758c6c7265e56a575a870d7ba23b7fcc59a8d314b1b4e8",
         "gasUsed": "28725"
       }
     },
@@ -1702,12 +1703,12 @@
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
+        "dataHash": "1b0590b6e988a178fd47734de619146b6e7a1072c14f159bc73616c60f310990",
         "gasUsed": "28243"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
+        "dataHash": "1b0590b6e988a178fd47734de619146b6e7a1072c14f159bc73616c60f310990",
         "gasUsed": "28243"
       }
     },
@@ -1810,12 +1811,12 @@
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
+        "dataHash": "1b0590b6e988a178fd47734de619146b6e7a1072c14f159bc73616c60f310990",
         "gasUsed": "28387"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
+        "dataHash": "1b0590b6e988a178fd47734de619146b6e7a1072c14f159bc73616c60f310990",
         "gasUsed": "28387"
       }
     },
@@ -2044,12 +2045,12 @@
       "matchesExpectedOriginal": true,
       "before": {
         "exitCode": 0,
-        "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
+        "dataHash": "10d35be79fd61b810d758c6c7265e56a575a870d7ba23b7fcc59a8d314b1b4e8",
         "gasUsed": "28725"
       },
       "after": {
         "exitCode": 0,
-        "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
+        "dataHash": "10d35be79fd61b810d758c6c7265e56a575a870d7ba23b7fcc59a8d314b1b4e8",
         "gasUsed": "28725"
       }
     },
@@ -2063,12 +2064,12 @@
       "before": {
         "exitCode": 0,
         "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
-        "gasUsed": "12393"
+        "gasUsed": "12177"
       },
       "after": {
         "exitCode": 0,
         "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
-        "gasUsed": "12393"
+        "gasUsed": "12177"
       }
     },
     {

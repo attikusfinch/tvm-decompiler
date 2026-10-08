@@ -1,7 +1,7 @@
 # DeDust reconstruction
 
-Readable, byte-identical Tolk recovery is verified for **4 of 21 archived code
-families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition and CpmmPoolV2.
+Readable, byte-identical Tolk recovery is verified for **5 of 21 archived code
+families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1 and CpmmPoolV2.
 The sources describe executable behavior; original names and comments are unknown.
 
 | Contract | Serialized BOC | Getter probes | Message probes |
@@ -9,16 +9,17 @@ The sources describe executable behavior; original names and comments are unknow
 | CpmmDeposit | 522 bytes | 9 | 21 |
 | CpmmAffiliateAccount | 306 bytes | 6 | 21 |
 | CpmmPosition | 1540 bytes | 14 | 49 |
-| CpmmPoolV2 | 10032 bytes | 12 | 109 |
+| CpmmPoolV1 | 10014 bytes | 12 | 116 |
+| CpmmPoolV2 | 10032 bytes | 12 | 116 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **68 native tests**. See `verification.json` for per-family results.
+project passes **70 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **17 families** have not passed readable-source acceptance. Their
+The remaining **16 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -26,7 +27,7 @@ instruction references do not establish readable recovery.
 `CpmmPoolV2/main.tolk` dispatches all 16 incoming variants through named lifecycle,
 payment, liquidity, fee, reward, state and upgrade handlers. `candidate.tolk` remains
 a compatibility import of that entrypoint. `npm run dedust:pool-handlers` verifies
-109 complete-contract message probes and 12 getter probes. Six state responses
+116 complete-contract message probes and 12 getter probes. Six state responses
 independently verify the actual code hash, without rewriting either output.
 
 The full 10032-byte BOC equals mainnet, with code hash
@@ -55,6 +56,26 @@ The emulator resolves Deposit, Position and AffiliateAccount libraries compiled
 from recovered source. Oracle executable bodies appear only on the comparison
 side; they are never substituted into a source build.
 
+## Pool V1
+
+`CpmmPoolV1/main.tolk` imports the shared V2 schemas, getters and unchanged
+handlers. Separate `handlers.tolk`, `processing.tolk` and `transfers-v1.tolk`
+preserve the earlier fee policy and evaluation order. Its complete serialized
+BOC equals mainnet, with code hash
+`87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36`.
+All ten dictionary values match; 116 complete-message and 12 getter probes
+compare exact gas, state, actions and outgoing amounts. Run
+`npm run dedust:pool-handlers -- V1`; see `CpmmPoolV1/recovery-verification.json`.
+
+V1 allocates 30% of the swap's base fee to protocol; V2 allocates 20%. Independent
+calculations check reserve/fee/checkpoint updates in both directions and all three
+fee selectors. A native Acton test executes each complete revision and independently
+checks its protocol, creator and LP amounts. The resolver-budget boundary also
+distinguishes V1's calculated processing gas fee from V2's 10,000,000 floor.
+
+The build harness collects relative Tolk imports under the reconstruction root,
+retains their directory layout and records hashes for every actual source dependency.
+
 ## Shared Pool modules
 
 Both Pool revisions share independently verified helpers. Their proof files in
@@ -74,8 +95,8 @@ Both Pool revisions share independently verified helpers. Their proof files in
 | settlement-verification.json | Reserve, payouts and excesses | 139 |
 
 Pool V2 adds a 10,000,000 minimum processing fee to wallet resolution; V1 lacks
-it. A low-gas-price configuration verifies this distinction. These shared proofs
-alone do not establish complete Pool V1 recovery.
+it. A low-gas-price configuration verifies this distinction. Complete Pool V1
+acceptance additionally uses the whole-contract proofs above.
 
 ## Reproduce
 
