@@ -405,15 +405,26 @@ private fun containsAltReturn(instructions: List<TvmInst>): Boolean {
 }
 
 fun registerContinuationParsers(registry: ParserRegistry) {
+    fun pushLiteral(ctx: IrBlockBuilder, instructions: List<TvmInst>) {
+        val entry = newContinuation(name("continuation"), instructions)
+        // Tolk's non-capturing lambda is a PUSHCONT containing one CALLDICT.
+        // Preserve construction at its original position and the c3 lookup;
+        // do not inline a runtime callback or change CALLXARGS stack isolation.
+        (instructions.singleOrNull() as? TvmContDictCalldictInst)?.let { target ->
+            ctx.appendNode(IRNode.VariableDeclaration(listOf(entry), IRNode.FunctionCall(
+                "asm_PUSHCONT_CALLDICT_${target.n}", emptyList(), "\"<{ ${target.n} CALLDICT }>CONT\"", pure = true)))
+        }
+        ctx.stackPush(entry)
+    }
     with(registry) {
         register<TvmConstDataPushcontShortInst>(ParserLevel.MANUAL) { ctx, inst ->
-            ctx.stackPush(newContinuation(name("continuation"), inst.c.list))
+            pushLiteral(ctx, inst.c.list)
         }
         register<TvmConstDataPushrefcontInst>(ParserLevel.MANUAL) { ctx, inst ->
-            ctx.stackPush(newContinuation(name("continuation"), inst.c.list))
+            pushLiteral(ctx, inst.c.list)
         }
         register<TvmConstDataPushcontInst> (ParserLevel.MANUAL){ ctx, inst ->
-            ctx.stackPush(newContinuation(name("continuation"), inst.c.list))
+            pushLiteral(ctx, inst.c.list)
         }
         register<TvmContLoopsWhileInst>(ParserLevel.MANUAL) { ctx, inst ->
             val bodyEntry = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
@@ -614,6 +625,11 @@ fun registerContinuationParsers(registry: ParserRegistry) {
             // is dynamic. Keep the call opcode and opaque slot types; do not infer
             // the target's source signature or inline its body.
             val target = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
+            (target.concreteValue as? ConcreteValue.ContinuationVal)?.let {
+                check(it.instructions.singleOrNull() is TvmContDictCalldictInst) {
+                    "Literal continuation: exact runtime materialization requires a single CALLDICT"
+                }
+            }
             val arguments = (0 until inst.p).map { ctx.stackPop() }.reversed() + target
             val results = (0 until inst.r).map { StackEntry.Simple(TvmStackEntryType.UNKNOWN, name("call_result")) }
             val call = IRNode.FunctionCall("asm_CALLXARGS_${inst.p}_${inst.r}",

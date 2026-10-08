@@ -23,7 +23,11 @@
     "tolk:exceptions": "node scripts/check-tolk-exceptions.mjs",
     "tolk:dispatch": "node scripts/check-tolk-dispatch.mjs",
     "tolk:messages": "node scripts/check-tolk-messages.mjs",
+    "tolk:arithmetic": "node scripts/check-tolk-arithmetic.mjs",
+    "tolk:catalog": "node scripts/check-tolk-catalog.mjs",
+    "tolk:dictionary": "node scripts/check-tolk-dictionary.mjs",
     "dispatch:ambiguity": "node scripts/check-dispatch-ambiguity.mjs",
+    "schema:ambiguity": "node scripts/check-schema-ambiguity.mjs",
     "tolk:audit": "node scripts/audit-recovery-results.mjs",
     "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs"
   },

@@ -118,6 +118,7 @@ object TvmDecompilerImpl : TvmDecompiler {
         registerConstSliceParsers(registry)
         registerEquivParsers(registry)
         registerTupleParsers(registry)
+        registerDictionaryParsers(registry)
         registerVirtualInstructions(registry)
 
         stdlibRegistry.registerStdlibInstructions(registry)

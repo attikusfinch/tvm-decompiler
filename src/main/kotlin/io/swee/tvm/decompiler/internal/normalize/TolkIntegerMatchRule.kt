@@ -11,15 +11,21 @@ import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.unwrap
 internal object IntegerMatchRule : TolkNormalizer.Rule {
     private data class Arm(val subject: String, val constant: List<Token>, val body: List<Token>, val end: Int)
 
-    override fun edits(source: TolkSource): List<TolkNormalizer.Edit> = buildList {
+    override fun edits(source: TolkSource) = findEdits(source, nested = false)
+    fun nestedEdits(source: TolkSource) = findEdits(source, nested = true)
+
+    private fun findEdits(source: TolkSource, nested: Boolean): List<TolkNormalizer.Edit> = buildList {
         for (function in source.functions) {
             val tokens = function.body
-            var depth = 0
+            val parents = mutableListOf<Int>()
             for (start in tokens.indices) {
-                val top = depth == 0
-                if (tokens[start].value == "{") depth++
-                if (tokens[start].value == "}") depth--
-                if (!top || tokens[start].value != "if") continue
+                if (tokens[start].value == "{") parents += start
+                if (tokens[start].value == "}" && parents.isNotEmpty()) parents.removeAt(parents.lastIndex)
+                if (tokens[start].value != "if" || nested != parents.isNotEmpty()) continue
+                // A nested return must keep the function's return context. Loop,
+                // TRY, lambda and match-arm continuations are separate proofs.
+                if (nested && parents.any { !ifBody(tokens, it) }) continue
+                val blockEnd = parents.lastOrNull()?.let { closingBrace(tokens, it) } ?: tokens.size
                 val arms = mutableListOf<Arm>()
                 var cursor = start
                 while (true) {
@@ -30,8 +36,9 @@ internal object IntegerMatchRule : TolkNormalizer.Rule {
                 if (arms.size < 2 || arms.map { it.subject }.distinct().size != 1
                     || arms.map { integer(it.constant) }.distinct().size != arms.size
                     || source.scalarType(function, arms.first().subject, tokens[start].start) != "int") continue
-                val fallback = tokens.subList(cursor, tokens.size)
-                if (!terminalReturn(fallback) || source.hasComments(tokens[start].start, tokens.last().end)) continue
+                if (cursor > blockEnd) continue
+                val fallback = tokens.subList(cursor, blockEnd)
+                if (!terminalReturn(fallback) || source.hasComments(tokens[start].start, fallback.last().end)) continue
                 val indentation = source.text.substring(source.text.lastIndexOf('\n', tokens[start].start) + 1, tokens[start].start)
                 if (indentation.any { !it.isWhitespace() }) continue
                 fun bodyText(body: List<Token>): String {
@@ -51,11 +58,22 @@ internal object IntegerMatchRule : TolkNormalizer.Rule {
                     append(bodyText(fallback))
                     append("${indentation}    }\n${indentation}}")
                 }
-                add(TolkNormalizer.Edit(tokens[start].start, tokens.last().end, replacement,
-                    function.change("integer-match")))
+                add(TolkNormalizer.Edit(tokens[start].start, fallback.last().end, replacement,
+                    function.change(if (nested) "nested-integer-match" else "integer-match")))
                 break
             }
         }
+    }
+
+    private fun ifBody(tokens: List<Token>, open: Int): Boolean {
+        if (tokens.getOrNull(open - 1)?.value == "else") return true
+        if (tokens.getOrNull(open - 1)?.value != ")") return false
+        var depth = 0
+        for (index in open - 1 downTo 0) {
+            if (tokens[index].value == ")") depth++
+            if (tokens[index].value == "(" && --depth == 0) return tokens.getOrNull(index - 1)?.value == "if"
+        }
+        return false
     }
 
     private fun parseArm(tokens: List<Token>, start: Int): Arm? {
@@ -77,4 +95,8 @@ internal object IntegerMatchRule : TolkNormalizer.Rule {
         if (!terminalReturn(body)) return null
         return Arm(subject, constant, body, end)
     }
+}
+
+internal object NestedIntegerMatchRule : TolkNormalizer.Rule {
+    override fun edits(source: TolkSource) = IntegerMatchRule.nestedEdits(source)
 }

@@ -1,6 +1,7 @@
 package io.swee.tvm.decompiler.internal.instructions
 
 import io.swee.tvm.decompiler.internal.*
+import io.swee.tvm.decompiler.internal.ir.IRNode
 import org.ton.bytecode.*
 
 fun registerStackParsers(registry: ParserRegistry) {
@@ -33,6 +34,11 @@ fun registerStackParsers(registry: ParserRegistry) {
     }
 
     with(registry) {
+        register<TvmStackBasicNopInst>(ParserLevel.MANUAL) { ctx, _ ->
+            // NOP has no stack operands. The stdlib's generic touch overload
+            // cannot describe this opcode's runtime ABI. Keep its gas/position.
+            ctx.appendNode(IRNode.VariableDeclaration(emptyList(), IRNode.FunctionCall("asm_NOP", emptyList(), "\"NOP\"")))
+        }
         register<TvmStackBasicXchg0iInst>(ParserLevel.MANUAL) { ctx, inst ->
             ctx.stackEnsureMoreThan(inst.i)
             ctx.stackSwap(0, inst.i)

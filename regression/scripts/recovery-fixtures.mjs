@@ -36,9 +36,20 @@ export async function verifyRecoveryFixtures(suite, cases, rules) {
         }
         const originalGetters = await compareGetters(boc, result.boc, fixture.probes, fixture.environment);
         for (const probe of originalGetters) assert.equal(probe.sameObservedBehavior, true, fixture.id + ': original: ' + JSON.stringify(probe));
+        let func = {};
+        if (fixture.verifyFunc) {
+            const folder = path.join(target, 'func');
+            const source = await decompile(boc, folder, { local: true, language: 'func' });
+            assert.equal(source.complete, true, fixture.id + ': FunC: ' + JSON.stringify(source.diagnostics));
+            const compiled = await recompile(source, folder);
+            assert.equal(compiled.status, 'ok', fixture.id + ': FunC: ' + compiled.message);
+            const funcGetters = await compareGetters(boc, compiled.boc, fixture.probes, fixture.environment);
+            for (const probe of funcGetters) assert.equal(probe.sameObservedBehavior, true, fixture.id + ': FunC: ' + JSON.stringify(probe));
+            func = { funcGetters, funcComparison: compareBoc(boc, compiled.boc) };
+        }
         await fs.writeFile(path.join(target, 'original.tolk'), fixture.source);
         await fs.writeFile(path.join(target, 'original.fif'), original.fiftCode);
-        report.push({ id: fixture.id, changes, comparison, originalComparison, getters, originalGetters });
+        report.push({ id: fixture.id, changes, comparison, originalComparison, getters, originalGetters, ...func });
         console.log(`${fixture.id}: ${changes.map(c => c.rule).join(', ') || 'raw shape retained'}; raw/normalized TVM identical; ${getters.length} probes including gas passed; original/raw identical=${originalComparison.sameCodeCell}`);
     }
     await writeJson(path.join(directory, 'report.json'), report);

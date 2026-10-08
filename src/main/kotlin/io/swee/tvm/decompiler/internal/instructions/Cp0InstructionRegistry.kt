@@ -23,6 +23,10 @@ class Cp0InstructionRegistry private constructor(
         val implicitOperands: Map<String, Any> = emptyMap()
     ) {
         fun isPure(): Boolean {
+            // No register write/branch does not make a runtime type/overflow
+            // check removable. Retain these arithmetic calls even with dead
+            // outputs (e.g. MIN(int, null) must still throw).
+            if (instDescriptionRaw.mnemonic in setOf("MIN", "MAX", "MINMAX", "ABS")) return false
             val vf = instDescriptionRaw.valueFlow
             return vf.inputs.registers.isNullOrEmpty() &&
                 vf.outputs.registers.isNullOrEmpty() &&
