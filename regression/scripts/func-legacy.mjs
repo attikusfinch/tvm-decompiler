@@ -1,12 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {createRequire} from 'node:module';
 import {FuncCompiler} from '@ton-community/func-js';
 import {object} from 'func-bin-044';
 
 // Compiler output is assembled by this pinned distribution's bundled Fift.
 // No oracle file or post-compilation instruction rewrite is involved.
 const compiler=new FuncCompiler(object);
-export const legacyFuncVersion=()=>compiler.compilerVersion();
+const distribution=createRequire(import.meta.url)('func-bin-044/package.json');
+export const legacyFuncVersion=async()=>({...await compiler.compilerVersion(),distribution:distribution.name+'@'+distribution.version});
 
 export async function loadFuncSources(project,entry) {
     const base=path.resolve(project),sources={},pending=[path.resolve(base,entry)];

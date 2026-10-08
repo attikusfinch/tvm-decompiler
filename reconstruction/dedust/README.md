@@ -1,8 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **6 of 21 archived code
+Readable, byte-identical recovery is verified for **7 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank. The five CPMM contracts use Tolk; ClassicBlank uses FunC.
+and ClassicBlank/ClassicOperator. The five CPMM contracts use Tolk; the two Classic
+contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
 | Contract | Serialized BOC | Getter/hook probes | Message probes |
@@ -13,15 +14,16 @@ The sources describe executable behavior; original names and comments are unknow
 | CpmmPoolV1 | 10014 bytes | 12 | 116 |
 | CpmmPoolV2 | 10032 bytes | 12 | 116 |
 | ClassicBlank | 165 bytes | 2 | 33 |
+| ClassicOperator | 455 bytes | 40 | 36 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **73 native tests**. See `verification.json` for per-family results.
+project passes **77 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **15 families** have not passed readable-source acceptance. Their
+The remaining **14 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -109,8 +111,9 @@ the emptied account. The loader preserves template and body suffixes for the
 constructor; it does not suppress bounced messages. The complete 165-byte BOC has
 hash `b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf`.
 
-The reproducible build uses pinned FunC 0.4.4 from `func-bin-044`, including its
-bundled Fift. Ordinary FunC expresses the whole flow; two fixed-width field codecs
+The reproducible build uses pinned FunC 0.4.4 from `func-bin-044`
+(`@ton-community/func-js-bin@0.4.4-newops.1`), including its extended Fift instruction
+library. Ordinary FunC expresses the whole flow; two fixed-width field codecs
 retain the archived loader's physical result order. A single STZEROES primitive
 retains the refund header. There are no original executable blobs or byte patches.
 `func-stdlib.fc` retains the TON standard library and its LGPL notice.
@@ -121,6 +124,29 @@ source-built constructor records all seven arguments and deliberately changes da
 and sends before throwing, verifying rollback. Three native Acton tests additionally
 verify code identity, immediate construction and deletion after failure.
 See `ClassicBlank/recovery-verification.json`.
+
+## ClassicOperator
+
+`ClassicOperator/main.fc` recovers strict storage, owner-authorized versioned
+upgrades, beneficiary changes with a 172800-second delay and authorized withdrawals.
+An upgrade saves its version, installs the code and immediately runs method 43092
+in the new c3 dictionary. Failed hooks roll back code, data and actions. Beneficiary
+changes refund attached funds after the archived 5181-gas estimate; withdrawal
+forwards a referenced payload with bounce enabled after the 4133-gas estimate.
+
+The complete 455-byte BOC has hash
+`2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9`.
+`npm run dedust:classic-operator` checks 36 message and 40 getter probes with exact
+gas, outgoing amounts, independent storage/authorization/time/error expectations,
+and real construction through source-built ClassicBlank. Four native Acton tests
+cover identity, initialization, delayed withdrawal and failed/successful upgrades.
+See `ClassicOperator/recovery-verification.json`.
+
+Typed field/equality primitives preserve the archived evaluation and stack order;
+inline message codecs retain query values until strict end-of-slice validation.
+No original method cells are embedded. The extended Fift distribution supports
+STORAGEFEES/GETGASFEE while retaining the FunC 0.4.4 code generator. Both FunC
+contracts are rebuilt and rechecked when that distribution changes.
 
 ## Reproduce
 

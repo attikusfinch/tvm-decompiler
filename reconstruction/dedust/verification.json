@@ -10,12 +10,12 @@
   },
   "actonTests": {
     "status": "passed",
-    "output": "Compiling contracts\n    Finished in 292.544721ms\n     Running tests\n\n TEST  /mnt/f/dedust/tvm-decompiler/reconstruction/dedust\n\n > tests/affiliate.test.tolk (5 tests)\n  ✓ recovered AffiliateAccount code equals mainnet 12ms\n  ✓ affiliate getter decodes activation kind metadata and fee 4ms\n  ✓ activation requires authority and sets owner metadata 4ms\n  ✓ withdrawal requires activation and owner 7ms\n  ✓ fee notification ignores body tail while unknown messages fail 3ms\n > tests/classic-blank.test.tolk (3 tests)\n  ✓ source-built ClassicBlank code equals mainnet 8ms\n  ✓ ClassicBlank immediately executes the installed seven-argument constructor 10ms\n  ✓ ClassicBlank constructor failure refunds balance and deletes the account 7ms\n > tests/deposit.test.tolk (7 tests)\n  ✓ recovered Deposit code cell equals mainnet 14ms\n  ✓ deposit getter returns amounts and payout addresses 4ms\n  ✓ credit updates one asset and returns excesses 4ms\n  ✓ both targets trigger join liquidity 3ms\n  ✓ only pool can credit and only initiator can cancel 3ms\n  ✓ cancel checks attached value and refunds both assets 5ms\n  ✓ malformed and unknown deposit bodies are rejected 4ms\n > tests/pool-addresses.test.tolk (4 tests)\n  ✓ pool position deployment initializes typed empty state 535μs\n  ✓ pool deposit deployment preserves amounts payout and initiator 319μs\n  ✓ pool position address matches independently serialized StateInit 319μs\n  ✓ legacy stdlib StateInit hashes equal canonical cell serialization 149μs\n > tests/pool-calculations.test.tolk (4 tests)\n  ✓ pool liquidity root preserves floor at perfect squares and maximum coin products 338μs\n  ✓ pool payout substitutes only nonstandard destinations and retains options 414μs\n  ✓ pool allowed reward search returns first matching slot and duration 642μs\n  ✓ pool allowed reward search rejects missing and malformed records 723μs\n > tests/pool-events.test.tolk (3 tests)\n  ✓ pool swap event sends exact external message and retains both references 588μs\n  ✓ pool deposit event preserves amounts minted liquidity and next state 414μs\n  ✓ pool withdrawal event orders burned liquidity before asset amounts 342μs\n > tests/pool-getters.test.tolk (4 tests)\n  ✓ pool getter returns typed maps flags reserves fees and checkpoints 679μs\n  ✓ pool withdrawal estimate floors signed amounts and handles no liquidity 613μs\n  ✓ pool getter decodes every lifecycle and fee selector 1ms\n  ✓ pool getter allows root suffix but rejects invalid tagged and nested data 973μs\n > tests/pool-handlers.test.tolk (6 tests)\n  ✓ recovered Pool V2 code equals mainnet 89ms\n  ✓ recovered Pool V1 code equals mainnet 57ms\n  ✓ complete Pool revisions allocate different protocol shares with independently calculated swap state 15ms\n  ✓ readable full pool init schedules wallet then reply completes both lookup directions 2ms\n  ✓ readable full pool controller clears protocol counters and creator clears its own counters 3ms\n  ✓ readable full pool failed native payment commits refund without altering reserves 2ms\n > tests/pool-payment.test.tolk (4 tests)\n  ✓ pool native payout carries principal extra gas and signed callback 535μs\n  ✓ pool jetton payout wraps callback and distinguishes absent forward payload 588μs\n  ✓ pool jetton empty and raw payload keep TEP74 selector and original ref 585μs\n  ✓ pool payout rejects overflowing coins and unsupported asset address 263μs\n > tests/pool-processing.test.tolk (4 tests)\n  ✓ pool dispatcher independently calculates swap reserves protocol creator and LP fees 39ms\n  ✓ pool dispatcher keeps decoded rejection tuple context for zero payment 1ms\n  ✓ pool dispatcher funds reward budget and extends duration in its configured slot 1ms\n  ✓ pool dispatcher rejects underfunded reward extension at exact rounding boundary 1ms\n > tests/pool-rewards.test.tolk (5 tests)\n  ✓ pool reward accrues elapsed budget and Q120 checkpoint 318μs\n  ✓ pool reward pauses budget and duration without liquidity 190μs\n  ✓ pool reward preserves future checkpoints and caps elapsed duration 193μs\n  ✓ pool reward dictionary updates every occupied slot 197μs\n  ✓ pool reward serialization rejects checkpoint overflow 125μs\n > tests/pool-routing.test.tolk (5 tests)\n  ✓ pool native routed swap carries typed limits and both configuration refs 517μs\n  ✓ pool jetton routed swap retains partner referrer next and gas reserve 577μs\n  ✓ pool routed swap rejects negative remaining forward gas and unsupported assets 272μs\n  ✓ pool basic payout replaces invalid addresses without changing options 309μs\n  ✓ pool affiliate deployment loads source built library and serializes both kinds 13ms\n > tests/pool-settlement.test.tolk (3 tests)\n  ✓ pool settlement emits X then Y reserve and excesses with preserved modes 963μs\n  ✓ pool settlement skips nonpositive payouts and can suppress excesses 302μs\n  ✓ pool settlement reads config eagerly and resolves only positive asset payouts 348μs\n > tests/pool-transfers.test.tolk (4 tests)\n  ✓ pool excesses preserves query recipient and adds ignore errors mode 485μs\n  ✓ pool resolver requests preserve owner query and send mode in both revisions 528μs\n  ✓ pool payout wallet uses asset lookup and rejects missing or nonbasechain keys 515μs\n  ✓ pool reward lookup returns independent zero record and strict stored fields 203μs\n > tests/pool-wallets.test.tolk (4 tests)\n  ✓ pool wallet resolver scheduling returns first request flag 666μs\n  ✓ pool wallet registration creates both lookup directions 452μs\n  ✓ pool wallet resolver reply consumes only its own request 463μs\n  ✓ pool wallet helpers reject wrong workchains duplicates and missing entries 441μs\n > tests/position.test.tolk (8 tests)\n  ✓ recovered Position code equals mainnet 2ms\n  ✓ position getter and fixed point fees 4ms\n  ✓ position credit synchronizes rewards before adding liquidity 4ms\n  ✓ position fee claim clears pending and retains checkpoints 5ms\n  ✓ position withdrawal enforces unlocked liquidity and commits excess on failure 5ms\n  ✓ position reward claim returns accrued amount and clears only that reward 4ms\n  ✓ position bounce restores withdrawn liquidity and fee amounts 4ms\n  ✓ position state response is public and includes requested fields 4ms\n\n ✓ 73 passed in 16 files"
+    "output": "Compiling contracts\n    Finished in 312.966939ms\n     Running tests\n\n TEST  /mnt/f/dedust/tvm-decompiler/reconstruction/dedust\n\n > tests/affiliate.test.tolk (5 tests)\n  ✓ recovered AffiliateAccount code equals mainnet 12ms\n  ✓ affiliate getter decodes activation kind metadata and fee 5ms\n  ✓ activation requires authority and sets owner metadata 4ms\n  ✓ withdrawal requires activation and owner 6ms\n  ✓ fee notification ignores body tail while unknown messages fail 3ms\n > tests/classic-blank.test.tolk (3 tests)\n  ✓ source-built ClassicBlank code equals mainnet 3ms\n  ✓ ClassicBlank immediately executes the installed seven-argument constructor 6ms\n  ✓ ClassicBlank constructor failure refunds balance and deletes the account 4ms\n > tests/classic-operator.test.tolk (4 tests)\n  ✓ source-built ClassicOperator equals mainnet 5ms\n  ✓ ClassicBlank initializes Operator owner version kind beneficiary and unlock 8ms\n  ✓ Operator beneficiary changes enforce authorization and 48 hour withdrawal boundary 8ms\n  ✓ Operator upgrade failure rolls back and successful upgrade runs installed hook 18ms\n > tests/deposit.test.tolk (7 tests)\n  ✓ recovered Deposit code cell equals mainnet 8ms\n  ✓ deposit getter returns amounts and payout addresses 3ms\n  ✓ credit updates one asset and returns excesses 4ms\n  ✓ both targets trigger join liquidity 3ms\n  ✓ only pool can credit and only initiator can cancel 5ms\n  ✓ cancel checks attached value and refunds both assets 5ms\n  ✓ malformed and unknown deposit bodies are rejected 3ms\n > tests/pool-addresses.test.tolk (4 tests)\n  ✓ pool position deployment initializes typed empty state 712μs\n  ✓ pool deposit deployment preserves amounts payout and initiator 447μs\n  ✓ pool position address matches independently serialized StateInit 478μs\n  ✓ legacy stdlib StateInit hashes equal canonical cell serialization 281μs\n > tests/pool-calculations.test.tolk (4 tests)\n  ✓ pool liquidity root preserves floor at perfect squares and maximum coin products 438μs\n  ✓ pool payout substitutes only nonstandard destinations and retains options 471μs\n  ✓ pool allowed reward search returns first matching slot and duration 676μs\n  ✓ pool allowed reward search rejects missing and malformed records 690μs\n > tests/pool-events.test.tolk (3 tests)\n  ✓ pool swap event sends exact external message and retains both references 948μs\n  ✓ pool deposit event preserves amounts minted liquidity and next state 708μs\n  ✓ pool withdrawal event orders burned liquidity before asset amounts 866μs\n > tests/pool-getters.test.tolk (4 tests)\n  ✓ pool getter returns typed maps flags reserves fees and checkpoints 867μs\n  ✓ pool withdrawal estimate floors signed amounts and handles no liquidity 638μs\n  ✓ pool getter decodes every lifecycle and fee selector 1ms\n  ✓ pool getter allows root suffix but rejects invalid tagged and nested data 992μs\n > tests/pool-handlers.test.tolk (6 tests)\n  ✓ recovered Pool V2 code equals mainnet 98ms\n  ✓ recovered Pool V1 code equals mainnet 74ms\n  ✓ complete Pool revisions allocate different protocol shares with independently calculated swap state 16ms\n  ✓ readable full pool init schedules wallet then reply completes both lookup directions 3ms\n  ✓ readable full pool controller clears protocol counters and creator clears its own counters 4ms\n  ✓ readable full pool failed native payment commits refund without altering reserves 3ms\n > tests/pool-payment.test.tolk (4 tests)\n  ✓ pool native payout carries principal extra gas and signed callback 525μs\n  ✓ pool jetton payout wraps callback and distinguishes absent forward payload 619μs\n  ✓ pool jetton empty and raw payload keep TEP74 selector and original ref 657μs\n  ✓ pool payout rejects overflowing coins and unsupported asset address 271μs\n > tests/pool-processing.test.tolk (4 tests)\n  ✓ pool dispatcher independently calculates swap reserves protocol creator and LP fees 42ms\n  ✓ pool dispatcher keeps decoded rejection tuple context for zero payment 1ms\n  ✓ pool dispatcher funds reward budget and extends duration in its configured slot 1ms\n  ✓ pool dispatcher rejects underfunded reward extension at exact rounding boundary 1ms\n > tests/pool-rewards.test.tolk (5 tests)\n  ✓ pool reward accrues elapsed budget and Q120 checkpoint 332μs\n  ✓ pool reward pauses budget and duration without liquidity 194μs\n  ✓ pool reward preserves future checkpoints and caps elapsed duration 196μs\n  ✓ pool reward dictionary updates every occupied slot 199μs\n  ✓ pool reward serialization rejects checkpoint overflow 128μs\n > tests/pool-routing.test.tolk (5 tests)\n  ✓ pool native routed swap carries typed limits and both configuration refs 526μs\n  ✓ pool jetton routed swap retains partner referrer next and gas reserve 606μs\n  ✓ pool routed swap rejects negative remaining forward gas and unsupported assets 379μs\n  ✓ pool basic payout replaces invalid addresses without changing options 352μs\n  ✓ pool affiliate deployment loads source built library and serializes both kinds 14ms\n > tests/pool-settlement.test.tolk (3 tests)\n  ✓ pool settlement emits X then Y reserve and excesses with preserved modes 1ms\n  ✓ pool settlement skips nonpositive payouts and can suppress excesses 313μs\n  ✓ pool settlement reads config eagerly and resolves only positive asset payouts 396μs\n > tests/pool-transfers.test.tolk (4 tests)\n  ✓ pool excesses preserves query recipient and adds ignore errors mode 533μs\n  ✓ pool resolver requests preserve owner query and send mode in both revisions 492μs\n  ✓ pool payout wallet uses asset lookup and rejects missing or nonbasechain keys 403μs\n  ✓ pool reward lookup returns independent zero record and strict stored fields 177μs\n > tests/pool-wallets.test.tolk (4 tests)\n  ✓ pool wallet resolver scheduling returns first request flag 747μs\n  ✓ pool wallet registration creates both lookup directions 492μs\n  ✓ pool wallet resolver reply consumes only its own request 571μs\n  ✓ pool wallet helpers reject wrong workchains duplicates and missing entries 451μs\n > tests/position.test.tolk (8 tests)\n  ✓ recovered Position code equals mainnet 3ms\n  ✓ position getter and fixed point fees 6ms\n  ✓ position credit synchronizes rewards before adding liquidity 4ms\n  ✓ position fee claim clears pending and retains checkpoints 4ms\n  ✓ position withdrawal enforces unlocked liquidity and commits excess on failure 4ms\n  ✓ position reward claim returns accrued amount and clears only that reward 5ms\n  ✓ position bounce restores withdrawn liquidity and fee amounts 5ms\n  ✓ position state response is public and includes requested fields 4ms\n\n ✓ 77 passed in 17 files"
   },
   "counts": {
     "families": 21,
     "exactInstructionReferences": 21,
-    "exactReadable": 6
+    "exactReadable": 7
   },
   "contracts": [
     {
@@ -31,7 +31,10 @@
       "status": "exact-readable",
       "language": "func",
       "compiler": {
-        "funcVersion": "0.4.4"
+        "funcVersion": "0.4.4",
+        "funcFiftLibCommitHash": "ffe0a1c63073dda0a0dd0e14f199b83fe5b05e66",
+        "funcFiftLibCommitDate": "2024-03-27 12:57:15 +0300",
+        "distribution": "@ton-community/func-js-bin@0.4.4-newops.1"
       },
       "comparison": {
         "originalHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
@@ -2931,7 +2934,2741 @@
         "originalBytes": 455,
         "recompiledBytes": 455
       },
-      "status": "instruction-reference-only"
+      "status": "exact-readable",
+      "language": "func",
+      "compiler": {
+        "funcVersion": "0.4.4",
+        "funcFiftLibCommitHash": "ffe0a1c63073dda0a0dd0e14f199b83fe5b05e66",
+        "funcFiftLibCommitDate": "2024-03-27 12:57:15 +0300",
+        "distribution": "@ton-community/func-js-bin@0.4.4-newops.1"
+      },
+      "comparison": {
+        "originalHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+        "recompiledHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+        "sameCodeCell": true,
+        "sameSerializedBoc": true,
+        "originalBytes": 455,
+        "recompiledBytes": 455
+      },
+      "firstDifference": null,
+      "sourceSha256": {
+        "ClassicOperator/main.fc": "6b109c18f4b5497cc31b753f76994cf799238777e95bc6244fe680deebef190e",
+        "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
+      },
+      "tests": {
+        "getters": [
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "154aa9282f9c3c94ec8c2f43f1586b0b6d6a904dba1bf6401a2cab38b05a312a"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "154aa9282f9c3c94ec8c2f43f1586b0b6d6a904dba1bf6401a2cab38b05a312a"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "154aa9282f9c3c94ec8c2f43f1586b0b6d6a904dba1bf6401a2cab38b05a312a"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "154aa9282f9c3c94ec8c2f43f1586b0b6d6a904dba1bf6401a2cab38b05a312a"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "154aa9282f9c3c94ec8c2f43f1586b0b6d6a904dba1bf6401a2cab38b05a312a"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "154aa9282f9c3c94ec8c2f43f1586b0b6d6a904dba1bf6401a2cab38b05a312a"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "368397eb20b97cb2e2d2a430f4d6de3e2868d4b0aac7c790f39f2fbd4869e4bd"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "368397eb20b97cb2e2d2a430f4d6de3e2868d4b0aac7c790f39f2fbd4869e4bd"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "368397eb20b97cb2e2d2a430f4d6de3e2868d4b0aac7c790f39f2fbd4869e4bd"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "368397eb20b97cb2e2d2a430f4d6de3e2868d4b0aac7c790f39f2fbd4869e4bd"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "368397eb20b97cb2e2d2a430f4d6de3e2868d4b0aac7c790f39f2fbd4869e4bd"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "368397eb20b97cb2e2d2a430f4d6de3e2868d4b0aac7c790f39f2fbd4869e4bd"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "int",
+                  "value": "17"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "1700000000"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "9"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "int",
+                  "value": "255"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "74737db7fcbef52d8ad56f7888ad146e0a081b7896eac2aeec98908715690c46"
+                },
+                {
+                  "type": "int",
+                  "value": "4294967295"
+                }
+              ],
+              "gasUsed": "1163"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "65535"
+                }
+              ],
+              "gasUsed": "1085"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "732"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "805"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "805"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "805"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "805"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "879"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "879"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "879"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "879"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "954"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "954"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "954"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "954"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1030"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1030"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1030"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1030"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            }
+          },
+          {
+            "method": 79987,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            }
+          },
+          {
+            "method": 82320,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "1099"
+            }
+          }
+        ],
+        "messages": [
+          {
+            "label": "owner changes beneficiary and refunds reserved gas",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "3a10450ce6186fe3b7de591f417ee1065252d350ad5a0f9e4e3a86722d36023f",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                      "value": {
+                        "coins": "999654599"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+                  "destination": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "999587932",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5181"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "3a10450ce6186fe3b7de591f417ee1065252d350ad5a0f9e4e3a86722d36023f",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                      "value": {
+                        "coins": "999654599"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+                  "destination": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "999587932",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5181"
+            }
+          },
+          {
+            "label": "owner can choose itself as beneficiary",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "8b3d13bd3fad4c3612c797665a79dbd6aee9edf35f956dbca0dfde8f3b431b4e",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                      "value": {
+                        "coins": "999654599"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+                  "destination": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "999587932",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5181"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "8b3d13bd3fad4c3612c797665a79dbd6aee9edf35f956dbca0dfde8f3b431b4e",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                      "value": {
+                        "coins": "999654599"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+                  "destination": "0:2929292929292929292929292929292929292929292929292929292929292929",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "999587932",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5181"
+            }
+          },
+          {
+            "label": "beneficiary change rejects unauthorized sender",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 257,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2449"
+            },
+            "after": {
+              "exitCode": 257,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2449"
+            }
+          },
+          {
+            "label": "beneficiary change rejects trailing data",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2607"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2607"
+            }
+          },
+          {
+            "label": "beneficiary change insufficient attached coins rolls back stored state",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 5,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "4107"
+            },
+            "after": {
+              "exitCode": 5,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "4107"
+            }
+          },
+          {
+            "label": "beneficiary withdrawal unlock=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "c95e99871e6912f0b730c27078dad9ae9e3716c2201b1be3ecbf79f9bca25f5b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                      "value": {
+                        "coins": "999724466"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0",
+                  "destination": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999650065",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "4133"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "c95e99871e6912f0b730c27078dad9ae9e3716c2201b1be3ecbf79f9bca25f5b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                      "value": {
+                        "coins": "999724466"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0",
+                  "destination": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999650065",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "4133"
+            }
+          },
+          {
+            "label": "beneficiary withdrawal unlock=1699999999",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "12af257f8b2e2844be614535b45c221af832fad3038b7b04ecab0f40a657df67",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                      "value": {
+                        "coins": "999724466"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0",
+                  "destination": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999650065",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "4133"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "12af257f8b2e2844be614535b45c221af832fad3038b7b04ecab0f40a657df67",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                      "value": {
+                        "coins": "999724466"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0",
+                  "destination": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999650065",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "4133"
+            }
+          },
+          {
+            "label": "beneficiary withdrawal unlock=1700000000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                      "value": {
+                        "coins": "999724466"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0",
+                  "destination": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999650065",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "4133"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 0,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                      "value": {
+                        "coins": "999724466"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "9ff1d0ea1549e85126da6256cc7dfbcaec101f5cbea748cde5cd316525b1a2c0",
+                  "destination": "0:2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c",
+                  "source": "0:2525252525252525252525252525252525252525252525252525252525252525",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999650065",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "4133"
+            }
+          },
+          {
+            "label": "beneficiary withdrawal before unlock",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 297,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "1c2110545d2abb292573007e3f44d3ca0c6d249f1e907cad0a5035c001a7906d",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2487"
+            },
+            "after": {
+              "exitCode": 297,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "1c2110545d2abb292573007e3f44d3ca0c6d249f1e907cad0a5035c001a7906d",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2487"
+            }
+          },
+          {
+            "label": "owner cannot withdraw for a different beneficiary",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 257,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2383"
+            },
+            "after": {
+              "exitCode": 257,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2383"
+            }
+          },
+          {
+            "label": "withdrawal rejects trailing ref",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2663"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2663"
+            }
+          },
+          {
+            "label": "withdrawal insufficient coins",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 5,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "3033"
+            },
+            "after": {
+              "exitCode": 5,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "3033"
+            }
+          },
+          {
+            "label": "upgrade executes installed hook against updated version",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "d225d557686badc0e619c4b000babc9e33826d6c975bfb749e85a7fe86337bf9",
+              "codeChanged": true,
+              "newCodeHash": "4c5dd2a8ab8042577d34cfe4ab70e843b5e7ce4fb2396d8f642c9d61ce19ae80",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "4c5dd2a8ab8042577d34cfe4ab70e843b5e7ce4fb2396d8f642c9d61ce19ae80"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "5868"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "d225d557686badc0e619c4b000babc9e33826d6c975bfb749e85a7fe86337bf9",
+              "codeChanged": true,
+              "newCodeHash": "4c5dd2a8ab8042577d34cfe4ab70e843b5e7ce4fb2396d8f642c9d61ce19ae80",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "4c5dd2a8ab8042577d34cfe4ab70e843b5e7ce4fb2396d8f642c9d61ce19ae80"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "5868"
+            }
+          },
+          {
+            "label": "upgrade hook failure rolls back code data and actions",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 777,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "7186"
+            },
+            "after": {
+              "exitCode": 777,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "7186"
+            }
+          },
+          {
+            "label": "self upgrade retains code and updates version",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "f5019a559237787a3c8a5c8e8a35ed91447720d60e2f6aff0d6d89148253eae4",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4810"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "f5019a559237787a3c8a5c8e8a35ed91447720d60e2f6aff0d6d89148253eae4",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4810"
+            }
+          },
+          {
+            "label": "empty upgrade code returns with saved version",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "f5019a559237787a3c8a5c8e8a35ed91447720d60e2f6aff0d6d89148253eae4",
+              "codeChanged": true,
+              "newCodeHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4474"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "f5019a559237787a3c8a5c8e8a35ed91447720d60e2f6aff0d6d89148253eae4",
+              "codeChanged": true,
+              "newCodeHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4474"
+            }
+          },
+          {
+            "label": "upgrade requires owner",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 257,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2372"
+            },
+            "after": {
+              "exitCode": 257,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2372"
+            }
+          },
+          {
+            "label": "upgrade rejects nonincreasing version 0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 295,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2706"
+            },
+            "after": {
+              "exitCode": 295,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2706"
+            }
+          },
+          {
+            "label": "upgrade rejects nonincreasing version 8",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 295,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2706"
+            },
+            "after": {
+              "exitCode": 295,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2706"
+            }
+          },
+          {
+            "label": "upgrade rejects nonincreasing version 9",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 295,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2706"
+            },
+            "after": {
+              "exitCode": 295,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2706"
+            }
+          },
+          {
+            "label": "upgrade rejects body suffix",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2584"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2584"
+            }
+          },
+          {
+            "label": "unknown opcode",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 65535,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1368"
+            },
+            "after": {
+              "exitCode": 65535,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1368"
+            }
+          },
+          {
+            "label": "empty body",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1020"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1020"
+            }
+          },
+          {
+            "label": "bounced empty body skips storage and dispatch",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "968"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "968"
+            }
+          },
+          {
+            "label": "bounced message ignores malformed storage",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "968"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "968"
+            }
+          },
+          {
+            "label": "truncated query opcode=444",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2450"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2450"
+            }
+          },
+          {
+            "label": "malformed storage opcode=444",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1870"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1870"
+            }
+          },
+          {
+            "label": "truncated query opcode=1223010653",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2527"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2527"
+            }
+          },
+          {
+            "label": "malformed storage opcode=1223010653",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1947"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1947"
+            }
+          },
+          {
+            "label": "truncated query opcode=4053307989",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2565"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2565"
+            }
+          },
+          {
+            "label": "malformed storage opcode=4053307989",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1881"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1881"
+            }
+          },
+          {
+            "label": "missing upgrade code reference",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2566"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2566"
+            }
+          },
+          {
+            "label": "missing withdrawal payload reference",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2645"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "a44566fa686f9de8e8fa070ea74e2cd6343764e8cab64bb304fcce92c6c7b707",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2645"
+            }
+          },
+          {
+            "label": "Blank installs Operator kind=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "3a6a4912db34ab77c00729f34f39d7c994d2d4e74e40aaf80ecece9017effba7",
+              "codeChanged": true,
+              "newCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4291"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "3a6a4912db34ab77c00729f34f39d7c994d2d4e74e40aaf80ecece9017effba7",
+              "codeChanged": true,
+              "newCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4291"
+            }
+          },
+          {
+            "label": "Blank installs Operator kind=17",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e417f1c56139484e5094e64149b9f7b4ed0c0a86b1655a4c5a3a1fcd17eb95e4",
+              "codeChanged": true,
+              "newCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4291"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e417f1c56139484e5094e64149b9f7b4ed0c0a86b1655a4c5a3a1fcd17eb95e4",
+              "codeChanged": true,
+              "newCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4291"
+            }
+          },
+          {
+            "label": "Blank installs Operator kind=255",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "47ac36a60b106e3c9a4b1f72bed782ba093207ff596ec029e702753e21fce914",
+              "codeChanged": true,
+              "newCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4291"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "47ac36a60b106e3c9a4b1f72bed782ba093207ff596ec029e702753e21fce914",
+              "codeChanged": true,
+              "newCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+              "actions": [
+                {
+                  "type": "setCode",
+                  "newCode": {
+                    "cellHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+                  }
+                }
+              ],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "4291"
+            }
+          }
+        ]
+      }
     },
     {
       "name": "ClassicNativeVault",

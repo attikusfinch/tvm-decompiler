@@ -1,7 +1,10 @@
 {
   "scope": "Byte-identical readable ClassicBlank: constructor handoff, authorization, rollback and full-balance refund",
   "compiler": {
-    "funcVersion": "0.4.4"
+    "funcVersion": "0.4.4",
+    "funcFiftLibCommitHash": "ffe0a1c63073dda0a0dd0e14f199b83fe5b05e66",
+    "funcFiftLibCommitDate": "2024-03-27 12:57:15 +0300",
+    "distribution": "@ton-community/func-js-bin@0.4.4-newops.1"
   },
   "comparison": {
     "originalHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",

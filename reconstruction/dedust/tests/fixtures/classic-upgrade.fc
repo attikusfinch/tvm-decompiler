@@ -1,0 +1,18 @@
+#pragma version =0.4.4;
+#include "../../func-stdlib.fc";
+
+() after_upgrade() impure method_id(43092) {
+    cell previous = get_data();
+    slice data = previous.begin_parse();
+    slice owner = data~load_msg_addr();
+    int version = data~load_uint(16);
+    set_data(begin_cell().store_uint(0xdeadbeef,32).store_ref(previous).end_cell());
+    if (version == 13) {
+        cell message = begin_cell().store_uint(16,6).store_slice(owner)
+            .store_coins(17).store_uint(0,107).end_cell();
+        send_raw_message(message,0);
+        throw(777);
+    }
+}
+() recv_internal(cell message,slice body) impure { }
+cell installed_data() method_id(90046) { return get_data(); }

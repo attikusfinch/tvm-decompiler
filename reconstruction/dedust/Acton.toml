@@ -32,6 +32,10 @@ depends = ["CpmmDeposit", "CpmmPosition", "CpmmAffiliateAccount"]
 src = "build/ClassicBlank/code.boc"
 depends = []
 
+[contracts.ClassicOperator]
+src = "build/ClassicOperator/code.boc"
+depends = ["ClassicBlank"]
+
 [test]
 
 [fmt]
