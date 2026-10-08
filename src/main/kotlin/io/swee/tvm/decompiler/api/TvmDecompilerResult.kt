@@ -7,6 +7,7 @@ interface TvmDecompilerResult {
     }
     val files: List<File>
     val diagnostics: List<DecompilationDiagnostic> get() = emptyList()
+    val normalizations: List<NormalizationChange> get() = emptyList()
     /** No known parsing failures; this does not prove recompilation or equivalence. */
     val complete: Boolean get() = diagnostics.isEmpty()
 }

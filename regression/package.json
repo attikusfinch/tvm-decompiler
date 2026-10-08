@@ -12,7 +12,9 @@
     "report": "node scripts/export-html.mjs",
     "verify": "node scripts/corpus.mjs --local --native --strict",
     "verify:tolk": "node scripts/corpus.mjs --local --native --language tolk --strict",
-    "tolk:edges": "node scripts/check-tolk-edges.mjs"
+    "tolk:edges": "node scripts/check-tolk-edges.mjs",
+    "tolk:normalization": "node scripts/check-tolk-normalization.mjs",
+    "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs"
   },
   "dependencies": {
     "@ton-community/func-js": "0.11.0",

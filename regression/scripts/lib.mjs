@@ -46,13 +46,13 @@ export async function jsonRequest(url, init = {}) {
   return body;
 }
 
-export async function decompile(boc, directory, { offline = false, refresh = false, local = false, exact = false, language = 'func' } = {}) {
+export async function decompile(boc, directory, { offline = false, refresh = false, local = false, exact = false, language = 'func', normalize = true } = {}) {
   if (!['func', 'tolk'].includes(language)) throw new Error('Invalid output language');
   if (language !== 'func' && !local) throw new Error('Tolk output requires the local decompiler');
   await fs.mkdir(directory, { recursive: true });
   const responsePath = path.join(directory, 'response.json');
   const hash = codeCell(boc).hash().toString('hex');
-  const source = local ? await (await import('./local.mjs')).localIdentity(exact, language) : endpoint;
+  const source = local ? await (await import('./local.mjs')).localIdentity(exact, language, normalize) : endpoint;
   const requestPath = path.join(directory, 'request.json');
   if (!refresh) {
     try {
@@ -66,7 +66,7 @@ export async function decompile(boc, directory, { offline = false, refresh = fal
   if (offline) throw new Error(`No cached response for ${hash} at ${source}`);
   let body;
   try {
-    body = local ? await (await import('./local.mjs')).decompileLocal(boc, directory, { exact, language }) : await jsonRequest(endpoint, {
+    body = local ? await (await import('./local.mjs')).decompileLocal(boc, directory, { exact, language, normalize }) : await jsonRequest(endpoint, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ boc: boc.toString('base64') }),
     });

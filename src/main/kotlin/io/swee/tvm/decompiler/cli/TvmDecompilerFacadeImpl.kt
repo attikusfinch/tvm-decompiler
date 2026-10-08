@@ -13,7 +13,10 @@ object TvmDecompilerFacadeImpl : TvmDecompilerFacade {
     }
 
     override fun decompileBoc(boc: ByteArray, exact: Boolean, language: OutputLanguage): TvmDecompilerResult =
-        TvmDecompilerImpl.decompile(boc, DecompilerOptions(exact = exact, language = language))
+        decompileBoc(boc, exact, language, normalize = true)
+
+    override fun decompileBoc(boc: ByteArray, exact: Boolean, language: OutputLanguage, normalize: Boolean): TvmDecompilerResult =
+        TvmDecompilerImpl.decompile(boc, DecompilerOptions(exact = exact, language = language, normalize = normalize))
 
     override fun decompileAddress(address: String): TvmDecompilerResult {
         throw UnsupportedOperationException(

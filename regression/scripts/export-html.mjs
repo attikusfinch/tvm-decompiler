@@ -68,7 +68,20 @@ async function loadOutput(folder, id, language, original, summary) {
   }
   const main = language === 'tolk' ? 'main.tolk' : 'main.fc';
   decompiled.sort((a, b) => (a.name === main ? -1 : b.name === main ? 1 : a.name.localeCompare(b.name)));
-  return { outputLanguage:language, decompiled, recompiled, compiledViews, report, request,
+  let rawDecompiled = [];
+  if (language === 'tolk' && report.normalization) {
+    const raw = await readJson(path.join(folder, 'raw/response.json'));
+    for (const entry of raw.files) {
+      if (await file(path.join(folder, 'raw/sources'), entry.name) !== entry.content) throw new Error(id + ': raw source mismatch');
+      rawDecompiled.push({ name:entry.name, content:entry.content, language });
+    }
+  }
+  const emittedGetters = [];
+  for (const source of decompiled) {
+    for (const match of source.content.matchAll(/@method_id\((\d+)\)\s+fun\s+(\w+)\s*\(/g)) emittedGetters.push({ methodId:Number(match[1]), name:match[2], inferred:false });
+    for (const match of source.content.matchAll(/get fun\s+(\w+)\s*\(/g)) emittedGetters.push({ methodId:crc16(Buffer.from(match[1])).readUInt16BE(0) | 0x10000, name:match[1], inferred:true });
+  }
+  return { outputLanguage:language, decompiled, rawDecompiled, emittedGetters, recompiled, compiledViews, report, request,
     checkedAt:summary.checkedAt, compiler:summary.compiler,
     complete:response.complete !== false && !report.diagnostics?.length };
 }

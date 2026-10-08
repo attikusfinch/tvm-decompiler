@@ -4,5 +4,6 @@ import io.swee.tvm.decompiler.api.OutputLanguage
 
 data class DecompilerOptions(
     val exact: Boolean = false,
-    val language: OutputLanguage = OutputLanguage.FUNC
+    val language: OutputLanguage = OutputLanguage.FUNC,
+    val normalize: Boolean = true
 )

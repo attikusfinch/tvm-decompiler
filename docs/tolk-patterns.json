@@ -1,0 +1,911 @@
+{
+  "contracts": [
+    {
+      "id": "Empty",
+      "complete": true,
+      "diagnostics": [],
+      "changes": [
+        {
+          "rule": "address-getter-return",
+          "methodId": "83229",
+          "functionName": "fn_83229"
+        },
+        {
+          "rule": "owner-getter-name",
+          "methodId": "83229",
+          "functionName": "owner"
+        }
+      ],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 1,
+          "examples": [
+            {
+              "line": 20,
+              "code": "@method_id(83229)\nfun fn_83229("
+            }
+          ]
+        },
+        {
+          "id": "returned-address-alias",
+          "count": 1,
+          "examples": [
+            {
+              "line": 22,
+              "code": "val address = (contract.getData().beginParse().loadAddress() as slice);\n    return address;"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 1,
+          "examples": [
+            {
+              "line": 8,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 3,
+          "examples": [
+            {
+              "line": 10,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 13,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 1,
+          "examples": [
+            {
+              "line": 11,
+              "code": "as int);"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Counter",
+      "complete": true,
+      "diagnostics": [],
+      "changes": [
+        {
+          "rule": "address-getter-return",
+          "methodId": "83229",
+          "functionName": "fn_83229"
+        },
+        {
+          "rule": "owner-getter-name",
+          "methodId": "83229",
+          "functionName": "owner"
+        }
+      ],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 2,
+          "examples": [
+            {
+              "line": 54,
+              "code": "@method_id(83229)\nfun fn_83229("
+            },
+            {
+              "line": 62,
+              "code": "@method_id(117456)\nfun fn_117456("
+            }
+          ]
+        },
+        {
+          "id": "returned-address-alias",
+          "count": 1,
+          "examples": [
+            {
+              "line": 58,
+              "code": "val address = (s2.loadAddress() as slice);\n    return address;"
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 2,
+          "examples": [
+            {
+              "line": 57,
+              "code": "var (s2, _) = tvmLoadUint(dataSlice, 32);"
+            },
+            {
+              "line": 65,
+              "code": "var (s2, _) = tvmLoadUint(dataSlice, 32);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 3,
+          "examples": [
+            {
+              "line": 8,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 23,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 4,
+          "examples": [
+            {
+              "line": 14,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 29,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 3,
+          "examples": [
+            {
+              "line": 16,
+              "code": "as int);"
+            },
+            {
+              "line": 31,
+              "code": "as int);"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NftCollection",
+      "complete": false,
+      "diagnostics": [
+        {
+          "kind": "PARSER_ERROR",
+          "message": "Stack depth mismatch",
+          "methodId": "0",
+          "mnemonic": "WHILE",
+          "location": "Lambda:#24"
+        }
+      ],
+      "changes": [],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 4,
+          "examples": [
+            {
+              "line": 145,
+              "code": "@method_id(68445)\nfun fn_68445("
+            },
+            {
+              "line": 155,
+              "code": "@method_id(102491)\nfun fn_102491("
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 12,
+          "examples": [
+            {
+              "line": 60,
+              "code": "var (s2, x) = tvmLoadUint(tail, 64);"
+            },
+            {
+              "line": 66,
+              "code": "var (s22, _) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 4,
+          "examples": [
+            {
+              "line": 56,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 89,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 7,
+          "examples": [
+            {
+              "line": 59,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 103,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 5,
+          "examples": [
+            {
+              "line": 64,
+              "code": "as int);"
+            },
+            {
+              "line": 70,
+              "code": "as int);"
+            }
+          ]
+        },
+        {
+          "id": "raw-message-send",
+          "count": 2,
+          "examples": [
+            {
+              "line": 80,
+              "code": "tvmSendRawMessage("
+            },
+            {
+              "line": 110,
+              "code": "tvmSendRawMessage("
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NftItem",
+      "complete": true,
+      "diagnostics": [],
+      "changes": [],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 1,
+          "examples": [
+            {
+              "line": 101,
+              "code": "@method_id(102351)\nfun fn_102351("
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 5,
+          "examples": [
+            {
+              "line": 8,
+              "code": "var (s2, x) = tvmLoadUint(dataSlice, 64);"
+            },
+            {
+              "line": 30,
+              "code": "var (s22, x2) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 2,
+          "examples": [
+            {
+              "line": 26,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 87,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 6,
+          "examples": [
+            {
+              "line": 10,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 15,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 7,
+          "examples": [
+            {
+              "line": 12,
+              "code": "as int);"
+            },
+            {
+              "line": 28,
+              "code": "as int);"
+            }
+          ]
+        },
+        {
+          "id": "optional-address-load",
+          "count": 1,
+          "examples": [
+            {
+              "line": 33,
+              "code": "tvmLoadOptStdAddr("
+            }
+          ]
+        },
+        {
+          "id": "typed-null-value",
+          "count": 1,
+          "examples": [
+            {
+              "line": 109,
+              "code": "tvmNull() as cell"
+            }
+          ]
+        },
+        {
+          "id": "raw-message-send",
+          "count": 3,
+          "examples": [
+            {
+              "line": 73,
+              "code": "tvmSendRawMessage("
+            },
+            {
+              "line": 81,
+              "code": "tvmSendRawMessage("
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "JettonWallet",
+      "complete": true,
+      "diagnostics": [],
+      "changes": [],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 1,
+          "examples": [
+            {
+              "line": 167,
+              "code": "@method_id(97026)\nfun fn_97026("
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 22,
+          "examples": [
+            {
+              "line": 6,
+              "code": "var (s2, _) = tvmLoadUint(body, 32);"
+            },
+            {
+              "line": 10,
+              "code": "var (s22, _) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 6,
+          "examples": [
+            {
+              "line": 7,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 14,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 9,
+          "examples": [
+            {
+              "line": 37,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 38,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 12,
+          "examples": [
+            {
+              "line": 49,
+              "code": "as int);"
+            },
+            {
+              "line": 64,
+              "code": "as int);"
+            }
+          ]
+        },
+        {
+          "id": "optional-address-load",
+          "count": 4,
+          "examples": [
+            {
+              "line": 32,
+              "code": "tvmLoadOptStdAddr("
+            },
+            {
+              "line": 33,
+              "code": "tvmLoadOptStdAddr("
+            }
+          ]
+        },
+        {
+          "id": "raw-message-send",
+          "count": 4,
+          "examples": [
+            {
+              "line": 59,
+              "code": "tvmSendRawMessage("
+            },
+            {
+              "line": 72,
+              "code": "tvmSendRawMessage("
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "JettonMinter",
+      "complete": true,
+      "diagnostics": [],
+      "changes": [],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 3,
+          "examples": [
+            {
+              "line": 201,
+              "code": "@method_id(78683)\nfun fn_78683("
+            },
+            {
+              "line": 209,
+              "code": "@method_id(103289)\nfun fn_103289("
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 38,
+          "examples": [
+            {
+              "line": 6,
+              "code": "var (s2, _) = tvmLoadUint(body, 32);"
+            },
+            {
+              "line": 10,
+              "code": "var (s22, _) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 11,
+          "examples": [
+            {
+              "line": 8,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 17,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 4,
+          "examples": [
+            {
+              "line": 24,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 52,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 11,
+          "examples": [
+            {
+              "line": 34,
+              "code": "as int);"
+            },
+            {
+              "line": 85,
+              "code": "as int);"
+            }
+          ]
+        },
+        {
+          "id": "optional-address-load",
+          "count": 16,
+          "examples": [
+            {
+              "line": 25,
+              "code": "tvmLoadOptStdAddr("
+            },
+            {
+              "line": 84,
+              "code": "tvmLoadOptStdAddr("
+            }
+          ]
+        },
+        {
+          "id": "typed-null-value",
+          "count": 5,
+          "examples": [
+            {
+              "line": 58,
+              "code": "tvmNull() as cell"
+            },
+            {
+              "line": 61,
+              "code": "tvmNull() as slice"
+            }
+          ]
+        },
+        {
+          "id": "raw-message-send",
+          "count": 3,
+          "examples": [
+            {
+              "line": 45,
+              "code": "tvmSendRawMessage("
+            },
+            {
+              "line": 78,
+              "code": "tvmSendRawMessage("
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SimpleExtension",
+      "complete": true,
+      "diagnostics": [],
+      "changes": [],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 1,
+          "examples": [
+            {
+              "line": 124,
+              "code": "@method_id(118026)\nfun fn_118026("
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 11,
+          "examples": [
+            {
+              "line": 31,
+              "code": "var (s2, x2) = tvmLoadGrams(tail3);"
+            },
+            {
+              "line": 32,
+              "code": "var (s22, x3) = tvmLoadUint(s2, 1);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 5,
+          "examples": [
+            {
+              "line": 7,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 25,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 8,
+          "examples": [
+            {
+              "line": 10,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 11,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 9,
+          "examples": [
+            {
+              "line": 12,
+              "code": "as int);"
+            },
+            {
+              "line": 38,
+              "code": "as int);"
+            }
+          ]
+        },
+        {
+          "id": "typed-null-value",
+          "count": 3,
+          "examples": [
+            {
+              "line": 15,
+              "code": "tvmNull() as cell"
+            },
+            {
+              "line": 75,
+              "code": "tvmNull() as int"
+            }
+          ]
+        },
+        {
+          "id": "raw-message-send",
+          "count": 3,
+          "examples": [
+            {
+              "line": 22,
+              "code": "tvmSendRawMessage("
+            },
+            {
+              "line": 100,
+              "code": "tvmSendRawMessage("
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "WalletV5",
+      "complete": false,
+      "diagnostics": [
+        {
+          "kind": "UNSUPPORTED_INSTRUCTION",
+          "message": "No parser for AGAINEND",
+          "methodId": "-1000",
+          "mnemonic": "AGAINEND",
+          "location": "Lambda:#2"
+        }
+      ],
+      "changes": [],
+      "patterns": [
+        {
+          "id": "anonymous-getters",
+          "count": 5,
+          "examples": [
+            {
+              "line": 187,
+              "code": "@method_id(81467)\nfun fn_81467("
+            },
+            {
+              "line": 261,
+              "code": "@method_id(88459)\nfun fn_88459("
+            }
+          ]
+        },
+        {
+          "id": "primitive-load-tuples",
+          "count": 23,
+          "examples": [
+            {
+              "line": 34,
+              "code": "var (s2, x5) = tvmLoadInt(dataSlice2, 1);"
+            },
+            {
+              "line": 54,
+              "code": "var (s22, x7) = tvmLoadInt(dataSlice3, 1);"
+            }
+          ]
+        },
+        {
+          "id": "prefix-dispatch",
+          "count": 9,
+          "examples": [
+            {
+              "line": 8,
+              "code": "matchPrefix("
+            },
+            {
+              "line": 25,
+              "code": "matchPrefix("
+            }
+          ]
+        },
+        {
+          "id": "address-to-slice-cast",
+          "count": 2,
+          "examples": [
+            {
+              "line": 11,
+              "code": ".loadAddress() as slice"
+            },
+            {
+              "line": 28,
+              "code": ".loadAddress() as slice"
+            }
+          ]
+        },
+        {
+          "id": "int-cast-bindings",
+          "count": 21,
+          "examples": [
+            {
+              "line": 14,
+              "code": "as int);"
+            },
+            {
+              "line": 31,
+              "code": "as int);"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": "anonymous-getters",
+      "status": "candidate",
+      "contracts": [
+        "Empty",
+        "Counter",
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 18
+    },
+    {
+      "id": "returned-address-alias",
+      "status": "implemented",
+      "contracts": [
+        "Empty",
+        "Counter"
+      ],
+      "occurrences": 2
+    },
+    {
+      "id": "primitive-load-tuples",
+      "status": "candidate",
+      "contracts": [
+        "Counter",
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 113
+    },
+    {
+      "id": "prefix-dispatch",
+      "status": "candidate",
+      "contracts": [
+        "Empty",
+        "Counter",
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 41
+    },
+    {
+      "id": "address-to-slice-cast",
+      "status": "candidate",
+      "contracts": [
+        "Empty",
+        "Counter",
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 43
+    },
+    {
+      "id": "int-cast-bindings",
+      "status": "candidate",
+      "contracts": [
+        "Empty",
+        "Counter",
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 69
+    },
+    {
+      "id": "optional-address-load",
+      "status": "candidate",
+      "contracts": [
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter"
+      ],
+      "occurrences": 21
+    },
+    {
+      "id": "typed-null-value",
+      "status": "candidate",
+      "contracts": [
+        "NftItem",
+        "JettonMinter",
+        "SimpleExtension"
+      ],
+      "occurrences": 9
+    },
+    {
+      "id": "raw-message-send",
+      "status": "candidate",
+      "contracts": [
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension"
+      ],
+      "occurrences": 15
+    }
+  ]
+}

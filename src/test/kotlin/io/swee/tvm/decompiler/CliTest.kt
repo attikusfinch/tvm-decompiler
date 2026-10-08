@@ -8,7 +8,7 @@ import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 
 class CliTest {
-    private fun runBoc(name: String, strict: Boolean, language: String = "func", noStdlib: Boolean = false): Pair<Int, String> {
+    private fun runBoc(name: String, strict: Boolean, language: String = "func", noStdlib: Boolean = false, normalize: Boolean = true): Pair<Int, String> {
         val input = Files.createTempFile("tvm-cli-", ".boc")
         val stdout = Files.createTempFile("tvm-cli-", ".json")
         val stderr = Files.createTempFile("tvm-cli-", ".log")
@@ -20,6 +20,7 @@ class CliTest {
             if (strict) args += "--strict"
             args += listOf("--language", language)
             if (noStdlib) args += "-n"
+            if (!normalize) args += "--no-normalize"
             val process = ProcessBuilder(args).redirectOutput(stdout.toFile()).redirectError(stderr.toFile()).start()
             if (!process.waitFor(30, TimeUnit.SECONDS)) {
                 process.destroyForcibly()
@@ -81,5 +82,22 @@ class CliTest {
         val (exitCode, stdout) = runBoc("acton-counter", strict = true, language = "tolk", noStdlib = true)
         assertEquals(0, exitCode)
         assertEquals(listOf("main.tolk"), ObjectMapper().readTree(stdout)["files"].map { it["name"].asText() })
+    }
+
+    @Test
+    fun `Tolk normalization is separate from raw output and preserves the support library`() {
+        val (normalizedExit, normalizedJson) = runBoc("acton-counter", strict = true, language = "tolk")
+        val (rawExit, rawJson) = runBoc("acton-counter", strict = true, language = "tolk", normalize = false)
+        assertEquals(0, normalizedExit)
+        assertEquals(0, rawExit)
+        val mapper = ObjectMapper()
+        val normalized = mapper.readTree(normalizedJson)
+        val raw = mapper.readTree(rawJson)
+        assertTrue(normalized["files"][0]["content"].asText().contains("get fun owner(): address"))
+        assertTrue(raw["files"][0]["content"].asText().contains("@method_id(83229)\nfun fn_83229(): slice"))
+        assertEquals(raw["files"][1], normalized["files"][1])
+        assertEquals(2, normalized["normalizations"].size())
+        assertEquals(0, raw["normalizations"].size())
+        assertEquals(raw["diagnostics"], normalized["diagnostics"])
     }
 }

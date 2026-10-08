@@ -9,4 +9,9 @@ interface TvmDecompilerFacade {
         require(language == OutputLanguage.FUNC) { "This facade does not support $language output" }
         return decompileBoc(boc, exact)
     }
+
+    fun decompileBoc(boc: ByteArray, exact: Boolean, language: OutputLanguage, normalize: Boolean): TvmDecompilerResult {
+        require(normalize || language == OutputLanguage.FUNC) { "This facade cannot disable Tolk normalization" }
+        return decompileBoc(boc, exact, language)
+    }
 }

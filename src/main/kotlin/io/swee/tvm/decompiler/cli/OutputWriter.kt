@@ -12,6 +12,7 @@ object OutputWriter {
         ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(mapOf(
             "complete" to result.complete,
             "diagnostics" to result.diagnostics,
+            "normalizations" to result.normalizations,
             "files" to if (includeFiles) result.files.filter { includeStdlib || !isStdlib(it.name) } else emptyList()
         ))
 

@@ -4,6 +4,8 @@ import io.swee.tvm.decompiler.api.TvmDecompiler
 import io.swee.tvm.decompiler.api.TvmDecompilerResult
 import io.swee.tvm.decompiler.api.DecompilationDiagnostic
 import io.swee.tvm.decompiler.api.OutputLanguage
+import io.swee.tvm.decompiler.api.NormalizationChange
+import io.swee.tvm.decompiler.internal.normalize.TolkNormalizer
 import io.swee.tvm.decompiler.internal.ir.BranchFoldingPass
 import io.swee.tvm.decompiler.internal.ir.CopyCoalescingPass
 import io.swee.tvm.decompiler.internal.ir.DeadPhiEliminationPass
@@ -40,7 +42,8 @@ object TvmDecompilerImpl : TvmDecompiler {
 
     data class Result(
         override val files: List<ResultFile>,
-        override val diagnostics: List<DecompilationDiagnostic> = emptyList()
+        override val diagnostics: List<DecompilationDiagnostic> = emptyList(),
+        override val normalizations: List<NormalizationChange> = emptyList()
     ) : TvmDecompilerResult {
     }
 
@@ -218,7 +221,10 @@ object TvmDecompilerImpl : TvmDecompiler {
         if (options.language == OutputLanguage.TOLK) {
             val builtin = TvmDecompilerImpl::class.java.getResourceAsStream("/builtin.fc")!!.use { it.readBytes().toString(Charsets.UTF_8) }
             val output = TolkPrinter(options, stdlibContent, builtin).print(rootNode)
-            return Result(listOf(ResultFile("main.tolk", output.main), ResultFile("stdlib.tolk", output.support)), diagnostics.distinct())
+            val normalized = if (options.normalize && diagnostics.isEmpty()) TolkNormalizer.normalize(output.main)
+                else TolkNormalizer.Result(output.main, emptyList())
+            return Result(listOf(ResultFile("main.tolk", normalized.main), ResultFile("stdlib.tolk", output.support)),
+                diagnostics.distinct(), normalized.changes)
         }
         val rootPrinter = RootPrinter(options)
 

@@ -26,6 +26,9 @@ fun main(args: Array<String>) {
         val noStdlib by option(ArgType.Boolean, shortName = "n", description = "Exclude the generated support library from output")
             .default(false)
 
+        val noNormalize by option(ArgType.Boolean, fullName = "no-normalize", description = "Return Tolk before the separate normalization stage")
+            .default(false)
+
         val exact by option(ArgType.Boolean, shortName = "e", fullName = "exact", description = "Byte-exact mode: keep asm_* wrappers for constant-slice opcodes")
             .default(false)
 
@@ -48,7 +51,7 @@ fun main(args: Array<String>) {
                 val boc = BocDecoder.decode(input, bocFormat)
                 val facade = TvmDecompilerLib.facade()
                 val result: TvmDecompilerResult = facade.decompileBoc(boc, exact,
-                    if (language == "tolk") OutputLanguage.TOLK else OutputLanguage.FUNC)
+                    if (language == "tolk") OutputLanguage.TOLK else OutputLanguage.FUNC, normalize = !noNormalize)
 
                 val outputDir = output?.let { File(it) }
                 if (!result.complete) {

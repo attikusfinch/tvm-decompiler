@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
+import assert from 'node:assert/strict';
 import { Address } from '@ton/core';
 import fixtures from '../fixtures/acton-probes.mjs';
 import { root, readJson, writeJson, decompile, recompile, compareBoc, compareGetters, compareMessages, actonDisasm, version } from './lib.mjs';
@@ -22,6 +23,21 @@ try {
     try {
       const response = await decompile(original, target, values);
       const result = await recompile(response, target);
+      if (values.language === 'tolk' && values.local) {
+        const rawTarget = path.join(target, 'raw');
+        const raw = await decompile(original, rawTarget, { ...values, normalize:false });
+        const rawResult = await recompile(raw, rawTarget);
+        assert.deepEqual(raw.diagnostics, response.diagnostics, fixture.id + ': normalization changed parser diagnostics');
+        assert.equal(rawResult.status, result.status, fixture.id + ': normalization changed compilability');
+        assert.equal(raw.files.find(file => file.name === 'stdlib.tolk').content,
+          response.files.find(file => file.name === 'stdlib.tolk').content, 'Normalization changed compatibility helpers');
+        entry.normalization = { changes:response.normalizations ?? [], rawRequest:await readJson(path.join(rawTarget, 'request.json')) };
+        if (result.status === 'ok') {
+          entry.normalization.comparison = compareBoc(rawResult.boc, result.boc);
+          // Current rules change only presentation/types; require full TVM identity, including gas and MYCODE.
+          assert.equal(entry.normalization.comparison.sameCodeCell, true, fixture.id + ': normalization changed TVM code');
+        } else assert.deepEqual(raw.files, response.files, fixture.id + ': partial output was normalized');
+      }
       entry.status = result.status;
       entry.diagnostics = result.diagnostics ?? [];
       if (result.status === 'ok') {
