@@ -107,3 +107,18 @@ Run `npm run dedust:pool-calculations` for 229 differential probes with exact ga
 and independent numeric/address/dictionary expectations, plus four native Acton
 tests. `calculations-verification.json` contains the proof. Full swap, liquidity,
 payout sends and message dispatch remain outstanding.
+
+`events.tolk` recovers methods 22–24: swap, deposit and withdrawal external-out
+events. Their implementation hashes match both revisions and the complete
+isolated build is byte-identical. Event structures are serialized in Tolk; one
+typed literal supplies the two-bit `addr_none` destination. Standard
+`OutMessage.sendAndEstimateFee` preserves `SENDMSG` and its returned fee.
+
+Run `npm run dedust:pool-events` for 56 probes comparing exact gas, complete raw
+TVM action-list hashes, manually encoded public-ABI bodies and independently
+calculated forwarding fees in basechain/masterchain contexts. Tests include
+maximum `VarUInteger 16` amounts, nested/shared references and invalid coin
+values. The fee formula follows the pinned official validator's
+[`MsgPrices` implementation](https://github.com/ton-blockchain/ton/blob/4539cfabf2877e09d13032861f36c1490d13a941/crypto/block/transaction.cpp).
+Three native Acton tests inspect the actual send actions. The proof is
+`events-verification.json`; full Pool transaction paths remain pending.

@@ -116,3 +116,9 @@ single role or its assembler reference passes.
   the original referenced cell; full dictionary placement remains part of the
   whole-Pool gate. The numeric correction uses one typed `CONDSELCHK` primitive;
   the remaining algorithm, address checks and map search are ordinary Tolk.
+- Pool swap/deposit/withdrawal event methods match their implementations in both
+  revisions. The isolated BOC matches; 56 probes include exact gas, full raw send
+  action lists, public-ABI body expectations and forwarding fees independently
+  calculated from the pinned validator formula. Three Acton tests bring the
+  project to 44 tests. Getter/math bounds cover `(1 << 120) - 1`, the full maximum
+  of the original `VarUInteger 16` coin encoding. Message-path recovery continues.

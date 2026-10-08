@@ -68,7 +68,7 @@ function storage({status=2,liquidity=1000n,reserveX=10003n,reserveY=20009n,feeIn
     if(tail)b.storeUint(0xab,8);
     return b.endCell();
 }
-const Q119=(1n<<119n)-1n;
+const MAX_COINS=(1n<<120n)-1n;
 const library=new Cell({bits:beginCell().storeUint(2,8).storeBuffer(Buffer.from(
     'dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6','hex')).endCell().bits,exotic:true});
 const positionFees=beginCell().storeVarUint(0,5).storeCoins(0).storeCoins(0).storeVarUint(0,5).storeCoins(0).storeCoins(0).endCell();
@@ -85,7 +85,7 @@ async function check(name,data,method,args,expected,exit=0) {
     if(expected)assert.deepEqual(result.before.stack,expected,name);
     cases.push({name,...result});
 }
-for(const status of [0,1,2])for(const feeIn of [0,1,2])for(const [liquidity,x,y]of [[1000n,10003n,20009n],[0n,7n,11n],[Q119,Q119,0n]]) {
+for(const status of [0,1,2])for(const feeIn of [0,1,2])for(const [liquidity,x,y]of [[1000n,10003n,20009n],[0n,7n,11n],[MAX_COINS,MAX_COINS,0n]]) {
     const data=storage({status,feeIn,liquidity,reserveX:x,reserveY:y});
     const name=`status=${status},feeIn=${feeIn},liquidity=${liquidity}`;
     await check(name+': data',data,81689,[],[int(status),int(-1),int(0),slice(null),slice(assetY),

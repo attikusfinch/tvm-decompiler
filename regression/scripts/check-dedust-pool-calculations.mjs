@@ -79,7 +79,7 @@ function integerSqrt(n) {
     return lo;
 }
 const limit=(1n<<256n)-1n;
-const numbers=new Set([-1n,-2n,-(1n<<256n),0n,1n,2n,3n,4n,8n,9n,10n,limit,((1n<<119n)-1n)**2n]);
+const numbers=new Set([-1n,-2n,-(1n<<256n),0n,1n,2n,3n,4n,8n,9n,10n,limit,((1n<<120n)-1n)**2n]);
 for(const bits of [4n,8n,16n,32n,64n,128n,160n,238n,255n])for(const offset of [-1n,0n,1n])numbers.add((1n<<bits)+offset);
 let seed=0xdeadbeefn;
 for(let i=0;i<40;i++){seed=(seed*6364136223846793005n+1442695040888963407n)&limit;numbers.add(seed);}

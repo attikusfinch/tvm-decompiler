@@ -44,6 +44,12 @@ reward lookup also match both Pool revisions' implementations. Their isolated
 BOC is exact; 229 independent probes with gas and four Acton tests pass. The
 project now has 41 native tests. See `CpmmPoolV2/calculations-verification.json`.
 
+The three Pool event methods are exact as well. An isolated complete BOC and 56
+probes verify raw action lists, ABI bodies, gas and independent forwarding fees.
+Three Acton tests bring the project to 44 native tests. See
+`CpmmPoolV2/events-verification.json`. Getter/math bounds now include the full
+120-bit maximum of `VarUInteger 16`.
+
 Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
 `npm run dedust:pool-decompile` checks 33 getter cases per revision against the
 frozen code and independent expectations, including the Position address derived

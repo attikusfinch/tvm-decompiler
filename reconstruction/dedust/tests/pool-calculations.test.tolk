@@ -22,7 +22,7 @@ get fun `test pool liquidity root preserves floor at perfect squares and maximum
     expect(poolLiquiditySqrt(8)).toEqual(2);
     expect(poolLiquiditySqrt(9)).toEqual(3);
     expect(poolLiquiditySqrt(10)).toEqual(3);
-    val coinMax = (1 << 119) - 1;
+    val coinMax = (1 << 120) - 1;
     expect(poolLiquiditySqrt(coinMax * coinMax)).toEqual(coinMax);
     expect(poolLiquiditySqrt(1 << 254)).toEqual(1 << 127);
     expect(poolLiquiditySqrt((1 << 254) - 1)).toEqual((1 << 127) - 1);
