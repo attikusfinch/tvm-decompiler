@@ -1,12 +1,18 @@
 package io.swee.tvm.decompiler.internal.normalize
 
+import io.swee.tvm.decompiler.api.NormalizationChange
+
 /** A token/offset view of generated Tolk. Strings and comments never participate in rule matching. */
 internal class TolkSource(val text: String) {
     data class Token(val value: String, val start: Int, val end: Int, val identifier: Boolean = false)
     data class Function(
         val name: Token, val keyword: Token, val parameters: List<Token>, val result: List<Token>,
         val body: List<Token>, val methodId: Int?, val annotation: Token?, val alreadyGetter: Boolean,
-    )
+    ) {
+        fun change(rule: String) = NormalizationChange(rule, methodId?.toString() ?: when (name.value) {
+            "onInternalMessage" -> "0"; "onExternalMessage" -> "-1"; else -> "unknown"
+        }, name.value)
+    }
     val tokens = tokenize(text)
     val functions = parseFunctions()
 
@@ -15,6 +21,69 @@ internal class TolkSource(val text: String) {
     fun code(tokens: List<Token>) = text.substring(tokens.first().start, tokens.last().end)
 
     fun hasComments(start: Int, end: Int) = text.substring(start, end).let { "//" in it || "/*" in it }
+
+    fun definesFunction(name: String) = tokens.zipWithNext().any { (left, right) ->
+        left.value == "fun" && right.value == name
+    }
+
+    /** Only unique, local scalar definitions. No global or shadowed-name type guesses. */
+    fun scalarType(function: Function, name: String, at: Int): String? {
+        val parameters = mutableListOf<String>()
+        var start = 0
+        for (index in 0..function.parameters.size) if (index == function.parameters.size || function.parameters[index].value == ",") {
+            val parameter = function.parameters.subList(start, index)
+            if (parameter.size == 3 && parameter[0].value == name && parameter[1].value == ":") parameters += parameter[2].value
+            start = index + 1
+        }
+        val bindings = mutableListOf<List<Token>>()
+        val body = function.body
+        for (index in body.indices) {
+            if (body[index].value !in setOf("val", "var")) continue
+            if (body.getOrNull(index + 1)?.value == name) {
+                val end = (index + 2 until body.size).firstOrNull { body[it].value in setOf(";", "{", "}") } ?: continue
+                bindings += body.subList(index, end + 1)
+            } else if (body.getOrNull(index + 1)?.value == "(") {
+                val close = closingParenthesis(body, index + 1) ?: continue
+                if (body.subList(index + 2, close).none { it.identifier && it.value == name }) continue
+                val end = (close + 1 until body.size).firstOrNull { body[it].value in setOf(";", "{", "}") } ?: continue
+                bindings += body.subList(index, end + 1)
+            }
+        }
+        if (parameters.size + bindings.size != 1) return null
+        parameters.singleOrNull()?.let { return it }
+        val declaration = bindings.single()
+        if (declaration.first().start >= at) return null
+        val scopes = mutableListOf<Int>()
+        for (index in body.indices) {
+            if (body[index].start >= declaration.first().start) break
+            if (body[index].value == "{") scopes += index
+            if (body[index].value == "}" && scopes.isNotEmpty()) scopes.removeAt(scopes.lastIndex)
+        }
+        if (scopes.lastOrNull()?.let { closingBrace(body, it)?.let { end -> body[end].start < at } } == true) return null
+        if (declaration[1].value == "(") {
+            val close = closingParenthesis(declaration, 1) ?: return null
+            val names = declaration.subList(2, close).filter { it.identifier }.map { it.value }
+            val helper = declaration.getOrNull(close + 2)?.value
+            if (names.size != 2 || names[1] != name || declaration.getOrNull(close + 1)?.value != "="
+                || helper !in setOf("tvmLoadUint", "tvmLoadInt", "tvmLoadGrams") || definesFunction(helper!!)) return null
+            return "int"
+        }
+        if (declaration.getOrNull(2)?.value == ":" && declaration.getOrNull(4)?.value == "=") return declaration.getOrNull(3)?.value
+        if (declaration.getOrNull(2)?.value != "=") return null
+        val expression = unwrap(declaration.subList(3, declaration.lastIndex))
+        if (expression.takeLast(2).map { it.value }.firstOrNull() == "as") return expression.last().value
+        if (integer(expression) != null) return "int"
+        if (expression.size == 1 && expression.single().value in setOf("true", "false")) return "bool"
+        val intHelpers = setOf("tvmGetForwardFeeSimple", "tvmGetOriginalFwdFee", "tvmGetGasFee", "tvmGetStorageFee")
+        val helper = expression.firstOrNull()?.value
+        if (helper in intHelpers && expression.getOrNull(1)?.value == "("
+            && closingParenthesis(expression, 1) == expression.lastIndex && !definesFunction(helper!!)) return "int"
+        for (open in expression.indices) if (expression[open].value == "("
+            && closingParenthesis(expression, open) == expression.lastIndex && open >= 2
+            && expression[open - 2].value == "."
+            && expression[open - 1].value in setOf("loadUint", "loadInt", "preloadUint", "preloadInt", "loadCoins", "loadUintExact", "loadIntExact")) return "int"
+        return null
+    }
 
     fun declarations(function: Function): List<List<Token>> {
         val result = mutableListOf<List<Token>>()
@@ -35,6 +104,40 @@ internal class TolkSource(val text: String) {
     }
 
     companion object {
+        fun closingBrace(tokens: List<Token>, start: Int): Int? {
+            if (tokens.getOrNull(start)?.value != "{") return null
+            var depth = 0
+            for (index in start until tokens.size) {
+                if (tokens[index].value == "{") depth++
+                if (tokens[index].value == "}" && --depth == 0) return index
+            }
+            return null
+        }
+
+        fun integer(tokens: List<Token>): java.math.BigInteger? {
+            val value = unwrap(tokens).joinToString("") { it.value }
+            if (!Regex("-?(?:[0-9]+|0[xX][0-9a-fA-F]+)").matches(value)) return null
+            return runCatching {
+                val negative = value.startsWith('-')
+                val magnitude = value.removePrefix("-")
+                val result = if (magnitude.startsWith("0x", true)) java.math.BigInteger(magnitude.drop(2), 16)
+                    else java.math.BigInteger(magnitude)
+                if (negative) result.negate() else result
+            }.getOrNull()
+        }
+
+        /** Conservative match-arm return context; blocks before return can alter IFJMP selection. */
+        fun terminalReturn(tokens: List<Token>): Boolean {
+            val index = tokens.indexOfFirst { it.value == "return" }
+            val depth = if (index >= 0) tokens.take(index).fold(0) { depth, token ->
+                depth + when (token.value) { "{" -> 1; "}" -> -1; else -> 0 }
+            } else -1
+            return index >= 0 && tokens.count { it.value == "return" } == 1
+                && depth == 0
+                && (index == 0 || tokens[index - 1].value == ";") && tokens.lastOrNull()?.value == ";"
+                && tokens.drop(index).count { it.value == ";" } == 1
+        }
+
         fun closingParenthesis(tokens: List<Token>, start: Int): Int? {
             if (tokens.getOrNull(start)?.value != "(") return null
             var depth = 0

@@ -1,5 +1,7 @@
 # TVM → FunC / Tolk decompiler
 
+Inverse compiler patterns are tracked in the [implementation specification](docs/compiler-recovery-spec.md): 24 families, source references, prerequisites, acceptance checks and progress. The first new batch restores terminal integer `match`, native ternary selection of already evaluated values, and explicit slice cursors with exact TVM load methods. Normalization remains a separate stage after decompilation.
+
 Requires JDK 17+. Build the runnable JAR and run the unit/CLI tests:
 
 ```sh

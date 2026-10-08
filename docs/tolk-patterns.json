@@ -99,6 +99,16 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "cursor-load",
+          "methodId": "117456",
+          "functionName": "fn_117456"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "83229",
+          "functionName": "fn_83229"
+        },
+        {
           "rule": "prefix-lazy-match",
           "methodId": "0",
           "functionName": "onInternalMessage"
@@ -313,6 +323,16 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "cursor-load",
+          "methodId": "102351",
+          "functionName": "fn_102351"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "prefix-lazy-match",
           "methodId": "0",
           "functionName": "onInternalMessage"
@@ -456,6 +476,16 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "conditional-select",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "97026",
           "functionName": "get_wallet_data"
@@ -483,6 +513,20 @@
             {
               "line": 10,
               "code": "var (s22, _) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "conditional-select",
+          "count": 4,
+          "examples": [
+            {
+              "line": 94,
+              "code": "tvmCondSelect("
+            },
+            {
+              "line": 97,
+              "code": "tvmCondSelect("
             }
           ]
         },
@@ -593,6 +637,21 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "conditional-select",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "106029",
+          "functionName": "fn_106029"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "106029",
           "functionName": "get_jetton_data"
@@ -634,6 +693,20 @@
             {
               "line": 10,
               "code": "var (s22, _) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "conditional-select",
+          "count": 3,
+          "examples": [
+            {
+              "line": 108,
+              "code": "tvmCondSelect("
+            },
+            {
+              "line": 111,
+              "code": "tvmCondSelect("
             }
           ]
         },
@@ -759,6 +832,21 @@
         },
         {
           "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "118026",
+          "functionName": "fn_118026"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "cursor-load",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -1019,7 +1107,7 @@
     },
     {
       "id": "primitive-load-tuples",
-      "status": "candidate",
+      "status": "partial",
       "contracts": [
         "Counter",
         "NftCollection",
@@ -1030,7 +1118,17 @@
         "WalletV5"
       ],
       "occurrences": 113,
-      "normalizedOccurrences": 113
+      "normalizedOccurrences": 69
+    },
+    {
+      "id": "conditional-select",
+      "status": "partial",
+      "contracts": [
+        "JettonWallet",
+        "JettonMinter"
+      ],
+      "occurrences": 7,
+      "normalizedOccurrences": 5
     },
     {
       "id": "prefix-dispatch",

@@ -99,11 +99,16 @@ All rules are idempotent; the engine repeats each productive rule to a fixed poi
 
 ## Inventory across all eight templates
 
+The [compiler recovery specification](compiler-recovery-spec.md) tracks 24 families and their dependencies. The first batch adds three separate rules: `integer-match` for terminal ordered equality chains of a proven local int; `conditional-select` for CONDSEL with pre-evaluated local references/literals of the same scalar type; and `cursor-load` for LDUX/LDIX/LDGRAMS tuple bindings. Integer match retains fallback, signed/large constants and method IDs, and rejects joins, shadowing, effects and unsafe return contexts. Ternary selection keeps the surrounding result cast, removes operand casts to unknown (which would select IF/ELSE), and never makes a call or global read conditional. The compiler removes its zero-test before CONDSEL.
+
+Cursor loads retain separate slice snapshots and mutable results. `loadUintExact`/`loadIntExact` preserve dynamic-width instructions at constant widths; `loadCoinsExact` retains LDGRAMS without a pure annotation. Native pure loadCoins can be eliminated when both results are unused, losing an underflow exception. Exact mutating methods are added to main.tolk; stdlib.tolk is unchanged. Unsupported argument forms, custom helpers, comments and binding/method-name collisions retain their raw form. The detailed acceptance suite is `npm run tolk:recovery`.
+
 | Observed form | Raw → normalized count | Contracts | Coverage / next checks |
 |---|---:|---|---|
 | Anonymous `fn_<method_id>` getters | 18 → 9 | All eight | Candidate naming implemented for nine complete getters. Remaining nine are in partial contracts. Preserve hash/signature/collision checks. |
 | Adjacent returned address binding | 2 → 0 | Empty, Counter | Implemented: direct address return and candidate owner getter. |
-| Primitive loads destructured into tuples | 113 → 113 | All except Empty | Native cursor loads with explicit receiver snapshots. Verify order, live aliases, result positions and underflow. Both storage and message loads occur here. Constant-width native loads can select different instructions; require additional gas/MYCODE/action checks. |
+| Primitive loads destructured into tuples | 113 → 69 | All except Empty | Implemented cursor loads replace 44 bindings in complete contracts. Remaining forms are optional-address loads and partial outputs. Exact LDUX/LDIX/LDGRAMS methods preserve opcode selection, snapshots, mutable values and discarded-result exceptions. |
+| CONDSEL compatibility calls | 7 → 5 | JettonWallet, JettonMinter | Two calls become native ternary expressions. Five calls involving values from GETPRECOMPILEDGAS remain explicit until nullable/type propagation is proven. Ordinary integer dispatch is covered by compiler-derived fixtures; these eight templates use prefix dispatch. |
 | `matchPrefix` dispatch | 41 → 30 | All eight | Lazy message dispatch implemented for five terminal chains (11 prefix calls). Remaining calls include guarded shapes and partial contracts. Preserve empty/truncated messages, refs, unmatched tails and throw codes. WalletV5 also uses one-byte prefixes. |
 | `.loadAddress() as slice` | 43 → 41 | All eight | Direct getter returns implemented; broader address propagation needs checks across comparisons/stores/calls and nullable/joined values. |
 | Bindings ending in `as int` | 69 → 52 | All eight | Boolean guards implemented. Integer/tuple casts and values used by bitwise logic remain; integer null-predicate contexts still need `as int`. |

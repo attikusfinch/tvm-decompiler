@@ -1,12 +1,8 @@
 package io.swee.tvm.decompiler.internal.normalize
 
-import io.swee.tvm.decompiler.api.NormalizationChange
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Token
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.closingParenthesis
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.unwrap
-
-private fun TolkSource.Function.change(rule: String) = NormalizationChange(rule,
-    methodId?.toString() ?: when (name.value) { "onInternalMessage" -> "0"; "onExternalMessage" -> "-1"; else -> "unknown" }, name.value)
 
 /** ISNULL is a TVM integer predicate (-1/0). Retain that representation outside boolean guards. */
 internal object NativeNullCheckRule : TolkNormalizer.Rule {
