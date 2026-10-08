@@ -109,3 +109,10 @@ single role or its assembler reference passes.
   descriptively named `estimateWithdrawal`, without claiming its original name.
   Message layouts preserve allocation order, but full message handlers, swap and
   liquidity logic and whole-Pool byte equality remain outstanding.
+- Pool initial-liquidity integer root, payout address normalization and allowed
+  reward lookup are exact implementations shared by both revisions. The isolated
+  BOC matches; 229 independent differential probes including gas and 4 native
+  tests pass, bringing the project to 41 tests. Method 21's implementation matches
+  the original referenced cell; full dictionary placement remains part of the
+  whole-Pool gate. The numeric correction uses one typed `CONDSELCHK` primitive;
+  the remaining algorithm, address checks and map search are ordinary Tolk.

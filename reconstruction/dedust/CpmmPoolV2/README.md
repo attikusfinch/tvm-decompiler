@@ -86,3 +86,24 @@ liquidity, malformed tags and strict nested suffixes. Four Acton tests exercise
 the readable getter/storage logic. The proof is `getters-verification.json`.
 `messages.tolk` currently provides ABI layouts and compiler tag allocation;
 complete message handlers and full Pool byte equality remain pending.
+
+`math.tolk`, `payout-config.tolk` and `reward-config.tolk` recover three more
+implementations shared by both revisions: initial-liquidity integer square root,
+fallback substitution for payout addresses and allowed-reward lookup (method 21).
+They match the original implementation cells, and their isolated complete BOC
+matches as well. Method 21 is stored through a reference in the full original
+dictionary; this isolated build inlines its same implementation. The final Pool
+gate must still reproduce the complete dictionary placement.
+
+The root calculation keeps six unrolled Newton steps and one typed `CONDSELCHK`
+correction primitive. It returns inputs below two unchanged, including negatives,
+and floor square roots for the tested nonnegative range. Payout normalization
+recognizes `addr_std$10`; none, external and variable addresses use the supplied
+fallback without changing gas, payloads or wrapper flags. Reward lookup scans
+slots in ascending order, returns the first matching asset and rejects absent
+or malformed entries with the original exits.
+
+Run `npm run dedust:pool-calculations` for 229 differential probes with exact gas
+and independent numeric/address/dictionary expectations, plus four native Acton
+tests. `calculations-verification.json` contains the proof. Full swap, liquidity,
+payout sends and message dispatch remain outstanding.

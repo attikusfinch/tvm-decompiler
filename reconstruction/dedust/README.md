@@ -39,6 +39,11 @@ and getter sources pass a complete isolated BOC comparison and 202 independent
 differential probes including gas. Four Acton tests bring the project to 37 native
 tests. See `CpmmPoolV2/getters-verification.json`; full Pool recovery is still open.
 
+Initial-liquidity integer square root, payout address normalization and allowed
+reward lookup also match both Pool revisions' implementations. Their isolated
+BOC is exact; 229 independent probes with gas and four Acton tests pass. The
+project now has 41 native tests. See `CpmmPoolV2/calculations-verification.json`.
+
 Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
 `npm run dedust:pool-decompile` checks 33 getter cases per revision against the
 frozen code and independent expectations, including the Position address derived

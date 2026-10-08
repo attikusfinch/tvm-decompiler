@@ -11,6 +11,11 @@ struct (0b01) FeeFromX {}
 struct (0b10) FeeFromY {}
 type PoolFeeIn = FeeFromBoth | FeeFromX | FeeFromY
 
+struct PoolRewardConfig {
+    asset: any_address
+    maxDuration: uint40
+}
+
 @overflow1023_policy("suppress")
 struct PoolConfig {
     assetX: any_address
@@ -22,7 +27,7 @@ struct PoolConfig {
     swapActivation: cell?
     feeIn: PoolFeeIn
     customResolvers: AddressLookup
-    allowedRewards: dict
+    allowedRewards: map<uint2, PoolRewardConfig>
 }
 
 struct PoolFees {
