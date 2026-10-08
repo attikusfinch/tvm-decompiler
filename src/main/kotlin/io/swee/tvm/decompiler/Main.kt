@@ -3,6 +3,7 @@
 package io.swee.tvm.decompiler
 
 import io.swee.tvm.decompiler.api.TvmDecompilerResult
+import io.swee.tvm.decompiler.api.OutputLanguage
 import io.swee.tvm.decompiler.cli.*
 import kotlinx.cli.*
 import java.io.File
@@ -19,7 +20,10 @@ fun main(args: Array<String>) {
 
         val output by option(ArgType.String, shortName = "o", description = "Output directory (default: stdout)")
 
-        val noStdlib by option(ArgType.Boolean, shortName = "n", description = "Exclude stdlib.fc from output")
+        val language by option(ArgType.Choice(listOf("func", "tolk"), { it }), fullName = "language",
+            description = "Output language: func or tolk (default: func)").default("func")
+
+        val noStdlib by option(ArgType.Boolean, shortName = "n", description = "Exclude the generated support library from output")
             .default(false)
 
         val exact by option(ArgType.Boolean, shortName = "e", fullName = "exact", description = "Byte-exact mode: keep asm_* wrappers for constant-slice opcodes")
@@ -43,7 +47,8 @@ fun main(args: Array<String>) {
             try {
                 val boc = BocDecoder.decode(input, bocFormat)
                 val facade = TvmDecompilerLib.facade()
-                val result: TvmDecompilerResult = facade.decompileBoc(boc, exact)
+                val result: TvmDecompilerResult = facade.decompileBoc(boc, exact,
+                    if (language == "tolk") OutputLanguage.TOLK else OutputLanguage.FUNC)
 
                 val outputDir = output?.let { File(it) }
                 if (!result.complete) {

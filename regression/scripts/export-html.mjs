@@ -8,11 +8,15 @@ import fixtures from '../fixtures/acton-probes.mjs';
 import { root, readJson, codeCell } from './lib.mjs';
 
 const { values } = parseArgs({ options: {
-  artifacts: { type: 'string' }, output: { type: 'string' },
+  artifacts: { type: 'string' }, output: { type: 'string' }, 'tolk-artifacts': { type: 'string' },
 } });
 const directory = path.resolve(values.artifacts ?? path.join(root, 'artifacts/acton-local/default'));
 const destination = path.resolve(values.output ?? path.join(root, '../reports/acton-contracts.html'));
 const summary = await readJson(path.join(directory, 'report.json'));
+const tolkDirectory = path.resolve(values['tolk-artifacts'] ?? path.join(directory, 'tolk'));
+let tolkSummary;
+try { tolkSummary = await readJson(path.join(tolkDirectory, 'report.json')); }
+catch (error) { if (error.code !== 'ENOENT' || values['tolk-artifacts']) throw error; }
 const descriptions = {
   Empty: 'Минимальный контракт: хранение владельца и смена владельца по сообщению.',
   Counter: 'Счётчик: увеличение, уменьшение и сброс доступны владельцу.',
@@ -38,6 +42,36 @@ function cellStats(boc) {
   walk(codeCell(boc));
   return { cells: seen.size, bits, refs };
 }
+async function loadOutput(folder, id, language, original, summary) {
+  if (!(await fs.readFile(path.join(folder, 'original.boc'))).equals(original)) throw new Error(id + ': output variant uses a different original');
+  const report = await readJson(path.join(folder, 'report.json'));
+  const response = await readJson(path.join(folder, 'response.json'));
+  const request = await readJson(path.join(folder, 'request.json'));
+  const originalInfo = binary(original);
+  if (report.originalHash && report.originalHash !== originalInfo.codeHash) throw new Error(id + ': original hash mismatch');
+  let recompiled = null;
+  if (report.recompiledHash) {
+    recompiled = binary(await fs.readFile(path.join(folder, 'recompiled.boc')));
+    if (recompiled.codeHash !== report.recompiledHash) throw new Error(id + ': recompiled hash mismatch');
+  }
+  const compiledViews = [{ name: 'original.tasm', content: await file(folder, 'original.tasm'), language: 'tvm' },
+    { name: 'original.boc · Base64', content: originalInfo.base64, language: 'plain' },
+    { name: 'original.boc · hex', content: originalInfo.hex.match(/.{1,64}/g).join('\n'), language: 'plain' }];
+  if (recompiled) compiledViews.push(
+    { name: 'recompiled.tasm', content: await file(folder, 'recompiled.tasm'), language: 'tvm' },
+    { name: 'recompiled.fif', content: await file(folder, 'recompiled.fif'), language: 'tvm' });
+  const decompiled = [];
+  for (const entry of response.files) {
+    const saved = await file(path.join(folder, 'sources'), entry.name);
+    if (saved !== entry.content) throw new Error(id + ': generated source differs from response');
+    decompiled.push({ name: entry.name, content: saved, language });
+  }
+  const main = language === 'tolk' ? 'main.tolk' : 'main.fc';
+  decompiled.sort((a, b) => (a.name === main ? -1 : b.name === main ? 1 : a.name.localeCompare(b.name)));
+  return { outputLanguage:language, decompiled, recompiled, compiledViews, report, request,
+    checkedAt:summary.checkedAt, compiler:summary.compiler,
+    complete:response.complete !== false && !report.diagnostics?.length };
+}
 const contracts = [];
 for (const fixture of fixtures()) {
   const folder = path.join(directory, fixture.id);
@@ -61,35 +95,14 @@ for (const fixture of fixtures()) {
   const original = await fs.readFile(path.join(folder, 'original.boc'));
   const archived = await readJson(path.join(root, 'fixtures/acton', fixture.id + '.json'));
   if (!original.equals(Buffer.from(archived.code_boc64, 'base64'))) throw new Error(fixture.id + ': original differs from archived fixture');
-  const report = await readJson(path.join(folder, 'report.json'));
-  const response = await readJson(path.join(folder, 'response.json'));
-  const request = await readJson(path.join(folder, 'request.json'));
   const originalInfo = binary(original);
-  if (report.originalHash && report.originalHash !== originalInfo.codeHash) throw new Error(fixture.id + ': original hash mismatch');
-  let recompiled = null;
-  if (report.recompiledHash) {
-    recompiled = binary(await fs.readFile(path.join(folder, 'recompiled.boc')));
-    if (recompiled.codeHash !== report.recompiledHash) throw new Error(fixture.id + ': recompiled hash mismatch');
-  }
-  const compiledViews = [{ name: 'original.tasm', content: await file(folder, 'original.tasm'), language: 'tvm' },
-    { name: 'original.boc · Base64', content: originalInfo.base64, language: 'plain' },
-    { name: 'original.boc · hex', content: originalInfo.hex.match(/.{1,64}/g).join('\n'), language: 'plain' }];
-  if (recompiled) compiledViews.push(
-    { name: 'recompiled.tasm', content: await file(folder, 'recompiled.tasm'), language: 'tvm' },
-    { name: 'recompiled.fif', content: await file(folder, 'recompiled.fif'), language: 'tvm' });
-  const decompiled = [];
-  for (const entry of response.files) {
-    const saved = await file(path.join(folder, 'sources'), entry.name);
-    if (saved !== entry.content) throw new Error(fixture.id + ': generated source differs from response');
-    decompiled.push({ name: entry.name, content: saved, language: 'func' });
-  }
-  decompiled.sort((a, b) => (a.name === 'main.fc' ? -1 : b.name === 'main.fc' ? 1 : a.name.localeCompare(b.name)));
+  const outputs = { func:await loadOutput(folder, fixture.id, 'func', original, summary) };
+  if (tolkSummary) outputs.tolk = await loadOutput(path.join(tolkDirectory, fixture.id), fixture.id, 'tolk', original, tolkSummary);
   const getters = [...sources[0].content.matchAll(/get fun\s+(\w+)\s*\(/g)].map(match => ({
     name: match[1], methodId: crc16(Buffer.from(match[1])).readUInt16BE(0) | 0x10000,
   }));
   contracts.push({ id: fixture.id, project: fixture.project, description: descriptions[fixture.id],
-    sources, compiledViews, decompiled, original: originalInfo, recompiled, cells: cellStats(original),
-    getters, report, request, complete: response.complete !== false && !report.diagnostics?.length,
+    sources, outputs, original: originalInfo, cells: cellStats(original), getters,
     license: await file(sourceRoot, 'LICENSE'), config: await file(sourceRoot, 'Acton.toml'),
     inputs: {
       address: '0:' + '07'.repeat(32), storageBoc: fixture.data.toBoc().toString('base64'),
@@ -103,8 +116,7 @@ for (const fixture of fixtures()) {
     },
   });
 }
-const data = { checkedAt: summary.checkedAt, compiler: summary.compiler,
-  acton: '1.0.0 (3a4f0dc)', decompilerCommit: 'ff30fe6f310464e682f58ed8fe79373c4f001909',
+const data = { languages:tolkSummary ? ['func','tolk'] : ['func'], acton:'1.0.0 (3a4f0dc)',
   repo: 'https://github.com/attikusfinch/tvm-decompiler', contracts };
 // Escape HTML parser metacharacters in embedded JSON, including a literal </script> in source code.
 const json = JSON.stringify(data).replaceAll('<', '\\u003c').replaceAll('>', '\\u003e').replaceAll('&', '\\u0026');

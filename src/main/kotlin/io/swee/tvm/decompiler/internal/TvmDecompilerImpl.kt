@@ -3,6 +3,7 @@ package io.swee.tvm.decompiler.internal
 import io.swee.tvm.decompiler.api.TvmDecompiler
 import io.swee.tvm.decompiler.api.TvmDecompilerResult
 import io.swee.tvm.decompiler.api.DecompilationDiagnostic
+import io.swee.tvm.decompiler.api.OutputLanguage
 import io.swee.tvm.decompiler.internal.ir.BranchFoldingPass
 import io.swee.tvm.decompiler.internal.ir.CopyCoalescingPass
 import io.swee.tvm.decompiler.internal.ir.DeadPhiEliminationPass
@@ -12,6 +13,7 @@ import io.swee.tvm.decompiler.internal.ir.RedundantStoreEliminationPass
 import io.swee.tvm.decompiler.internal.ir.TypeResolutionPass
 import io.swee.tvm.decompiler.internal.instructions.*
 import io.swee.tvm.decompiler.internal.print.RootPrinter
+import io.swee.tvm.decompiler.internal.print.TolkPrinter
 import org.ton.bytecode.*
 import java.math.BigInteger
 import java.nio.charset.Charset
@@ -213,6 +215,11 @@ object TvmDecompilerImpl : TvmDecompiler {
         }
 
         val rootNode = IRNode.Root(listOf(), allFunctions)
+        if (options.language == OutputLanguage.TOLK) {
+            val builtin = TvmDecompilerImpl::class.java.getResourceAsStream("/builtin.fc")!!.use { it.readBytes().toString(Charsets.UTF_8) }
+            val output = TolkPrinter(options, stdlibContent, builtin).print(rootNode)
+            return Result(listOf(ResultFile("main.tolk", output.main), ResultFile("stdlib.tolk", output.support)), diagnostics.distinct())
+        }
         val rootPrinter = RootPrinter(options)
 
         return Result(

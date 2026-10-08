@@ -6,11 +6,13 @@ import java.io.File
 
 object OutputWriter {
 
+    private fun isStdlib(name: String) = name == "stdlib.fc" || name == "stdlib.tolk"
+
     fun json(result: TvmDecompilerResult, includeStdlib: Boolean = true, includeFiles: Boolean = true): String =
         ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(mapOf(
             "complete" to result.complete,
             "diagnostics" to result.diagnostics,
-            "files" to if (includeFiles) result.files.filter { includeStdlib || it.name != "stdlib.fc" } else emptyList()
+            "files" to if (includeFiles) result.files.filter { includeStdlib || !isStdlib(it.name) } else emptyList()
         ))
 
     fun writeJson(result: TvmDecompilerResult, outputDir: File? = null, includeStdlib: Boolean = true, includeFiles: Boolean = true) {
@@ -31,7 +33,7 @@ object OutputWriter {
 
     private fun writeToStdout(result: TvmDecompilerResult, includeStdlib: Boolean = true) {
         for (file in result.files) {
-            if (!includeStdlib && file.name == "stdlib.fc") continue
+            if (!includeStdlib && isStdlib(file.name)) continue
             println(";;;; file: ${file.name}")
             println(file.content)
             println()
@@ -42,7 +44,7 @@ object OutputWriter {
         outputDir.mkdirs()
 
         for (file in result.files) {
-            if (!includeStdlib && file.name == "stdlib.fc") continue
+            if (!includeStdlib && isStdlib(file.name)) continue
             val outputFile = File(outputDir, file.name)
             outputFile.writeText(file.content)
             System.err.println("Wrote: ${outputFile.path}")

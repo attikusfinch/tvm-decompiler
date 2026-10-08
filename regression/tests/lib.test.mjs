@@ -27,7 +27,7 @@ test('semantic check detects changed getter results', async () => {
 test('remote response cannot write paths outside its source directory', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'tvm-response-'));
   try {
-    for (const name of ['../escaped.fc', '/absolute.fc', 'C:/absolute.fc', 'dir/../escaped.fc']) {
+    for (const name of ['../escaped.fc', '/absolute.fc', 'C:/absolute.fc', 'dir/../escaped.fc', '../escaped.tolk', '/absolute.tolk', 'dir/../escaped.tolk']) {
       await assert.rejects(recompile({ files: [{ name, content: '' }] }, directory), /Invalid/);
     }
   } finally { await fs.rmdir(directory); }
@@ -39,6 +39,8 @@ test('partial JSON and legacy failure comments cannot become successful compilat
     for (const response of [
       { complete: false, diagnostics: [{ mnemonic: 'TRY' }], files: [{ name: 'main.fc', content: '() recv_internal() impure { }' }] },
       { files: [{ name: 'main.fc', content: '() recv_internal() impure {\n;; unparsed: TRY\n}' }] },
+      { complete: false, diagnostics: [{ mnemonic: 'TRY' }], files: [{ name: 'main.tolk', content: 'fun onInternalMessage() {}' }] },
+      { files: [{ name: 'main.tolk', content: 'fun onInternalMessage() {\n// unparsed: TRY\n}' }] },
     ]) {
       const result = await recompile(response, directory);
       assert.equal(result.status, 'incomplete');

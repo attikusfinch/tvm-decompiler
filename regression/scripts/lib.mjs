@@ -12,7 +12,8 @@ export const endpoint = process.env.DECOMPILER_URL ?? 'https://decompiler.swap.c
 export const run = promisify(execFile);
 export const readJson = async (file) => JSON.parse((await fs.readFile(file, 'utf8')).replace(/^\uFEFF/, ''));
 export const writeJson = (file, value) => fs.writeFile(file, JSON.stringify(value, null, 2) + '\n');
-export const version = async () => process.env.FUNC_BACKEND === 'native'
+export const version = async (language = 'func') => language === 'tolk'
+  ? (await import('./tolk.mjs')).tolkVersion() : process.env.FUNC_BACKEND === 'native'
   ? (await import('./native.mjs')).nativeVersion() : { backend: 'wasm', ...await compilerVersion() };
 
 export async function compile(config) {
@@ -45,11 +46,13 @@ export async function jsonRequest(url, init = {}) {
   return body;
 }
 
-export async function decompile(boc, directory, { offline = false, refresh = false, local = false, exact = false } = {}) {
+export async function decompile(boc, directory, { offline = false, refresh = false, local = false, exact = false, language = 'func' } = {}) {
+  if (!['func', 'tolk'].includes(language)) throw new Error('Invalid output language');
+  if (language !== 'func' && !local) throw new Error('Tolk output requires the local decompiler');
   await fs.mkdir(directory, { recursive: true });
   const responsePath = path.join(directory, 'response.json');
   const hash = codeCell(boc).hash().toString('hex');
-  const source = local ? await (await import('./local.mjs')).localIdentity(exact) : endpoint;
+  const source = local ? await (await import('./local.mjs')).localIdentity(exact, language) : endpoint;
   const requestPath = path.join(directory, 'request.json');
   if (!refresh) {
     try {
@@ -63,7 +66,7 @@ export async function decompile(boc, directory, { offline = false, refresh = fal
   if (offline) throw new Error(`No cached response for ${hash} at ${source}`);
   let body;
   try {
-    body = local ? await (await import('./local.mjs')).decompileLocal(boc, directory, { exact }) : await jsonRequest(endpoint, {
+    body = local ? await (await import('./local.mjs')).decompileLocal(boc, directory, { exact, language }) : await jsonRequest(endpoint, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ boc: boc.toString('base64') }),
     });
@@ -81,31 +84,34 @@ export async function recompile(response, directory) {
   const sources = {};
   for (const file of response.files) {
     // API names are untrusted. Do not allow traversal, absolute paths or duplicate files.
-    if (typeof file.name !== 'string' || !/^[\w.-]+(?:\/[\w.-]+)*\.fc$/.test(file.name)
+    if (typeof file.name !== 'string' || !/^[\w.-]+(?:\/[\w.-]+)*\.(?:fc|tolk)$/.test(file.name)
         || file.name.split('/').some(p => p === '.' || p === '..')
         || typeof file.content !== 'string' || Object.hasOwn(sources, file.name)) {
-      throw new Error('Invalid or duplicate FunC file in response');
+      throw new Error('Invalid or duplicate source file in response');
     }
     sources[file.name] = file.content;
     const destination = path.join(directory, 'sources', file.name);
     await fs.mkdir(path.dirname(destination), { recursive: true });
     await fs.writeFile(destination, file.content);
   }
-  if (!sources['main.fc']) throw new Error('Response has no main.fc');
+  const main = sources['main.tolk'] ? 'main.tolk' : 'main.fc';
+  if (!sources[main]) throw new Error('Response has no main.fc or main.tolk');
+  if (Object.keys(sources).some(name => name.endsWith('.tolk') !== main.endsWith('.tolk'))) throw new Error('Response mixes output languages');
   for (const name of ['recompiled.boc', 'recompiled.fif', 'recompiled.tasm', 'compile-error.txt']) {
     await fs.rm(path.join(directory, name), { force: true });
   }
-  const legacyMarkers = [...sources['main.fc'].matchAll(/^\s*;;\s*(unparsed:|exception:|unresolved call).*$/gm)].map(match => match[0].trim());
+  const legacyMarkers = [...sources[main].matchAll(/^\s*(?:;;|\/\/)\s*(unparsed:|exception:|unresolved call).*$/gm)].map(match => match[0].trim());
   if (response.complete === false || response.diagnostics?.length || legacyMarkers.length) {
     const diagnostics = response.diagnostics?.length ? response.diagnostics : legacyMarkers;
     await writeJson(path.join(directory, 'diagnostics.json'), diagnostics);
     return { status: 'incomplete', message: 'Decompiler reported an unsupported instruction or parsing failure', diagnostics };
   }
   await fs.rm(path.join(directory, 'diagnostics.json'), { force: true });
-  const result = await compile({ targets: ['main.fc'], sources });
+  const result = main.endsWith('.tolk')
+    ? await (await import('./tolk.mjs')).compileTolk({ sources }) : await compile({ targets: ['main.fc'], sources });
   if (result.status !== 'ok') {
     await fs.writeFile(path.join(directory, 'compile-error.txt'), result.message);
-    const oldAssembler = process.env.FUNC_BACKEND !== 'native' && /(?:undefined|not defined|unknown)/i.test(result.message)
+    const oldAssembler = main.endsWith('.fc') && process.env.FUNC_BACKEND !== 'native' && /(?:undefined|not defined|unknown)/i.test(result.message)
       && /(?:INMSGPARAM|LDSTDADDR|STSTDADDR)/.test(result.message);
     return { status: oldAssembler ? 'compiler-unsupported-instruction' : 'compile-error', message: result.message };
   }

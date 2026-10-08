@@ -9,7 +9,7 @@ const { values } = parseArgs({ options: {
   address: { type: 'string' }, boc: { type: 'string' }, response: { type: 'string' },
   offline: { type: 'boolean' }, refresh: { type: 'boolean' }, acton: { type: 'boolean' },
   native: { type: 'boolean' },
-  local: { type: 'boolean' }, exact: { type: 'boolean' },
+  local: { type: 'boolean' }, exact: { type: 'boolean' }, language: { type: 'string', default: 'func' },
 } });
 if (values.native) process.env.FUNC_BACKEND = 'native';
 if (!values.address && !values.boc) throw new Error('Use --address <TON address> or --boc <binary code.boc>');
@@ -21,13 +21,13 @@ if (values.address) {
   if (!info.result?.code) throw new Error('Address has no deployed code');
   original = Buffer.from(info.result.code, 'base64');
 } else original = await fs.readFile(values.boc);
-const directory = path.join(root, 'artifacts', values.local ? 'checks-local' : 'checks', codeCell(original).hash().toString('hex'));
+const directory = path.join(root, 'artifacts', values.local ? 'checks-local' : 'checks', ...(values.language === 'tolk' ? ['tolk'] : []), codeCell(original).hash().toString('hex'));
 await fs.mkdir(directory, { recursive: true });
 await fs.writeFile(path.join(directory, 'original.boc'), original);
 if (info) await writeJson(path.join(directory, 'account.json'), info);
 const response = values.response ? await readJson(values.response) : await decompile(original, directory, values);
 const result = await recompile(response, directory);
-const report = { checkedAt: new Date().toISOString(), compiler: await version(), address: values.address ?? null,
+const report = { checkedAt: new Date().toISOString(), compiler: await version(values.language), address: values.address ?? null,
   compilation: result.status, originalHash: codeCell(original).hash().toString('hex') };
 if (result.diagnostics) report.diagnostics = result.diagnostics;
 if (result.status === 'ok') {

@@ -25,7 +25,17 @@ npm run corpus -- --local --native --strict
 
 `--local` runs the patched JAR under ../build/libs. LOCAL_DECOMPILER_JAR and JAVA_EXE override its location and runtime. Without --local, scripts query the public swap.coffee API; API requests are sequential and cached. DECOMPILER_URL selects another endpoint. Omit --native to use the pinned WASM compiler, whose older Fift does not support some TVM 11 mnemonics.
 
-`--offline` only uses a cached response; --refresh replaces it. Cache identity includes the input code hash, endpoint or JAR SHA-256, and exact mode. Public and local results use separate artifact directories. `--filter` selects cases by name. `--exact` tests the alternative decompilation mode.
+`--offline` only uses a cached response; --refresh replaces it. Cache identity includes the input code hash, endpoint or JAR SHA-256, exact mode and output language. Public and local results use separate artifact directories. `--filter` selects cases by name. `--exact` tests the alternative decompilation mode.
+
+Use `--language tolk --local` for the Tolk backend. Recompilation uses Acton's embedded compiler; Acton 1.0.0 (3a4f0dc) is the verified version. Linux/macOS use acton from PATH, or ACTON_EXE. Windows uses WSL Ubuntu unless ACTON_EXE selects a native executable; ACTON_WSL_PATH and WSL_DISTRO override the WSL executable and distribution. `--native` still selects the compiler for the original FunC corpus fixtures. Tolk artifacts are saved in a separate tolk subdirectory so FunC results remain available.
+
+```sh
+npm run verify:tolk
+npm run acton -- --local --native --language tolk --acton
+npm run tolk:edges
+```
+
+`tolk:edges` requires the Tolk NftItem artifacts from the preceding Acton run. It checks explicit global slot 7, side effects in while conditions, and null owner/content returned by an uninitialized NFT item. Partial-result rejection applies to both output languages. Public swap.coffee requests support only FunC in this harness.
 
 The 20-case corpus compiles fixture source, decompiles it, recompiles the output, and compares code-cell hashes and getter results in a local TON sandbox. Strict corpus mode rejects unexpected failures while recording TRY and dynamic EXECUTE as known unsupported cases. A partial result is never counted as a successful recompilation, even if its generated source could compile.
 
@@ -39,8 +49,8 @@ Example BOC check:
 npm run check -- --boc fixtures/bocs/getparam.boc --local --native
 ```
 
-Artifacts contain the original and recompiled BOC, request/response metadata, FunC, compiler errors or diagnostics, and JSON reports. These are ignored by Git. Small reproducing BOCs and their hashes are committed under fixtures/bocs.
+Artifacts contain the original and recompiled BOC, request/response metadata, generated sources, compiler errors or diagnostics, and JSON reports. These are ignored by Git. Small reproducing BOCs and their hashes are committed under fixtures/bocs.
 
 ## Standalone HTML report
 
-Run `npm run acton -- --local --native --acton` to generate all eight cases with TASM views (the known differences and partial outputs make this command exit 1). Then run `npm run report` separately. The exporter validates BOC hashes and saved FunC against the response and writes ../reports/acton-contracts.html. `--artifacts <directory>` and `--output <file>` override the input/output paths. The report is self-contained, works offline, includes the original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. NftCollection and WalletV5 are visibly partial and have no recompiled BOC or comparison results.
+Run `npm run acton -- --local --native --acton` to generate all eight FunC cases with TASM views, and the same command with `--language tolk` for Tolk. Known differences and partial outputs make both commands exit 1. Then run `npm run report` separately. The exporter validates original/recompiled BOC hashes and saved sources against each response and writes ../reports/acton-contracts.html. It includes a Tolk selector when the tolk/report.json artifact is available. `--artifacts <directory>`, `--tolk-artifacts <directory>` and `--output <file>` override paths. The report is self-contained, works offline, includes original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. Each language retains its own JAR SHA-256, compiler metadata and check timestamp. NftCollection and WalletV5 are visibly partial and have no recompiled BOC or comparison results.

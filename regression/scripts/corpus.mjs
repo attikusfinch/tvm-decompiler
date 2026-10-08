@@ -10,13 +10,13 @@ const { values } = parseArgs({ options: {
   offline: { type: 'boolean' }, refresh: { type: 'boolean' }, acton: { type: 'boolean' },
   strict: { type: 'boolean' }, filter: { type: 'string' },
   native: { type: 'boolean' },
-  local: { type: 'boolean' }, exact: { type: 'boolean' },
+  local: { type: 'boolean' }, exact: { type: 'boolean' }, language: { type: 'string', default: 'func' },
 } });
 if (values.native) process.env.FUNC_BACKEND = 'native';
 const stdlib = await fs.readFile(path.join(root, 'fixtures', 'stdlib.fc'), 'utf8');
-const report = { checkedAt: new Date().toISOString(), compiler: await version(), cases: [] };
+const report = { checkedAt: new Date().toISOString(), compiler: await version(values.language), inputCompiler: await version(), cases: [] };
 for (const fixture of fixtures.filter(f => !values.filter || f.id.includes(values.filter))) {
-  const directory = path.join(root, 'artifacts', values.local ? 'corpus-local' : 'corpus', fixture.id);
+  const directory = path.join(root, 'artifacts', values.local ? 'corpus-local' : 'corpus', ...(values.language === 'tolk' ? ['tolk'] : []), fixture.id);
   await fs.mkdir(directory, { recursive: true });
   const entry = { id: fixture.id, knownUnsupported: fixture.knownUnsupported ?? false };
   await fs.writeFile(path.join(directory, 'original.fc'), fixture.source);
@@ -59,7 +59,7 @@ report.summary = {
   behaviorPassed: report.cases.filter(c => c.sameObservedBehavior).length,
   unexpectedFailures: report.cases.filter(c => c.status !== 'passed' && !c.knownUnsupported).length,
 };
-await writeJson(path.join(root, 'artifacts', values.local ? 'corpus-local' : 'corpus', values.filter ? 'filtered-report.json' : 'report.json'), report);
+await writeJson(path.join(root, 'artifacts', values.local ? 'corpus-local' : 'corpus', ...(values.language === 'tolk' ? ['tolk'] : []), values.filter ? 'filtered-report.json' : 'report.json'), report);
 console.log(JSON.stringify(report.summary, null, 2));
 if (values.strict && report.summary.unexpectedFailures) process.exitCode = 1;
 } catch (error) { console.error(error.message); process.exitCode = 1; }

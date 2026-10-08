@@ -8,7 +8,7 @@ import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 
 class CliTest {
-    private fun runBoc(name: String, strict: Boolean): Pair<Int, String> {
+    private fun runBoc(name: String, strict: Boolean, language: String = "func", noStdlib: Boolean = false): Pair<Int, String> {
         val input = Files.createTempFile("tvm-cli-", ".boc")
         val stdout = Files.createTempFile("tvm-cli-", ".json")
         val stderr = Files.createTempFile("tvm-cli-", ".log")
@@ -18,6 +18,8 @@ class CliTest {
             val args = mutableListOf(java, "-jar", "build/libs/tvm-decompiler-1.0-SNAPSHOT-all.jar",
                 "boc", input.toString(), "--json")
             if (strict) args += "--strict"
+            args += listOf("--language", language)
+            if (noStdlib) args += "-n"
             val process = ProcessBuilder(args).redirectOutput(stdout.toFile()).redirectError(stderr.toFile()).start()
             if (!process.waitFor(30, TimeUnit.SECONDS)) {
                 process.destroyForcibly()
@@ -57,5 +59,27 @@ class CliTest {
         val tree = ObjectMapper().readTree(stdout)
         assertTrue(tree["complete"].asBoolean())
         assertEquals(2, tree["files"].size())
+    }
+
+    @Test
+    fun `Tolk CLI emits Tolk entrypoints and compatibility library`() {
+        val (exitCode, stdout) = runBoc("acton-counter", strict = true, language = "tolk")
+        assertEquals(0, exitCode)
+        val result = ObjectMapper().readTree(stdout)
+        assertTrue(result["complete"].asBoolean())
+        assertEquals(listOf("main.tolk", "stdlib.tolk"), result["files"].map { it["name"].asText() })
+        assertTrue(result["files"][0]["content"].asText().contains("fun onInternalMessage"))
+    }
+
+    @Test
+    fun `Tolk strict mode rejects unsupported code and no stdlib applies to both languages`() {
+        val (partialExit, partialOutput) = runBoc("try-catch", strict = true, language = "tolk")
+        assertEquals(2, partialExit)
+        val partial = ObjectMapper().readTree(partialOutput)
+        assertFalse(partial["complete"].asBoolean())
+        assertEquals(0, partial["files"].size())
+        val (exitCode, stdout) = runBoc("acton-counter", strict = true, language = "tolk", noStdlib = true)
+        assertEquals(0, exitCode)
+        assertEquals(listOf("main.tolk"), ObjectMapper().readTree(stdout)["files"].map { it["name"].asText() })
     }
 }

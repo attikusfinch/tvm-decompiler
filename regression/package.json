@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Reproducible black-box checks for the swap.coffee TVM to FunC decompiler",
+  "description": "Reproducible checks for TVM to FunC/Tolk decompilation",
   "scripts": {
     "check": "node scripts/check.mjs",
     "corpus": "node scripts/corpus.mjs",
     "test": "node --test tests/*.test.mjs",
     "acton": "node scripts/check-acton.mjs",
     "report": "node scripts/export-html.mjs",
-    "verify": "node scripts/corpus.mjs --local --native --strict"
+    "verify": "node scripts/corpus.mjs --local --native --strict",
+    "verify:tolk": "node scripts/corpus.mjs --local --native --language tolk --strict",
+    "tolk:edges": "node scripts/check-tolk-edges.mjs"
   },
   "dependencies": {
     "@ton-community/func-js": "0.11.0",

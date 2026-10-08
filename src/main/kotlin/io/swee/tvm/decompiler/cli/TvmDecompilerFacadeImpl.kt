@@ -2,14 +2,18 @@ package io.swee.tvm.decompiler.cli
 
 import io.swee.tvm.decompiler.api.TvmDecompilerFacade
 import io.swee.tvm.decompiler.api.TvmDecompilerResult
+import io.swee.tvm.decompiler.api.OutputLanguage
 import io.swee.tvm.decompiler.internal.DecompilerOptions
 import io.swee.tvm.decompiler.internal.TvmDecompilerImpl
 
 object TvmDecompilerFacadeImpl : TvmDecompilerFacade {
 
     override fun decompileBoc(boc: ByteArray, exact: Boolean): TvmDecompilerResult {
-        return TvmDecompilerImpl.decompile(boc, DecompilerOptions(exact = exact))
+        return decompileBoc(boc, exact, OutputLanguage.FUNC)
     }
+
+    override fun decompileBoc(boc: ByteArray, exact: Boolean, language: OutputLanguage): TvmDecompilerResult =
+        TvmDecompilerImpl.decompile(boc, DecompilerOptions(exact = exact, language = language))
 
     override fun decompileAddress(address: String): TvmDecompilerResult {
         throw UnsupportedOperationException(

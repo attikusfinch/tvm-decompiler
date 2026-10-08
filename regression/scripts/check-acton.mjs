@@ -7,11 +7,11 @@ import { root, readJson, writeJson, decompile, recompile, compareBoc, compareGet
 
 try {
   const { values } = parseArgs({ options: { local: { type: 'boolean' }, native: { type: 'boolean' }, exact: { type: 'boolean' },
-    offline: { type: 'boolean' }, refresh: { type: 'boolean' }, acton: { type: 'boolean' }, filter: { type: 'string' } } });
+    offline: { type: 'boolean' }, refresh: { type: 'boolean' }, acton: { type: 'boolean' }, filter: { type: 'string' }, language: { type: 'string', default: 'func' } } });
   if (values.native) process.env.FUNC_BACKEND = 'native';
-  const directory = path.join(root, 'artifacts', values.local ? 'acton-local' : 'acton-public', values.exact ? 'exact' : 'default');
+  const directory = path.join(root, 'artifacts', values.local ? 'acton-local' : 'acton-public', values.exact ? 'exact' : 'default', ...(values.language === 'tolk' ? ['tolk'] : []));
   await fs.mkdir(directory, { recursive: true });
-  const report = { checkedAt: new Date().toISOString(), compiler: await version(), cases: [] };
+  const report = { checkedAt: new Date().toISOString(), compiler: await version(values.language), cases: [] };
   for (const fixture of fixtures().filter(f => !values.filter || f.id.includes(values.filter))) {
     const target = path.join(directory, fixture.id);
     await fs.mkdir(target, { recursive: true });
