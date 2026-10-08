@@ -12,6 +12,47 @@ internal class TolkSource(val text: String) {
 
     fun references(name: String) = tokens.count { it.identifier && it.value == name }
 
+    fun code(tokens: List<Token>) = text.substring(tokens.first().start, tokens.last().end)
+
+    fun hasComments(start: Int, end: Int) = text.substring(start, end).let { "//" in it || "/*" in it }
+
+    fun declarations(function: Function): List<List<Token>> {
+        val result = mutableListOf<List<Token>>()
+        var start = 0
+        var parentheses = 0
+        for ((index, token) in function.body.withIndex()) {
+            when (token.value) {
+                "(" -> parentheses++
+                ")" -> parentheses--
+                "{", "}" -> if (parentheses == 0) start = index + 1
+                ";" -> if (parentheses == 0) {
+                    if (function.body.getOrNull(start)?.value == "val") result += function.body.subList(start, index + 1)
+                    start = index + 1
+                }
+            }
+        }
+        return result
+    }
+
+    companion object {
+        fun closingParenthesis(tokens: List<Token>, start: Int): Int? {
+            if (tokens.getOrNull(start)?.value != "(") return null
+            var depth = 0
+            for (index in start until tokens.size) {
+                if (tokens[index].value == "(") depth++
+                if (tokens[index].value == ")" && --depth == 0) return index
+            }
+            return null
+        }
+
+        fun unwrap(tokens: List<Token>): List<Token> {
+            var result = tokens
+            while (result.firstOrNull()?.value == "(" && closingParenthesis(result, 0) == result.lastIndex)
+                result = result.subList(1, result.lastIndex)
+            return result
+        }
+    }
+
     private fun parseFunctions(): List<Function> {
         val result = mutableListOf<Function>()
         fun endOf(start: Int, open: String, close: String): Int? {
@@ -33,12 +74,13 @@ internal class TolkSource(val text: String) {
                 val bodyStart = (paramEnd + 2 until tokens.size).firstOrNull { tokens[it].value in setOf("{", "asm", "fun") } ?: break
                 if (tokens[bodyStart].value != "{") { index++; continue }
                 val bodyEnd = endOf(bodyStart, "{", "}") ?: break
-                val annotation = tokens.subList(maxOf(0, index - 5), index)
-                val methodId = if (annotation.map { it.value }.let { it.size == 5 && it.take(3) == listOf("@", "method_id", "(") && it.last() == ")" })
-                    annotation[3].value.toIntOrNull() else null
+                val annotation = (5..6).map { tokens.subList(maxOf(0, index - it), index) }.firstOrNull {
+                    it.take(3).map(Token::value) == listOf("@", "method_id", "(") && it.lastOrNull()?.value == ")"
+                }
+                val methodId = annotation?.drop(3)?.dropLast(1)?.joinToString("") { it.value }?.toIntOrNull()
                 result += Function(tokens[index + 1], token, tokens.subList(index + 3, paramEnd),
                     tokens.subList(paramEnd + 2, bodyStart), tokens.subList(bodyStart + 1, bodyEnd),
-                    methodId, if (methodId != null) annotation.first() else null, tokens.getOrNull(index - 1)?.value == "get")
+                    methodId, if (methodId != null) annotation?.first() else null, tokens.getOrNull(index - 1)?.value == "get")
                 index = bodyEnd + 1
                 continue
             }

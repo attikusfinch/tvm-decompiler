@@ -11,6 +11,11 @@
           "functionName": "fn_83229"
         },
         {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "owner-getter-name",
           "methodId": "83229",
           "functionName": "owner"
@@ -82,6 +87,16 @@
           "rule": "address-getter-return",
           "methodId": "83229",
           "functionName": "fn_83229"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "117456",
+          "functionName": "currentCounter"
         },
         {
           "rule": "owner-getter-name",
@@ -276,7 +291,23 @@
       "id": "NftItem",
       "complete": true,
       "diagnostics": [],
-      "changes": [],
+      "changes": [
+        {
+          "rule": "native-null-check",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "102351",
+          "functionName": "get_nft_data"
+        }
+      ],
       "patterns": [
         {
           "id": "anonymous-getters",
@@ -345,6 +376,20 @@
           ]
         },
         {
+          "id": "null-predicate",
+          "count": 2,
+          "examples": [
+            {
+              "line": 58,
+              "code": "tvmNull_x3f_("
+            },
+            {
+              "line": 76,
+              "code": "tvmNull_x3f_("
+            }
+          ]
+        },
+        {
           "id": "optional-address-load",
           "count": 1,
           "examples": [
@@ -384,7 +429,23 @@
       "id": "JettonWallet",
       "complete": true,
       "diagnostics": [],
-      "changes": [],
+      "changes": [
+        {
+          "rule": "native-null-check",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "97026",
+          "functionName": "get_wallet_data"
+        }
+      ],
       "patterns": [
         {
           "id": "anonymous-getters",
@@ -453,6 +514,20 @@
           ]
         },
         {
+          "id": "null-predicate",
+          "count": 5,
+          "examples": [
+            {
+              "line": 62,
+              "code": "tvmNull_x3f_("
+            },
+            {
+              "line": 85,
+              "code": "tvmNull_x3f_("
+            }
+          ]
+        },
+        {
           "id": "optional-address-load",
           "count": 4,
           "examples": [
@@ -486,7 +561,38 @@
       "id": "JettonMinter",
       "complete": true,
       "diagnostics": [],
-      "changes": [],
+      "changes": [
+        {
+          "rule": "native-null-check",
+          "methodId": "106029",
+          "functionName": "fn_106029"
+        },
+        {
+          "rule": "native-null-check",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "106029",
+          "functionName": "get_jetton_data"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "103289",
+          "functionName": "get_wallet_address"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "78683",
+          "functionName": "get_next_admin_address"
+        }
+      ],
       "patterns": [
         {
           "id": "anonymous-getters",
@@ -559,6 +665,20 @@
           ]
         },
         {
+          "id": "null-predicate",
+          "count": 5,
+          "examples": [
+            {
+              "line": 39,
+              "code": "tvmNull_x3f_("
+            },
+            {
+              "line": 102,
+              "code": "tvmNull_x3f_("
+            }
+          ]
+        },
+        {
           "id": "optional-address-load",
           "count": 16,
           "examples": [
@@ -606,7 +726,33 @@
       "id": "SimpleExtension",
       "complete": true,
       "diagnostics": [],
-      "changes": [],
+      "changes": [
+        {
+          "rule": "native-null-check",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "native-null-check",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "118026",
+          "functionName": "extensionInfo"
+        }
+      ],
       "patterns": [
         {
           "id": "anonymous-getters",
@@ -671,6 +817,20 @@
             {
               "line": 38,
               "code": "as int);"
+            }
+          ]
+        },
+        {
+          "id": "null-predicate",
+          "count": 2,
+          "examples": [
+            {
+              "line": 42,
+              "code": "tvmNull_x3f_("
+            },
+            {
+              "line": 78,
+              "code": "tvmNull_x3f_("
             }
           ]
         },
@@ -787,6 +947,20 @@
               "code": "as int);"
             }
           ]
+        },
+        {
+          "id": "null-predicate",
+          "count": 7,
+          "examples": [
+            {
+              "line": 41,
+              "code": "tvmNull_x3f_("
+            },
+            {
+              "line": 60,
+              "code": "tvmNull_x3f_("
+            }
+          ]
         }
       ]
     }
@@ -794,7 +968,7 @@
   "patterns": [
     {
       "id": "anonymous-getters",
-      "status": "candidate",
+      "status": "partial",
       "contracts": [
         "Empty",
         "Counter",
@@ -805,7 +979,8 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 18
+      "occurrences": 18,
+      "normalizedOccurrences": 9
     },
     {
       "id": "returned-address-alias",
@@ -814,7 +989,8 @@
         "Empty",
         "Counter"
       ],
-      "occurrences": 2
+      "occurrences": 2,
+      "normalizedOccurrences": 0
     },
     {
       "id": "primitive-load-tuples",
@@ -828,7 +1004,8 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 113
+      "occurrences": 113,
+      "normalizedOccurrences": 113
     },
     {
       "id": "prefix-dispatch",
@@ -843,7 +1020,8 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 41
+      "occurrences": 41,
+      "normalizedOccurrences": 41
     },
     {
       "id": "address-to-slice-cast",
@@ -858,11 +1036,12 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 43
+      "occurrences": 43,
+      "normalizedOccurrences": 41
     },
     {
       "id": "int-cast-bindings",
-      "status": "candidate",
+      "status": "partial",
       "contracts": [
         "Empty",
         "Counter",
@@ -873,7 +1052,21 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 69
+      "occurrences": 69,
+      "normalizedOccurrences": 52
+    },
+    {
+      "id": "null-predicate",
+      "status": "implemented",
+      "contracts": [
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 21,
+      "normalizedOccurrences": 7
     },
     {
       "id": "optional-address-load",
@@ -883,7 +1076,8 @@
         "JettonWallet",
         "JettonMinter"
       ],
-      "occurrences": 21
+      "occurrences": 21,
+      "normalizedOccurrences": 21
     },
     {
       "id": "typed-null-value",
@@ -893,7 +1087,8 @@
         "JettonMinter",
         "SimpleExtension"
       ],
-      "occurrences": 9
+      "occurrences": 9,
+      "normalizedOccurrences": 9
     },
     {
       "id": "raw-message-send",
@@ -905,7 +1100,8 @@
         "JettonMinter",
         "SimpleExtension"
       ],
-      "occurrences": 15
+      "occurrences": 15,
+      "normalizedOccurrences": 15
     }
   ]
 }

@@ -96,7 +96,8 @@ class CliTest {
         assertTrue(normalized["files"][0]["content"].asText().contains("get fun owner(): address"))
         assertTrue(raw["files"][0]["content"].asText().contains("@method_id(83229)\nfun fn_83229(): slice"))
         assertEquals(raw["files"][1], normalized["files"][1])
-        assertEquals(2, normalized["normalizations"].size())
+        assertTrue(normalized["normalizations"].map { it["rule"].asText() }.containsAll(
+            listOf("address-getter-return", "owner-getter-name", "abi-getter-name", "boolean-guard")))
         assertEquals(0, raw["normalizations"].size())
         assertEquals(raw["diagnostics"], normalized["diagnostics"])
     }
