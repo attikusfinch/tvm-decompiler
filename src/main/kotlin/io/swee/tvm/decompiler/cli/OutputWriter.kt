@@ -18,7 +18,7 @@ object OutputWriter {
 
     fun writeJson(result: TvmDecompilerResult, outputDir: File? = null, includeStdlib: Boolean = true, includeFiles: Boolean = true) {
         val content = json(result, includeStdlib, includeFiles)
-        if (outputDir == null) println(content) else {
+        if (outputDir == null) writeUtf8(content + "\n") else {
             outputDir.mkdirs()
             File(outputDir, "result.json").writeText(content + "\n")
         }
@@ -35,10 +35,13 @@ object OutputWriter {
     private fun writeToStdout(result: TvmDecompilerResult, includeStdlib: Boolean = true) {
         for (file in result.files) {
             if (!includeStdlib && isStdlib(file.name)) continue
-            println(";;;; file: ${file.name}")
-            println(file.content)
-            println()
+            writeUtf8(";;;; file: ${file.name}\n${file.content}\n\n")
         }
+    }
+
+    private fun writeUtf8(content: String) {
+        System.out.write(content.toByteArray(Charsets.UTF_8))
+        System.out.flush()
     }
 
     private fun writeToDirectory(result: TvmDecompilerResult, outputDir: File, includeStdlib: Boolean = true) {

@@ -148,4 +148,15 @@ boundaries; a successful round trip does not imply full author-schema recovery.
 
 ## Standalone HTML report
 
+`npm run func:stdlib` checks library-derived helper names and cursor loaders
+against the pinned full output stdlib. Fourteen native FunC/Fift fixtures / 36
+getter probes require raw/normalized code-cell and serialized-BOC identity,
+including equal stack, exit and gas on valid/null/truncated storage. Original
+behavior and original code differences are recorded independently. The checks
+cover context selectors, random seed, repeated/discarded context reads, MYCODE
+outside the library, dict/optional-ref/message-address loads and live snapshots.
+`func:audit` verifies these artifacts, all 31 prior FunC normalization fixtures
+and all eight templates against the current JAR hash. See the
+[stdlib mapping rules](../docs/func-normalization-patterns.md).
+
 Run `npm run acton -- --local --native --acton` to generate all eight FunC cases with TASM views, and the same command with `--language tolk` for Tolk. Known differences and partial outputs make both commands exit 1. Then run `npm run report` separately. The exporter validates original/recompiled BOC hashes and saved sources against each response and writes ../reports/acton-contracts.html. It includes a Tolk selector when the tolk/report.json artifact is available. `--artifacts <directory>`, `--tolk-artifacts <directory>` and `--output <file>` override paths. The report is self-contained, works offline, includes original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. Each language retains its own JAR SHA-256, compiler metadata and check timestamp. All eight outputs include raw/normalized recompilation and comparison; original/recompiled differences remain visible in the report.

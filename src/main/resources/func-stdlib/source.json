@@ -1,0 +1,9 @@
+{
+  "version": "TON v2026.08",
+  "commit": "3d478cbde854be03a18ab2a59f8fc3c565cf7d14",
+  "source": "https://github.com/ton-blockchain/ton/blob/3d478cbde854be03a18ab2a59f8fc3c565cf7d14/crypto/smartcont/stdlib.fc",
+  "distribution": "https://github.com/ton-blockchain/ton/releases/download/v2026.08/smartcont_lib.zip",
+  "sha256": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb",
+  "license": "LGPL-2.0-or-later",
+  "notes": "Unmodified upstream snapshot. The FunC output library overlays the existing decompiler compatibility declarations. The raw TVM parser and Tolk support library use their original resources."
+}

@@ -78,7 +78,10 @@ internal object FuncLocalNamesRule : FuncNormalizer.Rule {
                             "load_std_addr_cursor" -> "address"
                             "load_opt_std_addr_cursor" -> "optional_address"
                             "load_ref" -> "reference"
-                            "load_grams" -> "coins"
+                            "load_maybe_ref" -> "optional_reference"
+                            "load_dict" -> "dictionary"
+                            "load_msg_addr" -> "message_address"
+                            "load_grams", "load_coins" -> "coins"
                             "load_bits" -> "bits"
                             else -> "value"
                         }

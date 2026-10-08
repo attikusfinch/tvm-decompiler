@@ -10,9 +10,9 @@ internal object FuncNormalizer {
     data class Result(val main:String,val changes:List<NormalizationChange>)
     data class Edit(val start:Int,val end:Int,val replacement:String,val change:NormalizationChange)
     fun interface Rule { fun edits(source:FuncSource):List<Edit> }
-    private val rules = listOf(FuncPrimitiveNamesRule,FuncPrefixNamesRule,FuncCursorRule,FuncCursorMergeRule,
-        FuncLocalNamesRule,FuncScalarSyntaxRule,FuncGuardSyntaxRule,FuncSendModeRule)
-    fun normalize(main:String):Result {
+    fun normalize(main:String, catalog:FuncStdlibCatalog = FuncStdlib.catalog):Result {
+        val rules = listOf(FuncStdlibNamesRule(catalog),FuncPrimitiveNamesRule,FuncPrefixNamesRule,FuncCursorRule(catalog),FuncCursorMergeRule,
+            FuncLocalNamesRule,FuncScalarSyntaxRule,FuncGuardSyntaxRule,FuncSendModeRule)
         var code=main; val changes=mutableListOf<NormalizationChange>()
         for(rule in rules) while(true) {
             val edits=rule.edits(FuncSource(code)).sortedByDescending { it.start }

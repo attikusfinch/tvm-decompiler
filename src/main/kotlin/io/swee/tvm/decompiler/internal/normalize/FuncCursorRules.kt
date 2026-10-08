@@ -4,11 +4,14 @@ import io.swee.tvm.decompiler.internal.normalize.TolkSource.Token
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.callArguments
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.closingParenthesis
 
-internal object FuncCursorRule:FuncNormalizer.Rule {
+internal class FuncCursorRule(catalog:FuncStdlibCatalog):FuncNormalizer.Rule {
     private data class Load(val result:String,val arity:Int,val reverse:Boolean=false,val helper:String?=null)
-    private val loads=mapOf(
-        "load_uint" to Load("int",1), "load_int" to Load("int",1), "load_bits" to Load("slice",1),
-        "load_grams" to Load("int",0), "load_ref" to Load("cell",0),
+    private val loads=catalog.declarations.filter { declaration ->
+        declaration.name.startsWith("load_") && declaration.arguments.firstOrNull()?.name=="slice" && declaration.results.size==2
+            && declaration.results.first().name=="slice" && declaration.results[1].name in FuncSource.primitiveTypes
+            && declaration.outputOrder==listOf(1,0) && declaration.inputOrder==declaration.arguments.indices.toList()
+            && catalog.compatibleModifyingDeclaration(declaration)
+    }.associate { it.name to Load(it.results[1].name,it.arguments.size-1) } + mapOf(
         "load_std_addr" to Load("slice",0,true,"load_std_addr_cursor"),
         "load_opt_std_addr" to Load("slice",0,true,"load_opt_std_addr_cursor"),
     )

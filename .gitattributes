@@ -1,0 +1,2 @@
+# Preserve the pinned upstream bytes and SHA-256 on Windows checkouts too.
+/src/main/resources/func-stdlib/stdlib.fc -text

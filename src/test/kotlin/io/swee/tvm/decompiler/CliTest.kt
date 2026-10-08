@@ -51,6 +51,7 @@ class CliTest {
         val tree = ObjectMapper().readTree(stdout)
         assertFalse(tree["complete"].asBoolean())
         assertEquals(2, tree["files"].size())
+        assertTrue(tree["files"][1]["content"].asText().contains("“persistent data”"), stdout)
     }
 
     @Test

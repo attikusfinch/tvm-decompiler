@@ -14,14 +14,16 @@ internal class FuncSource(val text: String) {
             "recv_internal" -> "0"; "recv_external" -> "-1"; else -> "unknown"
         }, name.value)
     }
-    data class Signature(val name: Token, val parameters: List<Token>, val result: List<Token>, val header: List<Token>)
+    data class Signature(val name: Token, val parameters: List<Token>, val result: List<Token>, val header: List<Token>, val modifying: Boolean = false) {
+        val qualifiedName get() = (if (modifying) "~" else "") + name.value
+    }
     val tokens = tokenize(text)
     val signatures = mutableListOf<Signature>()
     val functions = parseFunctions()
     fun code(tokens: List<Token>) = text.substring(tokens.first().start, tokens.last().end)
     fun references(name: String) = tokens.count { it.identifier && it.value == name }
     fun hasComments(start: Int, end: Int) = text.substring(start,end).let { ";;" in it || "{-" in it || "//" in it || "/*" in it }
-    fun defines(name: String) = signatures.any { it.name.value == name }
+    fun defines(name: String) = signatures.any { it.qualifiedName == name }
 
     fun statements(function: Function): List<List<Token>> {
         val result = mutableListOf<List<Token>>()
@@ -58,9 +60,10 @@ internal class FuncSource(val text: String) {
             val close=closingParenthesis(header,index+1) ?: continue
             val tail=header.drop(close+1)
             if(tail.firstOrNull()?.value !in setOf(null,"impure","inline","inline_ref","method_id","asm")) continue
-            val result=header.take(index)
+            val modifying=header[index-1].value=="~"
+            val result=header.take(if(modifying) index-1 else index)
             if(result.isEmpty() || result.any { it.value in setOf("=","const","global") }) continue
-            return Signature(header[index],header.subList(index+2,close),result,header)
+            return Signature(header[index],header.subList(index+2,close),result,header,modifying)
         }
         return null
     }
@@ -123,7 +126,11 @@ internal class FuncSource(val text: String) {
                         add(Token(source.substring(start,index),start,index))
                     }
                     source[index].isLetter() || source[index]=='_' -> {
-                        while(index<source.length && (source[index].isLetterOrDigit() || source[index] in "_?$")) index++
+                        while(index<source.length) when {
+                            source[index].isLetterOrDigit() || source[index] in "_?$" -> index++
+                            source.startsWith("::",index) -> index+=2
+                            else -> break
+                        }
                         add(Token(source.substring(start,index),start,index,true))
                     }
                     source[index].isDigit() -> {

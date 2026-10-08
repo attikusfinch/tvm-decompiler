@@ -11,6 +11,7 @@
     "acton": "node scripts/check-acton.mjs",
     "report": "node scripts/export-html.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
+    "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",
     "verify": "node scripts/corpus.mjs --local --native --strict",
     "verify:tolk": "node scripts/corpus.mjs --local --native --language tolk --strict",

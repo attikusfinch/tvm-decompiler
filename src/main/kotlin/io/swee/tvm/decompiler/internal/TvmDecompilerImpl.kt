@@ -7,6 +7,7 @@ import io.swee.tvm.decompiler.api.OutputLanguage
 import io.swee.tvm.decompiler.api.NormalizationChange
 import io.swee.tvm.decompiler.internal.normalize.TolkNormalizer
 import io.swee.tvm.decompiler.internal.normalize.FuncNormalizer
+import io.swee.tvm.decompiler.internal.normalize.FuncStdlib
 import io.swee.tvm.decompiler.internal.ir.BranchFoldingPass
 import io.swee.tvm.decompiler.internal.ir.CopyCoalescingPass
 import io.swee.tvm.decompiler.internal.ir.DeadPhiEliminationPass
@@ -236,7 +237,7 @@ object TvmDecompilerImpl : TvmDecompiler {
         return Result(
             listOf(
                 ResultFile("main.fc", normalized.main),
-                ResultFile("stdlib.fc", stdlibContent)
+                ResultFile("stdlib.fc", FuncStdlib.support)
             ),
             diagnostics.distinct(), normalized.changes
         )
