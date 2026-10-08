@@ -190,7 +190,7 @@ export async function actonDisasm(bocPath, outputPath) {
   return run('wsl.exe', ['-d', distro, '--exec', located, ...args], opts);
 }
 
-export async function compareMessages(original, recompiled, probes, { data, address, accurateStorageStats = false }) {
+export async function compareMessages(original, recompiled, probes, { data, address, accurateStorageStats = false, balance = 10000000000n }) {
   const blockchain = await Blockchain.create();
   blockchain.now = 1700000000;
   blockchain.verbosity = { print: false, blockchainLogs: false, vmLogs: 'none', debugLogs: false };
@@ -198,7 +198,7 @@ export async function compareMessages(original, recompiled, probes, { data, addr
   for (const probe of probes) {
     const outcomes = [];
     for (const boc of [original, recompiled]) {
-      const contract = SmartContract.create(blockchain, { address, code: codeCell(boc), data, balance: 10000000000n });
+      const contract = SmartContract.create(blockchain, { address, code: codeCell(boc), data, balance });
       if (accurateStorageStats) initializeStorageStats(contract);
       const message = internal({ to: address, value: probe.value ?? 1000000000n, bounce: probe.bounce ?? false, body: probe.body });
       message.info.src = probe.from;

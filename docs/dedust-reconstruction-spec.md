@@ -54,3 +54,8 @@ single role or its assembler reference passes.
   both byte comparisons, 9 getter probes, 21 message probes (including gas), and
   7 native Acton tests. Union-ID allocation and one referenced storage helper are
   explicit compatibility details. No original executable code bytes are embedded.
+- CPMM AffiliateAccount: named source without asm inserts passes both byte
+  comparisons, 6 getter probes, 21 message probes (including gas), and 5 Acton tests.
+  Internal suffix handling, strict getter parsing and bitsN packing are preserved.
+- Readable byte-identical recovery: 2/21 families. Remaining families have exact
+  instruction references only; Position and both CPMM Pool revisions are next.

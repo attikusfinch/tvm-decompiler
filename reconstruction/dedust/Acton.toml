@@ -10,6 +10,10 @@ acton = "1.0.0"
 src = "CpmmDeposit/main.tolk"
 depends = []
 
+[contracts.CpmmAffiliateAccount]
+src = "CpmmAffiliateAccount/main.tolk"
+depends = []
+
 [test]
 
 [fmt]

@@ -4,14 +4,18 @@ This directory separates frozen mainnet oracles, editable TVM instruction
 references, and recovered Tolk logic. It is **not** the original DeDust source.
 Names and layout descriptions are inferred from the public ABI and the code.
 
-Current verified result: **CpmmDeposit** compiles with Acton 1.0.0 / Tolk 1.4.0
+Current verified results: **CpmmDeposit** and **CpmmAffiliateAccount** compile with Acton 1.0.0 / Tolk 1.4.0.
+Deposit compiles
 to executable code `2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825`.
 With BOC serialization `idx=false, crc32=true`, the complete 522-byte file equals
 the frozen mainnet oracle byte-for-byte. Its 9 getter probes, 21 message probes and
-7 Acton tests pass. State, actions, outgoing messages, exits and gas are compared.
+7 Acton tests pass. AffiliateAccount's complete 306-byte BOC also equals mainnet
+(`4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6`);
+its 6 getter probes, 21 message probes and 5 Acton tests pass. State, actions,
+outgoing messages, exits and gas are compared.
 
 All 21 unique code families have exact, editable `reference.tasm` files. Those
-files are instruction references, **not** evidence that the remaining 20 contracts
+files are instruction references, **not** evidence that the remaining 19 contracts
 have readable recovered Tolk. See `verification.json` for per-contract status and
 `../../docs/dedust-reconstruction-spec.md` for acceptance gates and remaining work.
 
@@ -49,6 +53,13 @@ build output goes into `build/`; the full proof report is `verification.json`.
 The exact instruction-reference assembler uses a scoped compatibility adapter for
 `@ton/tasm` 0.6.1's exotic-cell encoder. Its tests distinguish an actual library
 reference from ordinary data containing identical bytes.
+
+AffiliateAccount requires no asm inserts. It keeps incoming/storage suffix handling
+separate from the strict getter. `bits1` and `bits272` are loaded eagerly with fixed
+widths; storing them skips added compiler validation to preserve the original
+instruction sequence. An unused union-registration function fixes the getter's
+132/133 type IDs. The inferred names `authority`, `owner` and message names describe
+the executable behavior and are not asserted to be original identifiers.
 
 ## Oracle provenance
 
