@@ -90,19 +90,19 @@ fun positionPoolRewards(): map<uint2, PoolReward> {
     rewards.set(
         1,
         PoolReward {
-            startsAt: 100,
-            remaining: 1000000,
+            remainingTime: 100,
+            remainingBudget: 1000000,
             checkpoint: 3 * FEE_SCALE,
-            endsAt: 200,
+            lastUpdate: 200,
         },
     );
     rewards.set(
         3,
         PoolReward {
-            startsAt: 100,
-            remaining: 1000000,
+            remainingTime: 100,
+            remainingBudget: 1000000,
             checkpoint: 2 * FEE_SCALE,
-            endsAt: 200,
+            lastUpdate: 200,
         },
     );
     return rewards;
@@ -258,10 +258,10 @@ get fun `test position reward claim returns accrued amount and clears only that 
                 body: ClaimPositionReward {
                     queryId: 9,
                     rewardId: 1,
-                    startsAt: 100,
-                    remaining: 1000000,
+                    remainingTime: 100,
+                    remainingBudget: 1000000,
                     checkpoint: 3 * FEE_SCALE,
-                    endsAt: 200,
+                    lastUpdate: 200,
                     payout: owner.address as any_address,
                 },
             }),

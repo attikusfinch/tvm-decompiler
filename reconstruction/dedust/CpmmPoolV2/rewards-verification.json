@@ -1,0 +1,3377 @@
+{
+  "scope": "Exact shared reward modules only; complete readable Pool recovery remains pending",
+  "toolchain": {
+    "backend": "acton",
+    "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
+  },
+  "sourceSha256": "37ffa4a2a89d18a072ca726ccc03917e9d9f1dfc17e1b6248dbafcb459db8918",
+  "revisions": [
+    "CpmmPoolV1",
+    "CpmmPoolV2"
+  ],
+  "moduleHashes": {
+    "accrue": "91b8179608f2d2eae5e7bbd931e8c77438aa07a086bfa241c506ee036338fdc3",
+    "synchronize": "ee562ba27741d0e1f9e29911c487988ef4b5fa89e0b2fd2bee8dd4b096a6fa15"
+  },
+  "single": [
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "2658455991569831745807614120560689152",
+        "1699999750"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "2658455991569831745807614120560689152"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "2658455991569831745807614120560689152"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "2658455991569831745807614120560689152",
+        "1699999750"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "33233358350614466654340984121129175089152"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "33233358350614466654340984121129175089152"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "2658455991569831745807614120560689152",
+        "1699999750"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "2558866140193331125791590422351992566075"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "2558866140193331125791590422351992566075"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "2658455991569831745807614120560689152",
+        "1699999750"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "35889155886192728568402790627569303552"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "35889155886192728568402790627569303552"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "2658455991569831745807614120560689152",
+        "1699999750"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "2658455991569831745807614120560739152"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "75000"
+          },
+          {
+            "type": "int",
+            "value": "2658455991569831745807614120560739152"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "0",
+        "1699998000"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "0",
+        "1699998000"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132922799578491587290380706028034457600000"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132922799578491587290380706028034457600000"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "0",
+        "1699998000"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10224830736807045176183131232925727507692"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10224830736807045176183131232925727507692"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "0",
+        "1699998000"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132922799578491587290380706028034457600"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132922799578491587290380706028034457600"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "0",
+        "1699998000"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "200000"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "200000"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "0",
+        "100000",
+        "3987683987354747618711421180841033728",
+        "1699999999"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "0",
+        "100000",
+        "3987683987354747618711421180841033728",
+        "1699999999"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      }
+    },
+    {
+      "reward": [
+        "0",
+        "100000",
+        "3987683987354747618711421180841033728",
+        "1699999999"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      }
+    },
+    {
+      "reward": [
+        "0",
+        "100000",
+        "3987683987354747618711421180841033728",
+        "1699999999"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      }
+    },
+    {
+      "reward": [
+        "0",
+        "100000",
+        "3987683987354747618711421180841033728",
+        "1699999999"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "3987683987354747618711421180841033728"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1129"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "0",
+        "7",
+        "1699999750"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "0",
+        "7",
+        "1699999750"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "0",
+        "7",
+        "1699999750"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "0",
+        "7",
+        "1699999750"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "0",
+        "7",
+        "1699999750"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "750"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "17",
+        "101",
+        "1",
+        "1699999997"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "17"
+          },
+          {
+            "type": "int",
+            "value": "101"
+          },
+          {
+            "type": "int",
+            "value": "1"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "17"
+          },
+          {
+            "type": "int",
+            "value": "101"
+          },
+          {
+            "type": "int",
+            "value": "1"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "17",
+        "101",
+        "1",
+        "1699999997"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "22596875928343569839364720024765857793"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "22596875928343569839364720024765857793"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "17",
+        "101",
+        "1",
+        "1699999997"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "1738221225257197679951132309597373677"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "1738221225257197679951132309597373677"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "17",
+        "101",
+        "1",
+        "1699999997"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "22596875928343569839364720024765858"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "22596875928343569839364720024765858"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "17",
+        "101",
+        "1",
+        "1699999997"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "35"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "14"
+          },
+          {
+            "type": "int",
+            "value": "84"
+          },
+          {
+            "type": "int",
+            "value": "35"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1",
+        "1",
+        "0",
+        "1699999999"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1"
+          },
+          {
+            "type": "int",
+            "value": "1"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1"
+          },
+          {
+            "type": "int",
+            "value": "1"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "1",
+        "1",
+        "0",
+        "1699999999"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344576"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344576"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1",
+        "1",
+        "0",
+        "1699999999"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "102248307368070451761831312329257275"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "102248307368070451761831312329257275"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1",
+        "1",
+        "0",
+        "1699999999"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1",
+        "1",
+        "0",
+        "1699999999"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "2"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "2"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000000"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000000"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000000"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000000"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000000"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000100"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000100"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000100"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000100"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1000",
+        "100000",
+        "7",
+        "1700000100"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1000"
+          },
+          {
+            "type": "int",
+            "value": "100000"
+          },
+          {
+            "type": "int",
+            "value": "7"
+          },
+          {
+            "type": "int",
+            "value": "1700000100"
+          }
+        ],
+        "gasUsed": "638"
+      }
+    },
+    {
+      "reward": [
+        "1099511627775",
+        "664613997892457936451903530140172287",
+        "1766847064778384329583297500742918515827483896875618958121606201292619776",
+        "0"
+      ],
+      "liquidity": "0",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1099511627775"
+          },
+          {
+            "type": "int",
+            "value": "664613997892457936451903530140172287"
+          },
+          {
+            "type": "int",
+            "value": "1766847064778384329583297500742918515827483896875618958121606201292619776"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1099511627775"
+          },
+          {
+            "type": "int",
+            "value": "664613997892457936451903530140172287"
+          },
+          {
+            "type": "int",
+            "value": "1766847064778384329583297500742918515827483896875618958121606201292619776"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "744"
+      }
+    },
+    {
+      "reward": [
+        "1099511627775",
+        "664613997892457936451903530140172287",
+        "1766847064778384329583297500742918515827483896875618958121606201292619776",
+        "0"
+      ],
+      "liquidity": "1",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1768212962116005713593899900918732772259686074444221167908759729812275200"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1768212962116005713593899900918732772259686074444221167908759729812275200"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1099511627775",
+        "664613997892457936451903530140172287",
+        "1766847064778384329583297500742918515827483896875618958121606201292619776",
+        "0"
+      ],
+      "liquidity": "13",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1766952133804355205276420762294904227860730218227049897336002626563362500"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1766952133804355205276420762294904227860730218227049897336002626563362500"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1099511627775",
+        "664613997892457936451903530140172287",
+        "1766847064778384329583297500742918515827483896875618958121606201292619776",
+        "0"
+      ],
+      "liquidity": "1000",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1766848430675721950967308103143094330083916099053187560331393354821139431"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1766848430675721950967308103143094330083916099053187560331393354821139431"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    },
+    {
+      "reward": [
+        "1099511627775",
+        "664613997892457936451903530140172287",
+        "1766847064778384329583297500742918515827483896875618958121606201292619776",
+        "0"
+      ],
+      "liquidity": "664613997892457936451903530140172288",
+      "method": 90046,
+      "args": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1766847064778384329583297500742918515829539070768965696888373921392619774"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1097811627775"
+          },
+          {
+            "type": "int",
+            "value": "663586410945784567068519670090172288"
+          },
+          {
+            "type": "int",
+            "value": "1766847064778384329583297500742918515829539070768965696888373921392619774"
+          },
+          {
+            "type": "int",
+            "value": "1700000000"
+          }
+        ],
+        "gasUsed": "1215"
+      }
+    }
+  ],
+  "dicts": [
+    {
+      "keys": [],
+      "liquidity": "0",
+      "method": 90047,
+      "args": [
+        "null",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      }
+    },
+    {
+      "keys": [],
+      "liquidity": "1",
+      "method": 90047,
+      "args": [
+        "null",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      }
+    },
+    {
+      "keys": [],
+      "liquidity": "13",
+      "method": 90047,
+      "args": [
+        "null",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      }
+    },
+    {
+      "keys": [],
+      "liquidity": "1000",
+      "method": 90047,
+      "args": [
+        "null",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "703"
+      }
+    },
+    {
+      "keys": [
+        0
+      ],
+      "liquidity": "0",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "009f35e32cc3bdd9ba03305a219aaa1833d7b16ecce273baa18a73cd57fb49ed"
+          }
+        ],
+        "gasUsed": "2299"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "009f35e32cc3bdd9ba03305a219aaa1833d7b16ecce273baa18a73cd57fb49ed"
+          }
+        ],
+        "gasUsed": "2299"
+      }
+    },
+    {
+      "keys": [
+        0
+      ],
+      "liquidity": "1",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9da6fddf1c77b0909a4c5685f201b4cba48c79fe56d71bca75c94556b25dca24"
+          }
+        ],
+        "gasUsed": "2770"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9da6fddf1c77b0909a4c5685f201b4cba48c79fe56d71bca75c94556b25dca24"
+          }
+        ],
+        "gasUsed": "2770"
+      }
+    },
+    {
+      "keys": [
+        0
+      ],
+      "liquidity": "13",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "55ba5e02c14ef44078c0329e1823463e073b514175ef7048fdac97a5ba9b2098"
+          }
+        ],
+        "gasUsed": "2770"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "55ba5e02c14ef44078c0329e1823463e073b514175ef7048fdac97a5ba9b2098"
+          }
+        ],
+        "gasUsed": "2770"
+      }
+    },
+    {
+      "keys": [
+        0
+      ],
+      "liquidity": "1000",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2b3fbe9056dd382e7b467d91908bfc07e7a3003145e58062233dc432f74ebe1d"
+          }
+        ],
+        "gasUsed": "2770"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2b3fbe9056dd382e7b467d91908bfc07e7a3003145e58062233dc432f74ebe1d"
+          }
+        ],
+        "gasUsed": "2770"
+      }
+    },
+    {
+      "keys": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "liquidity": "0",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "92f703fc18fbd491246e95d4b2b38427e394829054e00777ac224defc08c8e02"
+          }
+        ],
+        "gasUsed": "11831"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "92f703fc18fbd491246e95d4b2b38427e394829054e00777ac224defc08c8e02"
+          }
+        ],
+        "gasUsed": "11831"
+      }
+    },
+    {
+      "keys": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "liquidity": "1",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2834c83bec19cd7cfe9b104a62db3e0df0ffc471311d3b8e17edf0c600c1f304"
+          }
+        ],
+        "gasUsed": "13158"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2834c83bec19cd7cfe9b104a62db3e0df0ffc471311d3b8e17edf0c600c1f304"
+          }
+        ],
+        "gasUsed": "13158"
+      }
+    },
+    {
+      "keys": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "liquidity": "13",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfba47a1beae547b13abde9044d9ccee2f19bce37da5fb523b978f365b3ce2b0"
+          }
+        ],
+        "gasUsed": "13158"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfba47a1beae547b13abde9044d9ccee2f19bce37da5fb523b978f365b3ce2b0"
+          }
+        ],
+        "gasUsed": "13158"
+      }
+    },
+    {
+      "keys": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "liquidity": "1000",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a17095c3670ac2e159474bb02654ff1046ff75d691e168ef3a52b4323856e2f7"
+          }
+        ],
+        "gasUsed": "13158"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a17095c3670ac2e159474bb02654ff1046ff75d691e168ef3a52b4323856e2f7"
+          }
+        ],
+        "gasUsed": "13158"
+      }
+    },
+    {
+      "keys": [
+        3
+      ],
+      "liquidity": "0",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "76add129077f93528ea0b668c6b98e1ba7c00ceaa67c7d2924ff85bf6038801c"
+          }
+        ],
+        "gasUsed": "2299"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "76add129077f93528ea0b668c6b98e1ba7c00ceaa67c7d2924ff85bf6038801c"
+          }
+        ],
+        "gasUsed": "2299"
+      }
+    },
+    {
+      "keys": [
+        3
+      ],
+      "liquidity": "1",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e2dcdd15532238c75feb24e794780483f283ec9c5d85ca27615121b951eebb7f"
+          }
+        ],
+        "gasUsed": "2770"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e2dcdd15532238c75feb24e794780483f283ec9c5d85ca27615121b951eebb7f"
+          }
+        ],
+        "gasUsed": "2770"
+      }
+    },
+    {
+      "keys": [
+        3
+      ],
+      "liquidity": "13",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0416082512d984a7784f2eeeee01e88a399d2184de81ae22778407871f19058c"
+          }
+        ],
+        "gasUsed": "2770"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0416082512d984a7784f2eeeee01e88a399d2184de81ae22778407871f19058c"
+          }
+        ],
+        "gasUsed": "2770"
+      }
+    },
+    {
+      "keys": [
+        3
+      ],
+      "liquidity": "1000",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0438551c77b75aabdee55c240c5ebda42761eefb72db296bca11ed3f3c32ec65"
+          }
+        ],
+        "gasUsed": "2770"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0438551c77b75aabdee55c240c5ebda42761eefb72db296bca11ed3f3c32ec65"
+          }
+        ],
+        "gasUsed": "2770"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "label": "empty-record",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "869"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "869"
+      }
+    },
+    {
+      "label": "trailing-record",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "965"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "965"
+      }
+    },
+    {
+      "label": "varuint32-overflow",
+      "method": 90047,
+      "args": [
+        "cell",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1957"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1957"
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@
     "dedust:oracles": "node scripts/export-dedust-oracles.mjs",
     "dedust:recovery": "node scripts/check-dedust-recovery.mjs",
     "dedust:pool-decompile": "node scripts/check-dedust-pool-decompile.mjs",
+    "dedust:pool-rewards": "node scripts/check-dedust-pool-rewards.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
     "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",

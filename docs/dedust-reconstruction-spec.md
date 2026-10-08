@@ -81,3 +81,10 @@ single role or its assembler reference passes.
   malformed storage, and an independently constructed Position StateInit/address.
   The recompiled Pool code is not yet byte-identical. Complete decoding and these
   getter checks are not the readable-source or full-behavior acceptance gates.
+- Pool reward accrual and dictionary synchronization are recovered in named Tolk.
+  Both compiled helper cells equal the pinned shared cells in PoolV1 and PoolV2;
+  64 independent probes including gas and 5 native Acton module tests pass. This
+  advances portion 3 but does not increase the count of exact complete contracts.
+  The recovered semantics identify Position's reward fields as remaining duration,
+  remaining budget, checkpoint and last-update time; its names now reflect those
+  meanings while its complete compiled BOC remains identical.

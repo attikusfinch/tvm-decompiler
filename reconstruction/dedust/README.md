@@ -19,6 +19,11 @@ Position's complete 1540-byte BOC equals mainnet
 14 getter probes, 49 message probes and 8 Acton tests pass. Together the three
 contracts have 120 differential probes and 20 native Acton tests.
 
+The Pool's reward accrual and reward-dictionary modules now compile to their
+original shared code cells in both revisions. They add 64 independent probes and
+5 native Acton module tests, bringing the Acton project to 25 tests. Their module
+proof is in `CpmmPoolV2/rewards-verification.json`; the complete Pool remains open.
+
 Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
 `npm run dedust:pool-decompile` checks 33 getter cases per revision against the
 frozen code and independent expectations, including the Position address derived

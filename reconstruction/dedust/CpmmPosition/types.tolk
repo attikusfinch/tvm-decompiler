@@ -14,10 +14,10 @@ struct PositionReward {
 }
 
 struct PoolReward {
-    startsAt: uint40
-    remaining: coins
+    remainingTime: uint40
+    remainingBudget: coins
     checkpoint: varuint32
-    endsAt: uint40
+    lastUpdate: uint40
 }
 
 @overflow1023_policy("suppress")
@@ -75,10 +75,10 @@ struct (0x9e0c2428) ProvidePositionState {
 struct (0x2e0cccba) ClaimPositionReward {
     queryId: uint64
     rewardId: uint2
-    startsAt: uint40
-    remaining: coins
+    remainingTime: uint40
+    remainingBudget: coins
     checkpoint: varuint32
-    endsAt: uint40
+    lastUpdate: uint40
     payout: any_address
 }
 
