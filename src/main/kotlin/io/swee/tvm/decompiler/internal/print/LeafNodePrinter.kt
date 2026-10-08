@@ -7,6 +7,7 @@ import io.swee.tvm.decompiler.internal.StackEntryName
 import io.swee.tvm.decompiler.internal.TvmStackEntryType
 import io.swee.tvm.decompiler.internal.analyze
 import io.swee.tvm.decompiler.internal.ir.IRNode
+import io.swee.tvm.decompiler.internal.ir.IRNodeVisitor
 import io.swee.tvm.decompiler.internal.ir.IRNode.*
 import java.math.BigInteger
 
@@ -100,7 +101,7 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
             sb.append(asmFunction.name)
             sb.append(" (")
             sb.append(asmFunction.args.joinToString(", ") { "${it.type.funcTypename} ${(it.name as StackEntryName.Const).value}" })
-            sb.append(") asm ")
+            sb.append(if (asmFunction.pure) ") asm " else ") impure asm ")
             sb.append(asmFunction.body)
             sb.append(";\n")
         }
@@ -114,7 +115,7 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
                 .joinToString(", ") { "${it.type.funcTypename} ${sar.stackEntryNameResolver(it.name)}" }
             val returnType = inferReturnType(function)
             val inlineRefSpec = if (function.isInlineRef) " inline_ref" else ""
-            sb.append("$returnType ${function.name} ($args)$inlineRefSpec;\n")
+            sb.append("$returnType ${function.name} ($args) impure$inlineRefSpec;\n")
         }
         if (nonEntryFunctions.isNotEmpty()) sb.append("\n")
 
@@ -131,9 +132,12 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
     }
 
     private fun inferReturnType(function: IRNode.Function): String {
-        val returnStmt = function.codeBlock.entries.lastOrNull()
+        var returnStmt = function.codeBlock.entries.lastOrNull() as? FunctionReturnStatement
+        if (returnStmt == null) function.codeBlock.accept(object : IRNodeVisitor {
+            override fun visit(node: FunctionReturnStatement) { if (returnStmt == null) returnStmt = node }
+        })
         if (returnStmt is FunctionReturnStatement) {
-            val reversed = returnStmt.variables.reversed()
+            val reversed = returnStmt!!.variables.reversed()
             return when (reversed.size) {
                 0 -> "()"
                 1 -> returnTypeName(reversed[0].entry.type)

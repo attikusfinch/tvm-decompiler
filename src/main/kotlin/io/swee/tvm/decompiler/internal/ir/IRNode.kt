@@ -40,7 +40,8 @@ sealed interface IRNode {
         val name: String,
         val args: List<StackEntry>,
         val returnType: List<StackEntry>,
-        val body: String
+        val body: String,
+        val pure: Boolean = true
     ) : IRNode {
         override fun accept0(visitor: IRNodeVisitor) = visitor.visit(this)
     }

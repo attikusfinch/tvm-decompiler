@@ -100,8 +100,13 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
         setOf(expression.type, target) == setOf("address", "slice") -> "(${expression.code} as $target)"
         else -> "(${expression.code} as unknown as $target)"
     }
-    private fun returns(function: IRNode.Function) = (function.codeBlock.entries.lastOrNull() as? FunctionReturnStatement)
-        ?.variables?.reversed()?.map { type(it.entry.type) } ?: emptyList()
+    private fun returns(function: IRNode.Function): List<String> {
+        var returned = function.codeBlock.entries.lastOrNull() as? FunctionReturnStatement
+        if (returned == null) function.codeBlock.accept(object : io.swee.tvm.decompiler.internal.ir.IRNodeVisitor {
+            override fun visit(node: FunctionReturnStatement) { if (returned == null) returned = node }
+        })
+        return returned?.variables?.reversed()?.map { type(it.entry.type) } ?: emptyList()
+    }
     private fun signature(types: List<String>) = when (types.size) {
         0 -> "void"; 1 -> types.single(); else -> types.joinToString(", ", "(", ")")
     }
@@ -337,7 +342,10 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
             }
             is WhileLoop -> {
                 val condition = checkNotNull(node.condCodeBlock)
-                val test = condition(condition)
+                // Tolk's return-path checker recognizes a literal true loop before folding
+                // arithmetic comparisons such as -1 != 0.
+                val endless = (condition.entries.singleOrNull() as? IntLiteral)?.literal?.toString() == "-1"
+                val test = if (endless) "true" else condition(condition)
                 line("while ($test) {"); indentation++
                 node.bodyCodeBlock?.let(::block)
                 // Re-evaluate the condition prefix; its variables were declared before the loop.

@@ -1132,28 +1132,111 @@
     },
     {
       "id": "WalletV5",
-      "complete": false,
-      "diagnostics": [
+      "complete": true,
+      "diagnostics": [],
+      "changes": [
         {
-          "kind": "UNSUPPORTED_INSTRUCTION",
-          "message": "No parser for AGAINEND",
-          "methodId": "-1000",
-          "mnemonic": "AGAINEND",
-          "location": "Lambda:#2"
+          "rule": "native-null-check",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "native-null-check",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "native-null-check",
+          "methodId": "unknown",
+          "functionName": "callref_0"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "boolean-guard",
+          "methodId": "unknown",
+          "functionName": "callref_0"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "85143",
+          "functionName": "fn_85143"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "78748",
+          "functionName": "fn_78748"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "81467",
+          "functionName": "fn_81467"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "unknown",
+          "functionName": "callref_0"
+        },
+        {
+          "rule": "builder-store-chain",
+          "methodId": "unknown",
+          "functionName": "callref_0"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "117729",
+          "functionName": "get_extensions"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "85143",
+          "functionName": "seqno"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "78748",
+          "functionName": "get_public_key"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "88459",
+          "functionName": "is_signature_allowed"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "81467",
+          "functionName": "get_subwallet_id"
         }
       ],
-      "changes": [],
       "patterns": [
         {
           "id": "anonymous-getters",
           "count": 5,
           "examples": [
             {
-              "line": 186,
+              "line": 188,
               "code": "@method_id(81467)\nfun fn_81467("
             },
             {
-              "line": 260,
+              "line": 262,
               "code": "@method_id(88459)\nfun fn_88459("
             }
           ]
@@ -1163,11 +1246,11 @@
           "count": 23,
           "examples": [
             {
-              "line": 33,
+              "line": 34,
               "code": "var (s2, x5) = tvmLoadInt(dataSlice2, 1);"
             },
             {
-              "line": 53,
+              "line": 54,
               "code": "var (s22, x7) = tvmLoadInt(dataSlice3, 1);"
             }
           ]
@@ -1177,11 +1260,11 @@
           "count": 2,
           "examples": [
             {
-              "line": 22,
+              "line": 23,
               "code": "tvmStoreMaybeRef("
             },
             {
-              "line": 44,
+              "line": 45,
               "code": "tvmStoreMaybeRef("
             }
           ]
@@ -1191,11 +1274,11 @@
           "count": 9,
           "examples": [
             {
-              "line": 7,
+              "line": 8,
               "code": "matchPrefix_8_02("
             },
             {
-              "line": 24,
+              "line": 25,
               "code": "matchPrefix_8_03("
             }
           ]
@@ -1205,11 +1288,11 @@
           "count": 2,
           "examples": [
             {
-              "line": 10,
+              "line": 11,
               "code": ".loadAddress() as slice"
             },
             {
-              "line": 27,
+              "line": 28,
               "code": ".loadAddress() as slice"
             }
           ]
@@ -1219,11 +1302,11 @@
           "count": 21,
           "examples": [
             {
-              "line": 13,
+              "line": 14,
               "code": "as int);"
             },
             {
-              "line": 30,
+              "line": 31,
               "code": "as int);"
             }
           ]
@@ -1233,11 +1316,11 @@
           "count": 7,
           "examples": [
             {
-              "line": 40,
+              "line": 41,
               "code": "tvmNull_x3f_("
             },
             {
-              "line": 59,
+              "line": 60,
               "code": "tvmNull_x3f_("
             }
           ]
@@ -1260,7 +1343,7 @@
         "WalletV5"
       ],
       "occurrences": 18,
-      "normalizedOccurrences": 6
+      "normalizedOccurrences": 1
     },
     {
       "id": "returned-address-alias",
@@ -1285,7 +1368,7 @@
         "WalletV5"
       ],
       "occurrences": 114,
-      "normalizedOccurrences": 36
+      "normalizedOccurrences": 13
     },
     {
       "id": "conditional-select",
@@ -1309,7 +1392,7 @@
         "WalletV5"
       ],
       "occurrences": 45,
-      "normalizedOccurrences": 2
+      "normalizedOccurrences": 0
     },
     {
       "id": "prefix-dispatch",
@@ -1357,7 +1440,7 @@
         "WalletV5"
       ],
       "occurrences": 71,
-      "normalizedOccurrences": 49
+      "normalizedOccurrences": 33
     },
     {
       "id": "null-predicate",
@@ -1370,7 +1453,7 @@
         "WalletV5"
       ],
       "occurrences": 21,
-      "normalizedOccurrences": 7
+      "normalizedOccurrences": 0
     },
     {
       "id": "optional-address-load",

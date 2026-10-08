@@ -6,7 +6,7 @@ import { root, readJson } from './lib.mjs';
 
 const jar = process.env.LOCAL_DECOMPILER_JAR ?? path.join(root, '../build/libs/tvm-decompiler-1.0-SNAPSHOT-all.jar');
 const hash = createHash('sha256').update(await fs.readFile(jar)).digest('hex');
-for (const [suite, count, probes] of [['tolk-recovery', 19, 501], ['tolk-builders', 17, 202], ['tolk-nullable', 14, 144], ['tolk-loops', 8, 70]]) {
+for (const [suite, count, probes] of [['tolk-recovery', 19, 501], ['tolk-builders', 17, 202], ['tolk-nullable', 14, 144], ['tolk-loops', 8, 70], ['tolk-again', 6, 36]]) {
     const directory = path.join(root, 'artifacts', suite);
     const report = await readJson(path.join(directory, 'report.json'));
     assert.equal(report.length, count, suite + ': incomplete suite');

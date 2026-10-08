@@ -132,6 +132,24 @@ fun parseWhileBlock(
     ctx.mergeUpstreams(listOf(condCtx))
 }
 
+fun parseAgainBlock(registry: ParserRegistry, ctx: IrBlockBuilder, instructions: List<TvmInst>) {
+    var updates: List<ControlFlowResolver.BackwardUpdate>? = null
+    var attempts = 0
+    while (updates == null) {
+        check(attempts++ < 32) { "AGAIN stack discovery did not converge" }
+        val (_, dryBody) = parseContinuation(registry, ctx, instructions)
+        val extra = dryBody.upstream.getUsedEntries().size - ctx.upstream.getUsedEntries().size
+        if (extra > 0) { ctx.stackEnsureAtLeast(ctx.stackDepth() + extra); continue }
+        updates = ControlFlowResolver.preResolveBackward(ctx, dryBody, false)
+    }
+    val (_, body) = parseContinuation(registry, ctx, instructions)
+    ControlFlowResolver.postResolveBackward(ctx, body, { child ->
+        listOf(IRNode.WhileLoop(IRNode.CodeBlock(listOf(IRNode.IntLiteral(-1)), true), child.build()))
+    }, updates, false)
+    // An infinite back edge has no ordinary fallthrough. Explicit RETALT paths remain in its body.
+    ctx.hasDiverged = true
+}
+
 fun parseUntilBlock(
     registry: ParserRegistry,
     ctx: IrBlockBuilder,
@@ -402,6 +420,16 @@ fun registerContinuationParsers(registry: ParserRegistry) {
             val condEntry = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
 
             parseWhileBlock(registry, ctx, condEntry, bodyEntry)
+        }
+        register<TvmContLoopsAgainInst>(ParserLevel.MANUAL) { ctx, _ ->
+            val body = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
+            parseAgainBlock(registry, ctx, body.continuationInstructions())
+            ctx.remainingInstructions?.clear()
+        }
+        register<TvmContLoopsAgainendInst>(ParserLevel.MANUAL) { ctx, _ ->
+            val tail = checkNotNull(ctx.remainingInstructions).toList()
+            ctx.remainingInstructions!!.clear()
+            parseAgainBlock(registry, ctx, tail)
         }
         register<TvmContLoopsUntilInst>(ParserLevel.MANUAL) { ctx, inst ->
             val bodyEntry = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)

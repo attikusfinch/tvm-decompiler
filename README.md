@@ -23,6 +23,8 @@ The default Tolk output uses arithmetic/comparison operators, assertions, standa
 
 The library result exposes structured diagnostics for unsupported instructions, parser failures and function failures. Instruction diagnostics identify the method, mnemonic and logical instruction location. Complete means no such failures were detected, not that recompilation or equivalence has been proven.
 
+WHILE condition/exit stacks and AGAIN/AGAINEND infinite loops with explicit returns are recovered. All eight archived Acton templates now compile in both languages; WalletV5 passes its five getter and ten internal-message comparisons. FunC preserves effectful asm calls and inline-ref procedure declarations through `impure`. Further continuation forms, TRY and dynamic targets remain separate recovery items.
+
 The default CLI retains partial files for inspection and writes warnings to stderr. `--strict` exits with code 2 for incomplete decompilation, omitting partial source files; JSON still contains diagnostics. Fatal input/disassembly errors exit with code 1. Logs stay off stdout so JSON can be consumed by another process.
 
 TRY/catch and dynamic continuations remain unsupported. MYCODE can change behavior if recompilation changes the code hash: derived addresses and returned code cells may change. Different gas usage can affect outgoing values in carry-value send modes.

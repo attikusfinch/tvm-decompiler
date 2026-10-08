@@ -128,12 +128,14 @@ fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions())
     val asmArgCount = mutableMapOf<String, Int>()
     val asmRetTypes = mutableMapOf<String, MutableMap<Int, TvmStackEntryType?>>()
     val asmRetCount = mutableMapOf<String, Int>()
+    val asmPurity = mutableMapOf<String, Boolean>()
 
     fun normalize(t: TvmStackEntryType?): TvmStackEntryType? =
         t?.takeUnless { it == TvmStackEntryType.UNKNOWN }
 
-    fun recordAsmCall(name: String, body: String, argNodes: List<IRNode>, retEntries: List<StackEntry>) {
+    fun recordAsmCall(name: String, body: String, argNodes: List<IRNode>, retEntries: List<StackEntry>, pure: Boolean) {
         asmBody.putIfAbsent(name, body)
+        asmPurity[name] = asmPurity.getOrDefault(name, true) && pure
         asmArgCount[name] = maxOf(asmArgCount.getOrDefault(name, 0), argNodes.size)
         val am = asmArgTypes.getOrPut(name) { mutableMapOf() }
         argNodes.forEachIndexed { i, arg ->
@@ -152,12 +154,12 @@ fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions())
             val call = node.value as? IRNode.FunctionCall ?: return
             if (!call.name.startsWith("asm_")) return
             val body = call.asmBody ?: "\"${call.name.removePrefix("asm_")}\""
-            recordAsmCall(call.name, body, call.args, node.entries)
+            recordAsmCall(call.name, body, call.args, node.entries, call.pure)
         }
         override fun visit(node: IRNode.FunctionCall) {
             if (!node.name.startsWith("asm_")) return
             val body = node.asmBody ?: "\"${node.name.removePrefix("asm_")}\""
-            recordAsmCall(node.name, body, node.args, listOf())
+            recordAsmCall(node.name, body, node.args, listOf(), node.pure)
         }
     })
 
@@ -170,7 +172,7 @@ fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions())
             val t = asmRetTypes[name]?.get(i) ?: TvmStackEntryType.UNKNOWN
             StackEntry.Simple(t, StackEntryName.Const("r"))
         }
-        IRNode.AsmFunction(name, args, rets, asmBody.getValue(name))
+        IRNode.AsmFunction(name, args, rets, asmBody.getValue(name), asmPurity.getValue(name))
     }
 
     val newRoot = IRNode.Root(

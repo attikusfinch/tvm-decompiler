@@ -19,6 +19,7 @@
     "tolk:builders": "node scripts/check-tolk-builders.mjs",
     "tolk:nullable": "node scripts/check-tolk-nullable.mjs",
     "tolk:loops": "node scripts/check-tolk-loops.mjs",
+    "tolk:again": "node scripts/check-tolk-again.mjs",
     "tolk:audit": "node scripts/audit-recovery-results.mjs",
     "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs"
   },

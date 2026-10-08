@@ -90,6 +90,13 @@ object AsmFunctionFactory {
 
                 val value = InstValueAccessor.getValue(primaryInst, operand.name)
 
+                // A control-register operand is encoded in the opcode, not passed on the
+                // TVM stack. Fift expects a register object (c5), not a runtime integer.
+                if (operand.displayHints?.any { it is Cp0InstructionRegistry.TvmCp0InstBytecodeOperandDisplayHint.Register } == true) {
+                    embeddedFiftLiterals.add("c$value")
+                    continue
+                }
+
                 if (operand.type == Cp0InstructionRegistry.TvmCp0InstBytecodeOperandType.SUBSLICE ||
                     operand.type == Cp0InstructionRegistry.TvmCp0InstBytecodeOperandType.REF) {
                     val cell = value as org.ton.bytecode.TvmCell

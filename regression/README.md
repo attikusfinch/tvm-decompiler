@@ -39,6 +39,7 @@ npm run tolk:recovery
 npm run tolk:builders
 npm run tolk:nullable
 npm run tolk:loops
+npm run tolk:again
 npm run tolk:audit
 npm run tolk:patterns
 ```
@@ -55,7 +56,9 @@ The 20-case corpus compiles fixture source, decompiles it, recompiles the output
 
 `tolk:builders` exercises N05 with 17 compiler-derived fixtures and 202 getter probes. Functional exact methods cover 13 store operations without changing original builder snapshots, opcodes, argument order or exceptions. Probes include zero/negative/maximum/oversized coins, dynamic widths, nullable refs and addresses, invalid slices, bit/ref overflow, dead results, nested chains and effects in receiver/arguments. Raw/normalized code-cell, serialized BOC and gas must match. Original behavior is checked independently; only 8/17 original/raw code cells are identical, with existing raw differences recorded in the report. The shared recovery runner is reusable by subsequent families.
 
-`npm run acton -- --local --native` checks all eight archived contracts from every built-in template (empty, counter, nft, jetton, w5-extension). This currently exits 1 because some observable effects differ and WalletV5 uses unsupported AGAINEND; see ../docs/regression-results.md. NftCollection now compiles on both languages: 4/4 getters, 11/12 message outcomes with values and 12/12 state/action comparisons pass. Synthetic storage, senders and messages are defined in fixtures/acton-probes.mjs. Each internal message starts with a fresh contract and identical input state, time and random seed. Original exit codes and successful outgoing-message counts are checked before trusting a comparison. Gas and outgoing values are recorded; remaining account balances are not compared. External-message flows are not compared by this harness. Getters that expose MYCODE are compared without suppressing their differing code hashes.
+`npm run acton -- --local --native` checks all eight archived contracts from every built-in template (empty, counter, nft, jetton, w5-extension). All eight now compile in both languages. The command exits 1 because six original/recompiled message outcomes and one getter still differ; see ../docs/regression-results.md. WalletV5 passes 5/5 getters, 10/10 message outcomes and 10/10 state/action comparisons. NftCollection passes 4/4 getters, 11/12 message outcomes with values and 12/12 state/action comparisons. Synthetic storage, senders and messages are defined in fixtures/acton-probes.mjs. Each internal message starts with a fresh contract and identical input state, time and random seed. Original exit codes and successful outgoing-message counts are checked before trusting a comparison. Gas and outgoing values are recorded; remaining account balances are not compared. External-message flows are not compared by this harness. Getters that expose MYCODE are compared without suppressing their differing code hashes.
+
+`tolk:again` covers P02 with six compiler-derived fixtures / 36 probes: infinite loops with scalar/tuple returns, global effects, exceptions, ref-chain cursors and c5 POPCTR/PUSHCTR. Original behavior and raw/normalized BOC plus gas match for every probe; 5/6 original/raw code cells are identical. AGAINBRK/AGAINENDBRK and arbitrary continuation targets remain unsupported. The WalletV5 message probes also catch removal of void effectful calls by FunC when `impure` is missing from asm definitions or inline-ref forward declarations.
 
 Optional --acton writes TASM disassembly with cell hashes and bit offsets. On Windows it uses WSL Ubuntu (WSL_DISTRO and ACTON_WSL_PATH override this); on Linux it uses acton from PATH. The emulator tests themselves do not require Acton to be installed.
 
