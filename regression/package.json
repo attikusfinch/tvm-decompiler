@@ -30,6 +30,7 @@
     "dedust:pool-handlers": "node scripts/check-dedust-pool-handlers.mjs",
     "dedust:classic-blank": "node scripts/check-dedust-classic-blank.mjs",
     "dedust:classic-operator": "node scripts/check-dedust-classic-operator.mjs",
+    "dedust:classic-lp-wallet": "node scripts/check-dedust-classic-lp-wallet.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
     "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",

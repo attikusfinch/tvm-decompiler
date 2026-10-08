@@ -36,6 +36,10 @@ depends = []
 src = "build/ClassicOperator/code.boc"
 depends = ["ClassicBlank"]
 
+[contracts.ClassicLpWallet]
+src = "build/ClassicLpWallet/code.boc"
+depends = []
+
 [test]
 
 [fmt]

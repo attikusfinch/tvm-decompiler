@@ -205,6 +205,7 @@ export async function compareMessages(original, recompiled, probes, { data, addr
       const message = internal({ to: address, value: probe.value ?? 1000000000n, bounce: probe.bounce ?? false, body: probe.body });
       message.info.src = probe.from;
       message.info.bounced = probe.bounced ?? false;
+      if (probe.forwardFee !== undefined) message.info.forwardFee = probe.forwardFee;
       const transaction = await contract.receiveMessage(message, { now: 1700000000, randomSeed: Buffer.alloc(32) });
       const description = transaction.description;
       if (description.type !== 'generic' || description.computePhase.type !== 'vm') throw new Error('Expected VM transaction');

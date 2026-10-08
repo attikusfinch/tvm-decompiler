@@ -1,8 +1,8 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **7 of 21 archived code
+Readable, byte-identical recovery is verified for **8 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator. The five CPMM contracts use Tolk; the two Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet. The five CPMM contracts use Tolk; the three Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -15,15 +15,16 @@ The sources describe executable behavior; original names and comments are unknow
 | CpmmPoolV2 | 10032 bytes | 12 | 116 |
 | ClassicBlank | 165 bytes | 2 | 33 |
 | ClassicOperator | 455 bytes | 40 | 36 |
+| ClassicLpWallet | 836 bytes | 17 | 52 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **77 native tests**. See `verification.json` for per-family results.
+project passes **82 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **14 families** have not passed readable-source acceptance. Their
+The remaining **13 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -141,6 +142,21 @@ gas, outgoing amounts, independent storage/authorization/time/error expectations
 and real construction through source-built ClassicBlank. Four native Acton tests
 cover identity, initialization, delayed withdrawal and failed/successful upgrades.
 See `ClassicOperator/recovery-verification.json`.
+
+## ClassicLpWallet
+
+`ClassicLpWallet/main.fc` recovers canonical peer derivation, owner transfers,
+pool/peer credits, owner notification, TON excesses, burn and bounce compensation.
+The complete 836-byte BOC equals mainnet. Storage suffixes are accepted and bounce
+prefixes are skipped without validation, matching the archived implementation.
+Fee checks retain strict inequalities and the original forward-fee calculation.
+Small typed primitives preserve opcode evaluation, arithmetic and builder order.
+
+`npm run dedust:classic-lp-wallet` checks 52 message and 17 getter probes with
+independent amounts, state and wire payload expectations, and exact gas. Five
+native Acton tests also deliver an actual transfer body/amount between two
+canonical wallets and check token conservation, authorization, burn and bounce.
+See `ClassicLpWallet/recovery-verification.json`.
 
 Typed field/equality primitives preserve the archived evaluation and stack order;
 inline message codecs retain query values until strict end-of-slice validation.

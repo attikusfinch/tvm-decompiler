@@ -45,11 +45,11 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **7/21 families**: CPMM Deposit,
-AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank and ClassicOperator.
+Readable byte-identical recovery is **8/21 families**: CPMM Deposit,
+AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator and ClassicLpWallet.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **77 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **82 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -86,7 +86,14 @@ time boundaries, authorization, malformed input, hook rollback and constructor
 arguments through source-built Blank. Four native Acton tests pass. The pinned
 0.4.4-newops.1 distribution adds modern Fift instructions to the old code generator;
 the package lock and proof record its distribution, and Blank is reverified too.
-Next: the rest of Classic; **14 families remain**.
+ClassicLpWallet passes complete 836-byte BOC identity, 52 message and 17 getter
+probes, including exact gas and all outgoing amounts. Named FunC recovers transfer,
+pool/peer credit, canonical wallet derivation, burn, TON notification/excesses and
+bounce restoration. Budget boundaries, forward-fee rounding, overflow, malformed
+input, authorization and ignored suffixes have independent expectations. Five
+native tests deliver the actual outgoing transfer body and amount to a canonical
+recipient wallet and verify token conservation, plus burn/bounce and rejection.
+Next: the rest of Classic; **13 families remain**.
 
 ## Recovery history
 

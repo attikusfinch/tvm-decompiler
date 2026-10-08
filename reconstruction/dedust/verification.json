@@ -10,12 +10,12 @@
   },
   "actonTests": {
     "status": "passed",
-    "output": "Compiling contracts\n    Finished in 312.966939ms\n     Running tests\n\n TEST  /mnt/f/dedust/tvm-decompiler/reconstruction/dedust\n\n > tests/affiliate.test.tolk (5 tests)\n  ✓ recovered AffiliateAccount code equals mainnet 12ms\n  ✓ affiliate getter decodes activation kind metadata and fee 5ms\n  ✓ activation requires authority and sets owner metadata 4ms\n  ✓ withdrawal requires activation and owner 6ms\n  ✓ fee notification ignores body tail while unknown messages fail 3ms\n > tests/classic-blank.test.tolk (3 tests)\n  ✓ source-built ClassicBlank code equals mainnet 3ms\n  ✓ ClassicBlank immediately executes the installed seven-argument constructor 6ms\n  ✓ ClassicBlank constructor failure refunds balance and deletes the account 4ms\n > tests/classic-operator.test.tolk (4 tests)\n  ✓ source-built ClassicOperator equals mainnet 5ms\n  ✓ ClassicBlank initializes Operator owner version kind beneficiary and unlock 8ms\n  ✓ Operator beneficiary changes enforce authorization and 48 hour withdrawal boundary 8ms\n  ✓ Operator upgrade failure rolls back and successful upgrade runs installed hook 18ms\n > tests/deposit.test.tolk (7 tests)\n  ✓ recovered Deposit code cell equals mainnet 8ms\n  ✓ deposit getter returns amounts and payout addresses 3ms\n  ✓ credit updates one asset and returns excesses 4ms\n  ✓ both targets trigger join liquidity 3ms\n  ✓ only pool can credit and only initiator can cancel 5ms\n  ✓ cancel checks attached value and refunds both assets 5ms\n  ✓ malformed and unknown deposit bodies are rejected 3ms\n > tests/pool-addresses.test.tolk (4 tests)\n  ✓ pool position deployment initializes typed empty state 712μs\n  ✓ pool deposit deployment preserves amounts payout and initiator 447μs\n  ✓ pool position address matches independently serialized StateInit 478μs\n  ✓ legacy stdlib StateInit hashes equal canonical cell serialization 281μs\n > tests/pool-calculations.test.tolk (4 tests)\n  ✓ pool liquidity root preserves floor at perfect squares and maximum coin products 438μs\n  ✓ pool payout substitutes only nonstandard destinations and retains options 471μs\n  ✓ pool allowed reward search returns first matching slot and duration 676μs\n  ✓ pool allowed reward search rejects missing and malformed records 690μs\n > tests/pool-events.test.tolk (3 tests)\n  ✓ pool swap event sends exact external message and retains both references 948μs\n  ✓ pool deposit event preserves amounts minted liquidity and next state 708μs\n  ✓ pool withdrawal event orders burned liquidity before asset amounts 866μs\n > tests/pool-getters.test.tolk (4 tests)\n  ✓ pool getter returns typed maps flags reserves fees and checkpoints 867μs\n  ✓ pool withdrawal estimate floors signed amounts and handles no liquidity 638μs\n  ✓ pool getter decodes every lifecycle and fee selector 1ms\n  ✓ pool getter allows root suffix but rejects invalid tagged and nested data 992μs\n > tests/pool-handlers.test.tolk (6 tests)\n  ✓ recovered Pool V2 code equals mainnet 98ms\n  ✓ recovered Pool V1 code equals mainnet 74ms\n  ✓ complete Pool revisions allocate different protocol shares with independently calculated swap state 16ms\n  ✓ readable full pool init schedules wallet then reply completes both lookup directions 3ms\n  ✓ readable full pool controller clears protocol counters and creator clears its own counters 4ms\n  ✓ readable full pool failed native payment commits refund without altering reserves 3ms\n > tests/pool-payment.test.tolk (4 tests)\n  ✓ pool native payout carries principal extra gas and signed callback 525μs\n  ✓ pool jetton payout wraps callback and distinguishes absent forward payload 619μs\n  ✓ pool jetton empty and raw payload keep TEP74 selector and original ref 657μs\n  ✓ pool payout rejects overflowing coins and unsupported asset address 271μs\n > tests/pool-processing.test.tolk (4 tests)\n  ✓ pool dispatcher independently calculates swap reserves protocol creator and LP fees 42ms\n  ✓ pool dispatcher keeps decoded rejection tuple context for zero payment 1ms\n  ✓ pool dispatcher funds reward budget and extends duration in its configured slot 1ms\n  ✓ pool dispatcher rejects underfunded reward extension at exact rounding boundary 1ms\n > tests/pool-rewards.test.tolk (5 tests)\n  ✓ pool reward accrues elapsed budget and Q120 checkpoint 332μs\n  ✓ pool reward pauses budget and duration without liquidity 194μs\n  ✓ pool reward preserves future checkpoints and caps elapsed duration 196μs\n  ✓ pool reward dictionary updates every occupied slot 199μs\n  ✓ pool reward serialization rejects checkpoint overflow 128μs\n > tests/pool-routing.test.tolk (5 tests)\n  ✓ pool native routed swap carries typed limits and both configuration refs 526μs\n  ✓ pool jetton routed swap retains partner referrer next and gas reserve 606μs\n  ✓ pool routed swap rejects negative remaining forward gas and unsupported assets 379μs\n  ✓ pool basic payout replaces invalid addresses without changing options 352μs\n  ✓ pool affiliate deployment loads source built library and serializes both kinds 14ms\n > tests/pool-settlement.test.tolk (3 tests)\n  ✓ pool settlement emits X then Y reserve and excesses with preserved modes 1ms\n  ✓ pool settlement skips nonpositive payouts and can suppress excesses 313μs\n  ✓ pool settlement reads config eagerly and resolves only positive asset payouts 396μs\n > tests/pool-transfers.test.tolk (4 tests)\n  ✓ pool excesses preserves query recipient and adds ignore errors mode 533μs\n  ✓ pool resolver requests preserve owner query and send mode in both revisions 492μs\n  ✓ pool payout wallet uses asset lookup and rejects missing or nonbasechain keys 403μs\n  ✓ pool reward lookup returns independent zero record and strict stored fields 177μs\n > tests/pool-wallets.test.tolk (4 tests)\n  ✓ pool wallet resolver scheduling returns first request flag 747μs\n  ✓ pool wallet registration creates both lookup directions 492μs\n  ✓ pool wallet resolver reply consumes only its own request 571μs\n  ✓ pool wallet helpers reject wrong workchains duplicates and missing entries 451μs\n > tests/position.test.tolk (8 tests)\n  ✓ recovered Position code equals mainnet 3ms\n  ✓ position getter and fixed point fees 6ms\n  ✓ position credit synchronizes rewards before adding liquidity 4ms\n  ✓ position fee claim clears pending and retains checkpoints 4ms\n  ✓ position withdrawal enforces unlocked liquidity and commits excess on failure 4ms\n  ✓ position reward claim returns accrued amount and clears only that reward 5ms\n  ✓ position bounce restores withdrawn liquidity and fee amounts 5ms\n  ✓ position state response is public and includes requested fields 4ms\n\n ✓ 77 passed in 17 files"
+    "output": "Compiling contracts\n    Finished in 338.562601ms\n     Running tests\n\n TEST  /mnt/f/dedust/tvm-decompiler/reconstruction/dedust\n\n > tests/affiliate.test.tolk (5 tests)\n  ✓ recovered AffiliateAccount code equals mainnet 13ms\n  ✓ affiliate getter decodes activation kind metadata and fee 5ms\n  ✓ activation requires authority and sets owner metadata 4ms\n  ✓ withdrawal requires activation and owner 7ms\n  ✓ fee notification ignores body tail while unknown messages fail 3ms\n > tests/classic-blank.test.tolk (3 tests)\n  ✓ source-built ClassicBlank code equals mainnet 6ms\n  ✓ ClassicBlank immediately executes the installed seven-argument constructor 7ms\n  ✓ ClassicBlank constructor failure refunds balance and deletes the account 6ms\n > tests/classic-lp-wallet.test.tolk (5 tests)\n  ✓ source-built ClassicLpWallet equals mainnet 5ms\n  ✓ LP transfer deploys recipient wallet and conserves token balances 13ms\n  ✓ LP transfer enforces owner amount and strict attached TON budget 6ms\n  ✓ LP burn notifies pool and bounced burn restores balance 9ms\n  ✓ LP credit rejects unrelated sender and exposes complete wallet data 12ms\n > tests/classic-operator.test.tolk (4 tests)\n  ✓ source-built ClassicOperator equals mainnet 5ms\n  ✓ ClassicBlank initializes Operator owner version kind beneficiary and unlock 6ms\n  ✓ Operator beneficiary changes enforce authorization and 48 hour withdrawal boundary 7ms\n  ✓ Operator upgrade failure rolls back and successful upgrade runs installed hook 13ms\n > tests/deposit.test.tolk (7 tests)\n  ✓ recovered Deposit code cell equals mainnet 10ms\n  ✓ deposit getter returns amounts and payout addresses 4ms\n  ✓ credit updates one asset and returns excesses 4ms\n  ✓ both targets trigger join liquidity 4ms\n  ✓ only pool can credit and only initiator can cancel 3ms\n  ✓ cancel checks attached value and refunds both assets 4ms\n  ✓ malformed and unknown deposit bodies are rejected 3ms\n > tests/pool-addresses.test.tolk (4 tests)\n  ✓ pool position deployment initializes typed empty state 517μs\n  ✓ pool deposit deployment preserves amounts payout and initiator 334μs\n  ✓ pool position address matches independently serialized StateInit 356μs\n  ✓ legacy stdlib StateInit hashes equal canonical cell serialization 153μs\n > tests/pool-calculations.test.tolk (4 tests)\n  ✓ pool liquidity root preserves floor at perfect squares and maximum coin products 319μs\n  ✓ pool payout substitutes only nonstandard destinations and retains options 391μs\n  ✓ pool allowed reward search returns first matching slot and duration 602μs\n  ✓ pool allowed reward search rejects missing and malformed records 716μs\n > tests/pool-events.test.tolk (3 tests)\n  ✓ pool swap event sends exact external message and retains both references 605μs\n  ✓ pool deposit event preserves amounts minted liquidity and next state 371μs\n  ✓ pool withdrawal event orders burned liquidity before asset amounts 334μs\n > tests/pool-getters.test.tolk (4 tests)\n  ✓ pool getter returns typed maps flags reserves fees and checkpoints 707μs\n  ✓ pool withdrawal estimate floors signed amounts and handles no liquidity 614μs\n  ✓ pool getter decodes every lifecycle and fee selector 1ms\n  ✓ pool getter allows root suffix but rejects invalid tagged and nested data 951μs\n > tests/pool-handlers.test.tolk (6 tests)\n  ✓ recovered Pool V2 code equals mainnet 79ms\n  ✓ recovered Pool V1 code equals mainnet 73ms\n  ✓ complete Pool revisions allocate different protocol shares with independently calculated swap state 15ms\n  ✓ readable full pool init schedules wallet then reply completes both lookup directions 2ms\n  ✓ readable full pool controller clears protocol counters and creator clears its own counters 3ms\n  ✓ readable full pool failed native payment commits refund without altering reserves 2ms\n > tests/pool-payment.test.tolk (4 tests)\n  ✓ pool native payout carries principal extra gas and signed callback 502μs\n  ✓ pool jetton payout wraps callback and distinguishes absent forward payload 588μs\n  ✓ pool jetton empty and raw payload keep TEP74 selector and original ref 665μs\n  ✓ pool payout rejects overflowing coins and unsupported asset address 290μs\n > tests/pool-processing.test.tolk (4 tests)\n  ✓ pool dispatcher independently calculates swap reserves protocol creator and LP fees 52ms\n  ✓ pool dispatcher keeps decoded rejection tuple context for zero payment 1ms\n  ✓ pool dispatcher funds reward budget and extends duration in its configured slot 1ms\n  ✓ pool dispatcher rejects underfunded reward extension at exact rounding boundary 1ms\n > tests/pool-rewards.test.tolk (5 tests)\n  ✓ pool reward accrues elapsed budget and Q120 checkpoint 318μs\n  ✓ pool reward pauses budget and duration without liquidity 201μs\n  ✓ pool reward preserves future checkpoints and caps elapsed duration 201μs\n  ✓ pool reward dictionary updates every occupied slot 201μs\n  ✓ pool reward serialization rejects checkpoint overflow 132μs\n > tests/pool-routing.test.tolk (5 tests)\n  ✓ pool native routed swap carries typed limits and both configuration refs 824μs\n  ✓ pool jetton routed swap retains partner referrer next and gas reserve 649μs\n  ✓ pool routed swap rejects negative remaining forward gas and unsupported assets 287μs\n  ✓ pool basic payout replaces invalid addresses without changing options 311μs\n  ✓ pool affiliate deployment loads source built library and serializes both kinds 12ms\n > tests/pool-settlement.test.tolk (3 tests)\n  ✓ pool settlement emits X then Y reserve and excesses with preserved modes 992μs\n  ✓ pool settlement skips nonpositive payouts and can suppress excesses 318μs\n  ✓ pool settlement reads config eagerly and resolves only positive asset payouts 366μs\n > tests/pool-transfers.test.tolk (4 tests)\n  ✓ pool excesses preserves query recipient and adds ignore errors mode 482μs\n  ✓ pool resolver requests preserve owner query and send mode in both revisions 483μs\n  ✓ pool payout wallet uses asset lookup and rejects missing or nonbasechain keys 386μs\n  ✓ pool reward lookup returns independent zero record and strict stored fields 188μs\n > tests/pool-wallets.test.tolk (4 tests)\n  ✓ pool wallet resolver scheduling returns first request flag 711μs\n  ✓ pool wallet registration creates both lookup directions 491μs\n  ✓ pool wallet resolver reply consumes only its own request 569μs\n  ✓ pool wallet helpers reject wrong workchains duplicates and missing entries 481μs\n > tests/position.test.tolk (8 tests)\n  ✓ recovered Position code equals mainnet 2ms\n  ✓ position getter and fixed point fees 4ms\n  ✓ position credit synchronizes rewards before adding liquidity 5ms\n  ✓ position fee claim clears pending and retains checkpoints 4ms\n  ✓ position withdrawal enforces unlocked liquidity and commits excess on failure 4ms\n  ✓ position reward claim returns accrued amount and clears only that reward 5ms\n  ✓ position bounce restores withdrawn liquidity and fee amounts 4ms\n  ✓ position state response is public and includes requested fields 4ms\n\n ✓ 82 passed in 18 files"
   },
   "counts": {
     "families": 21,
     "exactInstructionReferences": 21,
-    "exactReadable": 7
+    "exactReadable": 8
   },
   "contracts": [
     {
@@ -2922,7 +2922,4450 @@
         "originalBytes": 836,
         "recompiledBytes": 836
       },
-      "status": "instruction-reference-only"
+      "status": "exact-readable",
+      "language": "func",
+      "compiler": {
+        "funcVersion": "0.4.4",
+        "funcFiftLibCommitHash": "ffe0a1c63073dda0a0dd0e14f199b83fe5b05e66",
+        "funcFiftLibCommitDate": "2024-03-27 12:57:15 +0300",
+        "distribution": "@ton-community/func-js-bin@0.4.4-newops.1"
+      },
+      "comparison": {
+        "originalHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+        "recompiledHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+        "sameCodeCell": true,
+        "sameSerializedBoc": true,
+        "originalBytes": 836,
+        "recompiledBytes": 836
+      },
+      "firstDifference": null,
+      "sourceSha256": {
+        "ClassicLpWallet/main.fc": "3398811e64e87ac6327dbf487564ea3d8107852a8e9771e024543dcef99118ce",
+        "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
+      },
+      "tests": {
+        "getters": [
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "1f56c12ec6309e0ac5483cde97dbdbb39258900221b6d71d4ffa3148ff56d115"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "1f56c12ec6309e0ac5483cde97dbdbb39258900221b6d71d4ffa3148ff56d115"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "0"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "1f56c12ec6309e0ac5483cde97dbdbb39258900221b6d71d4ffa3148ff56d115"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "1f56c12ec6309e0ac5483cde97dbdbb39258900221b6d71d4ffa3148ff56d115"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "1f56c12ec6309e0ac5483cde97dbdbb39258900221b6d71d4ffa3148ff56d115"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "1f56c12ec6309e0ac5483cde97dbdbb39258900221b6d71d4ffa3148ff56d115"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "664613997892457936451903530140172288"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "ac4984767e855ba765c959e8ace4e8f2f11b13b3e0fe7b4fd33c925822d15f14"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "506"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "506"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "532"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "532"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "558"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "558"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "576"
+            },
+            "after": {
+              "exitCode": 9,
+              "stack": null,
+              "gasUsed": "576"
+            }
+          },
+          {
+            "method": 97026,
+            "args": [],
+            "sameObservedBehavior": true,
+            "before": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            },
+            "after": {
+              "exitCode": 0,
+              "stack": [
+                {
+                  "type": "int",
+                  "value": "1000"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "f44f0cb2eaeb6d6d079f106753ab34ba2f33238ced9fc22c3ce24ee1e42fc321"
+                },
+                {
+                  "type": "slice",
+                  "cellHash": "3b2c3a8e03ccd4431531297de0e48bbd0ed54fa69655e3adb86ba51283472257"
+                },
+                {
+                  "type": "cell",
+                  "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                }
+              ],
+              "gasUsed": "549"
+            }
+          }
+        ],
+        "messages": [
+          {
+            "label": "owner transfer amount=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "5c83adaa739bbb286259661351f6bf9afe50ccd3ead9b9399662fba733557638"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "5c83adaa739bbb286259661351f6bf9afe50ccd3ead9b9399662fba733557638",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998723398",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "5c83adaa739bbb286259661351f6bf9afe50ccd3ead9b9399662fba733557638"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "5c83adaa739bbb286259661351f6bf9afe50ccd3ead9b9399662fba733557638",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998723398",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "owner transfer amount=700",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "owner transfer amount=1000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "841e915b0c6081f0ced43f433490844e83ade9a532b48fcb9983ef8c4418169c",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "7c0143d8ad90d5c6275f0a30aad7c02ed2d508db365a899373e671d48cf9e9e6"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7c0143d8ad90d5c6275f0a30aad7c02ed2d508db365a899373e671d48cf9e9e6",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "841e915b0c6081f0ced43f433490844e83ade9a532b48fcb9983ef8c4418169c",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "7c0143d8ad90d5c6275f0a30aad7c02ed2d508db365a899373e671d48cf9e9e6"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7c0143d8ad90d5c6275f0a30aad7c02ed2d508db365a899373e671d48cf9e9e6",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer forwards payload ref=false",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "b5733de5cd0df20ea48d6698e6b6852f8612c15df699d6109a856f74ca843ca2"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "b5733de5cd0df20ea48d6698e6b6852f8612c15df699d6109a856f74ca843ca2",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998720198",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "b5733de5cd0df20ea48d6698e6b6852f8612c15df699d6109a856f74ca843ca2"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "b5733de5cd0df20ea48d6698e6b6852f8612c15df699d6109a856f74ca843ca2",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998720198",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer forwards payload ref=true",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "e2ce386013411746748db7795b38dfc1684c93fbf2941452e2e0d62793f9ac53"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "e2ce386013411746748db7795b38dfc1684c93fbf2941452e2e0d62793f9ac53",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998713531",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "e2ce386013411746748db7795b38dfc1684c93fbf2941452e2e0d62793f9ac53"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "e2ce386013411746748db7795b38dfc1684c93fbf2941452e2e0d62793f9ac53",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998713531",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer retains max query ID",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "acf65179c82cdbe11cec9b736c36a7748d8a4b64715ab339cfc0564583bc1898"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "acf65179c82cdbe11cec9b736c36a7748d8a4b64715ab339cfc0564583bc1898",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "acf65179c82cdbe11cec9b736c36a7748d8a4b64715ab339cfc0564583bc1898"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "acf65179c82cdbe11cec9b736c36a7748d8a4b64715ab339cfc0564583bc1898",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer requires owner",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 705,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2737"
+            },
+            "after": {
+              "exitCode": 705,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2737"
+            }
+          },
+          {
+            "label": "transfer rejects excess tokens",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 706,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2815"
+            },
+            "after": {
+              "exitCode": 706,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2815"
+            }
+          },
+          {
+            "label": "transfer validates basechain before malformed storage",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 333,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2344"
+            },
+            "after": {
+              "exitCode": 333,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2344"
+            }
+          },
+          {
+            "label": "transfer requires forward payload selector",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 708,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "5335"
+            },
+            "after": {
+              "exitCode": 708,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "5335"
+            }
+          },
+          {
+            "label": "transfer exact budget rejects fee=0 forward=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            },
+            "after": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            }
+          },
+          {
+            "label": "transfer budget plus one fee=0 forward=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "38722332",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "38722332",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer exact budget rejects fee=0 forward=10000000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            },
+            "after": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            }
+          },
+          {
+            "label": "transfer budget plus one fee=0 forward=10000000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "48720732",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "48720732",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer exact budget rejects fee=1000001 forward=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            },
+            "after": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            }
+          },
+          {
+            "label": "transfer budget plus one fee=1000001 forward=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "40222333",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "40222333",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "transfer exact budget rejects fee=1000001 forward=10000000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            },
+            "after": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "6979"
+            }
+          },
+          {
+            "label": "transfer budget plus one fee=1000001 forward=10000000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "51720734",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "5662c232d5a1d546de4d813b128b20687a9eb17e7353053f82094a8383a6e781",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "51720734",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          },
+          {
+            "label": "owner burn amount=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "7ee5290084b601b8cec146e803224d9b5d8f21f91a2f5a43aae2c8c5fb8d77e4"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7ee5290084b601b8cec146e803224d9b5d8f21f91a2f5a43aae2c8c5fb8d77e4",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999518331",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "7ee5290084b601b8cec146e803224d9b5d8f21f91a2f5a43aae2c8c5fb8d77e4"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7ee5290084b601b8cec146e803224d9b5d8f21f91a2f5a43aae2c8c5fb8d77e4",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999518331",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            }
+          },
+          {
+            "label": "owner burn amount=700",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999517264",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999517264",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            }
+          },
+          {
+            "label": "owner burn amount=1000",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "841e915b0c6081f0ced43f433490844e83ade9a532b48fcb9983ef8c4418169c",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "b16df0424da26cef6f29c99bca3a6cdbd02ecaf45309e9c80b7abaa788d8d4c3"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "b16df0424da26cef6f29c99bca3a6cdbd02ecaf45309e9c80b7abaa788d8d4c3",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999517264",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "841e915b0c6081f0ced43f433490844e83ade9a532b48fcb9983ef8c4418169c",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "b16df0424da26cef6f29c99bca3a6cdbd02ecaf45309e9c80b7abaa788d8d4c3"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "b16df0424da26cef6f29c99bca3a6cdbd02ecaf45309e9c80b7abaa788d8d4c3",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "999517264",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            }
+          },
+          {
+            "label": "burn requires owner",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 705,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2493"
+            },
+            "after": {
+              "exitCode": 705,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2493"
+            }
+          },
+          {
+            "label": "burn rejects excess tokens",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 706,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2571"
+            },
+            "after": {
+              "exitCode": 706,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2571"
+            }
+          },
+          {
+            "label": "burn exact budget rejects fee=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 707,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2726"
+            },
+            "after": {
+              "exitCode": 707,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2726"
+            }
+          },
+          {
+            "label": "burn budget plus one fee=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "29517265",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "29517265",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            }
+          },
+          {
+            "label": "burn exact budget rejects fee=1000001",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 707,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2726"
+            },
+            "after": {
+              "exitCode": 707,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2726"
+            }
+          },
+          {
+            "label": "burn budget plus one fee=1000001",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "31017266",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "d4b81aa20756f75e7528b5bfda85417c1bbef0dbac246f1cb3065e6ce4fc6b14",
+                  "destination": "0:3535353535353535353535353535353535353535353535353535353535353535",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "31017266",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "5491"
+            }
+          },
+          {
+            "label": "pool mints wallet credit",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            }
+          },
+          {
+            "label": "derived peer credits wallet",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            }
+          },
+          {
+            "label": "unrelated sender rejected",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 707,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "4840"
+            },
+            "after": {
+              "exitCode": 707,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "4840"
+            }
+          },
+          {
+            "label": "credit sends owner notification ref=false",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 1,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                      "value": {
+                        "coins": "100000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a",
+                  "destination": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "100000000",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8564"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 1,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                      "value": {
+                        "coins": "100000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a",
+                  "destination": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "100000000",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8564"
+            }
+          },
+          {
+            "label": "credit sends owner notification ref=true",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 1,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                      "value": {
+                        "coins": "100000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "6c1e082ee3638d5581f0a1451caaf6fd02298d3bc344bcd140bd17168c982cc8"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "6c1e082ee3638d5581f0a1451caaf6fd02298d3bc344bcd140bd17168c982cc8",
+                  "destination": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "100000000",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8564"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 1,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                      "value": {
+                        "coins": "100000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "6c1e082ee3638d5581f0a1451caaf6fd02298d3bc344bcd140bd17168c982cc8"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "6c1e082ee3638d5581f0a1451caaf6fd02298d3bc344bcd140bd17168c982cc8",
+                  "destination": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "100000000",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8564"
+            }
+          },
+          {
+            "label": "credit returns remaining TON",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 2,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                      "value": {
+                        "coins": "985000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052",
+                  "destination": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "984933333",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "7782"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 2,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                      "value": {
+                        "coins": "985000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052",
+                  "destination": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "984933333",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "7782"
+            }
+          },
+          {
+            "label": "credit subtracts reserve shortfall",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 2,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                      "value": {
+                        "coins": "980000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052",
+                  "destination": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "979933333",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "7782"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 2,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                      "value": {
+                        "coins": "980000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052",
+                  "destination": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "979933333",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "7782"
+            }
+          },
+          {
+            "label": "credit notification plus excesses uses original forward fee",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 1,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                      "value": {
+                        "coins": "100000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a"
+                    }
+                  }
+                },
+                {
+                  "type": "sendMsg",
+                  "mode": 2,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                      "value": {
+                        "coins": "883499999"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a",
+                  "destination": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "100000000",
+                  "extraCurrency": null,
+                  "init": null
+                },
+                {
+                  "info": "internal",
+                  "body": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052",
+                  "destination": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "883433332",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "9929"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 1,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                      "value": {
+                        "coins": "100000000"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a"
+                    }
+                  }
+                },
+                {
+                  "type": "sendMsg",
+                  "mode": 2,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": false,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                      "value": {
+                        "coins": "883499999"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": null,
+                    "body": {
+                      "cellHash": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "7a98c218bde3adb89a34d0d5b7878c8e9131f1463c5a50cf89bcc72ec0da365a",
+                  "destination": "0:3434343434343434343434343434343434343434343434343434343434343434",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "100000000",
+                  "extraCurrency": null,
+                  "init": null
+                },
+                {
+                  "info": "internal",
+                  "body": "dbea0692aa14c1556d90c56ee7ced14a3d945f7ee71f209e997e7470778db052",
+                  "destination": "0:3636363636363636363636363636363636363636363636363636363636363636",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": false,
+                  "bounced": false,
+                  "value": "883433332",
+                  "extraCurrency": null,
+                  "init": null
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "9929"
+            }
+          },
+          {
+            "label": "zero TON remainder suppresses excesses",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            }
+          },
+          {
+            "label": "negative TON remainder suppresses excesses",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "6417"
+            }
+          },
+          {
+            "label": "credit coin overflow rolls back",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 5,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "feaf26c81b76446fd58fa82cf6c36e21842465f36b112fba2e439f07346b90cc",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "5807"
+            },
+            "after": {
+              "exitCode": 5,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "feaf26c81b76446fd58fa82cf6c36e21842465f36b112fba2e439f07346b90cc",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "5807"
+            }
+          },
+          {
+            "label": "bounce restores opcode=395134233 prefix=4294967295",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            }
+          },
+          {
+            "label": "bounce restores opcode=395134233 prefix=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            }
+          },
+          {
+            "label": "bounce restores opcode=2078119902 prefix=4294967295",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            }
+          },
+          {
+            "label": "bounce restores opcode=2078119902 prefix=0",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "ced1b4503e310071bd902682eadf10e90f7a202927e22d6430a5660218e99b29",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "2754"
+            }
+          },
+          {
+            "label": "unsupported bounced opcode",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1924"
+            },
+            "after": {
+              "exitCode": 709,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1924"
+            }
+          },
+          {
+            "label": "bounce amount underflow",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1994"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1994"
+            }
+          },
+          {
+            "label": "empty body ignores malformed storage",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "597"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "597"
+            }
+          },
+          {
+            "label": "empty bounce ignores malformed storage",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "597"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": 0,
+              "gasUsed": "597"
+            }
+          },
+          {
+            "label": "unknown opcode ignores malformed storage",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 65535,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1589"
+            },
+            "after": {
+              "exitCode": 65535,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1589"
+            }
+          },
+          {
+            "label": "truncated opcode",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1210"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "fb2688c313adb67c23e867cbecbcf886a977ac33e48fc309d4353822e4289150",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "1210"
+            }
+          },
+          {
+            "label": "malformed wallet storage opcode=260734629",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2519"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2519"
+            }
+          },
+          {
+            "label": "malformed wallet storage opcode=1499400124",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2161"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2161"
+            }
+          },
+          {
+            "label": "malformed wallet storage opcode=395134233",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2110"
+            },
+            "after": {
+              "exitCode": 9,
+              "aborted": true,
+              "stateType": "active",
+              "dataHash": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [],
+              "outMessages": [],
+              "actionResultCode": null,
+              "gasUsed": "2110"
+            }
+          },
+          {
+            "label": "storage suffix tolerated on transfer",
+            "sameObservedBehavior": true,
+            "sameEffectsAndActions": true,
+            "expectedOriginalExit": null,
+            "matchesExpectedOriginal": true,
+            "before": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            },
+            "after": {
+              "exitCode": 0,
+              "aborted": false,
+              "stateType": "active",
+              "dataHash": "e467fad62685dcfeeaa1b7f2f150ed6a9b81ac76551ab8f45c3f57d52177d34b",
+              "codeChanged": false,
+              "newCodeHash": null,
+              "actions": [
+                {
+                  "type": "sendMsg",
+                  "mode": 64,
+                  "outMsg": {
+                    "info": {
+                      "type": "internal",
+                      "ihrDisabled": true,
+                      "bounce": true,
+                      "bounced": false,
+                      "src": null,
+                      "dest": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                      "value": {
+                        "coins": "0"
+                      },
+                      "ihrFee": "0",
+                      "forwardFee": "0",
+                      "createdLt": "0",
+                      "createdAt": 0
+                    },
+                    "init": {
+                      "splitDepth": null,
+                      "special": null,
+                      "code": {
+                        "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                      },
+                      "data": {
+                        "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                      },
+                      "libraries": null
+                    },
+                    "body": {
+                      "cellHash": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20"
+                    }
+                  }
+                }
+              ],
+              "outMessages": [
+                {
+                  "info": "internal",
+                  "body": "89924bbb28ccbbb39a9ad1e29be26582354363d8caeb29e677799f4a4d6aeb20",
+                  "destination": "0:c4840c7cb36e781896ee1a11f809fff63db4f22e4a88c09004e950d939eb35a4",
+                  "source": "0:3333333333333333333333333333333333333333333333333333333333333333",
+                  "bounce": true,
+                  "bounced": false,
+                  "value": "998722331",
+                  "extraCurrency": null,
+                  "init": {
+                    "splitDepth": null,
+                    "special": null,
+                    "code": {
+                      "cellHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+                    },
+                    "data": {
+                      "cellHash": "33fb0cdd94069724d48e729a51e81fcc2a37f1eae830d91162de6510dc10b471"
+                    },
+                    "libraries": null
+                  }
+                }
+              ],
+              "actionResultCode": 0,
+              "gasUsed": "8773"
+            }
+          }
+        ]
+      }
     },
     {
       "name": "ClassicOperator",
