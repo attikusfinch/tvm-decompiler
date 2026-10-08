@@ -16,7 +16,41 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 | Acton SimpleExtension | Not queried | Compiles; 1/1 getter, 6/7 internal message outcomes and 7/7 storage/action results match |
 | Acton WalletV5 | Not queried | Compiles on FunC/Tolk; 5/5 getters, 10/10 message outcomes and state/action comparisons |
 
-Kotlin unit/CLI tests: 77 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+Kotlin unit/CLI tests: 84 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, normalization rules for both languages, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+
+## Separate FunC normalization
+
+The [FunC rule catalog](func-normalization-patterns.md) documents the new
+post-emission stage. Its native compiler suite has 31 scenarios: 30 complete
+round trips / 105 getter probes plus one partial dynamic EXECUTE case. Raw
+and normalized code cells, serialized BOC, exit codes, complete stacks and
+gas match; original getter behavior matches separately. Coverage includes
+truncated storage, addr_none, dynamic/invalid widths, NaN/null/wrong types,
+live slice snapshots, receiver/argument effects, loops, catch, prefix labels
+and send modes including retained unknown bits and invalid combinations.
+The partial case retains every file/diagnostic and has no normalizations.
+
+All eight Acton templates compile from both raw and normalized FunC to
+identical code cells and BOC bytes. Across their sources, all 178 tuple load
+bindings become explicit mutating cursor loads, all 48 INMSGPARAM helper
+name occurrences become readable aliases, 32 prefix constants receive bit
+labels, and all 16 SENDRAWMSG calls use named numeric flags. Getter IDs and
+unknown storage schemas remain explicit. Counts describe source patterns,
+not recovered author symbols. Generated local/parameter binding names fall
+from 506 occurrences to zero, including corresponding forward declarations.
+`npm run func:audit` checks current JAR hashes,
+actual BOC files and saved emulator results before reporting these counts.
+
+The final JAR also passes both 20-case corpora (19 complete / 75 matching
+getter probes each; known dynamic EXECUTE remains partial) and all eight
+template checks in both languages. Original/raw hash identities remain
+15 for FunC and 8 for Tolk. The original/template differences below remain;
+FunC normalization adds no code or behavior change to raw output.
+
+The refreshed HTML includes raw/normalized files and audits for both
+languages. Browser checks verify exact displayed/downloaded text, BOC and
+JSON downloads, mobile layout, keyboard tabs, no HTTP requests and no
+JavaScript errors. Both languages use the same checked final JAR.
 
 The newly passing minimal cases reproduce typed BALANCE indexing, embedded GETPARAM selectors, a PUSHREF cell containing references and canonical TRY/catch. Counter also reproduces INMSGPARAM result typing and embedded selectors. Dynamic EXECUTE remains incomplete with structured diagnostics. Noncanonical TRY has a separate negative unit/CLI fixture.
 

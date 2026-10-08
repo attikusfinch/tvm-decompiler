@@ -69,7 +69,7 @@ async function loadOutput(folder, id, language, original, summary) {
   const main = language === 'tolk' ? 'main.tolk' : 'main.fc';
   decompiled.sort((a, b) => (a.name === main ? -1 : b.name === main ? 1 : a.name.localeCompare(b.name)));
   let rawDecompiled = [];
-  if (language === 'tolk' && report.normalization) {
+  if (report.normalization) {
     const raw = await readJson(path.join(folder, 'raw/response.json'));
     for (const entry of raw.files) {
       if (await file(path.join(folder, 'raw/sources'), entry.name) !== entry.content) throw new Error(id + ': raw source mismatch');
