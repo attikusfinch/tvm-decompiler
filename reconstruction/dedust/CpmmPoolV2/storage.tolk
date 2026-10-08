@@ -16,6 +16,10 @@ struct PoolRewardConfig {
     maxDuration: uint40
 }
 
+// A present response may contain an empty rewards dictionary. The wrapper
+// distinguishes that case from a response that omits rewards entirely.
+struct PoolProvidedRewards { rewards:map<uint2,PoolReward> }
+
 @overflow1023_policy("suppress")
 struct PoolConfig {
     assetX: any_address

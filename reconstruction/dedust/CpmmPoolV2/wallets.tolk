@@ -20,8 +20,8 @@ fun findWalletAddress(dictionary: AddressLookup, key: uint256): MapLookupResult<
 fun AddressLookup.takeResolution(mutate self, key: uint256): MapLookupResult<any_address>
     asm(key self) "8 PUSHPOW2 DICTUDELGET NULLSWAPIFNOT"
 
-@inline_ref
-fun scheduleWalletResolution(
+@inline
+fun allocateWalletResolution(
     resolutions: AddressLookup,
     asset: any_address,
     customResolvers: AddressLookup,
@@ -39,6 +39,20 @@ fun scheduleWalletResolution(
     var updated = resolutions;
     val previous = updated.setAndGetPrevious(resolverHash, asset);
     return (updated, !previous.isFound, resolver);
+}
+
+@inline_ref
+fun scheduleWalletResolution(resolutions:AddressLookup,asset:any_address,customResolvers:AddressLookup):(AddressLookup,bool,any_address) {
+    return allocateWalletResolution(resolutions,asset,customResolvers);
+}
+
+// The production caller passes all three wallet maps. Unchanged maps stay
+// below the resolver's three working slots and are returned by mutate.
+@inline_ref
+fun schedulePoolWallets(mutate wallets:PoolWallets,asset:any_address,customResolvers:AddressLookup):(bool,any_address) {
+    val (updated,isNew,resolver)=allocateWalletResolution(wallets.resolutions,asset,customResolvers);
+    wallets.resolutions=updated;
+    return (isNew,resolver);
 }
 
 @inline_ref

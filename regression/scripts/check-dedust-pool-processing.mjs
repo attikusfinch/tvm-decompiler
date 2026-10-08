@@ -13,7 +13,8 @@ await fs.mkdir(directory,{recursive:true});
 const sources={'main.tolk':(await fs.readFile(path.join(project,'tests/fixtures/pool-processing.tolk'),'utf8'))
     .replaceAll('../../CpmmPoolV2/','')};
 for(const name of await fs.readdir(path.join(project,'CpmmPoolV2')))
-    if(name.endsWith('.tolk'))sources[name]=await fs.readFile(path.join(project,'CpmmPoolV2',name),'utf8');
+    if(name.endsWith('.tolk') && name !== 'main.tolk')
+        sources[name]=await fs.readFile(path.join(project,'CpmmPoolV2',name),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},parse:s=>s.asCell()},c.refs[0]);

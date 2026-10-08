@@ -1,6 +1,7 @@
 {
-  "scope": "Complete readable V2 candidate: all 16 incoming message variants and all 3 getters; exact gas/outgoing balances/byte acceptance pending",
+  "scope": "Byte-identical readable Pool V2: all 16 incoming variants and all 3 getters; state/actions/outgoing balances/gas and independent expectations",
   "exactMethodIds": [
+    0,
     19,
     20,
     21,
@@ -12,51 +13,48 @@
     112421
   ],
   "exactIncomingDecoder": "4d8dcc10bbe8ada52bbcbbe299ae4bd8364d684794a493b303cd048efdb39602",
-  "exactMethod20OuterInstructions": true,
   "toolchain": {
     "backend": "acton",
     "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
   },
   "sourceSha256": {
-    "main.tolk": "7f4ecffbad951dba3521f88bfb398b2a4865053e34ebf3ea248c2c1ab4d34d73",
     "addresses.tolk": "021e568c4ab6e4631d4e9c059480dbd39cf90c39ff967787f8b6595748efa061",
     "affiliate-deployment.tolk": "063d6d5e008c8b099ef2e6a940a03bfdb9933d8f337427730939ba9b95a8ee5a",
-    "candidate.tolk": "7f4ecffbad951dba3521f88bfb398b2a4865053e34ebf3ea248c2c1ab4d34d73",
-    "claim-handlers.tolk": "4f1fac742b9e13015a51db5096b5375e46b9ba3e2f7fc4af57a407ff58d03275",
+    "candidate.tolk": "68a0d92a113db3acb65952252fb2fd8b53929d8c929aae60c01a67c4e99a97c1",
+    "claim-handlers.tolk": "a8454c88b436c0cd30ebc4e0cebe8cd289dd85b7144974912d4ed41c61e13aa1",
     "compat-address.tolk": "8a624258542425f60322be9da1b2c12472b4b93cf13d9b6c68c403c49ac4aaf5",
-    "deployment-message.tolk": "9e0e2a6fe4dfeb3db6d002e34f1f2c1f589869c27623df8cab48e6fbd9b8e6bf",
+    "deployment-message.tolk": "90fb8a8f47c9eb93945f5c0134444935f7b377509eef191cd168eca7b3573b4d",
     "events.tolk": "8464731c1dd44e32f14e985b8963ce87465818b24c36742c126cac8e472e49c1",
     "getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c",
-    "handlers.tolk": "cedb74167d93a9fd5cb1e14c2f25b2637b6f73283d145456d77b224ef37e97c1",
-    "liquidity-handlers.tolk": "fb3b5e44e5fb200de549391be78fdfc119a079f54cacf75d982dbfc924a2e3e0",
+    "handlers.tolk": "d5f9f304b5fa6938da0bf7ad64e202e30c3cb766c19dee97c2819a7ae2d23474",
+    "liquidity-handlers.tolk": "d2d9ea9c1e5ea6b41c1926be32cf21aba3084bce05132ee785b446fa5b84d81d",
+    "main.tolk": "e5e0c4a6962894f23d43d7588f1d93baecfd856f8f2ec28e9289281ed86d295a",
     "math.tolk": "2d1e34cd8ea748e703838a3894ecacddf1d33bbb6a95f9db0080da8e44c760f5",
     "messages.tolk": "99ce1df230acfdb11c509e8a5a125fdbcbaf67b47d70481a1eab31cf63b36444",
     "payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
     "payout-basic.tolk": "df7888f40d11af33959f47e1de315ad4ab0dbf6f0e2be82b8df2032995de3f4c",
     "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
-    "processing.tolk": "f3da3d717c31353441c1599cd1793ac8b5af5159788514d621843db2443d5a94",
+    "processing.tolk": "f91d69d4394e1a161cae325ae56632674eeefd9573bda16f297581d7c1ec6930",
     "reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
     "rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
     "routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
     "settlement.tolk": "38487b08abaeac66fcdb50647f6283ef42534bb49a1a276592ca01de7ae38bee",
     "stdlib-legacy-stateinit.tolk": "c5d63bf2d540d96c694d31accc85f57ddeec93206be54cf80d46ffaf065bb815",
-    "storage.tolk": "0c68ce0aacba36d4548e8c856120f5ba97c6bbc632fc329e322552e6186f7927",
+    "storage.tolk": "e7750062dbdee5c52fba6db3947a89a45f4089af266497a3407271cd640385b6",
     "transaction-context.tolk": "e1cbfccf5831bb33933eed26ef2b1c826c5dc841ef6075487482eba54d734ee4",
     "transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
-    "wallets.tolk": "ff16bcd9618b90b1c5dcc3f3a751f5d1c67b6584fa42b895aaa28c41758b1af4"
+    "wallets.tolk": "57b0fe296cc8439ed3046dbcdfc949108e7d0ae1b7aefb597f47d91d82318a94"
   },
   "comparison": {
     "originalHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
-    "recompiledHash": "0538d8d7510c350667773156cb724589649a1884a9a95751b9c7b677b9218c6c",
-    "sameCodeCell": false,
-    "sameSerializedBoc": false,
+    "recompiledHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+    "sameCodeCell": true,
+    "sameSerializedBoc": true,
     "originalBytes": 10032,
-    "recompiledBytes": 10206
+    "recompiledBytes": 10032
   },
   "limitations": [
-    "Compute gas differs",
-    "Carry-balance outgoing values differ",
-    "Self-reported code hash differs and is verified against each actual code root"
+    "Finite independent behavior probes; original spelling and variable names are not recoverable from code bytes"
   ],
   "getterCases": [
     {
@@ -996,7 +994,7 @@
     {
       "name": "init all noninternal assets",
       "label": "init all noninternal assets",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1008,13 +1006,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "afbbf1c4b92efdacbf094fe6def677688854a7e096ca9a7a9474e5eb172fb38f",
-        "gasUsed": "8816"
+        "gasUsed": "8834"
       }
     },
     {
       "name": "init one jetton resolution",
       "label": "init one jetton resolution",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1026,13 +1024,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
-        "gasUsed": "12341"
+        "gasUsed": "12393"
       }
     },
     {
       "name": "init two jetton resolutions",
       "label": "init two jetton resolutions",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1044,13 +1042,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "09d5c3906901a351248c32719566fb6ef6d6ec9076ba3aa80ef3b40c67ef3548",
-        "gasUsed": "16627"
+        "gasUsed": "16705"
       }
     },
     {
       "name": "init custom resolver collision",
       "label": "init custom resolver collision",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1062,13 +1060,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "d61b0390367c57472cf0143025134a654015d53b4d1133eb083a4f2c9807e915",
-        "gasUsed": "14486"
+        "gasUsed": "14564"
       }
     },
     {
       "name": "init allowed rewards share and add resolution",
       "label": "init allowed rewards share and add resolution",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1080,7 +1078,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "4a4743bde86229b3c751517668a5d7922a9cbe95c5feaf692ca3f7cf2d86594e",
-        "gasUsed": "18880"
+        "gasUsed": "19020"
       }
     },
     {
@@ -1158,7 +1156,7 @@
     {
       "name": "init insufficient final gas after resolver send",
       "label": "init insufficient final gas after resolver send",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 25,
       "matchesExpectedOriginal": true,
@@ -1170,7 +1168,7 @@
       "after": {
         "exitCode": 25,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9504"
+        "gasUsed": "9556"
       }
     },
     {
@@ -1206,13 +1204,13 @@
       "after": {
         "exitCode": 21,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "2371"
+        "gasUsed": "2975"
       }
     },
     {
       "name": "wallet reply final resolution",
       "label": "wallet reply final resolution",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1224,7 +1222,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "feb480aeee2753ac2f6c72a2b30d048681c8abcfc0c64f3f4f5af8715a0f2842",
-        "gasUsed": "8610"
+        "gasUsed": "9282"
       }
     },
     {
@@ -1242,7 +1240,7 @@
       "after": {
         "exitCode": 24,
         "dataHash": "bd7fe1ef9eb0bae0ffefea091fe0fe4751c3daa0e50bd080daa7bfe3afe7447a",
-        "gasUsed": "2395"
+        "gasUsed": "2991"
       }
     },
     {
@@ -1260,7 +1258,7 @@
       "after": {
         "exitCode": 41,
         "dataHash": "bd7fe1ef9eb0bae0ffefea091fe0fe4751c3daa0e50bd080daa7bfe3afe7447a",
-        "gasUsed": "3193"
+        "gasUsed": "3789"
       }
     },
     {
@@ -1278,13 +1276,13 @@
       "after": {
         "exitCode": 39,
         "dataHash": "377621bae6a3823460bf4ee9e10bae832457de0a099ee784f1d4e073f8150bf4",
-        "gasUsed": "4897"
+        "gasUsed": "5493"
       }
     },
     {
       "name": "wallet reply leaves another resolution",
       "label": "wallet reply leaves another resolution",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1296,13 +1294,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "fd3003e55256b8b8fe445cbc9968147dfc9831e03934ac540f2e9e67dd782965",
-        "gasUsed": "9375"
+        "gasUsed": "10067"
       }
     },
     {
       "name": "native payment lifecycle=0 amount=0",
       "label": "native payment lifecycle=0 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1314,13 +1312,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "6984"
+        "gasUsed": "6816"
       }
     },
     {
       "name": "native payment lifecycle=0 amount=100000000",
       "label": "native payment lifecycle=0 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1332,13 +1330,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "6984"
+        "gasUsed": "6816"
       }
     },
     {
       "name": "native payment lifecycle=1 amount=0",
       "label": "native payment lifecycle=1 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1350,13 +1348,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "7100"
+        "gasUsed": "6932"
       }
     },
     {
       "name": "native payment lifecycle=1 amount=100000000",
       "label": "native payment lifecycle=1 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1368,13 +1366,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "7100"
+        "gasUsed": "6932"
       }
     },
     {
       "name": "native payment lifecycle=2 amount=0",
       "label": "native payment lifecycle=2 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 47,
       "matchesExpectedOriginal": true,
@@ -1386,13 +1384,13 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "11808"
+        "gasUsed": "11508"
       }
     },
     {
       "name": "native payment lifecycle=2 amount=100000000",
       "label": "native payment lifecycle=2 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1404,13 +1402,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
-        "gasUsed": "28849"
+        "gasUsed": "28725"
       }
     },
     {
       "name": "native payment low gas",
       "label": "native payment low gas",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 25,
       "matchesExpectedOriginal": true,
@@ -1422,13 +1420,13 @@
       "after": {
         "exitCode": 25,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "11962"
+        "gasUsed": "11654"
       }
     },
     {
       "name": "native payment expired",
       "label": "native payment expired",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 33,
       "matchesExpectedOriginal": true,
@@ -1440,13 +1438,13 @@
       "after": {
         "exitCode": 33,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "14296"
+        "gasUsed": "13996"
       }
     },
     {
       "name": "native payment malformed inner payment",
       "label": "native payment malformed inner payment",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 63,
       "matchesExpectedOriginal": true,
@@ -1458,13 +1456,13 @@
       "after": {
         "exitCode": 63,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "9350"
+        "gasUsed": "9182"
       }
     },
     {
       "name": "native payment invalid payout fallback",
       "label": "native payment invalid payout fallback",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 47,
       "matchesExpectedOriginal": true,
@@ -1476,13 +1474,13 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "11890"
+        "gasUsed": "11590"
       }
     },
     {
       "name": "jetton payment reference=false lifecycle=0 amount=0",
       "label": "jetton payment reference=false lifecycle=0 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1494,13 +1492,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9104"
+        "gasUsed": "8556"
       }
     },
     {
       "name": "jetton payment reference=false lifecycle=0 amount=100000000",
       "label": "jetton payment reference=false lifecycle=0 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1512,13 +1510,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9104"
+        "gasUsed": "8556"
       }
     },
     {
       "name": "jetton payment reference=false lifecycle=1 amount=0",
       "label": "jetton payment reference=false lifecycle=1 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1530,13 +1528,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "9220"
+        "gasUsed": "8672"
       }
     },
     {
       "name": "jetton payment reference=false lifecycle=1 amount=100000000",
       "label": "jetton payment reference=false lifecycle=1 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1548,13 +1546,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "9220"
+        "gasUsed": "8672"
       }
     },
     {
       "name": "jetton payment reference=false lifecycle=2 amount=0",
       "label": "jetton payment reference=false lifecycle=2 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 47,
       "matchesExpectedOriginal": true,
@@ -1566,13 +1564,13 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "15807"
+        "gasUsed": "14835"
       }
     },
     {
       "name": "jetton payment reference=false lifecycle=2 amount=100000000",
       "label": "jetton payment reference=false lifecycle=2 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1584,13 +1582,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
-        "gasUsed": "28467"
+        "gasUsed": "28243"
       }
     },
     {
       "name": "jetton payment reference=true lifecycle=0 amount=0",
       "label": "jetton payment reference=true lifecycle=0 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1602,13 +1600,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9130"
+        "gasUsed": "8582"
       }
     },
     {
       "name": "jetton payment reference=true lifecycle=0 amount=100000000",
       "label": "jetton payment reference=true lifecycle=0 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1620,13 +1618,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "9130"
+        "gasUsed": "8582"
       }
     },
     {
       "name": "jetton payment reference=true lifecycle=1 amount=0",
       "label": "jetton payment reference=true lifecycle=1 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1638,13 +1636,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "9246"
+        "gasUsed": "8698"
       }
     },
     {
       "name": "jetton payment reference=true lifecycle=1 amount=100000000",
       "label": "jetton payment reference=true lifecycle=1 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 22,
       "matchesExpectedOriginal": true,
@@ -1656,13 +1654,13 @@
       "after": {
         "exitCode": 22,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "9246"
+        "gasUsed": "8698"
       }
     },
     {
       "name": "jetton payment reference=true lifecycle=2 amount=0",
       "label": "jetton payment reference=true lifecycle=2 amount=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 47,
       "matchesExpectedOriginal": true,
@@ -1674,13 +1672,13 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "15951"
+        "gasUsed": "14979"
       }
     },
     {
       "name": "jetton payment reference=true lifecycle=2 amount=100000000",
       "label": "jetton payment reference=true lifecycle=2 amount=100000000",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1692,13 +1690,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
-        "gasUsed": "28611"
+        "gasUsed": "28387"
       }
     },
     {
       "name": "jetton unknown wallet",
       "label": "jetton unknown wallet",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 40,
       "matchesExpectedOriginal": true,
@@ -1710,13 +1708,13 @@
       "after": {
         "exitCode": 40,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10840"
+        "gasUsed": "10292"
       }
     },
     {
       "name": "jetton payment low gas",
       "label": "jetton payment low gas",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 25,
       "matchesExpectedOriginal": true,
@@ -1728,13 +1726,13 @@
       "after": {
         "exitCode": 25,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "8151"
+        "gasUsed": "7603"
       }
     },
     {
       "name": "jetton notification malformed forwarding body",
       "label": "jetton notification malformed forwarding body",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 63,
       "matchesExpectedOriginal": true,
@@ -1746,13 +1744,13 @@
       "after": {
         "exitCode": 63,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "9896"
+        "gasUsed": "9348"
       }
     },
     {
       "name": "jetton payment unknown payload",
       "label": "jetton payment unknown payload",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 63,
       "matchesExpectedOriginal": true,
@@ -1764,13 +1762,13 @@
       "after": {
         "exitCode": 63,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "12734"
+        "gasUsed": "12186"
       }
     },
     {
       "name": "jetton payment failed swap wraps reject callback",
       "label": "jetton payment failed swap wraps reject callback",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 30,
       "matchesExpectedOriginal": true,
@@ -1782,13 +1780,13 @@
       "after": {
         "exitCode": 30,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "19798"
+        "gasUsed": "18826"
       }
     },
     {
       "name": "jetton reward funding",
       "label": "jetton reward funding",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 42,
       "matchesExpectedOriginal": true,
@@ -1800,7 +1798,7 @@
       "after": {
         "exitCode": 42,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "18108"
+        "gasUsed": "17136"
       }
     },
     {
@@ -1914,7 +1912,7 @@
     {
       "name": "ignored incoming suffix opcode=2779237368",
       "label": "ignored incoming suffix opcode=2779237368",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1926,13 +1924,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
-        "gasUsed": "28849"
+        "gasUsed": "28725"
       }
     },
     {
       "name": "ignored incoming suffix opcode=3733193422",
       "label": "ignored incoming suffix opcode=3733193422",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1944,13 +1942,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b6797deed2c2204e774ce89b55ef46c6a14cac5affe7d233dc1e80cbbaf854b1",
-        "gasUsed": "12341"
+        "gasUsed": "12393"
       }
     },
     {
       "name": "ignored incoming suffix opcode=3513996288",
       "label": "ignored incoming suffix opcode=3513996288",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1962,13 +1960,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "feb480aeee2753ac2f6c72a2b30d048681c8abcfc0c64f3f4f5af8715a0f2842",
-        "gasUsed": "8610"
+        "gasUsed": "9282"
       }
     },
     {
       "name": "join established pool",
       "label": "join established pool",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1980,13 +1978,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b493268b61adffd08947d02a8458fb2358cc4375abec789cf4ef92069f38c533",
-        "gasUsed": "25094"
+        "gasUsed": "24235"
       }
     },
     {
       "name": "join refunds asymmetric leftover",
       "label": "join refunds asymmetric leftover",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -1998,13 +1996,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b493268b61adffd08947d02a8458fb2358cc4375abec789cf4ef92069f38c533",
-        "gasUsed": "29570"
+        "gasUsed": "28711"
       }
     },
     {
       "name": "join initial liquidity uses integer root",
       "label": "join initial liquidity uses integer root",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2016,13 +2014,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "0d611aca1ceebd668bff53231d967d97ecd70239ae4af1f4978f13fcca828010",
-        "gasUsed": "26715"
+        "gasUsed": "25900"
       }
     },
     {
       "name": "join minimum rejects and commits full refund",
       "label": "join minimum rejects and commits full refund",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 30,
       "matchesExpectedOriginal": true,
@@ -2034,7 +2032,7 @@
       "after": {
         "exitCode": 30,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "22672"
+        "gasUsed": "21387"
       }
     },
     {
@@ -2052,13 +2050,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "8329"
+        "gasUsed": "7044"
       }
     },
     {
       "name": "join accepts authenticated different shard prefix",
       "label": "join accepts authenticated different shard prefix",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2070,13 +2068,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b493268b61adffd08947d02a8458fb2358cc4375abec789cf4ef92069f38c533",
-        "gasUsed": "25094"
+        "gasUsed": "24235"
       }
     },
     {
       "name": "refund authenticated deposit",
       "label": "refund authenticated deposit",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2088,7 +2086,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "20942"
+        "gasUsed": "19467"
       }
     },
     {
@@ -2106,13 +2104,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "8619"
+        "gasUsed": "7254"
       }
     },
     {
       "name": "claim position fees normalizes excesses",
       "label": "claim position fees normalizes excesses",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2124,7 +2122,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "12267"
+        "gasUsed": "11361"
       }
     },
     {
@@ -2142,13 +2140,13 @@
       "after": {
         "exitCode": 25,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "5654"
+        "gasUsed": "5456"
       }
     },
     {
       "name": "position fee payout",
       "label": "position fee payout",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2160,7 +2158,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "19767"
+        "gasUsed": "18514"
       }
     },
     {
@@ -2178,13 +2176,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "9145"
+        "gasUsed": "7892"
       }
     },
     {
       "name": "controller claims protocol fees",
       "label": "controller claims protocol fees",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2196,7 +2194,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "39d14c70db0a8e0919cbfc0c5a5a29223735b93b72f0acbd012c9bda9a306c14",
-        "gasUsed": "19863"
+        "gasUsed": "19943"
       }
     },
     {
@@ -2214,13 +2212,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "5503"
+        "gasUsed": "5459"
       }
     },
     {
       "name": "creator claims creator fees",
       "label": "creator claims creator fees",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2232,7 +2230,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "4a3dc470f48fe4b50cf9084c4b1d6bb3dd85d5833ce2205a44ca2c9866bc3b14",
-        "gasUsed": "20085"
+        "gasUsed": "19975"
       }
     },
     {
@@ -2250,13 +2248,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "6131"
+        "gasUsed": "5969"
       }
     },
     {
       "name": "withdraw forwards checkpoints limits and normalized config",
       "label": "withdraw forwards checkpoints limits and normalized config",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2268,7 +2266,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "16033"
+        "gasUsed": "15101"
       }
     },
     {
@@ -2286,13 +2284,13 @@
       "after": {
         "exitCode": 25,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "8692"
+        "gasUsed": "8476"
       }
     },
     {
       "name": "exit authenticated position pays proportional reserves and fees",
       "label": "exit authenticated position pays proportional reserves and fees",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2304,7 +2302,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "327e66aacbdae18ddb7f73de93b261ebb448d845c7e33bbe8471c4d69e867ce1",
-        "gasUsed": "27839"
+        "gasUsed": "26696"
       }
     },
     {
@@ -2322,7 +2320,7 @@
       "after": {
         "exitCode": 30,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10678"
+        "gasUsed": "9535"
       }
     },
     {
@@ -2340,7 +2338,7 @@
       "after": {
         "exitCode": 4,
         "dataHash": "12559d432a146c622a0d2ada57ab18cb0f4b220cb0ff5e8b857328614fb9ea18",
-        "gasUsed": "10417"
+        "gasUsed": "9274"
       }
     },
     {
@@ -2358,13 +2356,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10357"
+        "gasUsed": "9214"
       }
     },
     {
       "name": "public state lifecycle=0 fields=0",
       "label": "public state lifecycle=0 fields=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2376,13 +2374,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10121"
+        "gasUsed": "9946"
       }
     },
     {
       "name": "public state lifecycle=0 fields=1",
       "label": "public state lifecycle=0 fields=1",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2394,13 +2392,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10121"
+        "gasUsed": "9946"
       }
     },
     {
       "name": "public state lifecycle=0 fields=2",
       "label": "public state lifecycle=0 fields=2",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2412,13 +2410,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10121"
+        "gasUsed": "9946"
       }
     },
     {
       "name": "public state lifecycle=0 fields=3",
       "label": "public state lifecycle=0 fields=3",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2430,13 +2428,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10121"
+        "gasUsed": "9946"
       }
     },
     {
       "name": "public state lifecycle=0 fields=8",
       "label": "public state lifecycle=0 fields=8",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2448,13 +2446,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10173"
+        "gasUsed": "9870"
       }
     },
     {
       "name": "public state lifecycle=0 fields=11",
       "label": "public state lifecycle=0 fields=11",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2466,13 +2464,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10173"
+        "gasUsed": "9870"
       }
     },
     {
       "name": "public state lifecycle=1 fields=0",
       "label": "public state lifecycle=1 fields=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2484,13 +2482,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10400"
+        "gasUsed": "10225"
       }
     },
     {
       "name": "public state lifecycle=1 fields=1",
       "label": "public state lifecycle=1 fields=1",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2502,13 +2500,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10400"
+        "gasUsed": "10225"
       }
     },
     {
       "name": "public state lifecycle=1 fields=2",
       "label": "public state lifecycle=1 fields=2",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2520,13 +2518,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10400"
+        "gasUsed": "10225"
       }
     },
     {
       "name": "public state lifecycle=1 fields=3",
       "label": "public state lifecycle=1 fields=3",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2538,13 +2536,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10400"
+        "gasUsed": "10225"
       }
     },
     {
       "name": "public state lifecycle=1 fields=8",
       "label": "public state lifecycle=1 fields=8",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2556,13 +2554,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10452"
+        "gasUsed": "10149"
       }
     },
     {
       "name": "public state lifecycle=1 fields=11",
       "label": "public state lifecycle=1 fields=11",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2574,13 +2572,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10452"
+        "gasUsed": "10149"
       }
     },
     {
       "name": "public state lifecycle=2 fields=0",
       "label": "public state lifecycle=2 fields=0",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2592,13 +2590,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10485"
+        "gasUsed": "10310"
       }
     },
     {
       "name": "public state lifecycle=2 fields=1",
       "label": "public state lifecycle=2 fields=1",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2610,13 +2608,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10485"
+        "gasUsed": "10310"
       }
     },
     {
       "name": "public state lifecycle=2 fields=2",
       "label": "public state lifecycle=2 fields=2",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2628,13 +2626,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10485"
+        "gasUsed": "10310"
       }
     },
     {
       "name": "public state lifecycle=2 fields=3",
       "label": "public state lifecycle=2 fields=3",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2646,13 +2644,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10485"
+        "gasUsed": "10310"
       }
     },
     {
       "name": "public state lifecycle=2 fields=8",
       "label": "public state lifecycle=2 fields=8",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2664,13 +2662,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10537"
+        "gasUsed": "10234"
       }
     },
     {
       "name": "public state lifecycle=2 fields=11",
       "label": "public state lifecycle=2 fields=11",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2682,13 +2680,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10537"
+        "gasUsed": "10234"
       }
     },
     {
       "name": "claim reward accrues and forwards selected slot",
       "label": "claim reward accrues and forwards selected slot",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2700,7 +2698,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "166e982fd74f79a3b1b80681687c06144bddd5d08b2dd1a63472832e8c3fb676",
-        "gasUsed": "17431"
+        "gasUsed": "16859"
       }
     },
     {
@@ -2718,7 +2716,7 @@
       "after": {
         "exitCode": 46,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "7414"
+        "gasUsed": "7260"
       }
     },
     {
@@ -2736,13 +2734,13 @@
       "after": {
         "exitCode": 25,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "7318"
+        "gasUsed": "7164"
       }
     },
     {
       "name": "position reward payout",
       "label": "position reward payout",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2754,13 +2752,13 @@
       "after": {
         "exitCode": 0,
         "dataHash": "103bbdee5b28c060da7b993da4679e2fc1445882e7affa8b4e1c3816706a92cf",
-        "gasUsed": "19505"
+        "gasUsed": "18318"
       }
     },
     {
       "name": "position reward sends zero amount",
       "label": "position reward sends zero amount",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2772,7 +2770,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "103bbdee5b28c060da7b993da4679e2fc1445882e7affa8b4e1c3816706a92cf",
-        "gasUsed": "19505"
+        "gasUsed": "18318"
       }
     },
     {
@@ -2790,7 +2788,7 @@
       "after": {
         "exitCode": 42,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "12308"
+        "gasUsed": "11165"
       }
     },
     {
@@ -2808,13 +2806,13 @@
       "after": {
         "exitCode": 23,
         "dataHash": "103bbdee5b28c060da7b993da4679e2fc1445882e7affa8b4e1c3816706a92cf",
-        "gasUsed": "11621"
+        "gasUsed": "10478"
       }
     },
     {
       "name": "authorized code replacement",
       "label": "authorized code replacement",
-      "sameObservedBehavior": false,
+      "sameObservedBehavior": true,
       "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
@@ -2826,7 +2824,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "9599"
+        "gasUsed": "9443"
       }
     },
     {
@@ -2844,17 +2842,16 @@
       "after": {
         "exitCode": 23,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "7556"
+        "gasUsed": "7502"
       }
     },
     {
       "name": "public state reports actual own code lifecycle=0 fields=4",
       "label": "public state reports actual own code lifecycle=0 fields=4",
-      "sameObservedBehavior": false,
-      "sameEffectsAndActions": false,
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
-      "validatedDifference": "self-reported code hash: candidate code is not yet byte-identical",
       "before": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
@@ -2863,17 +2860,16 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10163"
+        "gasUsed": "9998"
       }
     },
     {
       "name": "public state reports actual own code lifecycle=0 fields=15",
       "label": "public state reports actual own code lifecycle=0 fields=15",
-      "sameObservedBehavior": false,
-      "sameEffectsAndActions": false,
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
-      "validatedDifference": "self-reported code hash: candidate code is not yet byte-identical",
       "before": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
@@ -2882,17 +2878,16 @@
       "after": {
         "exitCode": 0,
         "dataHash": "385753cf0e99e45a204394d1af7a944effbbfa8936008119f754410e35b6589c",
-        "gasUsed": "10215"
+        "gasUsed": "9922"
       }
     },
     {
       "name": "public state reports actual own code lifecycle=1 fields=4",
       "label": "public state reports actual own code lifecycle=1 fields=4",
-      "sameObservedBehavior": false,
-      "sameEffectsAndActions": false,
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
-      "validatedDifference": "self-reported code hash: candidate code is not yet byte-identical",
       "before": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
@@ -2901,17 +2896,16 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10442"
+        "gasUsed": "10277"
       }
     },
     {
       "name": "public state reports actual own code lifecycle=1 fields=15",
       "label": "public state reports actual own code lifecycle=1 fields=15",
-      "sameObservedBehavior": false,
-      "sameEffectsAndActions": false,
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
-      "validatedDifference": "self-reported code hash: candidate code is not yet byte-identical",
       "before": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
@@ -2920,17 +2914,16 @@
       "after": {
         "exitCode": 0,
         "dataHash": "a5e83a483cf71b3b97a39ce5037d41f46ce2e19b033c567c723fa0c103e5b4c0",
-        "gasUsed": "10494"
+        "gasUsed": "10201"
       }
     },
     {
       "name": "public state reports actual own code lifecycle=2 fields=4",
       "label": "public state reports actual own code lifecycle=2 fields=4",
-      "sameObservedBehavior": false,
-      "sameEffectsAndActions": false,
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
-      "validatedDifference": "self-reported code hash: candidate code is not yet byte-identical",
       "before": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
@@ -2939,17 +2932,16 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10527"
+        "gasUsed": "10362"
       }
     },
     {
       "name": "public state reports actual own code lifecycle=2 fields=15",
       "label": "public state reports actual own code lifecycle=2 fields=15",
-      "sameObservedBehavior": false,
-      "sameEffectsAndActions": false,
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
       "expectedOriginalExit": 0,
       "matchesExpectedOriginal": true,
-      "validatedDifference": "self-reported code hash: candidate code is not yet byte-identical",
       "before": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
@@ -2958,7 +2950,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "10579"
+        "gasUsed": "10286"
       }
     }
   ]

@@ -18,6 +18,10 @@ depends = []
 src = "CpmmPosition/main.tolk"
 depends = []
 
+[contracts.CpmmPoolV2]
+src = "CpmmPoolV2/main.tolk"
+depends = ["CpmmDeposit", "CpmmPosition", "CpmmAffiliateAccount"]
+
 [test]
 
 [fmt]

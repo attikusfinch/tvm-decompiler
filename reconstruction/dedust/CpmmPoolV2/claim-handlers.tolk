@@ -13,9 +13,26 @@ import "transfers"
 import "payout-config"
 import "transaction-context"
 
+type PoolOptionalProvidedRewards=PoolProvidedRewards | null
+
+// Retain the archived materialized null predicate without emitting an opcode.
+@pure
+fun preservePoolStatePredicate(value:bool):bool asm "nop"
+
+fun PoolOptionalProvidedRewards.packToBuilder(self,mutate b:builder) {
+    if(preservePoolStatePredicate(self == null)) {b.storeBool(false);}
+    else {b.storeBool(true).storeAny(self!);}
+}
+
+// Preserve the callback argument evaluation order of the archived caller.
+// This typed identity emits no TVM instruction and does not change its values.
+@pure
+fun poolRewardCallbackContext(excesses:any_address,queryId:uint64,exitCode:int32):(any_address,uint64,int32) asm "nop"
+
 @inline
-fun poolStandardAddressOrFallback(value:any_address,fallback:any_address):any_address {
-    return value.isInternal() ? value : fallback;
+fun poolStandardAddressOrFallback(value:any_address,in:PoolInboundContext):any_address {
+    if(!value.isInternal()) {value=in.senderAddress();}
+    return value;
 }
 
 @overflow1023_policy("suppress")
@@ -27,58 +44,58 @@ struct (0x25f19752) PoolClaimAvailableFees {
 }
 
 @inline
-fun claimPoolPositionFees(storage:PoolStorage,message:ClaimPositionFees,sender:any_address,incomingValue:coins) {
+fun claimPoolPositionFees(storage:PoolStorage,message:ClaimPositionFees,in:PoolInboundContext) {
     assert(storage.status is PoolInitialized) throw 22;
     val config=PoolConfig.fromCell(storage.config);
     val assetsToPay=(config.feeIn is FeeFromBoth) ? 2 : 1;
     val budget=contract.getStoragePaidPayment()+calculateGasFee(0,11500)+calculateGasFee(0,6500)+calculateGasFee(0,21000)+assetsToPay*50000000;
-    assert(budget <= incomingValue) throw 25;
+    assert(budget <= in.valueCoins()) throw 25;
     val fees=PoolFees.fromCell(storage.fees);
-    val destination=positionDeployment(sender).calculateArchivedAddress();
-    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,sender);
+    val destination=positionDeployment(in.senderAddress()).calculateArchivedAddressBuilder();
+    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,in);
     val body=PoolClaimAvailableFees{queryId:message.queryId,excessesTo,xCheckpoint:fees.xCheckpoint,yCheckpoint:fees.yCheckpoint}.toCell();
-    val output=beginCell().storeUint(0x10,6).storeSlice(destination as slice).storeUint(1,111).storeRef(body).endCell();
+    val output=beginCell().storeUint(0x10,6).storeBuilder(destination).storeUint(1,111).storeRef(body).endCell();
     sendRawMessage(output,64);
 }
 
 @inline
-fun payoutPoolPositionFees(storage:PoolStorage,message:PayoutPositionFees,sender:any_address) {
-    assertPoolDeploymentSender(positionDeployment(message.owner),sender);
+fun payoutPoolPositionFees(storage:PoolStorage,message:PayoutPositionFees,in:PoolInboundContext) {
+    assertPoolDeploymentSender(positionDeployment(message.owner),in);
     val wallets=PoolExtra.fromCell(storage.extra).wallets;
     settlePoolAssets(message.queryId,storage.config,wallets,message.x,message.y,
         {destination:message.owner,extraGas:0,payload:null,wrapPayload:false},message.excessesTo,false);
 }
 
 @inline
-fun claimPoolProtocolFees(storage:PoolStorage,message:ClaimProtocolFees,sender:any_address,incomingValue:coins) {
+fun claimPoolProtocolFees(storage:PoolStorage,message:ClaimProtocolFees,in:PoolInboundContext) {
     assert(storage.status is PoolInitialized) throw 22;
     val extra=PoolExtra.fromCell(storage.extra);
-    assert((sender as slice).bitsEqual(extra.controller as slice)) throw 23;
+    assert((in.senderAddress() as slice).bitsEqual(extra.controller as slice)) throw 23;
     val config=PoolConfig.fromCell(storage.config);
     val assetsToPay=(config.feeIn is FeeFromBoth) ? 2 : 1;
-    assert(contract.getStoragePaidPayment()+calculateGasFee(0,22000)+assetsToPay*50000000 <= incomingValue) throw 25;
+    assert(contract.getStoragePaidPayment()+calculateGasFee(0,22000)+assetsToPay*50000000 <= in.valueCoins()) throw 25;
     var fees=PoolFees.fromCell(storage.fees);
-    val to=poolStandardAddressOrFallback(message.to,sender);
-    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,sender);
+    val options:PoolPayoutOptions={destination:poolStandardAddressOrFallback(message.to,in),extraGas:0,payload:null,wrapPayload:false};
+    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,in);
     settlePoolAssets(message.queryId,storage.config,extra.wallets,fees.protocolX,fees.protocolY,
-        {destination:to,extraGas:0,payload:null,wrapPayload:false},excessesTo,false);
+        options,excessesTo,false);
     fees.protocolX=0;fees.protocolY=0;
     storage.fees=fees.toCell();contract.setData(storage.toCell());
 }
 
 @inline
-fun claimPoolCreatorFees(storage:PoolStorage,message:ClaimCreatorFees,sender:any_address,incomingValue:coins) {
+fun claimPoolCreatorFees(storage:PoolStorage,message:ClaimCreatorFees,in:PoolInboundContext) {
     assert(storage.status is PoolInitialized) throw 22;
     val config=PoolConfig.fromCell(storage.config);
-    assert((sender as slice).bitsEqual(config.creator as slice)) throw 23;
+    assert((in.senderAddress() as slice).bitsEqual(config.creator as slice)) throw 23;
     val assetsToPay=(config.feeIn is FeeFromBoth) ? 2 : 1;
-    assert(contract.getStoragePaidPayment()+calculateGasFee(0,22000)+assetsToPay*50000000 <= incomingValue) throw 25;
+    assert(contract.getStoragePaidPayment()+calculateGasFee(0,22000)+assetsToPay*50000000 <= in.valueCoins()) throw 25;
     var fees=PoolFees.fromCell(storage.fees);
     val wallets=PoolExtra.fromCell(storage.extra).wallets;
-    val to=poolStandardAddressOrFallback(message.to,sender);
-    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,sender);
+    val options:PoolPayoutOptions={destination:poolStandardAddressOrFallback(message.to,in),extraGas:0,payload:null,wrapPayload:false};
+    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,in);
     settlePoolAssets(message.queryId,storage.config,wallets,fees.creatorX,fees.creatorY,
-        {destination:to,extraGas:0,payload:null,wrapPayload:false},excessesTo,false);
+        options,excessesTo,false);
     fees.creatorX=0;fees.creatorY=0;
     storage.fees=fees.toCell();contract.setData(storage.toCell());
 }
@@ -95,61 +112,73 @@ struct (0x2e0cccba) PoolClaimPositionReward {
 }
 
 @inline
-fun claimPoolReward(storage:PoolStorage,message:ClaimReward,sender:any_address,incomingValue:coins) {
+fun claimPoolReward(storage:PoolStorage,message:ClaimReward,in:PoolInboundContext) {
     assert(storage.status is PoolInitialized) throw 22;
     val budget=contract.getStoragePaidPayment()+(poolOriginalForwardFee() << 2)+calculateGasFee(0,18500)+
         calculateGasFee(0,10000)+calculateGasFee(0,19000)+50000000;
-    assert(budget <= incomingValue) throw 25;
+    assert(budget <= in.valueCoins()) throw 25;
     val reward=accruePoolReward(storage.rewards.mustGet(message.rewardId,46),storage.liquidity);
     storage.rewards.set(message.rewardId,reward);contract.setData(storage.toCell());
     reserveToncoinsOnBalance(contract.getStoragePaidPayment(),4);
-    val destination=positionDeployment(sender).calculateArchivedAddress();
-    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,sender);
+    val destination=positionDeployment(in.senderAddress()).calculateArchivedAddressBuilder();
+    val excessesTo=poolStandardAddressOrFallback(message.excessesTo,in);
     val body=PoolClaimPositionReward{queryId:message.queryId,rewardId:message.rewardId,
         remainingTime:reward.remainingTime,remainingBudget:reward.remainingBudget,checkpoint:reward.checkpoint,lastUpdate:reward.lastUpdate,excessesTo}.toCell();
-    val output=beginCell().storeUint(0x10,6).storeSlice(destination as slice).storeUint(1,111).storeRef(body).endCell();
+    val output=beginCell().storeUint(0x10,6).storeBuilder(destination).storeUint(1,111).storeRef(body).endCell();
     sendRawMessage(output,128);
 }
 
 @inline
-fun payoutPoolReward(storage:PoolStorage,message:PayoutReward,sender:any_address) {
-    assertPoolDeploymentSender(positionDeployment(message.owner),sender);
+fun payoutPoolReward(storage:PoolStorage,message:PayoutReward,in:PoolInboundContext) {
+    assertPoolDeploymentSender(positionDeployment(message.owner),in);
     val config=PoolConfig.fromCell(storage.config);
     val asset=config.allowedRewards.mustGet(message.rewardId,42).asset;
     val wallets=PoolExtra.fromCell(storage.extra).wallets;
     val previousBalance=contract.getOriginalBalance()+contract.getStoragePaidPayment()-poolIncomingCoins();
     val wallet=poolWalletForAsset(wallets,asset);
     // Unlike two-asset settlement, this handler sends even a zero amount.
+    val options:PoolPayoutOptions={destination:message.owner,extraGas:0,payload:null,wrapPayload:false};
+    val (callbackExcesses,callbackQuery,callbackExit)=poolRewardCallbackContext(message.excessesTo,message.queryId,0);
     val (principal,fee)=sendPoolPayment(asset,wallet,message.amount,
-        {destination:message.owner,extraGas:0,payload:null,wrapPayload:false},message.excessesTo,message.queryId,0);
-    reserveToncoinsOnBalance(previousBalance+fee-principal,2);
+        options,callbackExcesses,callbackQuery,callbackExit);
+    reserveToncoinsOnBalance(previousBalance+(fee-principal),2);
     sendPoolExcesses(message.excessesTo,message.queryId,128);
 }
 
 @inline
-fun providePoolState(storage:PoolStorage,message:ProvidePoolState,sender:any_address) {
+fun providePoolState(storage:PoolStorage,message:ProvidePoolState,in:PoolInboundContext) {
     reserveToncoinsOnBalance(contract.getStoragePaidPayment(),4);
+    val recipient=in.senderAddress();
     val config=message.includeConfig ? storage.config : null;
     val fees=message.includeFees ? storage.fees : null;
-    val codeHash=message.includeCodeHash ? contract.getCode().hash() : null;
-    var body=beginCell().storeUint(0x870a9579,32).storeUint(message.queryId,64);
-    if(storage.status is PoolUninitialized) {body.storeUint(0,2);}
-    else if(storage.status is PoolInitializing) {body.storeUint(1,2).storeSlice(storage.status.initiator as slice);}
-    else {body.storeUint(2,2);}
-    body.storeBool(storage.depositActive).storeBool(storage.swapActive).storeCoins(storage.liquidity)
-        .storeCoins(storage.reserveX).storeCoins(storage.reserveY).storeDict(config).storeDict(fees);
-    body.storeBool(message.includeRewards);
-    if(message.includeRewards) {body.storeDict(storage.rewards.toLowLevelDict());}
-    body.storeBool(codeHash != null);
-    if(codeHash != null) {body.storeUint(codeHash!,256);}
-    val output=beginCell().storeUint(0x10,6).storeSlice(sender as slice).storeUint(1,111).storeRef(body.endCell()).endCell();
+    val rewards:PoolOptionalProvidedRewards=message.includeRewards ? PoolProvidedRewards{rewards:storage.rewards} : null;
+    val codeHash:uint256?=message.includeCodeHash ? contract.getCode().hash() : null;
+    val body=PoolStateResponse{queryId:message.queryId,status:storage.status,
+        depositActive:storage.depositActive,swapActive:storage.swapActive,liquidity:storage.liquidity,
+        reserveX:storage.reserveX,reserveY:storage.reserveY,config,fees,rewards,codeHash}.toCell();
+    val output=beginCell().storeUint(0x10,6).storeSlice(recipient as slice).storeUint(1,111).storeRef(body).endCell();
     sendRawMessage(output,128);
 }
 
+@overflow1023_policy("suppress")
+struct (0x870a9579) PoolStateResponse {
+    queryId:uint64
+    status:PoolStatus
+    depositActive:bool
+    swapActive:bool
+    liquidity:coins
+    reserveX:coins
+    reserveY:coins
+    config:cell?
+    fees:cell?
+    rewards:PoolOptionalProvidedRewards
+    codeHash:uint256?
+}
+
 @inline
-fun upgradePool(storage:PoolStorage,message:UpgradePool,sender:any_address) {
+fun upgradePool(storage:PoolStorage,message:UpgradePool,in:PoolInboundContext) {
     val extra=PoolExtra.fromCell(storage.extra);
-    assert((extra.controller as slice).bitsEqual(sender as slice)) throw 23;
+    assert((extra.controller as slice).bitsEqual(in.senderAddress() as slice)) throw 23;
     contract.setCodePostponed(message.code);
-    sendPoolExcesses(sender,message.queryId,128);
+    sendPoolExcesses(in.senderAddress(),message.queryId,128);
 }

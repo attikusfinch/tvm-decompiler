@@ -43,7 +43,27 @@ Commit and push verified portions to the authorized fork. Keep an explicit statu
 for every family and unresolved difference; do not mark all recovered because a
 single role or its assembler reference passes.
 
-## Current baseline
+## Current accepted results
+
+Readable byte-identical recovery is **4/21 families**: CPMM Deposit,
+AffiliateAccount, Position and Pool V2. Pool V2's complete 10032-byte serialized
+BOC and all ten method dictionary values equal the frozen mainnet oracle.
+The shared Acton project passes **68 tests**. The whole-Pool fixture compares
+109 message probes and 12 getter probes, including outgoing amounts, exact gas
+and six independently expected self-code responses. No output normalization or
+original executable embedding is used to obtain identity.
+
+Pool V2's production entrypoint is `CpmmPoolV2/main.tolk`; `candidate.tolk` is a
+compatibility import. The exact dispatcher fixture adds 113 isolated probes.
+Wallet scheduling retains the full map record's original stack width; handler
+branches, lazy transaction reads, liquidity updates, optional state fields,
+refunds and callback evaluation now preserve the original instructions and
+reference boundaries. The next complete contract is Pool V1; 17 families remain.
+
+## Recovery history
+
+The milestones below record intermediate states. Their earlier counts and open
+Pool V2 differences were superseded by the accepted result above.
 
 - Archive: 21 unique executable code families (22 folders including an alias).
 - Decompiled Tolk: 10 complete, 8 compile, 0 byte-identical.

@@ -12,16 +12,28 @@ import "payout-basic"
 import "events"
 import "math"
 import "transaction-context"
+import "stdlib-legacy-stateinit"
+import "deployment-message"
+
+@pure
+fun poolLiquidityIsZero(value:coins):bool asm "0 EQINT"
 
 @inline
-fun assertPoolDeploymentSender(deployment:AutoDeployAddress,sender:any_address) {
-    val expected=deployment.calculateArchivedAddress();
-    val (expectedWorkchain,expectedHash)=expected.getWorkchainAndHash();
-    val (senderWorkchain,senderHash)=sender.getWorkchainAndHash();
+fun assertPoolDeploymentSender(deployment:AutoDeployAddress,in:PoolInboundContext) {
+    val state=deployment.stateInit;
     val shard=deployment.toShard;
-    val mask=shard == null ? -1 : (1 << (256-shard!.fixedPrefixLength))-1;
+    val sender=in.senderAddress();
+    var stateHash:uint256;
+    if(state is ContractState) {
+        if(shard is AddressShardingOptions) {
+            stateHash=archivedStateHashPrefix(shard.fixedPrefixLength,state.code,state.data);
+        } else {stateHash=archivedStateHash(state.code,state.data);}
+    } else {stateHash=state.hash();}
     // The archived check ignores the shard prefix on both addresses.
-    assert(senderWorkchain == expectedWorkchain && (senderHash & mask) == (expectedHash & mask)) throw 23;
+    if(shard is AddressShardingOptions) {stateHash &= (1 << (256-shard.fixedPrefixLength))-1;}
+    var (senderWorkchain,senderHash)=sender.getWorkchainAndHash();
+    if(shard is AddressShardingOptions) {senderHash &= (1 << (256-shard.fixedPrefixLength))-1;}
+    assert(((senderHash == stateHash) as int & (senderWorkchain == deployment.workchain) as int) != 0) throw 23;
 }
 
 @overflow1023_policy("suppress")
@@ -38,26 +50,33 @@ struct (0x855afcbd) PoolCreditLiquidity {
 }
 
 @inline
-fun joinPoolLiquidity(storage:PoolStorage,message:JoinLiquidity,sender:any_address) {
+fun joinPoolLiquidity(storage:PoolStorage,message:JoinLiquidity,in:PoolInboundContext) {
     val deposit=InitialDepositConfig.fromCell(message.config);
     assertPoolDeploymentSender(depositDeployment(message.initiator,deposit.targetX,deposit.targetY,
-        deposit.minimalLiquidity,deposit.lockedShare,deposit.payout),sender);
+        deposit.minimalLiquidity,deposit.lockedShare,deposit.payout),in);
     val wallets=PoolExtra.fromCell(storage.extra).wallets;
     try {
         val rewards=synchronizePoolRewards(storage.rewards,storage.liquidity);
         var usedX=message.x;var usedY=message.y;
         var minted:coins;
-        if(storage.liquidity == 0) {minted=poolLiquiditySqrt(message.x*message.y);}
+        if(poolLiquidityIsZero(storage.liquidity)) {minted=poolLiquiditySqrt(message.x*message.y);}
         else {
-            usedX=min(message.x,mulDivFloor(message.y,storage.reserveX,storage.reserveY));
-            usedY=min(message.y,mulDivFloor(usedX,storage.reserveY,storage.reserveX));
+            usedX=min(usedX,mulDivFloor(usedY,storage.reserveX,storage.reserveY));
+            usedY=min(usedY,mulDivFloor(usedX,storage.reserveY,storage.reserveX));
             minted=min(mulDivFloor(usedX,storage.liquidity,storage.reserveX),mulDivFloor(usedY,storage.liquidity,storage.reserveY));
         }
         val checkedDeposit=InitialDepositConfig.fromCell(message.config);
         assert(minted > 0 && minted >= checkedDeposit.minimalLiquidity) throw 30;
         storage.reserveX+=usedX;storage.reserveY+=usedY;storage.liquidity+=minted;
-        storage.rewards=rewards;storage.depositActive=true;
-        contract.setData(storage.toCell());
+        storage.depositActive=true;
+        // Copy the new reward map when its field is stored, retaining the same
+        // original map value for the following Position credit message.
+        var updatedStorage=beginCell().storeRef(storage.config).storeRef(storage.fees).storeRef(storage.extra);
+        updatedStorage.storeDict(rewards.toLowLevelDict());
+        updatedStorage.storeAny(storage.status).storeBool(storage.depositActive).storeBool(storage.swapActive)
+            .storeCoins(storage.liquidity).storeCoins(storage.reserveX).storeCoins(storage.reserveY);
+        contract.setData(updatedStorage.endCell());
+        storage.rewards=rewards;
         val payout=PoolExtendedPayout.fromCell(checkedDeposit.payout);
         val nextState=beginCell().storeCoins(storage.reserveX).storeCoins(storage.reserveY).storeCoins(storage.liquidity).storeRef(storage.fees).endCell();
         emitPoolDeposit({amountX:usedX,amountY:usedY,liquidity:minted,initiator:message.initiator,
@@ -65,10 +84,12 @@ fun joinPoolLiquidity(storage:PoolStorage,message:JoinLiquidity,sender:any_addre
         settlePoolAssets(message.queryId,storage.config,wallets,message.x-usedX,message.y-usedY,payout.fulfill,payout.excessesTo,true);
         val fees=PoolFees.fromCell(storage.fees);
         val position=positionDeployment(payout.fulfill.destination);
-        createMessage({bounce:BounceMode.NoBounce,value:0,dest:position,body:PoolCreditLiquidity{
+        val credit=PoolCreditLiquidity{
             queryId:message.queryId,liquidity:minted,lockedShare:checkedDeposit.lockedShare,notifyGas:payout.fulfill.extraGas,
             payload:payout.fulfill.payload,receiver:payout.excessesTo,xCheckpoint:fees.xCheckpoint,yCheckpoint:fees.yCheckpoint,rewards,
-        }}).send(128);
+        }.toCell();
+        val output=archivedPoolRefDeploymentHeader(position).storeRef(credit).endCell();
+        sendRawMessage(output,128);
     } catch(code,value) {
         val rejected=InitialDepositConfig.fromCell(message.config);
         val payout=PoolExtendedPayout.fromCell(rejected.payout);
@@ -78,10 +99,10 @@ fun joinPoolLiquidity(storage:PoolStorage,message:JoinLiquidity,sender:any_addre
 }
 
 @inline
-fun refundPoolDeposit(storage:PoolStorage,message:RefundDeposit,sender:any_address) {
+fun refundPoolDeposit(storage:PoolStorage,message:RefundDeposit,in:PoolInboundContext) {
     val deposit=InitialDepositConfig.fromCell(message.config);
     assertPoolDeploymentSender(depositDeployment(message.initiator,deposit.targetX,deposit.targetY,
-        deposit.minimalLiquidity,deposit.lockedShare,deposit.payout),sender);
+        deposit.minimalLiquidity,deposit.lockedShare,deposit.payout),in);
     val checkedDeposit=InitialDepositConfig.fromCell(message.config);
     val payout=PoolExtendedPayout.fromCell(checkedDeposit.payout);
     val wallets=PoolExtra.fromCell(storage.extra).wallets;
@@ -101,25 +122,25 @@ struct (0xbc1531a9) PoolWithdrawLiquidity {
 }
 
 @inline
-fun requestPoolWithdrawal(storage:PoolStorage,message:Withdraw,sender:any_address,incomingValue:coins) {
+fun requestPoolWithdrawal(storage:PoolStorage,message:Withdraw,in:PoolInboundContext) {
     assert(storage.status is PoolInitialized) throw 22;
     storage.rewards=synchronizePoolRewards(storage.rewards,storage.liquidity);
     contract.setData(storage.toCell());
-    val payout=normalizePoolBasicPayout(PoolBasicPayout.fromCell(message.payout),sender);
+    val payout=normalizePoolBasicPayout(PoolBasicPayout.fromCell(message.payout),in.senderAddress());
     val budget=contract.getStoragePaidPayment()+(poolOriginalForwardFee() << 2)+calculateGasFee(0,25000)+
         calculateGasFee(0,20000)+calculateGasFee(0,29000)+((50000000+payout.options.extraGas) << 1);
-    assert(budget <= incomingValue) throw 25;
+    assert(budget <= in.valueCoins()) throw 25;
     val fees=PoolFees.fromCell(storage.fees);
-    val destination=positionDeployment(sender).calculateArchivedAddress();
+    val destination=positionDeployment(in.senderAddress()).calculateArchivedAddressBuilder();
     val body=PoolWithdrawLiquidity{queryId:message.queryId,liquidity:message.liquidity,minX:message.minX,minY:message.minY,
         xCheckpoint:fees.xCheckpoint,yCheckpoint:fees.yCheckpoint,rewards:storage.rewards,claimFees:message.claimFees,payout:payout.toCell()}.toCell();
-    val output=beginCell().storeUint(0x10,6).storeSlice(destination as slice).storeUint(1,111).storeRef(body).endCell();
+    val output=beginCell().storeUint(0x10,6).storeBuilder(destination).storeUint(1,111).storeRef(body).endCell();
     sendRawMessage(output,64);
 }
 
 @inline
-fun exitPoolLiquidity(storage:PoolStorage,message:ExitLiquidity,sender:any_address) {
-    assertPoolDeploymentSender(positionDeployment(message.owner),sender);
+fun exitPoolLiquidity(storage:PoolStorage,message:ExitLiquidity,in:PoolInboundContext) {
+    assertPoolDeploymentSender(positionDeployment(message.owner),in);
     val amountX=mulDivFloor(storage.reserveX,message.liquidity,storage.liquidity);
     val amountY=mulDivFloor(storage.reserveY,message.liquidity,storage.liquidity);
     assert(amountX >= message.minX && amountY >= message.minY) throw 30;

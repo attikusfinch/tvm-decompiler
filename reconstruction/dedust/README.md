@@ -1,192 +1,129 @@
 # DeDust reconstruction
 
-This directory separates frozen mainnet oracles, editable TVM instruction
-references, and recovered Tolk logic. It is **not** the original DeDust source.
-Names and layout descriptions are inferred from the public ABI and the code.
+Readable, byte-identical Tolk recovery is verified for **4 of 21 archived code
+families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition and CpmmPoolV2.
+The sources describe executable behavior; original names and comments are unknown.
 
-Current verified results: **CpmmDeposit**, **CpmmAffiliateAccount** and **CpmmPosition** compile with Acton 1.0.0 / Tolk 1.4.0.
-Deposit compiles
-to executable code `2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825`.
-With BOC serialization `idx=false, crc32=true`, the complete 522-byte file equals
-the frozen mainnet oracle byte-for-byte. Its 9 getter probes, 21 message probes and
-7 Acton tests pass. AffiliateAccount's complete 306-byte BOC also equals mainnet
-(`4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6`);
-its 6 getter probes, 21 message probes and 5 Acton tests pass. State, actions,
-outgoing messages, exits and gas are compared.
+| Contract | Serialized BOC | Getter probes | Message probes |
+| --- | ---: | ---: | ---: |
+| CpmmDeposit | 522 bytes | 9 | 21 |
+| CpmmAffiliateAccount | 306 bytes | 6 | 21 |
+| CpmmPosition | 1540 bytes | 14 | 49 |
+| CpmmPoolV2 | 10032 bytes | 12 | 109 |
 
-Position's complete 1540-byte BOC equals mainnet
-(`dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6`);
-14 getter probes, 49 message probes and 8 Acton tests pass. Together the three
-contracts have 120 differential probes and 20 native Acton tests.
+Each source-built contract equals its frozen mainnet oracle, including the complete
+cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
+exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
+expectations check decoded results and economic calculations. The shared Acton
+project passes **68 native tests**. See `verification.json` for per-family results.
 
-The Pool's reward accrual and reward-dictionary modules now compile to their
-original shared code cells in both revisions. They add 64 independent probes and
-5 native Acton module tests, bringing the Acton project to 25 tests. Their module
-proof is in `CpmmPoolV2/rewards-verification.json`; the complete Pool remains open.
+All 21 families also have exact, editable `reference.tasm` instruction references.
+The remaining **17 families** have not passed readable-source acceptance. Their
+instruction references do not establish readable recovery.
 
-Position/Deposit deployment and the entire `get_position_address` getter also
-match their cells in both Pool revisions. Their 62 differential probes include
-gas and independent expectations; four Acton module tests bring the project to
-29 native tests. See `CpmmPoolV2/addresses-verification.json`. The compatibility
-module retains the attributed LGPL-licensed old Tolk stdlib StateInit primitives.
+## Pool V2
 
-Four wallet registry helpers also match both Pool revisions. Their isolated build
-is byte-identical and 39 differential probes with gas plus four native module tests
-pass (`CpmmPoolV2/wallets-verification.json`). The project now has 33 Acton tests.
+`CpmmPoolV2/main.tolk` dispatches all 16 incoming variants through named lifecycle,
+payment, liquidity, fee, reward, state and upgrade handlers. `candidate.tolk` remains
+a compatibility import of that entrypoint. `npm run dedust:pool-handlers` verifies
+109 complete-contract message probes and 12 getter probes. Six state responses
+independently verify the actual code hash, without rewriting either output.
 
-All three public Pool getters are now exact in both revisions. The typed storage
-and getter sources pass a complete isolated BOC comparison and 202 independent
-differential probes including gas. Four Acton tests bring the project to 37 native
-tests. See `CpmmPoolV2/getters-verification.json`; full Pool recovery is still open.
+The full 10032-byte BOC equals mainnet, with code hash
+`6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0`.
+All ten dictionary values match: 0, 19–24, 72157, 81689 and 112421. Method 0 includes
+the exact incoming union decoder and every handler. `candidate-progress.json`
+records source hashes, compilation identity and all behavior comparisons.
 
-Initial-liquidity integer square root, payout address normalization and allowed
-reward lookup also match both Pool revisions' implementations. Their isolated
-BOC is exact; 229 independent probes with gas and four Acton tests pass. The
-project now has 41 native tests. See `CpmmPoolV2/calculations-verification.json`.
+Method 20 recovers swaps, deposits, reward funding, activation, continuation
+routing and rejection context. `npm run dedust:pool-processing` checks its complete
+isolated fixture against archived method bodies in the same dictionary layout:
+113 probes compare state, actions, outgoing values and gas. Independent expectations
+cover reserve and fee accounting, swap events, reward budget/duration, rounding,
+malformed input and failure context. Its complete dictionary value has hash
+`33c68c47a272507a261c084d7a6fe14f37a7e1d9ddd7906f419a8017a2aa35f2`.
 
-The three Pool event methods are exact as well. An isolated complete BOC and 56
-probes verify raw action lists, ABI bodies, gas and independent forwarding fees.
-Three Acton tests bring the project to 44 native tests. See
-`CpmmPoolV2/events-verification.json`. Getter/math bounds now include the full
-120-bit maximum of `VarUInteger 16`.
+Compatibility details preserve instruction order and cell placement: referenced
+method entries, typed CALLDICT bridges, legacy StateInit primitives, union tags,
+nullable codecs and original stack widths. Small typed asm operations contain no
+original executable cells or BOC blobs. The wallet-resolution helper carries the
+complete wallet-map record, and transaction fields are read at their original
+points. Fee/zero tests retain the original branch order. Liquidity and reward
+updates preserve eager validation, reserve calculation and message serialization.
 
-The complete Pool V2 candidate also preserves the original dictionary values of
-methods 19, 20, 21, 22, 23 and 24, including their referenced implementation cells.
-Readable `@inline_ref` entry bodies and typed `CALLDICT` bridges preserve both
-placement and calls. Together with the three getters, nine complete dictionary
-values match the frozen whole contract. Method 0 remains outside the exact gate;
-full Pool byte equality is still pending.
+The emulator resolves Deposit, Position and AffiliateAccount libraries compiled
+from recovered source. Oracle executable bodies appear only on the comparison
+side; they are never substituted into a source build.
 
-Pool V2's entire incoming-message union decoder is also exact. Ref/inline TEP74
-payload decoding preserves malformed-reference failure before the refund handler
-and before storage decoding. Transaction fields are read inside each handler,
-and method 20 preserves its complete original code tree. The full
-candidate passes 103 state/action probes, 6 declared self-code differences and
-12 exact getter probes. Entry point 0 still differs from the original.
+## Shared Pool modules
 
-Excesses sending, payout-wallet selection, reward lookup and both resolver-request
-revisions are exact. Pool V2 adds a 10,000,000 processing-fee floor that V1 lacks;
-a custom local gas-price fixture verifies this difference. The isolated BOC and
-192 probes with gas, send actions and independent fee/dictionary expectations pass.
-There are now 48 native Acton tests. See `CpmmPoolV2/transfers-verification.json`.
+Both Pool revisions share independently verified helpers. Their proof files in
+`CpmmPoolV2/` record exact module code and independent probes, including gas:
 
-Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
-`npm run dedust:pool-decompile` checks 33 getter cases per revision against the
-frozen code and independent expectations, including the Position address derived
-from an exotic library reference. Pool bytecode and readable recovery remain
-unfinished; these getter checks do not establish full message-path equivalence.
+| Proof | Coverage | Probes |
+| --- | --- | ---: |
+| rewards-verification.json | Reward accrual and dictionary synchronization | 64 |
+| addresses-verification.json | Position/Deposit deployment and address getter | 62 |
+| wallets-verification.json | Resolver scheduling and both lookup directions | 39 |
+| getters-verification.json | All three public getters | 202 |
+| calculations-verification.json | Integer root, payout normalization, reward lookup | 229 |
+| events-verification.json | Swap, deposit and withdrawal events | 56 |
+| transfers-verification.json | Excesses, payout wallet, resolver requests, reward lookup | 192 |
+| payment-verification.json | TON/jetton payouts and callbacks | 160 |
+| routing-verification.json | Continuations and AffiliateAccount deployment | 193 |
+| settlement-verification.json | Reserve, payouts and excesses | 139 |
 
-All 21 unique code families have exact, editable `reference.tasm` files. Those
-files are instruction references, **not** evidence that the remaining 18 contracts
-have readable recovered Tolk. See `verification.json` for per-contract status and
-`../../docs/dedust-reconstruction-spec.md` for acceptance gates and remaining work.
+Pool V2 adds a 10,000,000 minimum processing fee to wallet resolution; V1 lacks
+it. A low-gas-price configuration verifies this distinction. These shared proofs
+alone do not establish complete Pool V1 recovery.
 
 ## Reproduce
 
-Install the pinned Node dependencies with `npm ci` in `regression/`. Install Acton
-1.0.0 and use its Tolk 1.4.0 compiler and SDK. On Windows the harness uses Ubuntu
-WSL; set `ACTON_WSL_PATH` if the binary is not `/home/fiscaldev/.acton/bin/acton`.
+Install pinned Node dependencies with `npm ci` in `regression/`. Install Acton
+1.0.0 with Tolk 1.4.0. On Windows the harness invokes Ubuntu WSL:
 
 ```powershell
 cd F:\dedust\tvm-decompiler\regression
 $env:ACTON_WSL_PATH='/home/fiscaldev/.acton/bin/acton'
 npm run dedust:recovery
+npm run dedust:pool-handlers
+npm run dedust:pool-processing
 ```
 
-The build reads Tolk sources, invokes Acton, and serializes the resulting cell.
-It never substitutes code from `oracles/`. The frozen BOCs are used only for
-independent comparisons and the oracle half of local emulation tests. Temporary
-build output goes into `build/`; the full proof report is `verification.json`.
+Builds read editable Tolk and serialize the compiler output. Frozen BOCs in
+`oracles/` serve only as independent comparisons and local emulator oracles.
+Temporary output goes into `build/` and `regression/artifacts/`.
 
-## Exact layout details in Deposit
+## Other recovered contracts
 
-- Addresses use `any_address`: the original reads `LDMSGADDR`, including legal
-  non-standard/none encodings. Narrowing them to `address` emits different checks.
-- Config and payout loading remains eager. Discarded fields are still decoded and
-  trailing bits/references are rejected, as in the original.
-- A compile-time outgoing-union registration function preserves incoming union
-  IDs 132/133. The function emits no runtime code. Those IDs are compiler details,
-  not public opcodes or guessed original type names.
-- One typed asm helper packs the declared `DepositStorage` field order and sets
-  c4 in a referenced code cell, preserving the physical layout of dictionary entry
-  2. Its instructions are explicit; it contains no BOC/base64 executable blob.
-- Manual message headers preserve the original combined stores and their modes.
+Deposit preserves any-address decoding, eager configuration reads, strict nested
+records and message headers. A typed storage helper retains the referenced c4
+write. Its code hash is
+`2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825`.
 
-The exact instruction-reference assembler uses a scoped compatibility adapter for
-`@ton/tasm` 0.6.1's exotic-cell encoder. Its tests distinguish an actual library
-reference from ordinary data containing identical bytes.
+AffiliateAccount requires no asm inserts. It preserves suffix handling, strict
+getters and fixed-width metadata. Its code hash is
+`4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6`.
 
-AffiliateAccount requires no asm inserts. It keeps incoming/storage suffix handling
-separate from the strict getter. `bits1` and `bits272` are loaded eagerly with fixed
-widths; storing them skips added compiler validation to preserve the original
-instruction sequence. An unused union-registration function fixes the getter's
-132/133 type IDs. The inferred names `authority`, `owner` and message names describe
-the executable behavior and are not asserted to be original identifiers.
-
-## Exact layout details in Position
-
-The source recovers liquidity locking, 120-bit fixed-point fee/reward accrual,
-reward dictionary iteration, public state responses, authorization and three
-bounce compensation paths. The failed-withdrawal handler sends excesses, commits
-the actions and rethrows. Getters deliberately accept partial fee records that
-the mutation paths reject.
-
-Four small typed asm helpers preserve specific operations: two independent zero
-constants for an empty reward, `EQINT 0`, `CONDSEL` for optional fees, and `NIP`
-to select a wide nullable struct's variant slot. The optional reward serializer
-is written in Tolk and keeps the original zero-variant-first branch order. These
-helpers contain no original executable cells or BOC payloads. Arithmetic uses
-`mulDivFloor(..., 1 << 120)` so its intermediate multiplication remains 512-bit.
-
-The decompiler's branch merge now joins the types of all incoming slots. A tagged
-union may reuse one physical slot for an integer in one arm and a cell in another;
-assuming the first arm's type incorrectly rejected the original Position code.
-
-## Exact Pool V2 payment dispatcher
-
-`CpmmPoolV2/processing.tolk` recovers method 20's swaps, deposits, reward funding,
-activation, fee splitting, continuation routing and five-field rejection context.
-`npm run dedust:pool-processing` runs 113 isolated message comparisons against
-the archived V2 method. State, raw actions, outgoing amounts and gas match; independent expectations
-check reserves, fee counters/checkpoints, swap event bodies, reward duration and
-budget, rounding boundaries, malformed input and rejection context. Four native
-Acton tests bring the project to 64 tests.
-
-The complete method-20 dictionary value is byte-identical, including referenced
-continuations, with hash `33c68c47a272507a261c084d7a6fe14f37a7e1d9ddd7906f419a8017a2aa35f2`.
-Its isolated fixture also recompiles to an identical code cell. Both halves retain
-the same dictionary layout so lookup gas is comparable. A typed one-field codec
-preserves legacy reward-union padding and a discarded type anchor registers its
-runtime tag before the activation variants. `processing-progress.json` records
-the proof. The full readable count remains 3/21. The
-emulator resolves three libraries compiled from recovered source; original
-method bodies are used only on the oracle side of the test. Whole Pool message
-handlers and byte identity remain pending.
-
-## Complete readable Pool V2 candidate
-
-`CpmmPoolV2/candidate.tolk` is the entrypoint for a complete readable candidate.
-It dispatches all 16 incoming message variants through named lifecycle, payment,
-liquidity, fee, reward, state and upgrade handlers. `npm run dedust:pool-handlers`
-compares it directly with the complete frozen V2 contract: 103 state/action probes
-match, 12 public-getter probes also match exact gas and independent results, and
-six state-response probes independently validate each contract's own code hash.
-Three native integration tests bring the Acton suite to 67 tests.
-
-The compiled candidate is **not byte-identical**. Gas, carry-balance outgoing
-values and the self-reported code hash differ. `candidate-progress.json` records
-the complete BOC comparison and the declared identity differences; these are not
-normalized into a passing acceptance result. The candidate has no `main.tolk`
-and remains outside the `exact-readable` gate. The verified whole count is 3/21.
+Position recovers liquidity locking, Q120 fee/reward accounting, dictionary
+iteration, authorization, state responses and bounce compensation. Failed
+withdrawals commit excesses and rethrow. Four typed primitive helpers preserve
+individual VM operations. Its code hash is
+`dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6`.
+The decompiler now joins heterogeneous branch-slot types; the real Position
+fixture decodes completely in both output languages.
 
 ## Oracle provenance
 
-`oracles.json` pins every code hash and BOC SHA-256 and preserves discovery
-evidence. Scope: current DeDust mainnet configuration, representative deployed
-revisions, and recursively resolved library code. This is 21 executable code
-families, not all pool/wallet instances. Snapshots were retrieved at different
-times; consensus proofs and the original author's source/compiler were not
-obtained. The related X1000 wallet remains labelled separately from core DeDust.
+`oracles.json` pins code hashes, BOC SHA-256 and discovery evidence. The archive
+covers current DeDust mainnet configuration, representative revisions and
+recursively resolved library code: 21 families, not every deployed instance.
+Snapshots were retrieved at different times. Consensus proofs and original
+source/compiler were not obtained. The related X1000 wallet is labelled separately.
+The scoped `@ton/tasm` 0.6.1 encoder adapter preserves explicit exotic library
+cells. Legacy Tolk stdlib StateInit primitives retain attribution and LGPL licensing.
+
+See `../../docs/dedust-reconstruction-spec.md` for acceptance and remaining work.
 
 Deposit ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/deposit
 Position ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/position

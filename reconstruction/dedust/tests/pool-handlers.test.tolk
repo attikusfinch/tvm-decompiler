@@ -9,6 +9,10 @@ import "../CpmmPoolV2/messages"
 
 fun handlerNone():any_address asm "b{00} PUSHSLICE"
 
+get fun `test recovered Pool V2 code equals mainnet`() {
+    expect(build("CpmmPoolV2").hash()).toEqual(build("pool-v2-oracle","oracles/CpmmPoolV2.boc").hash());
+}
+
 fun handlerState(status:PoolStatus,owner:any_address,asset:any_address,wallet:any_address):PoolStorage {
     val (_,assetHash)=asset.getWorkchainAndHash();
     val (_,walletHash)=wallet.getWorkchainAndHash();

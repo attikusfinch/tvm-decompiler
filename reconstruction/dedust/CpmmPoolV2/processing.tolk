@@ -25,10 +25,9 @@ struct (0xc9a015da) PoolDepositPayload {
 struct (0x2eb87df9) PoolRewardFundingPayload { finishAt: uint40 }
 type PoolPaymentRequest = PoolDepositPayload | PoolSwapPayload | PoolRewardFundingPayload
 
-struct ReservedPoolDispatchVariant {}
 @inline
-fun registerPoolDispatchLayout(value: ReservedPoolDispatchVariant | PoolDepositPayload): bool {
-    return value is ReservedPoolDispatchVariant;
+fun registerPoolDispatchLayout(value: PoolProvidedRewards | PoolDepositPayload): bool {
+    return value is PoolProvidedRewards;
 }
 
 fun PoolOptionalPartner.unpackFromSlice(mutate s: slice): PoolOptionalPartner {

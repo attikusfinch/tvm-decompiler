@@ -9,10 +9,11 @@ import { assembleExact, disassembleExact, firstCellDifference } from './exact-as
 import { checkDeposit } from './dedust-deposit-fixtures.mjs';
 import { checkAffiliate } from './dedust-affiliate-fixtures.mjs';
 import { checkPosition } from './dedust-position-fixtures.mjs';
+import { checkPool } from './dedust-pool-fixtures.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition};
+const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV2:checkPool};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));

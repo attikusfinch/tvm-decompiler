@@ -17,6 +17,11 @@ fun poolExceptionHasContext(value:unknown):bool asm "ISTUPLE"
 fun poolExceptionContext(value:unknown):(any_address,PoolPayoutOptions) asm "5 UNTUPLE"
 
 @inline
+fun defaultPoolPaymentReject(sender:any_address):(any_address,PoolPayoutOptions) {
+    return (sender,{destination:sender,extraGas:0,payload:null,wrapPayload:false});
+}
+
+@inline
 fun buildPoolInitializationResult(to:any_address,queryId:uint64,exitCode:int):cell {
     val payload:cell?=null;
     val message=beginCell().storeUint(0x10,6).storeSlice(to as slice).storeUint(3457702871,143)
@@ -38,27 +43,26 @@ fun initializePool(storage:PoolStorage,message:InitPool,in:PoolInboundContext) {
         var requested=0;
         var extra=PoolExtra.fromCell(storage.extra);
         if(config.assetX.isInternal()) {
-            val (updated,isNew,resolver)=scheduleWalletResolution(extra.wallets.resolutions,config.assetX,config.customResolvers);
-            extra.wallets.resolutions=updated;
+            val (isNew,resolver)=schedulePoolWallets(mutate extra.wallets,config.assetX,config.customResolvers);
             if(isNew) {requestPoolWalletAddress(resolver,message.queryId);requested+=1;}
         }
         if(config.assetY.isInternal()) {
-            val (updated,isNew,resolver)=scheduleWalletResolution(extra.wallets.resolutions,config.assetY,config.customResolvers);
-            extra.wallets.resolutions=updated;
+            val (isNew,resolver)=schedulePoolWallets(mutate extra.wallets,config.assetY,config.customResolvers);
             if(isNew) {requestPoolWalletAddress(resolver,message.queryId);requested+=1;}
         }
         var reward=config.allowedRewards.findFirst();
         while(reward.isFound) {
             val allowed=reward.loadValue();
             if(allowed.asset.isInternal()) {
-                val (updated,isNew,resolver)=scheduleWalletResolution(extra.wallets.resolutions,allowed.asset,config.customResolvers);
-                extra.wallets.resolutions=updated;
+                val (isNew,resolver)=schedulePoolWallets(mutate extra.wallets,allowed.asset,config.customResolvers);
                 if(isNew) {requestPoolWalletAddress(resolver,message.queryId);requested+=1;}
             }
             reward=config.allowedRewards.iterateNext(reward);
         }
-        val resolverCost=calculateForwardFee(0,1,364)+calculateForwardFee(0,364,1)+
-            max(calculateGasFee(0,25000),10000000);
+        val processingFee=max(calculateGasFee(0,25000),10000000);
+        val requestForwardFee=calculateForwardFee(0,364,1);
+        val replyForwardFee=calculateForwardFee(0,1,364);
+        val resolverCost=requestForwardFee+processingFee+replyForwardFee;
         assert(initialCost+(resolverCost+calculateGasFee(0,14500))*requested <= in.valueCoins()) throw 25;
         storage.extra=extra.toCell();
         reserveToncoinsOnBalance(50000000,2);
@@ -80,15 +84,14 @@ fun initializePool(storage:PoolStorage,message:InitPool,in:PoolInboundContext) {
 @inline
 fun receivePoolWallet(storage:PoolStorage,message:TakeWalletAddress,in:PoolInboundContext) {
     assert(storage.status is PoolInitializing) throw 21;
-    val initiator=storage.status.initiator;
     assert(message.wallet.isInternal()) throw 24;
     var extra=PoolExtra.fromCell(storage.extra);
     extra.wallets=finishWalletResolution(extra.wallets,in.senderAddress() as any_address,message.wallet);
     storage.extra=extra.toCell();
-    if(!extra.wallets.resolutions.isEmpty()) {
-        sendPoolExcesses(initiator,message.queryId,64);
+    if(extra.wallets.resolutions.findFirst().isFound) {
+        sendPoolExcesses(storage.status.initiator,message.queryId,64);
     } else {
-        sendRawMessage(buildPoolInitializationResult(initiator,message.queryId,0),64);
+        sendRawMessage(buildPoolInitializationResult(storage.status.initiator,message.queryId,0),64);
         storage.status=PoolInitialized{};
     }
     contract.setData(storage.toCell());
@@ -102,16 +105,15 @@ fun receivePoolNativePayment(storage:PoolStorage,message:PayNative,in:PoolInboun
         processPoolPayment(storage,in.senderAddress() as any_address,message.queryId,message.payout,
             message.payment,poolNoneAddress(),message.amount,poolOriginalForwardFee());
     } catch(code,value) {
-        var excessesTo=in.senderAddress() as any_address;
-        var reject:PoolPayoutOptions={destination:in.senderAddress() as any_address,extraGas:0,payload:null,wrapPayload:false};
-        if(poolExceptionHasContext(value)) {(excessesTo,reject)=poolExceptionContext(value);}
+        val (excessesTo,reject)=poolExceptionHasContext(value) ? poolExceptionContext(value) : defaultPoolPaymentReject(in.senderAddress());
         reserveToncoinsOnBalance(contract.getStoragePaidPayment(),4);
-        val valueToSend=code == 25 ? 0 as coins : message.amount+reject.extraGas;
+        val insufficientValue=code == 25;
+        val valueToSend=insufficientValue ? 0 as coins : message.amount+reject.extraGas;
         val callback=beginCell().storeUint(0x10,6).storeSlice(reject.destination as slice).storeCoins(valueToSend)
             .storeUint(0x3216ca09,139).storeUint(message.queryId,64).storeCoins(message.amount)
             .storeInt(code,32).storeDict(reject.payload).endCell();
-        sendRawMessage(callback,code == 25 ? 128 : 1);
-        if(code != 25) {sendPoolExcesses(excessesTo,message.queryId,128);}
+        sendRawMessage(callback,insufficientValue ? 128 : 1);
+        if(insufficientValue) {} else {sendPoolExcesses(excessesTo,message.queryId,128);}
         commitContractDataAndActions();throw code;
     }
 }
@@ -127,21 +129,22 @@ fun receivePoolJettonPayment(storage:PoolStorage,message:JettonNotification,in:P
         val asset=assetForRegisteredWallet(wallets,in.senderAddress() as any_address);
         processPoolPayment(storage,message.sender,message.queryId,routed.payout,routed.payment,asset,message.amount,poolOriginalForwardFee());
     } catch(code,value) {
-        var excessesTo=message.sender;
-        var reject:PoolPayoutOptions={destination:message.sender,extraGas:0,payload:null,wrapPayload:false};
-        if(poolExceptionHasContext(value)) {(excessesTo,reject)=poolExceptionContext(value);}
-        val forward=poolNotificationPayload(reject.payload,reject.wrapPayload,code);
+        val (excessesTo,reject)=poolExceptionHasContext(value) ? poolExceptionContext(value) : defaultPoolPaymentReject(message.sender);
+        val forward:PoolForwardPayload=reject.wrapPayload ? PoolPaymentResult{exitCode:code,payload:reject.payload}.toCell() :
+            (reject.payload != null ? reject.payload! as PoolForwardPayload : emptyPoolForwardPayload());
         reserveToncoinsOnBalance(contract.getStoragePaidPayment(),4);
-        val valueToSend=code == 25 ? 0 : 50000000+reject.extraGas;
+        val insufficientValue=code == 25;
+        val valueToSend=insufficientValue ? 0 : 50000000+reject.extraGas;
+        val wallet=in.senderAddress();
         val customPayload:cell?=null;
         var transfer=beginCell().storeUint(0x0f8a7ea5,32).storeUint(message.queryId,64).storeCoins(message.amount)
             .storeSlice(reject.destination as slice).storeSlice(excessesTo as slice).storeDict(customPayload).storeCoins(reject.extraGas);
         forward.packToBuilder(mutate transfer);
         val body=transfer.endCell();
-        val callback=beginCell().storeUint(0x10,6).storeSlice(in.senderAddress() as slice).storeCoins(valueToSend)
+        val callback=beginCell().storeUint(0x10,6).storeSlice(wallet as slice).storeCoins(valueToSend)
             .storeUint(1,107).storeRef(body).endCell();
-        sendRawMessage(callback,code == 25 ? 128 : 1);
-        if(code != 25) {sendPoolExcesses(excessesTo,message.queryId,128);}
+        sendRawMessage(callback,insufficientValue ? 128 : 1);
+        if(insufficientValue) {} else {sendPoolExcesses(excessesTo,message.queryId,128);}
         commitContractDataAndActions();throw code;
     }
 }
@@ -151,20 +154,20 @@ fun receivePoolJettonPayment(storage:PoolStorage,message:JettonNotification,in:P
 fun handlePoolMessage(storage:PoolStorage,message:PoolMessage,in:PoolInboundContext) {
     match(message) {
         InitPool => initializePool(storage,message,in),
-        TakeWalletAddress => receivePoolWallet(storage,message,in),
         PayNative => receivePoolNativePayment(storage,message,in),
         JettonNotification => receivePoolJettonPayment(storage,message,in),
-        JoinLiquidity => joinPoolLiquidity(storage,message,in.senderAddress()),
-        RefundDeposit => refundPoolDeposit(storage,message,in.senderAddress()),
-        ClaimPositionFees => claimPoolPositionFees(storage,message,in.senderAddress(),in.valueCoins()),
-        PayoutPositionFees => payoutPoolPositionFees(storage,message,in.senderAddress()),
-        ClaimProtocolFees => claimPoolProtocolFees(storage,message,in.senderAddress(),in.valueCoins()),
-        ClaimCreatorFees => claimPoolCreatorFees(storage,message,in.senderAddress(),in.valueCoins()),
-        Withdraw => requestPoolWithdrawal(storage,message,in.senderAddress(),in.valueCoins()),
-        ExitLiquidity => exitPoolLiquidity(storage,message,in.senderAddress()),
-        ProvidePoolState => providePoolState(storage,message,in.senderAddress()),
-        ClaimReward => claimPoolReward(storage,message,in.senderAddress(),in.valueCoins()),
-        PayoutReward => payoutPoolReward(storage,message,in.senderAddress()),
-        UpgradePool => upgradePool(storage,message,in.senderAddress()),
+        JoinLiquidity => joinPoolLiquidity(storage,message,in),
+        RefundDeposit => refundPoolDeposit(storage,message,in),
+        TakeWalletAddress => receivePoolWallet(storage,message,in),
+        ClaimPositionFees => claimPoolPositionFees(storage,message,in),
+        PayoutPositionFees => payoutPoolPositionFees(storage,message,in),
+        ClaimProtocolFees => claimPoolProtocolFees(storage,message,in),
+        ClaimCreatorFees => claimPoolCreatorFees(storage,message,in),
+        Withdraw => requestPoolWithdrawal(storage,message,in),
+        ExitLiquidity => exitPoolLiquidity(storage,message,in),
+        ProvidePoolState => providePoolState(storage,message,in),
+        ClaimReward => claimPoolReward(storage,message,in),
+        PayoutReward => payoutPoolReward(storage,message,in),
+        UpgradePool => upgradePool(storage,message,in),
     }
 }
