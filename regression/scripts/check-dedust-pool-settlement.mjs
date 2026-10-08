@@ -20,8 +20,8 @@ for(const revision of ['CpmmPoolV1','CpmmPoolV2']) {
     assert.equal(method.hash().toString('hex'),dictionaryHash,revision+': method 19 placement');
     original=implementation(method);assert.equal(original.hash().toString('hex'),hash,revision+': implementation 19');
 }
-const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0=>{}\n19=>{\n'+disassembleExact(original.toBoc())+
-    '\n}\n90046=>{CALLDICT 19\nPUSHCTR c5\n}\n]\nDICTIGETJMPZ\nTHROWARG 11\n','pool-settlement-oracle.tasm');
+const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0=>{}\n19=>{ref{\n'+disassembleExact(original.toBoc())+
+    '\n}}\n90046=>{CALLDICT 19\nPUSHCTR c5\n}\n]\nDICTIGETJMPZ\nTHROWARG 11\n','pool-settlement-oracle.tasm');
 const sources={'main.tolk':`
 import "settlement"
 import "wallets"
@@ -35,6 +35,7 @@ for(const f of ['settlement','transfers','wallets','payment','payout-config'])so
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 assert.equal(implementation(methods(Cell.fromBoc(candidate)[0]).get(19)).hash().toString('hex'),hash);
+assert.equal(methods(Cell.fromBoc(candidate)[0]).get(19).hash().toString('hex'),dictionaryHash);
 const wrapperComparison=compareBoc(oracle,Cell.fromBoc(candidate)[0].toBoc({idx:false,crc32:true}));
 assert.equal(wrapperComparison.sameSerializedBoc,true,'complete isolated settlement wrapper');
 await fs.writeFile(path.join(directory,'candidate.boc'),candidate);await fs.writeFile(path.join(directory,'candidate.fif'),compiled.fiftCode);
@@ -112,7 +113,7 @@ const externalSkipped=expectedActions(external,b,0n,0n,recipient,null,false,fals
 await check('unsupported asset ignored for zero amount',args(assetConfig(external,b),0n,0n,recipient,null,false,false),externalSkipped.actions,0,0,externalSkipped.reserved);
 await check('malformed config read even without payout',args(empty,0n,0n,recipient,null,false,true),null,9);
 await check('reserve underflow after huge native principal',args(assetConfig(null,b),100000000000n,0n,recipient,null,false,true),null,5);
-const proof={scope:'Exact shared method 19 implementation, including payout action chain and RAWRESERVE; full Pool dictionary placement remains pending',
+const proof={scope:'Exact shared method 19 dictionary value and implementation, including payout action chain and RAWRESERVE; complete Pool reconstruction remains pending',
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],implementationHash:hash,originalDictionaryValueHash:dictionaryHash,wrapperComparison,
     getterContext:{balance:'10000000000',incomingValue:'0',storagePaid:'0'},cases};

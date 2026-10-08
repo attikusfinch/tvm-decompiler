@@ -23,10 +23,9 @@ for(const revision of ['CpmmPoolV1','CpmmPoolV2']) {
     for(const hash of Object.values(pins))assert.ok(cells.has(hash),revision+': original helper');
     original.push(cells);
 }
-// Dictionary entry 21 in the whole Pool references rewardConfig's implementation
-// cell. Isolated dictionary placement differs; its implementation must stay exact.
-const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0=>{}\n21=>{\n'+
-    disassembleExact(original[0].get(pins.rewardConfig).toBoc())+'\n}\n'+
+// Preserve the original reference around dictionary entry 21 as well as its body.
+const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0=>{}\n21=>{ref{\n'+
+    disassembleExact(original[0].get(pins.rewardConfig).toBoc())+'\n}}\n'+
     [[90046,pins.sqrt],[90047,pins.payout]].map(([id,hash])=>id+'=>{CALLREF{\n'+
         disassembleExact(original[0].get(hash).toBoc())+'\n}}').join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','pool-calculations-oracle.tasm');
@@ -45,7 +44,8 @@ const candidate=Buffer.from(compiled.codeBoc,'base64');
 const candidateCells=graph(Cell.fromBoc(candidate)[0]);
 for(const hash of [pins.sqrt,pins.payout])assert.ok(candidateCells.has(hash),'candidate: exact helper '+hash);
 const candidateMethods=Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},parse:s=>s.asCell()},Cell.fromBoc(candidate)[0].refs[0]);
-assert.equal(candidateMethods.get(21).hash().toString('hex'),pins.rewardConfig,'candidate: exact reward-configuration implementation');
+assert.equal(candidateMethods.get(21).refs[0].hash().toString('hex'),pins.rewardConfig,'candidate: exact reward-configuration implementation');
+assert.equal(candidateMethods.get(21).hash().toString('hex'),'832097c7478448f35b42035888ecab47b3b7e7783e656c51f9ee58fd04dd3079','candidate: original dictionary placement');
 const wrapperComparison=compareBoc(oracle,Cell.fromBoc(candidate)[0].toBoc({idx:false,crc32:true}));
 assert.equal(wrapperComparison.sameSerializedBoc,true,'complete isolated calculation wrapper');
 await fs.writeFile(path.join(directory,'candidate.boc'),candidate);

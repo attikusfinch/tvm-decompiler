@@ -24,7 +24,7 @@ for(const revision of ['CpmmPoolV1','CpmmPoolV2']) {
     original.push(entries);
 }
 const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0=>{}\n'+Object.keys(pins).map(id=>
-    id+'=>{\n'+disassembleExact(implementation(original[0].get(Number(id))).toBoc())+'\n}').join('\n')+'\n'+
+    id+'=>{ref{\n'+disassembleExact(implementation(original[0].get(Number(id))).toBoc())+'\n}}').join('\n')+'\n'+
     [22,23,24].map((id,i)=>(90046+i)+'=>{CALLDICT '+id+'\nPUSHCTR c5\n}').join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','pool-events-oracle.tasm');
 const source=await fs.readFile(path.join(project,'CpmmPoolV2/events.tolk'),'utf8');
@@ -38,6 +38,7 @@ fun eventActions():cell asm "c5 PUSH"
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 for(const [id,hash]of Object.entries(pins))assert.equal(implementation(methods(Cell.fromBoc(candidate)[0]).get(Number(id))).hash().toString('hex'),hash,'candidate: event '+id);
+for(const id of [22,23,24])assert.ok(methods(Cell.fromBoc(candidate)[0]).get(id).equals(original[0].get(id)),'candidate: original event dictionary placement '+id);
 const wrapperComparison=compareBoc(oracle,Cell.fromBoc(candidate)[0].toBoc({idx:false,crc32:true}));
 assert.equal(wrapperComparison.sameSerializedBoc,true,'complete isolated event wrapper');
 await fs.writeFile(path.join(directory,'candidate.boc'),candidate);

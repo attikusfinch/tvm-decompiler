@@ -1,5 +1,15 @@
 {
   "scope": "Complete readable V2 candidate: all 16 incoming message variants and all 3 getters; exact gas/outgoing balances/byte acceptance pending",
+  "exactMethodIds": [
+    19,
+    21,
+    22,
+    23,
+    24,
+    72157,
+    81689,
+    112421
+  ],
   "toolchain": {
     "backend": "acton",
     "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
@@ -11,7 +21,7 @@
     "candidate.tolk": "bfa5156eece65300fe2c752dcd41576989f6b78dcef7dfe3bf9de5513c22148e",
     "claim-handlers.tolk": "c7c49f985eb2e4e0563cb179e294a66dbb15708242c114bc61d95a48bb552e57",
     "compat-address.tolk": "72d15f06d5720d4b7093856a8ebc72e826595d33fa3373bcdd9a39f2ea0f6ca8",
-    "events.tolk": "45c6267b03bb505b53403508e0c85b17d2d3243aa664dfd8f9ec193afef7ba3b",
+    "events.tolk": "8464731c1dd44e32f14e985b8963ce87465818b24c36742c126cac8e472e49c1",
     "getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c",
     "handlers.tolk": "89935875d978819e28cadcd3582b62b3627feeb4c1ebff716d59df3ed349e58a",
     "liquidity-handlers.tolk": "4f5d1a3764072a961f92303c87ecf1c94d17b1b61e1e17af40ae22fa8fe59fd4",
@@ -21,10 +31,10 @@
     "payout-basic.tolk": "df7888f40d11af33959f47e1de315ad4ab0dbf6f0e2be82b8df2032995de3f4c",
     "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
     "processing.tolk": "7597025e8ba4a24e18b7af63803eab4e1c78166476712ea69dbc7085a80d335f",
-    "reward-config.tolk": "bd5066725cffc43d8529c2a18349277c8ae6571aed65eed4bc39a01ff34dd735",
+    "reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
     "rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
     "routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
-    "settlement.tolk": "802349c82245422f1c3c6a4f281094ba139ebb180b28c2dde60316fa979b9624",
+    "settlement.tolk": "38487b08abaeac66fcdb50647f6283ef42534bb49a1a276592ca01de7ae38bee",
     "stdlib-legacy-stateinit.tolk": "c5d63bf2d540d96c694d31accc85f57ddeec93206be54cf80d46ffaf065bb815",
     "storage.tolk": "0c68ce0aacba36d4548e8c856120f5ba97c6bbc632fc329e322552e6186f7927",
     "transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
@@ -32,11 +42,11 @@
   },
   "comparison": {
     "originalHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
-    "recompiledHash": "bf0f079fad8ba01ce0854774c26e3c88bda5b6c6c3a3c3902bd922d10f13515e",
+    "recompiledHash": "1431c0e5d2f2c79a6d9b8c92f9711219e0cf7c0bca557be5821f5a315527cda0",
     "sameCodeCell": false,
     "sameSerializedBoc": false,
     "originalBytes": 10032,
-    "recompiledBytes": 10054
+    "recompiledBytes": 10069
   },
   "limitations": [
     "Compute gas differs",
@@ -1389,7 +1399,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
-        "gasUsed": "28364"
+        "gasUsed": "28474"
       }
     },
     {
@@ -1569,7 +1579,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
-        "gasUsed": "28098"
+        "gasUsed": "28208"
       }
     },
     {
@@ -1677,7 +1687,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
-        "gasUsed": "28283"
+        "gasUsed": "28393"
       }
     },
     {
@@ -1785,7 +1795,7 @@
       "after": {
         "exitCode": 42,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "17806"
+        "gasUsed": "17916"
       }
     },
     {
@@ -1839,7 +1849,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
-        "gasUsed": "28364"
+        "gasUsed": "28474"
       }
     },
     {
@@ -1893,7 +1903,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b493268b61adffd08947d02a8458fb2358cc4375abec789cf4ef92069f38c533",
-        "gasUsed": "24902"
+        "gasUsed": "25122"
       }
     },
     {
@@ -1911,7 +1921,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b493268b61adffd08947d02a8458fb2358cc4375abec789cf4ef92069f38c533",
-        "gasUsed": "29378"
+        "gasUsed": "29598"
       }
     },
     {
@@ -1929,7 +1939,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "0d611aca1ceebd668bff53231d967d97ecd70239ae4af1f4978f13fcca828010",
-        "gasUsed": "26541"
+        "gasUsed": "26761"
       }
     },
     {
@@ -1947,7 +1957,7 @@
       "after": {
         "exitCode": 30,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "22616"
+        "gasUsed": "22726"
       }
     },
     {
@@ -1983,7 +1993,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b493268b61adffd08947d02a8458fb2358cc4375abec789cf4ef92069f38c533",
-        "gasUsed": "24902"
+        "gasUsed": "25122"
       }
     },
     {
@@ -2001,7 +2011,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "20964"
+        "gasUsed": "21074"
       }
     },
     {
@@ -2073,7 +2083,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "19757"
+        "gasUsed": "19867"
       }
     },
     {
@@ -2109,7 +2119,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "39d14c70db0a8e0919cbfc0c5a5a29223735b93b72f0acbd012c9bda9a306c14",
-        "gasUsed": "19971"
+        "gasUsed": "20081"
       }
     },
     {
@@ -2145,7 +2155,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "4a3dc470f48fe4b50cf9084c4b1d6bb3dd85d5833ce2205a44ca2c9866bc3b14",
-        "gasUsed": "20099"
+        "gasUsed": "20209"
       }
     },
     {
@@ -2217,7 +2227,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "327e66aacbdae18ddb7f73de93b261ebb448d845c7e33bbe8471c4d69e867ce1",
-        "gasUsed": "27811"
+        "gasUsed": "28031"
       }
     },
     {

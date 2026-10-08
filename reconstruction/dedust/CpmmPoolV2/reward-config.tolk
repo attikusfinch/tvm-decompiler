@@ -1,7 +1,8 @@
 import "storage"
 
 @method_id(21)
-fun findAllowedPoolReward(config: PoolConfig, asset: any_address): (PoolRewardConfig, uint2) {
+@inline_ref
+fun findAllowedPoolRewardEntry(config: PoolConfig, asset: any_address): (PoolRewardConfig, uint2) {
     var entry = config.allowedRewards.findFirst();
     while (entry.isFound) {
         val reward = entry.loadValue();
@@ -12,3 +13,6 @@ fun findAllowedPoolReward(config: PoolConfig, asset: any_address): (PoolRewardCo
     }
     throw 42;
 }
+
+fun findAllowedPoolReward(config: PoolConfig, asset: any_address): (PoolRewardConfig, uint2)
+    asm "21 CALLDICT"

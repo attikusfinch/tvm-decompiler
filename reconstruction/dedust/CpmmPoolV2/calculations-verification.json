@@ -7,7 +7,7 @@
   "sourceSha256": {
     "main.tolk": "d99333824145a4b8ab1498f7db89c91012f1b7867675549f46a872b0229d7b7a",
     "math.tolk": "2d1e34cd8ea748e703838a3894ecacddf1d33bbb6a95f9db0080da8e44c760f5",
-    "reward-config.tolk": "bd5066725cffc43d8529c2a18349277c8ae6571aed65eed4bc39a01ff34dd735",
+    "reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
     "storage.tolk": "0c68ce0aacba36d4548e8c856120f5ba97c6bbc632fc329e322552e6186f7927",
     "wallets.tolk": "ff16bcd9618b90b1c5dcc3f3a751f5d1c67b6584fa42b895aaa28c41758b1af4",
     "rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
@@ -23,12 +23,12 @@
     "rewardConfig": "89956c96972a0149a0afc9a8b17282e1f41ad3d388bc42d6f980598aa20997b9"
   },
   "wrapperComparison": {
-    "originalHash": "2d84c5d1a5a1291c9767859413e266b6a9dda2534600706b43b8d5e73b93edfb",
-    "recompiledHash": "2d84c5d1a5a1291c9767859413e266b6a9dda2534600706b43b8d5e73b93edfb",
+    "originalHash": "80607cf581e226f88941081ed75fdf79a1f0d49d2c313380b7627ef3bae4f968",
+    "recompiledHash": "80607cf581e226f88941081ed75fdf79a1f0d49d2c313380b7627ef3bae4f968",
     "sameCodeCell": true,
     "sameSerializedBoc": true,
-    "originalBytes": 276,
-    "recompiledBytes": 276
+    "originalBytes": 279,
+    "recompiledBytes": 279
   },
   "sqrtCases": [
     {
@@ -14864,12 +14864,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       }
     },
     {
@@ -14892,12 +14892,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       }
     },
     {
@@ -14920,12 +14920,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       }
     },
     {
@@ -14948,12 +14948,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       }
     },
     {
@@ -14976,12 +14976,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "721"
+        "gasUsed": "831"
       }
     },
     {
@@ -15017,7 +15017,7 @@
             "value": "0"
           }
         ],
-        "gasUsed": "983"
+        "gasUsed": "1093"
       },
       "after": {
         "exitCode": 0,
@@ -15035,7 +15035,7 @@
             "value": "0"
           }
         ],
-        "gasUsed": "983"
+        "gasUsed": "1093"
       }
     },
     {
@@ -15058,12 +15058,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       }
     },
     {
@@ -15086,12 +15086,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       }
     },
     {
@@ -15114,12 +15114,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       }
     },
     {
@@ -15142,12 +15142,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1138"
+        "gasUsed": "1248"
       }
     },
     {
@@ -15183,7 +15183,7 @@
             "value": "0"
           }
         ],
-        "gasUsed": "1183"
+        "gasUsed": "1293"
       },
       "after": {
         "exitCode": 0,
@@ -15201,7 +15201,7 @@
             "value": "0"
           }
         ],
-        "gasUsed": "1183"
+        "gasUsed": "1293"
       }
     },
     {
@@ -15237,7 +15237,7 @@
             "value": "1"
           }
         ],
-        "gasUsed": "1650"
+        "gasUsed": "1760"
       },
       "after": {
         "exitCode": 0,
@@ -15255,7 +15255,7 @@
             "value": "1"
           }
         ],
-        "gasUsed": "1650"
+        "gasUsed": "1760"
       }
     },
     {
@@ -15291,7 +15291,7 @@
             "value": "2"
           }
         ],
-        "gasUsed": "2217"
+        "gasUsed": "2327"
       },
       "after": {
         "exitCode": 0,
@@ -15309,7 +15309,7 @@
             "value": "2"
           }
         ],
-        "gasUsed": "2217"
+        "gasUsed": "2327"
       }
     },
     {
@@ -15345,7 +15345,7 @@
             "value": "3"
           }
         ],
-        "gasUsed": "2684"
+        "gasUsed": "2794"
       },
       "after": {
         "exitCode": 0,
@@ -15363,7 +15363,7 @@
             "value": "3"
           }
         ],
-        "gasUsed": "2684"
+        "gasUsed": "2794"
       }
     },
     {
@@ -15386,12 +15386,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "2889"
+        "gasUsed": "2999"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "2889"
+        "gasUsed": "2999"
       }
     },
     {
@@ -15427,7 +15427,7 @@
             "value": "1"
           }
         ],
-        "gasUsed": "1083"
+        "gasUsed": "1193"
       },
       "after": {
         "exitCode": 0,
@@ -15445,7 +15445,7 @@
             "value": "1"
           }
         ],
-        "gasUsed": "1083"
+        "gasUsed": "1193"
       }
     },
     {
@@ -15468,12 +15468,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       }
     },
     {
@@ -15496,12 +15496,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       }
     },
     {
@@ -15524,12 +15524,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       }
     },
     {
@@ -15552,12 +15552,12 @@
       "before": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       },
       "after": {
         "exitCode": 42,
         "stack": null,
-        "gasUsed": "1705"
+        "gasUsed": "1815"
       }
     },
     {
@@ -15580,12 +15580,12 @@
       "before": {
         "exitCode": 9,
         "stack": null,
-        "gasUsed": "839"
+        "gasUsed": "949"
       },
       "after": {
         "exitCode": 9,
         "stack": null,
-        "gasUsed": "839"
+        "gasUsed": "949"
       }
     },
     {
@@ -15608,12 +15608,12 @@
       "before": {
         "exitCode": 9,
         "stack": null,
-        "gasUsed": "883"
+        "gasUsed": "993"
       },
       "after": {
         "exitCode": 9,
         "stack": null,
-        "gasUsed": "883"
+        "gasUsed": "993"
       }
     }
   ]

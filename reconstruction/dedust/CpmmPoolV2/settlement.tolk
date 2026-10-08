@@ -18,7 +18,8 @@ fun copyPoolExcessesContext(excessesTo: any_address, queryId: uint64): (any_addr
 // Settle both assets, preserve pre-message funds and return remaining gas.
 // Config decoding deliberately reads only the first two asset addresses.
 @method_id(19)
-fun settlePoolAssets(
+@inline_ref
+fun settlePoolAssetsEntry(
     queryId: uint64,
     config: cell,
     wallets: PoolWallets,
@@ -48,3 +49,8 @@ fun settlePoolAssets(
     if (skipExcesses) { return; }
     sendPoolExcesses(excessesTo, queryId, 130);
 }
+
+// Keep the public dictionary call while placing its implementation in a reference.
+fun settlePoolAssets(queryId: uint64, config: cell, wallets: PoolWallets,
+    amountX: coins, amountY: coins, options: PoolPayoutOptions,
+    excessesTo: any_address, skipExcesses: bool): void asm "19 CALLDICT"

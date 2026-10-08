@@ -50,6 +50,13 @@ Three Acton tests bring the project to 44 native tests. See
 `CpmmPoolV2/events-verification.json`. Getter/math bounds now include the full
 120-bit maximum of `VarUInteger 16`.
 
+The complete Pool V2 candidate also preserves the original dictionary values of
+methods 19, 21, 22, 23 and 24, including their referenced implementation cells.
+Readable `@inline_ref` entry bodies and typed `CALLDICT` bridges preserve both
+placement and calls. Together with the three getters, eight complete dictionary
+values match the frozen whole contract. Methods 0 and 20 remain outside the
+exact gate; full Pool byte equality is still pending.
+
 Excesses sending, payout-wallet selection, reward lookup and both resolver-request
 revisions are exact. Pool V2 adds a 10,000,000 processing-fee floor that V1 lacks;
 a custom local gas-price fixture verifies this difference. The isolated BOC and

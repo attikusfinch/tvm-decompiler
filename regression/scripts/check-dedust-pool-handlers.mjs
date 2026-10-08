@@ -13,6 +13,10 @@ for(const name of await fs.readdir(path.join(project,'CpmmPoolV2')))if(name.ends
     sources[name]=await fs.readFile(path.join(project,'CpmmPoolV2',name),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64'),oracle=await fs.readFile(path.join(project,'oracles/CpmmPoolV2.boc'));
+const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},parse:s=>s.asCell()},c.refs[0]);
+const originalMethods=methods(Cell.fromBoc(oracle)[0]),candidateMethods=methods(Cell.fromBoc(candidate)[0]);
+const exactMethodIds=[19,21,22,23,24,72157,81689,112421];
+for(const id of exactMethodIds)assert.ok(candidateMethods.get(id).equals(originalMethods.get(id)),`complete candidate: exact dictionary value ${id}`);
 await fs.writeFile(path.join(directory,'candidate.boc'),candidate);await fs.writeFile(path.join(directory,'candidate.fif'),compiled.fiftCode);
 const libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell());
 for(const role of ['CpmmDeposit','CpmmPosition','CpmmAffiliateAccount']) {
@@ -227,6 +231,7 @@ for(const [status,liquidity]of [[0,1000000n],[1,1000000n],[2,1000000n],[2,0n]]) 
     getterCases.push({status,liquidity:String(liquidity),result});
 }
 const proof={scope:'Complete readable V2 candidate: all 16 incoming message variants and all 3 getters; exact gas/outgoing balances/byte acceptance pending',
+    exactMethodIds,
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([n,s])=>[n,createHash('sha256').update(s).digest('hex')])),
     comparison:compareBoc(oracle,Cell.fromBoc(candidate)[0].toBoc({idx:false,crc32:true})),
     limitations:['Compute gas differs','Carry-balance outgoing values differ','Self-reported code hash differs and is verified against each actual code root'],

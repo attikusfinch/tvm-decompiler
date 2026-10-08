@@ -113,8 +113,8 @@ single role or its assembler reference passes.
   reward lookup are exact implementations shared by both revisions. The isolated
   BOC matches; 229 independent differential probes including gas and 4 native
   tests pass, bringing the project to 41 tests. Method 21's implementation matches
-  the original referenced cell; full dictionary placement remains part of the
-  whole-Pool gate. The numeric correction uses one typed `CONDSELCHK` primitive;
+  the original referenced cell. Its dictionary placement now also matches the
+  whole-Pool oracle. The numeric correction uses one typed `CONDSELCHK` primitive;
   the remaining algorithm, address checks and map search are ordinary Tolk.
 - Pool swap/deposit/withdrawal event methods match their implementations in both
   revisions. The isolated BOC matches; 56 probes include exact gas, full raw send
@@ -143,8 +143,8 @@ single role or its assembler reference passes.
 - Method 19's shared settlement implementation is exact. The isolated complete
   BOC matches, 139 differential probes compare gas, action chains and independent
   reserve calculations, and three Acton tests verify sends/reserve/excesses and
-  validation order. Its full-Pool dictionary reference placement is still a
-  separate acceptance gate. The project has 60 native Acton tests; whole readable
+  validation order. Its full-Pool dictionary reference placement now also
+  matches. The project has 60 native Acton tests; whole readable
   recovery remains 3/21.
 - Method 20 now has a readable V2 candidate covering swaps, deposits, reward
   funding, activation and rejected-payment context. Its 113 isolated message
@@ -159,3 +159,8 @@ single role or its assembler reference passes.
   declared identity differences. Gas, carry-balance amounts and serialized BOC
   differ, so the candidate remains outside the exact gate. Three native whole-
   candidate integration tests bring the project to 67. Whole exact count: 3/21.
+- The complete Pool V2 candidate now verifies all eight exact public dictionary
+  values (19, 21–24 and the three getters) directly against the frozen whole code.
+  Typed CALLDICT bridges retain calls to readable referenced entry bodies;
+  isolated settlement/calculation/event proofs preserve the same placement.
+  Entry point 0 and payment dispatcher 20 still require exact reconstruction.
