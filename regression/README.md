@@ -168,3 +168,32 @@ and all eight templates against the current JAR hash. See the
 [stdlib mapping rules](../docs/func-normalization-patterns.md).
 
 Run `npm run acton -- --local --native --acton` to generate all eight FunC cases with TASM views, and the same command with `--language tolk` for Tolk. Known differences and partial outputs make both commands exit 1. Then run `npm run report` separately. The exporter validates original/recompiled BOC hashes and saved sources against each response and writes ../reports/acton-contracts.html. It includes a Tolk selector when the tolk/report.json artifact is available. `--artifacts <directory>`, `--tolk-artifacts <directory>` and `--output <file>` override paths. The report is self-contained, works offline, includes original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. Each language retains its own JAR SHA-256, compiler metadata and check timestamp. All eight outputs include raw/normalized recompilation and comparison; original/recompiled differences remain visible in the report.
+
+## DeDust mainnet code families
+
+`npm run dedust:collect`, `npm run dedust:archive`, then `npm run dedust:report`
+build a separate archive in `../../dedust-mainnet` (`DEDUST_OUTPUT` overrides it).
+The collector uses public, read-only DeDust registries and TON APIs. It downloads
+live representative accounts, parses installed child codes from the current
+Classic Factory storage, samples 60 Classic registry accounts for additional
+pool revisions, derives a CPMM Position through its getter, and recursively
+resolves referenced libraries with code-cell hash verification. Seed addresses
+come from the official DeDust reference and the TON ABI catalog. No wallet,
+transactions, or API key is required.
+
+Set `JAVA_EXE`, `ACTON_WSL_PATH`, `FUNC_BACKEND=native`, `FUNC_EXE`, `FIFT_EXE`, and
+`FIFT_LIB` as for the other native checks. The archive contains normalized FunC
+and Tolk, complete TVM disassembly, original account/code/data BOCs, API snapshots,
+provenance, compilation diagnostics, and code-hash comparisons. The report checks
+every exported source against its CLI JSON and verifies all code/library hashes.
+It never treats a partial result or successful compilation as proof of behavioral
+equivalence. Existing API responses are reused as a snapshot; choose a new empty
+`DEDUST_OUTPUT` directory for a fresh collection. The dataset stays outside Git.
+
+The 2026-10-08 snapshot has 21 unique codes and 16 active representative accounts:
+Classic (including pool revisions 7/8/9), CPMM v2 and its child contracts, Uranus,
+and the related x1000 wallet. FunC compiles 3/21; Tolk compiles 8/21. None has an
+identical recompiled code hash. This is a family archive, not an exhaustive list
+of deployed instances or historical revisions. The separately documented
+peripheral Classic FeeCollector has no authenticated address in this dataset.
+API snapshots span multiple retrieval times, rather than a single pinned block.
