@@ -1,0 +1,4313 @@
+{
+  "scope": "Exact Position/Deposit deployment modules and get_position_address; whole Pool recovery remains pending",
+  "toolchain": {
+    "backend": "acton",
+    "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
+  },
+  "sourceSha256": {
+    "addresses.tolk": "021e568c4ab6e4631d4e9c059480dbd39cf90c39ff967787f8b6595748efa061",
+    "compat-address.tolk": "72d15f06d5720d4b7093856a8ebc72e826595d33fa3373bcdd9a39f2ea0f6ca8",
+    "stdlib-legacy-stateinit.tolk": "c5d63bf2d540d96c694d31accc85f57ddeec93206be54cf80d46ffaf065bb815"
+  },
+  "revisions": [
+    "CpmmPoolV1",
+    "CpmmPoolV2"
+  ],
+  "moduleHashes": {
+    "position": "07794cb753547d7a3087db90aa3f6eb53fca322e3571c7e84758f3d9d8130cf3",
+    "deposit": "40c8629de33bd9ed78e9fa2bead6489e46da9f45b4c10dd92353df7b16c0d613"
+  },
+  "getterHash": "1c35563f6b5c01ca1df9f63c3d898c32347a5b1bbc2c2c0fdaaccc4713d256c4",
+  "wrapperComparison": {
+    "originalHash": "3d8208d7d3345c0a1aa7ac0a6c162e5bf82f37dbe1c0d69f78b176d4d8ccc73a",
+    "recompiledHash": "3d8208d7d3345c0a1aa7ac0a6c162e5bf82f37dbe1c0d69f78b176d4d8ccc73a",
+    "sameCodeCell": true,
+    "sameSerializedBoc": true,
+    "originalBytes": 217,
+    "recompiledBytes": 217
+  },
+  "getterComparison": {
+    "originalHash": "946b8e1745ec0aeb063a19701339a1fc3e319cd32e5c6618026a75c1731683a0",
+    "recompiledHash": "946b8e1745ec0aeb063a19701339a1fc3e319cd32e5c6618026a75c1731683a0",
+    "sameCodeCell": true,
+    "sameSerializedBoc": true,
+    "originalBytes": 281,
+    "recompiledBytes": 281
+  },
+  "positions": [
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "null",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "e2fdef7dca9bcdbf80e2f3438fb7c00cad864f97f22d59d8f8775248cadadaef"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "e2fdef7dca9bcdbf80e2f3438fb7c00cad864f97f22d59d8f8775248cadadaef"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c291644c55729088998334cc725d2861a693187200083f6dbb1a22fa36d675e0"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c291644c55729088998334cc725d2861a693187200083f6dbb1a22fa36d675e0"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "76a9e79da8df1962badd1fc9198f4d47b13238e221c56191643e0dce99999e5e"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "76a9e79da8df1962badd1fc9198f4d47b13238e221c56191643e0dce99999e5e"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "External<16:43981>",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b2b6e656e8496129aaea68ba6ad25572b7aa8c8015923aa446c9883acde96997"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b2b6e656e8496129aaea68ba6ad25572b7aa8c8015923aa446c9883acde96997"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "null",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "69ede10b29de50e3c2271b67c0dbf1e72ac6e6c7ef47ac2db6c3056485ae5a0e"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "69ede10b29de50e3c2271b67c0dbf1e72ac6e6c7ef47ac2db6c3056485ae5a0e"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b5e2307dd00a5e5cb61976bf8f81c71cf8429d6fdd570e411ee9f70f007c37ca"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b5e2307dd00a5e5cb61976bf8f81c71cf8429d6fdd570e411ee9f70f007c37ca"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ff64d4693472d12b59009b8cdd0ec77ad26577f6dfcff89470634d1fb66fa74c"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ff64d4693472d12b59009b8cdd0ec77ad26577f6dfcff89470634d1fb66fa74c"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "External<16:43981>",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b9e0743a42f47fec3ea42cc43f42aed6aad73e17831a624a5e57075b290a8220"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b9e0743a42f47fec3ea42cc43f42aed6aad73e17831a624a5e57075b290a8220"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "null",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee67773b208eacba0e3ecec9b90799be17531c83bce2c072361aa2f401b88e95"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee67773b208eacba0e3ecec9b90799be17531c83bce2c072361aa2f401b88e95"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8be36c5a1b8829898bd8f9635b7240a6459a93c32796cfd8645b7892a49ee1dc"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8be36c5a1b8829898bd8f9635b7240a6459a93c32796cfd8645b7892a49ee1dc"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "aa511b6abfd450e8e26c502ea4194212b121ae7c57d77f63dad4fcf75c73736c"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "aa511b6abfd450e8e26c502ea4194212b121ae7c57d77f63dad4fcf75c73736c"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "External<16:43981>",
+      "method": 90046,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "030c710c74f3fe49a9280e56607427b9560e7a691f3c2726c3790e8b4273646f"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56"
+          },
+          {
+            "type": "cell",
+            "cellHash": "030c710c74f3fe49a9280e56607427b9560e7a691f3c2726c3790e8b4273646f"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2160"
+      }
+    }
+  ],
+  "deposits": [
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f20ea6d9872500538de0b4697e2eaf5ac58e8290776649e60392537b1d06ea06"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f20ea6d9872500538de0b4697e2eaf5ac58e8290776649e60392537b1d06ea06"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3fe4651ba9f135c8fc2e9ed8a18c56eb226f00a15c3e134a36673530c495b555"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3fe4651ba9f135c8fc2e9ed8a18c56eb226f00a15c3e134a36673530c495b555"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "be4cd84635d6464987cde1d212ba52d8827eedd0afb139208f98fb5b42a1d6be"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "be4cd84635d6464987cde1d212ba52d8827eedd0afb139208f98fb5b42a1d6be"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c5058aaf4442a24c8254052f21e4392b9d93df5bbcf8023dfd911acc3f10e3e8"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c5058aaf4442a24c8254052f21e4392b9d93df5bbcf8023dfd911acc3f10e3e8"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "65f2a8e45f39b1028fb3fdb7945672086c558f6197ec1f96ed633fd55d892154"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "65f2a8e45f39b1028fb3fdb7945672086c558f6197ec1f96ed633fd55d892154"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "40d45fb61427f2c0d39afeeaf76f986d724283f88c5e03908a388efb54fb52c1"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "40d45fb61427f2c0d39afeeaf76f986d724283f88c5e03908a388efb54fb52c1"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d2c17a1ca008decf59b55880e4ac56530dfdab88fa60e81e81173aabd241b0f0"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d2c17a1ca008decf59b55880e4ac56530dfdab88fa60e81e81173aabd241b0f0"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3534a4897962701fdda134cfb3a4e183df8185e4abc5f0c8e0a1a9d235f59c86"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3534a4897962701fdda134cfb3a4e183df8185e4abc5f0c8e0a1a9d235f59c86"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fd2ba3d91b39867653f6fbf2d242d4d3614559eb2d4025254a6a2a89b0f4b781"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "fd2ba3d91b39867653f6fbf2d242d4d3614559eb2d4025254a6a2a89b0f4b781"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "17c773b5d9b41d1f9d35bda117492cba77f34caed9476e2b718b4a659c601fc7"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "17c773b5d9b41d1f9d35bda117492cba77f34caed9476e2b718b4a659c601fc7"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "1c8d4749b03b601cf16964b1b8bdf013ca8d84ad6709527538a0916bf42072aa"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "1c8d4749b03b601cf16964b1b8bdf013ca8d84ad6709527538a0916bf42072aa"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b9d59bdd622899e43337421d1b3658507311ab63b749c1bd85b8859003241cad"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b9d59bdd622899e43337421d1b3658507311ab63b749c1bd85b8859003241cad"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f63ff867bebb4fe6ff9ed6ab4b6eedf4c43aca563dddb23ea4d456147386ac25"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f63ff867bebb4fe6ff9ed6ab4b6eedf4c43aca563dddb23ea4d456147386ac25"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b0beeaac8d875bd3f515af896e9efe9b6593e0ddfbe10e1982d964dbea378c37"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b0beeaac8d875bd3f515af896e9efe9b6593e0ddfbe10e1982d964dbea378c37"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c40e6b71a03287f3b5ee3dc294e350eef5f84eb2144e1eb4279a98dd8b0a8a51"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c40e6b71a03287f3b5ee3dc294e350eef5f84eb2144e1eb4279a98dd8b0a8a51"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "57f055357b89eefa9e4036a0f14f966ea9dc002a90341afb820b3e678e84de74"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "57f055357b89eefa9e4036a0f14f966ea9dc002a90341afb820b3e678e84de74"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "6e037299de61e5631897a6ebb7c1056b2ed77a113640f833d2d5921f49358e35"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "6e037299de61e5631897a6ebb7c1056b2ed77a113640f833d2d5921f49358e35"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee1002e61c85f7b81cacb3817ca0e8fbdbca0fad4fb5643868ded01bf040b9bf"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee1002e61c85f7b81cacb3817ca0e8fbdbca0fad4fb5643868ded01bf040b9bf"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "70a2a2a35ba2036ee7d18ecf18cb6641a6372617fb73457f67c6414fa7314c32"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "70a2a2a35ba2036ee7d18ecf18cb6641a6372617fb73457f67c6414fa7314c32"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "84519d5255945124b5e90bdbc818d1c7f49f6e532e209af32a7a8c53f5105441"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "84519d5255945124b5e90bdbc818d1c7f49f6e532e209af32a7a8c53f5105441"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "09156af03fdd23683366c3555fa4bcb468574c99e15c873ad132b0c2f55a0ddc"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "09156af03fdd23683366c3555fa4bcb468574c99e15c873ad132b0c2f55a0ddc"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0f309eab24d42f285d77768604009df0c570627af5a41e857207c35c6b956d76"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0f309eab24d42f285d77768604009df0c570627af5a41e857207c35c6b956d76"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "1626ed4bc90ea63398d438e43134487af8a43d18a6b63dff6951ef3d89be06a9"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "1626ed4bc90ea63398d438e43134487af8a43d18a6b63dff6951ef3d89be06a9"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3f8840c35a904fb4f1c430c1c7cdaf94476939745d262ed4e400468d87253c52"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3f8840c35a904fb4f1c430c1c7cdaf94476939745d262ed4e400468d87253c52"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a1b8b8cf2fe9fea1c26a04f5999c96ba10fbfbb6951d8e005d010af8a47207c1"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2588d9706b7901fb695dff654f683723c5ac32e7fc4043164e5fba821597a0b2"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2588d9706b7901fb695dff654f683723c5ac32e7fc4043164e5fba821597a0b2"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "5b8b23638558d87c7d5db62e6658d0afe630d7f8e6665a322d88c057e290960a"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "5b8b23638558d87c7d5db62e6658d0afe630d7f8e6665a322d88c057e290960a"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "null",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "42aaefaef6c442f1069df210c0cb5de41a6a511facc4c2ca7c1132ec35f945cb"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "42aaefaef6c442f1069df210c0cb5de41a6a511facc4c2ca7c1132ec35f945cb"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "199ec95fc9b31e3847c234382996cce7fb117a57e3ff5d20a13e72fd58442919"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "199ec95fc9b31e3847c234382996cce7fb117a57e3ff5d20a13e72fd58442919"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2e79dcb1454386906ddaca9f0697c8ce02e2c86c65c1d44104554c573fd01aab"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2e79dcb1454386906ddaca9f0697c8ce02e2c86c65c1d44104554c573fd01aab"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "15925eedcf806381429dfd26d471ddaa881f6002a03ec475e70bc39a1b8c18ee"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "15925eedcf806381429dfd26d471ddaa881f6002a03ec475e70bc39a1b8c18ee"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b658a3a5061758831fcf42777c8bd10a7b63f89a1c0ae710ca35a2d5b2e54177"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b658a3a5061758831fcf42777c8bd10a7b63f89a1c0ae710ca35a2d5b2e54177"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "afe6e8c3f35e9a7a47465c703b08606b513b08ec428a102d806a01d924717d7f"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "afe6e8c3f35e9a7a47465c703b08606b513b08ec428a102d806a01d924717d7f"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f30257ca1cd7e2afa30185be566366a747452becb48fd3309baa16cdabe54fb4"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f30257ca1cd7e2afa30185be566366a747452becb48fd3309baa16cdabe54fb4"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "73642adc73956808a42830a3536da98a4343a21fc3b19b942240974283ebaa23"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "73642adc73956808a42830a3536da98a4343a21fc3b19b942240974283ebaa23"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "aa912a567e2c3c6696b9c8228691c09b5305813ef58b5757102611aac167fb09"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "aa912a567e2c3c6696b9c8228691c09b5305813ef58b5757102611aac167fb09"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "External<16:43981>",
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d89f5fc7c84259fdccfead44cb8ee284c6110e0ff96a80b2863ac40d0cb55eb0"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d89f5fc7c84259fdccfead44cb8ee284c6110e0ff96a80b2863ac40d0cb55eb0"
+          },
+          {
+            "type": "int",
+            "value": "130"
+          },
+          {
+            "type": "int",
+            "value": "8"
+          },
+          {
+            "type": "slice",
+            "cellHash": "455a01240026671ac478100587762cd191245e1ac733f77aa1b1f811d9d5f4f6"
+          },
+          {
+            "type": "int",
+            "value": "131"
+          }
+        ],
+        "gasUsed": "2082"
+      }
+    }
+  ],
+  "addresses": [
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "null",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "68c1c60539fe9e6d47f95c21fc06fcf67b94896981e8dc118ab739b615c7f9c0"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "68c1c60539fe9e6d47f95c21fc06fcf67b94896981e8dc118ab739b615c7f9c0"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "0d8cc029f7e7fc84da8d416bc6137e2491dd15a65f0c75c5a82e4db5b158f194"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "0d8cc029f7e7fc84da8d416bc6137e2491dd15a65f0c75c5a82e4db5b158f194"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "32073b26ba257cba5ddd8605b8c38a204772ac735295f5b3a31f207a879008d9"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "32073b26ba257cba5ddd8605b8c38a204772ac735295f5b3a31f207a879008d9"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:0000000000000000000000000000000000000000000000000000000000000000",
+      "owner": "External<16:43981>",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "8a1e1ae3db01d7f7fdf821e957e333aa47eab3ceabc8f7a177b85a3affd84aa4"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "8a1e1ae3db01d7f7fdf821e957e333aa47eab3ceabc8f7a177b85a3affd84aa4"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "null",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "e723e9b16802d2f0c3ad46e94e6af95bc4990b389831722dc829f6d925fcafdf"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "e723e9b16802d2f0c3ad46e94e6af95bc4990b389831722dc829f6d925fcafdf"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "f9e133345cc7bd51a083d766493bcbe3f834745e81d39521c379040f02e8d583"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "f9e133345cc7bd51a083d766493bcbe3f834745e81d39521c379040f02e8d583"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "4d8102e9fa040bdcfb247be0b01204d45280160e20a2005054a3fe77d07e37be"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "4d8102e9fa040bdcfb247be0b01204d45280160e20a2005054a3fe77d07e37be"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "0:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "owner": "External<16:43981>",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "a917b4a182b90657c69c1c1387cb596dbb92f96896a057181af52cb5ab72fc5d"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "a917b4a182b90657c69c1c1387cb596dbb92f96896a057181af52cb5ab72fc5d"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "null",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "620334db1c796c70eb4dbddb142cb61c178e7ecad57e84ce899c519ab302e259"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "620334db1c796c70eb4dbddb142cb61c178e7ecad57e84ce899c519ab302e259"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "EQApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKY_7",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "a3a0429d3445672dcd537d20a874ffdb23e13c201caf7c158c6d5f263c0be79f"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "a3a0429d3445672dcd537d20a874ffdb23e13c201caf7c158c6d5f263c0be79f"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "Ef8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKndy",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "138b87d25db18af8675ddcb55a4e2db8be2a2f7e40e16cec9e3d9c04453fea9d"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "138b87d25db18af8675ddcb55a4e2db8be2a2f7e40e16cec9e3d9c04453fea9d"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    },
+    {
+      "pool": "-1:3737373737373737373737373737373737373737373737373737373737373737",
+      "owner": "External<16:43981>",
+      "method": 72157,
+      "args": [
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "de5546b9c7f9c34915119b94957b7c5568a6f34101256d12996a444dd46f55fa"
+          }
+        ],
+        "gasUsed": "4161"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "de5546b9c7f9c34915119b94957b7c5568a6f34101256d12996a444dd46f55fa"
+          }
+        ],
+        "gasUsed": "4161"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "668"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "668"
+      }
+    },
+    {
+      "method": 90047,
+      "args": [
+        "slice",
+        "int",
+        "int",
+        "int",
+        "int",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "798"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "798"
+      }
+    }
+  ]
+}

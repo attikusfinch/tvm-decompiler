@@ -88,3 +88,10 @@ single role or its assembler reference passes.
   The recovered semantics identify Position's reward fields as remaining duration,
   remaining budget, checkpoint and last-update time; its names now reflect those
   meanings while its complete compiled BOC remains identical.
+- Position/Deposit deployment helpers and `get_position_address` are now exact in
+  both Pool revisions. The getter uses the official old Tolk stdlib StateInit hash
+  primitives, with source attribution and LGPL retained, and named Tolk address
+  logic. Its entire dictionary value matches, not just its returned address.
+  Isolated builds pass serialized BOC comparisons, 62 independent differential
+  probes including gas, and 4 native Acton module tests. Full Pool message paths
+  and whole-contract byte equality remain outstanding.

@@ -17,6 +17,7 @@
     "dedust:recovery": "node scripts/check-dedust-recovery.mjs",
     "dedust:pool-decompile": "node scripts/check-dedust-pool-decompile.mjs",
     "dedust:pool-rewards": "node scripts/check-dedust-pool-rewards.mjs",
+    "dedust:pool-addresses": "node scripts/check-dedust-pool-addresses.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
     "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",

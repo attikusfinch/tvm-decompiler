@@ -30,3 +30,20 @@ with independent arithmetic/storage expectations, including gas, rounding,
 expired programs, empty dictionaries, malformed records and varuint overflow.
 Five native Acton tests cover the recovered module. The proof is in
 `rewards-verification.json`; it establishes these two modules only.
+
+`addresses.tolk` recovers the shared Position and Deposit deployment functions;
+their compiled cells equal hashes `07794cb753547d7a3087db90aa3f6eb53fca322e3571c7e84758f3d9d8130cf3`
+and `40c8629de33bd9ed78e9fa2bead6489e46da9f45b4c10dd92353df7b16c0d613`.
+`compat-address.tolk` expresses the old address calculation in Tolk and uses the
+StateInit hash primitives from the official Tolk 1.1 standard library, preserved
+in `stdlib-legacy-stateinit.tolk` with its source attribution and LGPL license.
+The full `get_position_address` dictionary value now equals its original cell
+`1c35563f6b5c01ca1df9f63c3d898c32347a5b1bbc2c2c0fdaaccc4713d256c4`.
+
+Run `npm run dedust:pool-addresses` to reproduce 62 differential probes with gas
+and independent storage/address expectations, plus complete serialized BOC equality
+for isolated deployment/getter wrappers. Four native Acton tests verify these
+modules. Tests include different workchains, none/external owners, maximum coin
+amounts, shard-prefix preservation and rejected field-width overflows. The proof
+is in `addresses-verification.json`. Matching old library primitives does not
+prove which exact compiler version the original author used.
