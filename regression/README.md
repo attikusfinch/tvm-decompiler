@@ -41,6 +41,8 @@ npm run tolk:nullable
 npm run tolk:loops
 npm run tolk:again
 npm run tolk:exceptions
+npm run tolk:dispatch
+npm run dispatch:ambiguity
 npm run tolk:audit
 npm run tolk:patterns
 ```
@@ -62,6 +64,17 @@ The 20-case corpus compiles fixture source, decompiles it, recompiles the output
 `tolk:again` covers P02 with six compiler-derived fixtures / 36 probes: infinite loops with scalar/tuple returns, global effects, exceptions, ref-chain cursors and c5 POPCTR/PUSHCTR. Original behavior and raw/normalized BOC plus gas match for every probe; 5/6 original/raw code cells are identical. AGAINBRK/AGAINENDBRK and arbitrary continuation targets remain unsupported. The WalletV5 message probes also catch removal of void effectful calls by FunC when `impure` is missing from asm definitions or inline-ref forward declarations.
 
 `tolk:exceptions` covers P03 with ten compiler-derived fixtures / 75 probes: canonical register-saving TRY envelopes, captured values/snapshots, exception code/value including cell/null, nested rethrow, early return and c4/c5/c7 restoration. Every probe preserves original behavior and raw/normalized BOC plus gas; 1/10 original/raw code cells is identical. Only the proven compiler envelope is recovered. Noncanonical handlers, more than one capture chunk and TRYARGS retain diagnostics; unit/CLI tests use a separate noncanonical TRY fixture for strict rejection.
+
+`tolk:dispatch` covers fixed CALLXARGS and static JMPX with six fixtures /
+132 probes on both output languages. Runtime callback slices/cells, invalid
+code, null/cell inputs and zero/two results exercise the encoded ABI without
+giving callback bodies to the decompiler. Five fixed-call cases preserve the
+original code-cell and gas. JMPX drops unreachable caller code, preserving
+behavior but changing original code/gas. Raw/normalized BOC and gas are equal.
+`dispatch:ambiguity` proves why unbounded EXECUTE/CALLXARGS_VAR/dynamic JMPX
+cannot recover a unique return width: three scalar/tensor source pairs compile
+to identical code, while runtime callbacks return 0/1/2 slots. Both languages
+retain the same partial files/diagnostics with normalization skipped.
 
 Optional --acton writes TASM disassembly with cell hashes and bit offsets. On Windows it uses WSL Ubuntu (WSL_DISTRO and ACTON_WSL_PATH override this); on Linux it uses acton from PATH. The emulator tests themselves do not require Acton to be installed.
 
@@ -99,4 +112,4 @@ suite reports without re-running compilation.
 
 ## Standalone HTML report
 
-Run `npm run acton -- --local --native --acton` to generate all eight FunC cases with TASM views, and the same command with `--language tolk` for Tolk. Known differences and partial outputs make both commands exit 1. Then run `npm run report` separately. The exporter validates original/recompiled BOC hashes and saved sources against each response and writes ../reports/acton-contracts.html. It includes a Tolk selector when the tolk/report.json artifact is available. `--artifacts <directory>`, `--tolk-artifacts <directory>` and `--output <file>` override paths. The report is self-contained, works offline, includes original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. Each language retains its own JAR SHA-256, compiler metadata and check timestamp. Seven outputs include recompilation/comparison; WalletV5 is visibly partial and has no recompiled BOC or comparison results.
+Run `npm run acton -- --local --native --acton` to generate all eight FunC cases with TASM views, and the same command with `--language tolk` for Tolk. Known differences and partial outputs make both commands exit 1. Then run `npm run report` separately. The exporter validates original/recompiled BOC hashes and saved sources against each response and writes ../reports/acton-contracts.html. It includes a Tolk selector when the tolk/report.json artifact is available. `--artifacts <directory>`, `--tolk-artifacts <directory>` and `--output <file>` override paths. The report is self-contained, works offline, includes original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. Each language retains its own JAR SHA-256, compiler metadata and check timestamp. All eight outputs include raw/normalized recompilation and comparison; original/recompiled differences remain visible in the report.

@@ -52,13 +52,13 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
 
     private fun primitiveType(value: String): String = when (value.trim()) {
         "()" -> "void"
-        "cont" -> "continuation"
+        "cont" -> "unknown"
         else -> value.trim().replace(Regex("\\b[A-Z]\\w*\\b"), "unknown")
     }
 
     private fun type(value: TvmStackEntryType): String = when (value) {
         TvmStackEntryType.UNKNOWN -> "unknown"
-        TvmStackEntryType.CONTINUATION -> "continuation"
+        TvmStackEntryType.CONTINUATION -> "unknown"
         is TvmStackEntryType.TUPLE -> if (value.elements.isEmpty()) "tuple" else value.elements.joinToString(", ", "[", "]", transform = ::type)
         else -> value.typename
     }

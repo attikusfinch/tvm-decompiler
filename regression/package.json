@@ -21,6 +21,8 @@
     "tolk:loops": "node scripts/check-tolk-loops.mjs",
     "tolk:again": "node scripts/check-tolk-again.mjs",
     "tolk:exceptions": "node scripts/check-tolk-exceptions.mjs",
+    "tolk:dispatch": "node scripts/check-tolk-dispatch.mjs",
+    "dispatch:ambiguity": "node scripts/check-dispatch-ambiguity.mjs",
     "tolk:audit": "node scripts/audit-recovery-results.mjs",
     "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs"
   },

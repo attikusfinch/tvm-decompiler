@@ -97,11 +97,18 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
         if (genCtx.node.constants.isNotEmpty()) sb.append("\n")
 
         for (asmFunction in genCtx.node.asmFunctions) {
-            sb.append(asmFunction.returnType.joinToString(separator = ", ", prefix = "(", postfix = ")") { it.type.funcTypename })
+            // FunC has no opaque type with a guaranteed single-slot width. For
+            // CALLXARGS slots whose runtime type is unknown, int is a width-only
+            // asm escape: it adds no conversion/check. Consumers still refine
+            // known cell/slice/tuple slots in the IR before this point.
+            fun asmType(entry: io.swee.tvm.decompiler.internal.StackEntry) =
+                if (asmFunction.name.startsWith("asm_CALLXARGS_") && entry.type == TvmStackEntryType.UNKNOWN) "int"
+                else entry.type.funcTypename
+            sb.append(asmFunction.returnType.joinToString(separator = ", ", prefix = "(", postfix = ")") { asmType(it) })
             sb.append(" ")
             sb.append(asmFunction.name)
             sb.append(" (")
-            sb.append(asmFunction.args.joinToString(", ") { "${it.type.funcTypename} ${(it.name as StackEntryName.Const).value}" })
+            sb.append(asmFunction.args.joinToString(", ") { "${asmType(it)} ${(it.name as StackEntryName.Const).value}" })
             sb.append(if (asmFunction.pure) ") asm " else ") impure asm ")
             sb.append(asmFunction.body)
             sb.append(";\n")

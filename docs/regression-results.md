@@ -16,7 +16,7 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 | Acton SimpleExtension | Not queried | Compiles; 1/1 getter, 6/7 internal message outcomes and 7/7 storage/action results match |
 | Acton WalletV5 | Not queried | Compiles on FunC/Tolk; 5/5 getters, 10/10 message outcomes and state/action comparisons |
 
-Kotlin unit/CLI tests: 62 passed, including WHILE/AGAINEND/CALLREF/TRY recovery, effectful FunC declarations, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 4 passed. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+Kotlin unit/CLI tests: 65 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, effectful FunC declarations, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 4 passed. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
 
 The newly passing minimal cases reproduce typed BALANCE indexing, embedded GETPARAM selectors, a PUSHREF cell containing references and canonical TRY/catch. Counter also reproduces INMSGPARAM result typing and embedded selectors. Dynamic EXECUTE remains incomplete with structured diagnostics. Noncanonical TRY has a separate negative unit/CLI fixture.
 
@@ -34,7 +34,7 @@ The standalone [HTML report](../reports/acton-contracts.html) contains original 
 
 Gas is reported separately; remaining account balances are not compared. Every message starts from independent original storage and fixed emulator time/random seed. A code-cell identity comparison is distinct from equality of BOC serialization bytes. No chain deployment is involved in these tests.
 
-Noncanonical TRY/TRYARGS and dynamic continuations remain unsupported. Complete means no detected parsing failures, not verified recompilation or equivalence. The CLI's strict mode is intended to let callers reject known partial outputs before compilation.
+Noncanonical TRY/TRYARGS and dynamic calls with unknown output width remain unsupported. Fixed CALLXARGS and concrete JMPX are supported in the tested forms. Complete means no detected parsing failures, not verified recompilation or equivalence. The CLI's strict mode is intended to let callers reject known partial outputs before compilation.
 
 ## Tolk output backend
 
@@ -66,6 +66,17 @@ exercise 75 probes with matching original behavior and identical
 raw/normalized BOC plus gas. Only 1/10 original/raw code cells is identical;
 the raw emitter's remaining code/gas differences are reported separately.
 Arbitrary handlers, multiple capture chunks and TRYARGS retain diagnostics.
+
+P04 preserves fixed CALLXARGS input/output widths and opaque continuation values.
+Six fixtures / 132 probes run against both FunC and Tolk, including null/cell
+runtime values, invalid callbacks, zero outputs and two outputs. Five fixed-call
+fixtures preserve original code-cell and gas; static JMPX preserves behavior but
+changes original code/gas when its body is inlined. All raw/normalized BOCs and
+gas match. Three additional source pairs prove erased return-signature ambiguity
+for EXECUTE, CALLXARGS_VAR and dynamic JMPX: each pair has the same code-cell,
+while runtime callbacks return one, two or zero slots. These forms retain explicit
+partial diagnostics rather than a guessed ABI. Reproduce with `tolk:dispatch`
+and `dispatch:ambiguity` in the regression package.
 
 All eight Acton template outputs compile as Tolk. Seventeen of eighteen getter probes match; 65/71 internal-message outcomes match including outgoing values; 70/71 match exit/storage/raw actions. Empty, Counter and WalletV5 pass every executed probe. The MYCODE and carried-value differences described above also occur with Tolk, with different gas figures available in the HTML. External-message flows remain untested.
 

@@ -40,6 +40,7 @@ sealed class TvmStackEntryType(val typename: String) {
         override fun default(): List<TvmInst> = listOf(newc())
     }
     data object CONTINUATION : TvmStackEntryType("continuation") {
+        override val funcTypename: String get() = "cont"
         override fun default(): List<TvmInst> = listOf(pushNull())
     }
 

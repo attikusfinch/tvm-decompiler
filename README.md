@@ -27,7 +27,7 @@ WHILE condition/exit stacks and AGAIN/AGAINEND infinite loops with explicit retu
 
 The default CLI retains partial files for inspection and writes warnings to stderr. `--strict` exits with code 2 for incomplete decompilation, omitting partial source files; JSON still contains diagnostics. Fatal input/disassembly errors exit with code 1. Logs stay off stdout so JSON can be consumed by another process.
 
-Noncanonical TRY/TRYARGS and dynamic continuations remain unsupported. MYCODE can change behavior if recompilation changes the code hash: derived addresses and returned code cells may change. Different gas usage can affect outgoing values in carry-value send modes.
+Fixed CALLXARGS preserves its encoded input/output widths through an effectful assembly call, including runtime continuations. Static JMPX recovers its target and discards unreachable caller code. Noncanonical TRY/TRYARGS and calls with unbounded runtime output width retain diagnostics: identical BOCs can return different numbers of slots depending on the callback. MYCODE can change behavior if recompilation changes the code hash: derived addresses and returned code cells may change. Different gas usage can affect outgoing values in carry-value send modes.
 
 The local improvements cover typed embedded INMSGPARAM/GETPARAM selectors, typed balance-pair access and executable Fift literals for referenced cells. Unit/CLI fixtures exercise both compiler TRY envelopes, noncanonical TRY rejection and dynamic EXECUTE diagnostics.
 

@@ -110,7 +110,7 @@ BOC → инструкции TVM → стековый IR → raw main.tolk + std
 | P01 | CFG: stack joins, WHILE / UNTIL / REPEAT | Стек до/после каждой дуги, эффектные условия, сохранённые значения и exits; сначала исправить неполный raw IR | N01 | Частично: исправлен WHILE condition/pop/body и false edge; NftCollection complete на обоих языках; продолжение CFG анализа |
 | P02 | AGAINEND и другие continuation-формы | Не терять хвост continuation или выход; явная диагностика до реализации | P01 | Частично: AGAIN/AGAINEND, loop-carried stack и RETALT; WalletV5 complete на обоих языках. AGAINBRK/AGAINENDBRK и динамические exits остаются открытыми |
 | P03 | TRY / catch / THROWARG | Catch stack, exception value/code, c0/c1/c2, успешный и аварийный путь; нормализатор не маскирует unsupported parser | P01 | Частично: canonical FunC/Tolk register envelopes, captured stack до 255, nested joins/returns и THROWARG; arbitrary handlers/TRYARGS остаются с диагностикой |
-| P04 | Динамические continuations / dispatch | CALLX/EXECUTE/JMPX, c3 и динамическая цель, stack ABI и return; без доказанной цели сохранять явный low-level вызов/диагностику | P01..P03 | Очередь |
+| P04 | Динамические continuations / dispatch | CALLX/EXECUTE/JMPX, c3 и динамическая цель, stack ABI и return; без доказанной цели сохранять явный low-level вызов/диагностику | P01..P03 | Частично: fixed CALLXARGS p/r с opaque continuation и static JMPX; variable return width доказан неоднозначным, сохраняется диагностика |
 
 N01–N04 — первый проход. Затем N05–N10 и анализ блокеров P01/P02,
 после них сериализация, схемы и сложные CFG-правила. TRY и динамические вызовы
@@ -270,6 +270,7 @@ mutating-метод возвращает `slice?`; legacy consumers получа
 | 2026-10-08 | P01 | WHILE сначала выполняет condition, снимает флаг, затем выполняет body; false edge возвращает condition stack без флага. Discovery и back edge учитывают обе фазы. Восстановлен NftCollection: компилируется на FunC/Tolk, 4/4 getter, 11/12 messages с values, 12/12 state/actions; royalty value отличается из-за газа. Дополнительно исправлены synthetic CALLREF method IDs и generic FunC tuple indexing, необходимые для его компиляции. Восемь compiler-derived loop-сценариев / 70 проб, raw/normalized BOC + gas идентичны, original behavior совпадает; 1/8 original/raw code-cell идентичен. |
 | 2026-10-08 | P02 | AGAIN/AGAINEND сохраняют бесконечный back edge и явные RETALT, вложенные возвраты задают тип функции. Embedded control register печатается как c5, purity asm переносится в FunC, forward declarations inline_ref сохраняют impure. WalletV5 complete на обоих языках: 5/5 getters, 10/10 messages, 10/10 state/actions. Шесть compiler-derived сценариев / 36 проб, raw/normalized BOC + gas и original behavior совпадают, 5/6 original/raw code-cell идентичны. AGAINBRK/AGAINENDBRK и динамические exits остаются открытыми. |
 | 2026-10-08 | P03 | Native try/catch из доказанных envelopes: FunC PUSHCTR/SETCONTCTR c1/c3/c4/c5/c7 и compact Tolk SETCONTCTRMANY 186. Catch stack содержит captured slots, exception value/code, без живого try stack. Сохранены lexical joins, nested rethrow, early returns и THROWARGANY divergence. Десять compiler-derived сценариев / 75 проб проверяют captured snapshots, cell/null exception values, c4/c5/c7 restoration; raw/normalized BOC + gas и original behavior совпадают, 1/10 original/raw code-cell идентичен. Noncanonical TRY не считается complete. |
+| 2026-10-08 | P04 | Fixed CALLXARGS сохраняет encoded p/r, порядок входов/выходов и impure low-level вызов; Tolk использует unknown для opaque continuation, FunC — cont и однослотовый asm ABI. Static JMPX удаляет недостижимый хвост. Шесть сценариев / 132 пробы на обоих языках; original behavior и raw/normalized BOC + gas совпадают, 5/6 original/raw code-cell и gas идентичны. Три пары исходников с разными return signatures дают одинаковый BOC, но runtime callback возвращает 0/1/2 слота: EXECUTE, CALLXARGS_VAR и dynamic JMPX не имеют однозначно восстанавливаемой ширины. |
 
 Приёмка первого прохода: 45 Kotlin-тестов; 19 compiler-derived сценариев,
 501 входная проба с равенством raw/normalized code-cell, serialized BOC и
@@ -322,3 +323,11 @@ original code-cell identities остаются 8 Tolk / 15 FunC. Все восе
 Результаты предыдущих правил и известные original/recompiled-расхождения
 содержатся в [regression-results.md](regression-results.md). Эта спецификация
 не меняет их статус.
+
+Порция P04 прошла 65 Kotlin-тестов, четыре теста стенда, семь основных
+recovery suites / 1160 проб и три доказательства ambiguous dispatch / девять
+проб. Prefix/normalization/edges и оба 20-case corpus проходят с прежними
+19 passing / 1 partial. Все восемь шаблонов проверены на обоих языках;
+raw/normalized BOC идентичность и прежние original/recompiled различия
+сохранены. HTML прошёл проверки точного текста, downloads, keyboard/mobile,
+отсутствия сетевых запросов и ошибок JavaScript.

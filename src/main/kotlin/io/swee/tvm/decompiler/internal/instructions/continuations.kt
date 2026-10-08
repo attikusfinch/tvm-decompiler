@@ -609,6 +609,29 @@ fun registerContinuationParsers(registry: ParserRegistry) {
                 parseCallContinuation(registry, ctx, contInsts)
             }
         }
+        register<TvmContBasicCallxargsInst>(ParserLevel.MANUAL) { ctx, inst ->
+            // CALLXARGS encodes its complete stack-width ABI even when the target
+            // is dynamic. Keep the call opcode and opaque slot types; do not infer
+            // the target's source signature or inline its body.
+            val target = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
+            val arguments = (0 until inst.p).map { ctx.stackPop() }.reversed() + target
+            val results = (0 until inst.r).map { StackEntry.Simple(TvmStackEntryType.UNKNOWN, name("call_result")) }
+            val call = IRNode.FunctionCall("asm_CALLXARGS_${inst.p}_${inst.r}",
+                arguments.map { IRNode.VariableUsage(it, tracked = true) }, "\"${inst.p} ${inst.r} CALLXARGS\"")
+            ctx.appendNode(IRNode.VariableDeclaration(results, call))
+            results.forEach { ctx.stackPush(it) }
+        }
+        register<TvmContBasicJmpxInst>(ParserLevel.MANUAL) { ctx, _ ->
+            val target = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
+            val (block, jumped) = parseContinuation(registry, ctx, target.continuationInstructions(), isReturn = true)
+            block.entries.forEach { ctx.appendNode(it) }
+            ctx.mergeUpstreams(listOf(jumped))
+            ctx.hasDiverged = true
+            ctx.remainingInstructions?.clear()
+        }
+        register<TvmContBasicCallxargsVarInst>(ParserLevel.MANUAL) { _, _ ->
+            error("Dynamic continuation: CALLXARGS_VAR does not encode a fixed return width")
+        }
         register<TvmContDictCalldictInst>(ParserLevel.MANUAL) { ctx, inst ->
             handleCalldict(ctx, inst.n)
         }
