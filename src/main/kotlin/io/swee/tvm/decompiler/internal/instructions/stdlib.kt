@@ -121,23 +121,32 @@ class StdlibRegistry(
         val mnemonic = instData.instDescriptionRaw.mnemonic
 
         val standardOutputs = resolveOutputs(instData)
-        val optOutputs = if (standardOutputs.isNotEmpty()) standardOutputs.dropLast(1) else emptyList()
+        val conditional = instData.instDescriptionRaw.valueFlow.outputs.stack
+            ?.filterIsInstance<TvmCp0InstValueFlowOutputsEntry.Conditional>()?.singleOrNull() ?: return
+        val absent = conditional.match.singleOrNull { it.value == 0L }?.stack ?: return
+        val present = conditional.match.filter { it.value != 0L }.map { it.stack ?: emptyList() }
+        if (present.isEmpty() || present.any { it.size != present.first().size }) return
+        val padding = present.first().size - absent.size
 
-        fun regChain(suffix: String, chain: List<Class<out TvmInst>>) {
+        fun regChain(suffix: String, opcode: String, count: Int, chain: List<Class<out TvmInst>>) {
+            if (padding != count) return
             val fullChain = listOf(instData.instClass) + chain
             val parser = AsmFunctionFactory.create(
                 instData,
                 "asm_${mnemonic}_$suffix",
                 null,
-                overrideOutputs = optOutputs,
+                // NULLSWAPIFNOT inserts missing values below the existing flag;
+                // it does not consume the flag or the updated dictionary.
+                overrideOutputs = standardOutputs,
                 constraints = emptyList(),
+                asmSuffix = listOf(opcode),
             )
             @Suppress("UNCHECKED_CAST")
             registry.registerChain(fullChain, ParserLevel.RAW_ASM, parser as InstParserFull<List<*>>)
         }
 
-        regChain("opt", listOf(TvmTupleNullswapifnotInst::class.java))
-        regChain("opt2", listOf(TvmTupleNullswapifnot2Inst::class.java))
+        regChain("opt", "NULLSWAPIFNOT", 1, listOf(TvmTupleNullswapifnotInst::class.java))
+        regChain("opt2", "NULLSWAPIFNOT2", 2, listOf(TvmTupleNullswapifnot2Inst::class.java))
 
     }
 

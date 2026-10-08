@@ -5,18 +5,32 @@ import org.ton.ton4j.cell.Cell
 import org.ton.ton4j.cell.CellBuilder
 
 object Literals {
+    private val sourceCells = ThreadLocal<LiteralCellIndex?>()
+
+    fun <T> withSourceCells(index: LiteralCellIndex, block: () -> T): T {
+        val previous = sourceCells.get()
+        sourceCells.set(index)
+        try { return block() }
+        finally { if (previous == null) sourceCells.remove() else sourceCells.set(previous) }
+    }
     fun cellLiteral(cell: TvmCell): String {
         return if (cell.refs.isEmpty()) bitLiteral(cell) else "${cellReferenceLiteral(cell)} <s"
     }
 
     /** A single-line executable Fift cell expression, including all references. */
-    fun cellReferenceLiteral(cell: TvmCell): String = buildString {
+    fun cellReferenceLiteral(cell: TvmCell): String = sourceCells.get()?.reference(cell) ?: buildString {
         append("<b ${bitLiteral(cell)} s,")
         for (ref in cell.refs) append(" ${cellReferenceLiteral(ref)} ref,")
         append(" b>")
     }
 
-    private fun bitLiteral(cell: TvmCell): String {
+    internal fun sourceCellReferenceLiteral(cell: Cell): String = buildString {
+        append("<b ${bitLiteral(TvmCell(org.ton.bytecode.TvmCellData(cell.toBitString()), emptyList()))} s,")
+        for (ref in cell.refs) append(" ${sourceCellReferenceLiteral(ref)} ref,")
+        append(if (cell.isExotic) " b>spec" else " b>")
+    }
+
+    internal fun bitLiteral(cell: TvmCell): String {
         val bits = cell.data.bits
         val remainder = bits.length % 4
         val padded = if (remainder == 0) bits else bits + "1" + "0".repeat(3 - remainder)

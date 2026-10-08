@@ -14,13 +14,35 @@ data class FunctionSignature(
 
 data class CallrefExtractionResult(
     val augmentedMethods: Map<BigInteger, List<TvmInst>>,
-    val callrefMapping: Map<List<TvmInst>, BigInteger>
+    val callrefMapping: Map<List<TvmInst>, BigInteger>,
+    val referencedIds: Set<BigInteger>
 )
+
+// Only a literal, uncaptured continuation with literal finite argument width.
+// Runtime/captured targets and passing the whole caller stack remain unproven.
+fun staticVariableCallBody(instructions: List<TvmInst>, index: Int): List<TvmInst>? {
+    val body = when (val instruction = instructions.getOrNull(index)) {
+        is TvmConstDataPushcontShortInst -> instruction.c.list
+        is TvmConstDataPushcontInst -> instruction.c.list
+        is TvmConstDataPushrefcontInst -> instruction.c.list
+        else -> return null
+    }
+    fun integerAt(i: Int): Int? = when (val instruction = instructions.getOrNull(i)) {
+        is TvmConstIntPushint4Inst -> ((instruction.i + 5) and 15) - 5
+        is TvmConstIntPushint8Inst -> instruction.x
+        is TvmConstIntPushint16Inst -> instruction.x
+        else -> null
+    }
+    if (integerAt(index + 1) !in 0..254 || integerAt(index + 2) !in -1..254 ||
+        instructions.getOrNull(index + 3) !is TvmContBasicCallxvarargsInst) return null
+    return body
+}
 
 fun extractCallrefBodies(methods: Map<BigInteger, List<TvmInst>>): CallrefExtractionResult {
     val callrefMapping = HashMap<List<TvmInst>, BigInteger>()
 
     val fingerprintToId = HashMap<String, BigInteger>()
+    val referencedIds = mutableSetOf<BigInteger>()
     var nextId = -1000L
 
     fun fingerprint(instList: List<TvmInst>): String = buildString {
@@ -46,17 +68,20 @@ fun extractCallrefBodies(methods: Map<BigInteger, List<TvmInst>>): CallrefExtrac
     }
 
     fun scan(instList: List<TvmInst>) {
-        for (inst in instList) {
-            if (inst is TvmContBasicCallrefInst) {
-                val fp = fingerprint(inst.c.list)
+        for ((index, inst) in instList.withIndex()) {
+            val calledBody = if (inst is TvmContBasicCallrefInst) inst.c.list
+                else staticVariableCallBody(instList, index)
+            if (calledBody != null) {
+                val fp = fingerprint(calledBody)
                 val existingId = fingerprintToId[fp]
                 if (existingId != null) {
-                    callrefMapping[inst.c.list] = existingId
+                    callrefMapping[calledBody] = existingId
                 } else {
                     val newId = BigInteger.valueOf(nextId--)
                     fingerprintToId[fp] = newId
-                    callrefMapping[inst.c.list] = newId
+                    callrefMapping[calledBody] = newId
                 }
+                if (inst is TvmContBasicCallrefInst) referencedIds += callrefMapping.getValue(calledBody)
             }
             if (inst is TvmContOperand1Inst) {
                 scan(inst.c.list)
@@ -79,7 +104,7 @@ fun extractCallrefBodies(methods: Map<BigInteger, List<TvmInst>>): CallrefExtrac
         }
     }
 
-    return CallrefExtractionResult(augmentedMethods, callrefMapping)
+    return CallrefExtractionResult(augmentedMethods, callrefMapping, referencedIds)
 }
 
 fun inferSignatures(
@@ -212,14 +237,27 @@ private fun simulateFunction(
     argObserver: (BigInteger, Int, TvmStackEntryType) -> Unit,
     returnObserver: (BigInteger, Int, TvmStackEntryType) -> Unit
 ): FunctionSignature? {
-    val upstream = DiscoveryUpstreamStack()
-    val builder = IrBlockBuilder(upstream)
-    builder.callSignatures = signatures
-    builder.callRefMapping = callrefMapping
-    builder.callArgObserver = argObserver
-
     return try {
-        val codeBlock = TvmDecompilerImpl.parseCodeBlock(registry, builder, instList, false)
+        // A branch can return before another branch discovers deeper arguments.
+        // Replay with the complete entry stack so those untouched slots are part
+        // of every return, rather than reporting an accidental one-slot ABI.
+        var minimumArgs = 0
+        var builder: IrBlockBuilder
+        var codeBlock: IRNode.CodeBlock
+        var attempts = 0
+        while (true) {
+            check(attempts++ < 32) { "Function argument discovery did not converge" }
+            builder = IrBlockBuilder(DiscoveryUpstreamStack())
+            builder.callSignatures = signatures
+            builder.callRefMapping = callrefMapping
+            builder.callArgObserver = argObserver
+            builder.stackEnsureAtLeast(minimumArgs)
+            codeBlock = TvmDecompilerImpl.parseCodeBlock(registry, builder, instList, false)
+            val discovered = builder.upstream.getUsedEntries().size
+            if (discovered <= minimumArgs) break
+            minimumArgs = discovered
+        }
+        val upstream = builder.upstream
         val usedEntries = upstream.getUsedEntries()
 
         val resolved = io.swee.tvm.decompiler.internal.ir.TypeSolver.solve(codeBlock, builder.typeRefinements)
@@ -293,7 +331,10 @@ private fun collectCallees(
     callees: MutableSet<BigInteger>,
     callrefMapping: Map<List<TvmInst>, BigInteger>
 ) {
-    for (inst in instList) {
+    for ((index, inst) in instList.withIndex()) {
+        staticVariableCallBody(instList, index)?.let { body ->
+            callrefMapping[body]?.let(callees::add)
+        }
         when (inst) {
             is TvmContDictCalldictInst -> callees.add(BigInteger.valueOf(inst.n.toLong()))
             is TvmContDictCalldictLongInst -> callees.add(BigInteger.valueOf(inst.n.toLong()))

@@ -15,7 +15,8 @@ object AsmFunctionFactory {
         reorg: Reorg?,
         constraints: List<FiftHelper.AsmConstraint>,
         overrideOutputs: List<Cp0InstructionRegistry.TvmCp0InstValueFlowOutputsEntry>? = null,
-        pure: Boolean = false
+        pure: Boolean = false,
+        asmSuffix: List<String> = emptyList()
     ): InstParser {
         return { ctx, instList ->
             val primaryInst = instList.first()
@@ -90,6 +91,14 @@ object AsmFunctionFactory {
 
                 val value = InstValueAccessor.getValue(primaryInst, operand.name)
 
+                // An array's encoded width (e.g. TUPLE 5) is a Fift operand,
+                // not an additional value on the runtime stack. Distinguish it
+                // from variable-width instructions that consume n themselves.
+                if (operand.name in arrayLengthVarNames && operand.name !in stackLengthVars) {
+                    embeddedFiftLiterals.add(value.toString())
+                    continue
+                }
+
                 // A control-register operand is encoded in the opcode, not passed on the
                 // TVM stack. Fift expects a register object (c5), not a runtime integer.
                 if (operand.displayHints?.any { it is Cp0InstructionRegistry.TvmCp0InstBytecodeOperandDisplayHint.Register } == true) {
@@ -147,7 +156,8 @@ object AsmFunctionFactory {
             val callNode = IRNode.FunctionCall(
                 effectiveName,
                 finalArgs.map { IRNode.VariableUsage(it, true) },
-                asmBody,
+                if (asmSuffix.isEmpty()) asmBody else
+                    (listOf(asmBody ?: "\"$mnemonic\"") + asmSuffix.map { "\"$it\"" }).joinToString(" "),
                 pure
             )
 

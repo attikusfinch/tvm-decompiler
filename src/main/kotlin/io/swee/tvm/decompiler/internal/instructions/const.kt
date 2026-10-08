@@ -47,6 +47,7 @@ fun registerConstParsers(registry: ParserRegistry) {
         })
         register(ParserLevel.MANUAL, pushSlice<TvmConstDataPushsliceInst> { it.s })
         register(ParserLevel.MANUAL, pushSlice<TvmConstDataPushsliceLongInst> { it.slice })
+        register(ParserLevel.MANUAL, pushSlice<TvmConstDataPushsliceRefsInst> { it.slice })
         register(ParserLevel.MANUAL, pushSlice<TvmConstDataPushrefsliceInst> { it.c })
     }
 }

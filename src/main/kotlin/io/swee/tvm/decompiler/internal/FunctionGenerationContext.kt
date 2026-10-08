@@ -5,7 +5,6 @@ import io.swee.tvm.decompiler.internal.ir.IRNode.VariableDeclaration
 import io.swee.tvm.decompiler.internal.ir.IRNodeTransformer
 import io.swee.tvm.decompiler.internal.ir.IRNodeVisitor
 import io.swee.tvm.decompiler.internal.ir.StackEntryVisitor
-import org.ton.bytecode.TvmCell
 
 data class RootGenerationContext(
     val functions: Map<IRNode.Function, FunctionGenerationContext>,
@@ -89,7 +88,9 @@ class SliceConstantPool {
 }
 
 fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions()): RootGenerationContext {
-    val sliceDeclarations = mutableMapOf<TvmCell, Int>()
+    // The upstream TvmCell equality omits exotic descriptors. Use the full
+    // physical literal so equal bits with different reference kinds stay apart.
+    val sliceDeclarations = mutableMapOf<String, Int>()
     val constPool = SliceConstantPool()
 
     val transformer = object : IRNodeTransformer {
@@ -101,7 +102,7 @@ fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions())
                 }
             }
             val sliceIndex = sliceDeclarations.merge(
-                node.slice,
+                Literals.cellLiteral(node.slice),
                 sliceDeclarations.size,
                 { a, b -> a }
             )
@@ -118,7 +119,7 @@ fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions())
             "__slice_${entry.value}",
             listOf(),
             listOf(StackEntry.Simple(TvmStackEntryType.SLICE, StackEntryName.Const("slice"))),
-            "\"${Literals.cellLiteral(entry.key)} PUSHSLICE\""
+            "\"${entry.key} PUSHSLICE\""
         )
     }
 

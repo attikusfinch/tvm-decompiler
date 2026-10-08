@@ -648,6 +648,28 @@ fun registerContinuationParsers(registry: ParserRegistry) {
         register<TvmContBasicCallxargsVarInst>(ParserLevel.MANUAL) { _, _ ->
             error("Dynamic continuation: CALLXARGS_VAR does not encode a fixed return width")
         }
+        register<TvmContBasicCallxvarargsInst>(ParserLevel.MANUAL) { ctx, _ ->
+            fun literalWidth(): Int? = (ctx.stackPop(TvmStackEntryType.INT.typename)
+                .concreteValue as? ConcreteValue.IntVal)?.value?.toIntOrNull()
+            val returns = literalWidth()
+            val arguments = literalWidth()
+            check(arguments in 0..254 && returns in -1..254) {
+                "CALLXVARARGS requires literal finite argument and return widths"
+            }
+            val target = ctx.stackPop(TvmStackEntryType.CONTINUATION.typename)
+            val body = target.continuationInstructions()
+            val id = ctx.callRefMapping?.get(body)
+                ?: error("CALLXVARARGS requires an extracted uncaptured literal continuation")
+            val signature = ctx.callSignatures?.get(id)
+                ?: error("Unresolved literal CALLXVARARGS body")
+            check(signature.nArgs == arguments && (returns == -1 || signature.nReturns == returns)) {
+                "CALLXVARARGS isolated widths do not match the proven target ABI"
+            }
+            // A separate function preserves the callee's return boundary. Requiring
+            // every passed slot in its ABI prevents accessing the caller's saved stack.
+            val index = (-id.toLong() - 1000).toInt()
+            handleCallById(ctx, id, "callref_$index")
+        }
         register<TvmContDictCalldictInst>(ParserLevel.MANUAL) { ctx, inst ->
             handleCalldict(ctx, inst.n)
         }

@@ -6,7 +6,12 @@ import io.swee.tvm.decompiler.internal.ir.IRNode.*
 import java.math.BigInteger
 
 /** Emits Tolk directly from the shared IR. Compatibility helpers retain TVM stack layouts. */
-class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builtin: String) {
+class TolkPrinter(
+    private val options: DecompilerOptions,
+    stdlib: String,
+    builtin: String,
+    private val inlineCalls: Set<String> = emptySet()
+) {
     data class Output(val main: String, val support: String)
     private data class Primitive(val args: List<Pair<String, String>>, val returns: String, val asm: String)
     private val primitives = (builtin + "\n" + stdlib).lineSequence().mapNotNull(::parsePrimitive).toMap()
@@ -32,7 +37,10 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
             val argument = Regex("^(.+)\\s+(\\w+)$").matchEntire(it.trim()) ?: return null
             argument.groupValues[2] to primitiveType(argument.groupValues[1])
         }
-        return name to Primitive(arguments, primitiveType(returns), asm.trim())
+        // Unconditional THROW helpers do not return. Retaining FunC's void
+        // declaration hides this from Tolk's return-path checker.
+        val result = if (name in setOf("throw", "throw_arg")) "never" else primitiveType(returns)
+        return name to Primitive(arguments, result, asm.trim())
     }
 
     private fun splitArguments(value: String): List<String> {
@@ -127,7 +135,10 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
             context = analysis
             presentation = TolkPresentation(function, analysis)
             temporary = 0
-            if (function.isInlineRef) line("@inline_ref")
+            // CALLXVARARGS literal bodies have no CALLREF cell to preserve.
+            // Printing another PROCREF also consumes a private procedure ID and
+            // can collide with the original dictionary's explicit low IDs.
+            if (function.isInlineRef) line(if (function.name in inlineCalls) "@inline" else "@inline_ref")
             // Synthetic CALLREF IDs identify extracted code cells in the IR, not dictionary methods.
             if (!function.isInlineRef && function.methodId != BigInteger.ZERO && function.methodId != BigInteger.valueOf(-1)) line("@method_id(${function.methodId})")
             val args = function.upstreamStack.getUsedEntries().reversed().joinToString(", ") { "${variable(it)}: ${type(it.type)}" }
@@ -237,7 +248,7 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
         return truth(expression(node.entries.last()))
     }
 
-    private fun truth(value: Expression) = if (value.type == "bool") value.code else "${value.code} != 0"
+    private fun truth(value: Expression) = if (value.type == "bool") value.code else "${cast(value, "int")} != 0"
 
     private fun block(node: CodeBlock) = node.entries.forEach(::statement)
 

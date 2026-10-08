@@ -97,12 +97,13 @@ object TvmDecompilerImpl : TvmDecompiler {
         }
     }
 
+    private val cp0InstructionRegistry: Cp0InstructionRegistry by lazy { Cp0InstructionRegistry.create() }
+
     private val registry: ParserRegistry by lazy {
         val builtinContent = TvmDecompilerImpl::class.java.getResourceAsStream("/builtin.fc")!!.use {
             it.readAllBytes().toString(Charset.defaultCharset())
         }
 
-        val cp0InstructionRegistry = Cp0InstructionRegistry.create()
         val registry = ParserRegistry()
 
         val stdlibRegistry = StdlibRegistry(
@@ -132,9 +133,13 @@ object TvmDecompilerImpl : TvmDecompiler {
     }
 
     override fun decompile(boc: ByteArray, options: DecompilerOptions): TvmDecompilerResult {
-        val registry = this.registry
-
         val disassembly = disassembleBoc(boc)
+        val sourceCells = LiteralCellIndex.create(boc, disassembly, cp0InstructionRegistry)
+        return Literals.withSourceCells(sourceCells) { decompileCode(disassembly, options) }
+    }
+
+    private fun decompileCode(disassembly: TvmContractCode, options: DecompilerOptions): TvmDecompilerResult {
+        val registry = this.registry
 
         val mainMethodInstructions = disassembly.mainMethod.instList
         val mainMethodInstructionsIterator = mainMethodInstructions.iterator()
@@ -223,7 +228,9 @@ object TvmDecompilerImpl : TvmDecompiler {
         val rootNode = IRNode.Root(listOf(), allFunctions)
         if (options.language == OutputLanguage.TOLK) {
             val builtin = TvmDecompilerImpl::class.java.getResourceAsStream("/builtin.fc")!!.use { it.readBytes().toString(Charsets.UTF_8) }
-            val output = TolkPrinter(options, stdlibContent, builtin).print(rootNode)
+            val inlineCalls = callrefMapping.values.filter { it !in callrefResult.referencedIds }
+                .map { "callref_${-it.toLong() - 1000}" }.toSet()
+            val output = TolkPrinter(options, stdlibContent, builtin, inlineCalls).print(rootNode)
             val normalized = if (options.normalize && diagnostics.isEmpty()) TolkNormalizer.normalize(output.main, output.support)
                 else TolkNormalizer.Result(output.main, emptyList())
             return Result(listOf(ResultFile("main.tolk", normalized.main), ResultFile("stdlib.tolk", normalized.support ?: output.support)),
@@ -279,6 +286,8 @@ object TvmDecompilerImpl : TvmDecompiler {
         builder.options = options
         builder.registry = registry
 
+        if (!isEntryPoint) signatures[data.id]?.let { builder.stackEnsureAtLeast(it.nArgs) }
+
         val functionName = when (data.id) {
             BigInteger("-1") -> "recv_external"
             BigInteger("0") -> "recv_internal"
@@ -331,6 +340,8 @@ object TvmDecompilerImpl : TvmDecompiler {
         builder.registry = registry
 
         logger.fine("Parsing callref function $functionName")
+
+        sig?.let { builder.stackEnsureAtLeast(it.nArgs) }
 
         val codeBlock = try {
             parseCodeBlock(registry, builder, instList, true)

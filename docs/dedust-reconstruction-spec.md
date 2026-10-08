@@ -66,3 +66,18 @@ single role or its assembler reference passes.
   first branch's type. The real Position fixture decodes fully in both languages.
 - Readable byte-identical recovery: 3/21 families. Remaining families have exact
   instruction references only; both CPMM Pool revisions are next.
+- Both CPMM Pool revisions now decode without diagnostics. The fixes preserve
+  untouched arguments across early returns, recover statically known finite-width
+  `CALLXVARARGS`, and retain the dictionary, previous value and flag returned by
+  `DICTUSETGETB NULLSWAPIFNOT`. Synthetic differential tests cover early exits,
+  isolated caller stacks and existing/missing dictionary keys in both languages.
+  Encoded tuple widths remain Fift operands; merged conditions cast to integer
+  and terminal throws retain their `never` return type in Tolk. Literal library
+  references preserve the BOC exotic descriptor by physical reference order,
+  including literals in dictionary method bodies and referenced slices. Tests
+  distinguish a real library reference from ordinary data with identical bits.
+  Full raw Tolk for both Pool revisions compiles and passes 33 getter probes each:
+  all lifecycle states, zero/nonzero liquidity, signed withdrawal estimates,
+  malformed storage, and an independently constructed Position StateInit/address.
+  The recompiled Pool code is not yet byte-identical. Complete decoding and these
+  getter checks are not the readable-source or full-behavior acceptance gates.

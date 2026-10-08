@@ -19,6 +19,12 @@ Position's complete 1540-byte BOC equals mainnet
 14 getter probes, 49 message probes and 8 Acton tests pass. Together the three
 contracts have 120 differential probes and 20 native Acton tests.
 
+Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
+`npm run dedust:pool-decompile` checks 33 getter cases per revision against the
+frozen code and independent expectations, including the Position address derived
+from an exotic library reference. Pool bytecode and readable recovery remain
+unfinished; these getter checks do not establish full message-path equivalence.
+
 All 21 unique code families have exact, editable `reference.tasm` files. Those
 files are instruction references, **not** evidence that the remaining 18 contracts
 have readable recovered Tolk. See `verification.json` for per-contract status and
