@@ -16,7 +16,7 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 | Acton SimpleExtension | Not queried | Compiles; 1/1 getter, 6/7 internal message outcomes and 7/7 storage/action results match |
 | Acton WalletV5 | Not queried | Compiles on FunC/Tolk; 5/5 getters, 10/10 message outcomes and state/action comparisons |
 
-Kotlin unit/CLI tests: 84 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, normalization rules for both languages, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+Kotlin unit/CLI tests: 94 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, stdlib opcode/type/effect/permutation matching, generic and modifying-overload guards, UTF-8 output, normalization rules for both languages, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
 
 ## Separate FunC normalization
 
@@ -31,7 +31,7 @@ and send modes including retained unknown bits and invalid combinations.
 The partial case retains every file/diagnostic and has no normalizations.
 
 All eight Acton templates compile from both raw and normalized FunC to
-identical code cells and BOC bytes. Across their sources, all 178 tuple load
+identical code cells and BOC bytes. Across their sources, all 183 tuple load
 bindings become explicit mutating cursor loads, all 48 INMSGPARAM helper
 name occurrences become readable aliases, 32 prefix constants receive bit
 labels, and all 16 SENDRAWMSG calls use named numeric flags. Getter IDs and
@@ -40,6 +40,27 @@ not recovered author symbols. Generated local/parameter binding names fall
 from 506 occurrences to zero, including corresponding forward declarations.
 `npm run func:audit` checks current JAR hashes,
 actual BOC files and saved emulator results before reporting these counts.
+
+The full pinned TON v2026.08 stdlib is emitted with existing compatibility
+declarations preserved. A separate catalog derives helper names from its asm
+declarations and CP0 aliases, checking physical types, effects and stack
+permutations. Exact library calls replace compatible wrappers; different
+effects/API order, builtin behavior or free generic results retain the exact
+typed asm under a library-derived `*_tvm` name. Unknown or ambiguous matches
+remain explicit; public getter names are unchanged. All 29 opaque context
+primitive name occurrences in the templates now use these readable wrappers.
+LAST, TLEN and MYCODE stay explicit because this snapshot has no matching
+standard declaration. Five additional dictionary cursor bindings account for
+the increase from 178 to 183 load rewrites.
+
+`func:stdlib` adds 14 native compiler fixtures / 36 getter probes, with identical
+raw/normalized BOC, stack, exit and gas. Context selectors, random seed,
+repeated/discarded reads, MYCODE outside the catalog, dictionary/optional-ref/
+message-address loads, chains and live snapshots cover valid/null/truncated
+data. Original behavior matches independently; original code differences are
+recorded separately. `load_dict` and `load_maybe_ref` produce identical original
+BOCs, proving that their author spelling cannot be inferred. The SHA-256 audit
+includes this suite, the 31 previous scenarios and all eight templates.
 
 The final JAR also passes both 20-case corpora (19 complete / 75 matching
 getter probes each; known dynamic EXECUTE remains partial) and all eight
