@@ -129,3 +129,14 @@ single role or its assembler reference passes.
   192 independent probes with exact gas/actions/fee/dictionary expectations and
   four Acton tests pass. There are 48 native tests. Reward lookup uses one small
   typed zero constructor; no original executable blob is included.
+- The shared TON/jetton payout helper is exact, with a byte-identical complete
+  isolated build, 160 differential probes and four Acton tests. Signed callbacks,
+  raw/wrapped/absent payloads, coin/query bounds, raw actions and forwarding fees
+  (including body relocation after header filling) are independently checked.
+- Swap continuation, basic payout normalization and AffiliateAccount deployment
+  are exact shared functions. The isolated BOC matches; 193 independent probes
+  and five Acton tests include nullable partner/referrer codecs, native/jetton
+  routing, library resolution and its missing-library error. The library is
+  source-built for local emulation. The project now has 57 passing Acton tests.
+  Whole readable contract recovery remains 3/21; complete Pool handlers and
+  swap/liquidity accounting remain pending.

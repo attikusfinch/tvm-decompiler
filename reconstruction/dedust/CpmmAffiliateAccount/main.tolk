@@ -62,8 +62,8 @@ get fun get_affiliate_account_data(): (bool, any_address, any_address, int, cell
     // The getter validates the entire storage and decodes the affiliate-kind union.
     val storage = AffiliateGetterStorage.fromCell(contract.getData());
     val kind = match (storage.kind) {
-        PartnerKind => 0,
-        ReferrerKind => 1,
+        ReferrerKind => 0,
+        PartnerKind => 1,
     };
     return (storage.isActivated,storage.authority,storage.owner,kind,storage.metadata,storage.feeBps);
 }

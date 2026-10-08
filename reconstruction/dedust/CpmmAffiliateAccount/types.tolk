@@ -10,9 +10,11 @@ struct AffiliateRuntimeStorage {
     owner: any_address
 }
 
-struct (0b0) PartnerKind {}
-struct (0b1) ReferrerKind {}
-type AffiliateKind = PartnerKind | ReferrerKind
+// Inferred from Pool swap processing: its first public-ABI partnerConfig
+// creates kind 1; its second referrerConfig creates kind 0.
+struct (0b0) ReferrerKind {}
+struct (0b1) PartnerKind {}
+type AffiliateKind = ReferrerKind | PartnerKind
 
 @overflow1023_policy("suppress")
 struct AffiliateGetterStorage {

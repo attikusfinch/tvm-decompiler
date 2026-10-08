@@ -160,3 +160,28 @@ pinned official [`exec_send_message` implementation](https://github.com/ton-bloc
 Four native Acton tests bring the project to 52 passing tests. The proof is
 `payment-verification.json`; complete Pool dispatch and swap/liquidity paths
 remain pending.
+
+`routing.tolk`, `payout-basic.tolk` and `affiliate-deployment.tolk` recover three
+more shared referenced functions. Swap continuation preserves native/jetton ABI
+fields, both optional fee recipients, their original null-first codecs, and send
+mode 144. A jetton route deducts 50,000,000 from forward gas; a native route does
+not inspect that field. Basic payout normalization substitutes nonstandard
+destination/excesses addresses without changing the other options. Affiliate
+deployment resolves the public library at runtime, initializes its fixed
+authority, selects partner versus referrer and retains no sharding hint.
+
+Run `npm run dedust:pool-routing`. All three implementation cells and the entire
+isolated BOC match both revisions. The 193 probes independently check message
+bodies and actions, strict integer bounds, exact gas, address fallbacks and the
+seven-slot deployment result, including missing-library failure. The emulator
+receives the AffiliateAccount library compiled from our already exact readable
+source; it is not inserted into the Pool candidate's executable code. Five Acton
+tests cover these modules. Global libraries are registered before starting the
+separate test getter VM. The full project now passes 57 Acton tests; whole-Pool
+dispatch, liquidity changes and initial swap processing remain pending.
+`routing-verification.json` records the pinned hashes and full module proof.
+The Pool's first `partnerConfig` is passed to affiliate deployment with tag 163,
+which stores kind bit 1; the second `referrerConfig` uses tag 132 and bit 0. These
+behavior-derived names correct the earlier tentative AffiliateAccount labels.
+The readable AffiliateAccount still compiles to its identical complete BOC and
+its getter continues to return the same numeric values.
