@@ -209,52 +209,89 @@
     },
     {
       "id": "NftCollection",
-      "complete": false,
-      "diagnostics": [
+      "complete": true,
+      "diagnostics": [],
+      "changes": [
         {
-          "kind": "PARSER_ERROR",
-          "message": "Stack depth mismatch",
+          "rule": "boolean-guard",
           "methodId": "0",
-          "mnemonic": "WHILE",
-          "location": "Lambda:#24"
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "85719",
+          "functionName": "fn_85719"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "102491",
+          "functionName": "fn_102491"
+        },
+        {
+          "rule": "cursor-load",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "85719",
+          "functionName": "royalty_params"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "92067",
+          "functionName": "get_nft_address_by_index"
+        },
+        {
+          "rule": "abi-getter-name",
+          "methodId": "102491",
+          "functionName": "get_collection_data"
         }
       ],
-      "changes": [],
       "patterns": [
         {
           "id": "anonymous-getters",
           "count": 4,
           "examples": [
             {
-              "line": 145,
+              "line": 179,
               "code": "@method_id(68445)\nfun fn_68445("
             },
             {
-              "line": 155,
+              "line": 189,
               "code": "@method_id(102491)\nfun fn_102491("
             }
           ]
         },
         {
           "id": "primitive-load-tuples",
-          "count": 12,
+          "count": 13,
           "examples": [
             {
-              "line": 60,
+              "line": 59,
               "code": "var (s2, x) = tvmLoadUint(tail, 64);"
             },
             {
-              "line": 66,
+              "line": 65,
               "code": "var (s22, _) = tvmLoadUint(bodyTail, 64);"
             }
           ]
         },
         {
           "id": "builder-store-helpers",
-          "count": 1,
+          "count": 2,
           "examples": [
             {
-              "line": 78,
+              "line": 77,
+              "code": "tvmStoreGrams("
+            },
+            {
+              "line": 146,
               "code": "tvmStoreGrams("
             }
           ]
@@ -264,11 +301,11 @@
           "count": 4,
           "examples": [
             {
-              "line": 56,
+              "line": 55,
               "code": "matchPrefix_32_00000001("
             },
             {
-              "line": 89,
+              "line": 88,
               "code": "matchPrefix("
             }
           ]
@@ -278,39 +315,39 @@
           "count": 7,
           "examples": [
             {
-              "line": 59,
+              "line": 58,
               "code": ".loadAddress() as slice"
             },
             {
-              "line": 103,
+              "line": 102,
               "code": ".loadAddress() as slice"
             }
           ]
         },
         {
           "id": "int-cast-bindings",
-          "count": 5,
+          "count": 7,
           "examples": [
             {
-              "line": 64,
+              "line": 63,
               "code": "as int);"
             },
             {
-              "line": 70,
+              "line": 69,
               "code": "as int);"
             }
           ]
         },
         {
           "id": "raw-message-send",
-          "count": 2,
+          "count": 3,
           "examples": [
             {
-              "line": 80,
+              "line": 79,
               "code": "tvmSendRawMessage("
             },
             {
-              "line": 110,
+              "line": 109,
               "code": "tvmSendRawMessage("
             }
           ]
@@ -1112,11 +1149,11 @@
           "count": 5,
           "examples": [
             {
-              "line": 187,
+              "line": 186,
               "code": "@method_id(81467)\nfun fn_81467("
             },
             {
-              "line": 261,
+              "line": 260,
               "code": "@method_id(88459)\nfun fn_88459("
             }
           ]
@@ -1126,11 +1163,11 @@
           "count": 23,
           "examples": [
             {
-              "line": 34,
+              "line": 33,
               "code": "var (s2, x5) = tvmLoadInt(dataSlice2, 1);"
             },
             {
-              "line": 54,
+              "line": 53,
               "code": "var (s22, x7) = tvmLoadInt(dataSlice3, 1);"
             }
           ]
@@ -1140,11 +1177,11 @@
           "count": 2,
           "examples": [
             {
-              "line": 23,
+              "line": 22,
               "code": "tvmStoreMaybeRef("
             },
             {
-              "line": 45,
+              "line": 44,
               "code": "tvmStoreMaybeRef("
             }
           ]
@@ -1154,11 +1191,11 @@
           "count": 9,
           "examples": [
             {
-              "line": 8,
+              "line": 7,
               "code": "matchPrefix_8_02("
             },
             {
-              "line": 25,
+              "line": 24,
               "code": "matchPrefix_8_03("
             }
           ]
@@ -1168,11 +1205,11 @@
           "count": 2,
           "examples": [
             {
-              "line": 11,
+              "line": 10,
               "code": ".loadAddress() as slice"
             },
             {
-              "line": 28,
+              "line": 27,
               "code": ".loadAddress() as slice"
             }
           ]
@@ -1182,11 +1219,11 @@
           "count": 21,
           "examples": [
             {
-              "line": 14,
+              "line": 13,
               "code": "as int);"
             },
             {
-              "line": 31,
+              "line": 30,
               "code": "as int);"
             }
           ]
@@ -1196,11 +1233,11 @@
           "count": 7,
           "examples": [
             {
-              "line": 41,
+              "line": 40,
               "code": "tvmNull_x3f_("
             },
             {
-              "line": 60,
+              "line": 59,
               "code": "tvmNull_x3f_("
             }
           ]
@@ -1223,7 +1260,7 @@
         "WalletV5"
       ],
       "occurrences": 18,
-      "normalizedOccurrences": 9
+      "normalizedOccurrences": 6
     },
     {
       "id": "returned-address-alias",
@@ -1247,8 +1284,8 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 113,
-      "normalizedOccurrences": 48
+      "occurrences": 114,
+      "normalizedOccurrences": 36
     },
     {
       "id": "conditional-select",
@@ -1271,8 +1308,8 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 44,
-      "normalizedOccurrences": 3
+      "occurrences": 45,
+      "normalizedOccurrences": 2
     },
     {
       "id": "prefix-dispatch",
@@ -1319,8 +1356,8 @@
         "SimpleExtension",
         "WalletV5"
       ],
-      "occurrences": 69,
-      "normalizedOccurrences": 52
+      "occurrences": 71,
+      "normalizedOccurrences": 49
     },
     {
       "id": "null-predicate",
@@ -1367,8 +1404,8 @@
         "JettonMinter",
         "SimpleExtension"
       ],
-      "occurrences": 15,
-      "normalizedOccurrences": 15
+      "occurrences": 16,
+      "normalizedOccurrences": 16
     }
   ]
 }

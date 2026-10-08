@@ -107,7 +107,7 @@ BOC → инструкции TVM → стековый IR → raw main.tolk + std
 | N18 | Нативные сообщения и send modes | Доказанный TL-B-layout, адреса/coins, inline/ref body/stateInit, c5 actions, bounce, flags и режим; проверять фактические исходящие значения | N05, N08, N12..N15 | Очередь |
 | N19 | Арифметика / сравнения / casts | Div/mod floor/ceil/round, muldiv overflow, shifts, -1/0 и unsigned bounds; не менять округление или последовательность эффектов ради красоты | N01, N06 | Частично: нативные raw-операторы; дополнительные нормализации в очереди |
 | N20 | Вызовы, методы, generics, lambda/inlining | Stack ABI, порядок вычисления и результирующие слоты; стёртые generics и авторские границы inline обычно не восстановимы однозначно | N16, P01, P04 | Очередь / недоказуемые имена и границы отмечать явно |
-| P01 | CFG: stack joins, WHILE / UNTIL / REPEAT | Стек до/после каждой дуги, эффектные условия, сохранённые значения и exits; сначала исправить неполный raw IR | N01 | Частично: базовые циклы; NftCollection WHILE recovery блокирует полное покрытие |
+| P01 | CFG: stack joins, WHILE / UNTIL / REPEAT | Стек до/после каждой дуги, эффектные условия, сохранённые значения и exits; сначала исправить неполный raw IR | N01 | Частично: исправлен WHILE condition/pop/body и false edge; NftCollection complete на обоих языках; продолжение CFG анализа |
 | P02 | AGAINEND и другие continuation-формы | Не терять хвост continuation или выход; явная диагностика до реализации | P01 | Очередь: WalletV5 partial |
 | P03 | TRY / catch / THROWARG | Catch stack, exception value/code, c0/c1/c2, успешный и аварийный путь; нормализатор не маскирует unsupported parser | P01 | Очередь |
 | P04 | Динамические continuations / dispatch | CALLX/EXECUTE/JMPX, c3 и динамическая цель, stack ABI и return; без доказанной цели сохранять явный low-level вызов/диагностику | P01..P03 | Очередь |
@@ -267,6 +267,7 @@ mutating-метод возвращает `slice?`; legacy consumers получа
 | 2026-10-08 | N04 | cursor-load: LDUX/LDIX/LDGRAMS через exact mutating-методы с сохранением snapshots и исключений. В шаблонах 113 → 69 tuple-loads (44 преобразованы); оставшиеся — optional address и partial-контракты. |
 | 2026-10-08 | N05 | builder-store-chain: 13 exact функциональных store-методов; 44 → 3 helper-вызова в шаблонах, оставшиеся три в partial. 17 compiler-derived сценариев / 202 пробы, raw/normalized code-cell + serialized BOC + gas совпадают. Проверены нулевые/отрицательные/предельные coins, dynamic int widths, nullable refs/addresses, snapshots, отброшенный результат, 1023 бит / 4 refs и порядок побочных эффектов. Original/normalized поведение совпадает; 8/17 original/raw code-cell идентичны, остальные расхождения raw фиксируются отдельно. |
 | 2026-10-08 | N07/N08 | terminal null-coalesce, optional-address-getter и optional-address-cursor. 14 compiler-derived сценариев / 144 пробы с идентичными raw/normalized code-cell, serialized BOC и gas; original/normalized поведение совпадает, 13/14 original/raw code-cell идентичны. Проверены null в int/cell slots, эффектный fallback и eager CONDSEL без coalesce, addr_none/std/truncated/var, refs, snapshots, цепочки и оба отброшенных результата. В шаблонах 21 → 0 LDOPTSTDADDR helpers и 113 → 48 primitive tuple-loads; оставшиеся tuple-loads только в partial. ?? и optional getter применяются в synthetic-примерах, в текущих шаблонах их точной формы нет. |
+| 2026-10-08 | P01 | WHILE сначала выполняет condition, снимает флаг, затем выполняет body; false edge возвращает condition stack без флага. Discovery и back edge учитывают обе фазы. Восстановлен NftCollection: компилируется на FunC/Tolk, 4/4 getter, 11/12 messages с values, 12/12 state/actions; royalty value отличается из-за газа. Дополнительно исправлены synthetic CALLREF method IDs и generic FunC tuple indexing, необходимые для его компиляции. Восемь compiler-derived loop-сценариев / 70 проб, raw/normalized BOC + gas идентичны, original behavior совпадает; 1/8 original/raw code-cell идентичен. |
 
 Приёмка первого прохода: 45 Kotlin-тестов; 19 compiler-derived сценариев,
 501 входная проба с равенством raw/normalized code-cell, serialized BOC и
@@ -278,10 +279,9 @@ gas. Original/normalized поведение совпадает на этих п�
 проверены; шесть complete сохраняют raw/normalized BOC, два partial —
 файлы/диагностики. HTML обновлён и проверен для обоих языков.
 
-Следующий проход — P01: устранение WHILE stack-depth дефекта, мешающего
-проверке NftCollection. N11/N15 требуют анализа типов/CFG; их статус остаётся
-в очереди. Nullable/address propagation за пределами указанных локальных
-форм также остаётся открытой.
+Следующий проход — P02 и оставшиеся семейства восстановления. N11/N15
+требуют анализа типов/CFG; их статус остаётся в очереди. Nullable/address
+propagation за пределами указанных локальных форм также остаётся открытой.
 
 Порция N05 также прошла 50 Kotlin-тестов и проверки всех восьми шаблонов
 на обоих языках. HTML и raw/normalized каталог обновлены; шесть complete
@@ -294,6 +294,15 @@ unexpected failures. Все восемь шаблонов проверены н�
 raw/normalized идентичность шести complete и неизменность двух partial
 подтверждены. HTML обновлён и проверен, включая скачиваемые raw/normalized
 артефакты и мобильную верстку.
+
+Порция P01 прошла 58 Kotlin-тестов и все предыдущие suites плюс 70 новых
+loop-проб. Оба corpus сохраняют 18 passing / 2 известных partial и прежние
+8 Tolk / 15 FunC original code-cell identities. Все восемь шаблонов
+проверены; теперь семь complete raw/normalized BOC идентичны, только
+WalletV5 сохраняет partial-файлы/диагностики. Для семи complete результаты
+original/recompiled: 12/13 getter, 55/61 messages с values, 60/61
+state/actions. HTML обновлён и проверен. `tolk:audit` дополнительно
+проверяет полноту suite reports и совпадение request SHA-256 с текущим JAR.
 
 Результаты предыдущих правил и известные original/recompiled-расхождения
 содержатся в [regression-results.md](regression-results.md). Эта спецификация

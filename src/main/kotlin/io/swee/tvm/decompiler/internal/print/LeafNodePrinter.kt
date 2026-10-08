@@ -155,7 +155,7 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
             .joinToString(", ") { "${it.type.funcTypename} ${sar.stackEntryNameResolver(it.name)}" }
 
         val returnType = inferReturnType(function)
-        val methodIdStr = " method_id(${function.methodId})"
+        val methodIdStr = if (function.isInlineRef) "" else " method_id(${function.methodId})"
         val inlineRefStr = if (function.isInlineRef) " inline_ref" else ""
 
         sb.append("$returnType ${function.name} ($args) impure$inlineRefStr$methodIdStr {\n")
@@ -426,7 +426,10 @@ class FunctionCallPrinter : LeafNodePrinter<FunctionCall>(FunctionCall::class.ja
             }
 
             else -> {
-                ctx.append(node.name)
+                // INDEXVAR also returns cells/slices/tuples in heterogeneous opaque tuples.
+                // FunC's generic builtin keeps the same opcode selection as int_at while
+                // letting the consuming operation infer the actual stack-slot type.
+                ctx.append(if (node.name == "int_at") "at" else node.name)
                 ctx.append("(")
                 for ((idx, arg) in node.args.withIndex()) {
                     if (idx != 0) {

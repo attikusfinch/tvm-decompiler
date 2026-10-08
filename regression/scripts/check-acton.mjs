@@ -36,7 +36,8 @@ try {
           entry.normalization.comparison = compareBoc(rawResult.boc, result.boc);
           // Current rules change only presentation/types; require full TVM identity, including gas and MYCODE.
           assert.equal(entry.normalization.comparison.sameCodeCell, true, fixture.id + ': normalization changed TVM code');
-        } else assert.deepEqual(raw.files, response.files, fixture.id + ': partial output was normalized');
+          assert.equal(entry.normalization.comparison.sameSerializedBoc, true, fixture.id + ': normalization changed serialized BOC');
+        } else if (response.complete === false) assert.deepEqual(raw.files, response.files, fixture.id + ': partial output was normalized');
       }
       entry.status = result.status;
       entry.diagnostics = result.diagnostics ?? [];

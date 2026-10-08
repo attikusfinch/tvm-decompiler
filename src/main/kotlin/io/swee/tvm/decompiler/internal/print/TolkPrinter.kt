@@ -119,7 +119,8 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
             presentation = TolkPresentation(function, analysis)
             temporary = 0
             if (function.isInlineRef) line("@inline_ref")
-            if (function.methodId != BigInteger.ZERO && function.methodId != BigInteger.valueOf(-1)) line("@method_id(${function.methodId})")
+            // Synthetic CALLREF IDs identify extracted code cells in the IR, not dictionary methods.
+            if (!function.isInlineRef && function.methodId != BigInteger.ZERO && function.methodId != BigInteger.valueOf(-1)) line("@method_id(${function.methodId})")
             val args = function.upstreamStack.getUsedEntries().reversed().joinToString(", ") { "${variable(it)}: ${type(it.type)}" }
             val returns = returns(function)
             returnTypes = returns

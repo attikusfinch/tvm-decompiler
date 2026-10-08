@@ -86,47 +86,33 @@ fun parseWhileBlock(
     val bodyContinuation = bodyEntry.continuationInstructions()
     val condContinuation = condEntry.continuationInstructions()
 
-    val (_, dryRunBodyCtx) = parseContinuation(
-        registry,
-        ctx,
-        bodyContinuation
-    )
-
-    var backwardUpdates = ControlFlowResolver.preResolveBackward(
-        ctx,
-        dryRunBodyCtx,
-        false
-    )
-    if (backwardUpdates != null &&
-        dryRunBodyCtx.upstream.getUsedEntries().size > ctx.upstream.getUsedEntries().size) {
-        val extraNeeded = dryRunBodyCtx.upstream.getUsedEntries().size - ctx.upstream.getUsedEntries().size
-        ctx.stackEnsureAtLeast(ctx.stackDepth() + extraNeeded)
-        backwardUpdates = null
-    }
-    if (backwardUpdates == null) {
-        val (_, dryRunBodyCtxCorrected) = parseContinuation(
-            registry,
-            ctx,
-            bodyContinuation
-        )
-        backwardUpdates = ControlFlowResolver.preResolveBackward(
-            ctx,
-            dryRunBodyCtxCorrected,
-            false
-        ) ?: error("Stack depth mismatch")
+    // WHILE executes the condition first and consumes its flag before entering the body.
+    // An empty condition continuation consumes a flag already present at the loop head.
+    // Starting the body directly from ctx incorrectly retains that flag and shifts every
+    // stack slot (notably dictionary iteration in NftCollection).
+    fun iteration(): Pair<Pair<IRNode.CodeBlock, IrBlockBuilder>, IrBlockBuilder> {
+        val condition = parseContinuation(registry, ctx, condContinuation, isExpression = true)
+        condition.second.stackPop(TvmStackEntryType.INT.typename)
+        val (_, body) = parseContinuation(registry, condition.second, bodyContinuation)
+        return condition to body
     }
 
-    val (condNode, _) = parseContinuation(
-        registry,
-        ctx,
-        condContinuation,
-        isExpression = true
-    )
-    val (_, bodyCtx) = parseContinuation(
-        registry,
-        ctx,
-        bodyContinuation
-    )
+    var backwardUpdates: List<ControlFlowResolver.BackwardUpdate>? = null
+    var attempts = 0
+    while (backwardUpdates == null) {
+        check(attempts++ < 32) { "WHILE stack discovery did not converge" }
+        val (_, dryBody) = iteration()
+        val extraNeeded = dryBody.upstream.getUsedEntries().size - ctx.upstream.getUsedEntries().size
+        if (extraNeeded > 0) {
+            ctx.stackEnsureAtLeast(ctx.stackDepth() + extraNeeded)
+            continue
+        }
+        backwardUpdates = ControlFlowResolver.preResolveBackward(ctx, dryBody, false)
+    }
+
+    val (condition, bodyCtx) = iteration()
+    val (condNode, condCtx) = condition
+    val exitStack = condCtx.stackCopy()
 
     ControlFlowResolver.postResolveBackward(
         ctx,
@@ -140,6 +126,10 @@ fun parseWhileBlock(
         backwardUpdates,
         false
     )
+    // On the false edge, the outgoing stack is the condition's stack without its flag.
+    // It can differ from the loop head when the condition updates a cursor/carried value.
+    ctx.stackReplace(exitStack)
+    ctx.mergeUpstreams(listOf(condCtx))
 }
 
 fun parseUntilBlock(
