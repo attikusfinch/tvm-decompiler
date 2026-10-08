@@ -4,7 +4,7 @@ This directory separates frozen mainnet oracles, editable TVM instruction
 references, and recovered Tolk logic. It is **not** the original DeDust source.
 Names and layout descriptions are inferred from the public ABI and the code.
 
-Current verified results: **CpmmDeposit** and **CpmmAffiliateAccount** compile with Acton 1.0.0 / Tolk 1.4.0.
+Current verified results: **CpmmDeposit**, **CpmmAffiliateAccount** and **CpmmPosition** compile with Acton 1.0.0 / Tolk 1.4.0.
 Deposit compiles
 to executable code `2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825`.
 With BOC serialization `idx=false, crc32=true`, the complete 522-byte file equals
@@ -14,8 +14,13 @@ the frozen mainnet oracle byte-for-byte. Its 9 getter probes, 21 message probes 
 its 6 getter probes, 21 message probes and 5 Acton tests pass. State, actions,
 outgoing messages, exits and gas are compared.
 
+Position's complete 1540-byte BOC equals mainnet
+(`dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6`);
+14 getter probes, 49 message probes and 8 Acton tests pass. Together the three
+contracts have 120 differential probes and 20 native Acton tests.
+
 All 21 unique code families have exact, editable `reference.tasm` files. Those
-files are instruction references, **not** evidence that the remaining 19 contracts
+files are instruction references, **not** evidence that the remaining 18 contracts
 have readable recovered Tolk. See `verification.json` for per-contract status and
 `../../docs/dedust-reconstruction-spec.md` for acceptance gates and remaining work.
 
@@ -61,6 +66,25 @@ instruction sequence. An unused union-registration function fixes the getter's
 132/133 type IDs. The inferred names `authority`, `owner` and message names describe
 the executable behavior and are not asserted to be original identifiers.
 
+## Exact layout details in Position
+
+The source recovers liquidity locking, 120-bit fixed-point fee/reward accrual,
+reward dictionary iteration, public state responses, authorization and three
+bounce compensation paths. The failed-withdrawal handler sends excesses, commits
+the actions and rethrows. Getters deliberately accept partial fee records that
+the mutation paths reject.
+
+Four small typed asm helpers preserve specific operations: two independent zero
+constants for an empty reward, `EQINT 0`, `CONDSEL` for optional fees, and `NIP`
+to select a wide nullable struct's variant slot. The optional reward serializer
+is written in Tolk and keeps the original zero-variant-first branch order. These
+helpers contain no original executable cells or BOC payloads. Arithmetic uses
+`mulDivFloor(..., 1 << 120)` so its intermediate multiplication remains 512-bit.
+
+The decompiler's branch merge now joins the types of all incoming slots. A tagged
+union may reuse one physical slot for an integer in one arm and a cell in another;
+assuming the first arm's type incorrectly rejected the original Position code.
+
 ## Oracle provenance
 
 `oracles.json` pins every code hash and BOC SHA-256 and preserves discovery
@@ -71,3 +95,4 @@ times; consensus proofs and the original author's source/compiler were not
 obtained. The related X1000 wallet remains labelled separately from core DeDust.
 
 Deposit ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/deposit
+Position ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/position

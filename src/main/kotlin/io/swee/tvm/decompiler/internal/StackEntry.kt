@@ -28,7 +28,9 @@ sealed interface StackEntry {
 
             val agreedValue = entries.map { it.concreteValue }.distinct().singleOrNull()
             return Simple(
-                type = first.type,
+                // Tagged-union payload slots may hold different TVM kinds in each
+                // branch. Taking the first branch's kind rejects valid later uses.
+                type = entries.map { it.type }.reduce { a, b -> TypeLattice.join(a, b)!! },
                 name = name,
                 concreteValue = agreedValue
             )

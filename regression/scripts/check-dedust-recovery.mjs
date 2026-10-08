@@ -8,10 +8,11 @@ import { compileTolk, tolkVersion } from './tolk.mjs';
 import { assembleExact, disassembleExact, firstCellDifference } from './exact-assembly.mjs';
 import { checkDeposit } from './dedust-deposit-fixtures.mjs';
 import { checkAffiliate } from './dedust-affiliate-fixtures.mjs';
+import { checkPosition } from './dedust-position-fixtures.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate};
+const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));

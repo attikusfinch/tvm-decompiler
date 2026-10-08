@@ -57,5 +57,12 @@ single role or its assembler reference passes.
 - CPMM AffiliateAccount: named source without asm inserts passes both byte
   comparisons, 6 getter probes, 21 message probes (including gas), and 5 Acton tests.
   Internal suffix handling, strict getter parsing and bitsN packing are preserved.
-- Readable byte-identical recovery: 2/21 families. Remaining families have exact
-  instruction references only; Position and both CPMM Pool revisions are next.
+- CPMM Position: named source passes both byte comparisons, 14 getter probes,
+  49 message probes and 8 Acton tests. All incoming dispatch, fee and reward
+  arithmetic, dictionary iteration, withdrawal exceptions, public state queries
+  and bounce compensation are recovered. Four small typed asm helpers preserve
+  individual VM operations; nullable reward packing is otherwise ordinary Tolk.
+  The decompiler now joins heterogeneous branch-slot types instead of taking the
+  first branch's type. The real Position fixture decodes fully in both languages.
+- Readable byte-identical recovery: 3/21 families. Remaining families have exact
+  instruction references only; both CPMM Pool revisions are next.

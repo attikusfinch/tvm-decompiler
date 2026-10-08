@@ -63,7 +63,7 @@ object ControlFlowResolver {
                 mergedStack.add(merged)
 
                 if (fallthrough == null) {
-                    appendDefault(ctx, merged, sampleEntry.type)
+                    appendDefault(ctx, merged, merged.type)
                 } else {
                     ctx.appendNode(
                         IRNode.VariableDeclaration(
