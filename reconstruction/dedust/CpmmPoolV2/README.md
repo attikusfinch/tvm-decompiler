@@ -47,3 +47,17 @@ modules. Tests include different workchains, none/external owners, maximum coin
 amounts, shard-prefix preservation and rejected field-width overflows. The proof
 is in `addresses-verification.json`. Matching old library primitives does not
 prove which exact compiler version the original author used.
+
+`wallets.tolk` recovers four shared wallet registry helpers: scheduling resolution,
+registering both asset/wallet lookup directions, looking up an incoming wallet's
+asset, and consuming a pending resolution before registration. Their hashes and
+39 independent differential probes including gas are in `wallets-verification.json`.
+The isolated four-method build matches the complete oracle BOC. Four native Acton
+tests check success paths and errors 32 (workchain), 39 (duplicate), 40 (unknown
+wallet) and 41 (unknown resolver request). Repeated scheduling keeps the original
+overwrite behavior and returns whether a new request must be sent.
+
+Four short typed primitives preserve the old workchain check and nullable query/
+delete stack layouts. Routing, updates, duplicate rejection and strict record
+decoding are Tolk; no executable code blob is included. Run
+`npm run dedust:pool-wallets` to reproduce this module proof.

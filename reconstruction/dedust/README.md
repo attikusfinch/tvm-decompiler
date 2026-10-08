@@ -30,6 +30,10 @@ gas and independent expectations; four Acton module tests bring the project to
 29 native tests. See `CpmmPoolV2/addresses-verification.json`. The compatibility
 module retains the attributed LGPL-licensed old Tolk stdlib StateInit primitives.
 
+Four wallet registry helpers also match both Pool revisions. Their isolated build
+is byte-identical and 39 differential probes with gas plus four native module tests
+pass (`CpmmPoolV2/wallets-verification.json`). The project now has 33 Acton tests.
+
 Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
 `npm run dedust:pool-decompile` checks 33 getter cases per revision against the
 frozen code and independent expectations, including the Position address derived

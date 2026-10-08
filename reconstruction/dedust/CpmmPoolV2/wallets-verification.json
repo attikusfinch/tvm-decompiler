@@ -1,0 +1,1131 @@
+{
+  "scope": "Four exact wallet modules only; whole Pool recovery remains pending",
+  "toolchain": {
+    "backend": "acton",
+    "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
+  },
+  "sourceSha256": "ff16bcd9618b90b1c5dcc3f3a751f5d1c67b6584fa42b895aaa28c41758b1af4",
+  "revisions": [
+    "CpmmPoolV1",
+    "CpmmPoolV2"
+  ],
+  "moduleHashes": {
+    "schedule": "1e116ad471dd6fe396ee8e453e4f6386a540c26ebf4b44183e91088501900e99",
+    "register": "ef097f39008d40fc7cdf735f753e3e28997ffc3b17b39d341276a59a5e02bb6e",
+    "lookup": "7ba07b9a1a9c2f3f645eb7bfb47a7a58c1964110cc0d187e8d7b2d3f28b3dd95",
+    "finish": "543ba3036edbdff20448624f465cfc2a76401be06bbec9950d0f0fac46e28f45"
+  },
+  "comparison": {
+    "originalHash": "c64afd551a9c4af7efe51693624630939aff48cb7bbc0666222eb364b3b3277f",
+    "recompiledHash": "c64afd551a9c4af7efe51693624630939aff48cb7bbc0666222eb364b3b3277f",
+    "sameCodeCell": true,
+    "sameSerializedBoc": true,
+    "originalBytes": 226,
+    "recompiledBytes": 226
+  },
+  "results": [
+    {
+      "label": "default-new",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "null"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c661995599c6c855ac0408d210886f2797293cd5d4247b69d5945b9b7ae87a9c"
+          },
+          {
+            "type": "int",
+            "value": "-1"
+          },
+          {
+            "type": "slice",
+            "cellHash": "d7b4b7198d1b3c15f059a36bc185fa882f4bae97e25061c30ab7b29d8ce374a9"
+          }
+        ],
+        "gasUsed": "1663"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c661995599c6c855ac0408d210886f2797293cd5d4247b69d5945b9b7ae87a9c"
+          },
+          {
+            "type": "int",
+            "value": "-1"
+          },
+          {
+            "type": "slice",
+            "cellHash": "d7b4b7198d1b3c15f059a36bc185fa882f4bae97e25061c30ab7b29d8ce374a9"
+          }
+        ],
+        "gasUsed": "1663"
+      }
+    },
+    {
+      "label": "default-repeated",
+      "method": 90046,
+      "args": [
+        "cell",
+        "slice",
+        "null"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c661995599c6c855ac0408d210886f2797293cd5d4247b69d5945b9b7ae87a9c"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "slice",
+            "cellHash": "d7b4b7198d1b3c15f059a36bc185fa882f4bae97e25061c30ab7b29d8ce374a9"
+          }
+        ],
+        "gasUsed": "1763"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c661995599c6c855ac0408d210886f2797293cd5d4247b69d5945b9b7ae87a9c"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "slice",
+            "cellHash": "d7b4b7198d1b3c15f059a36bc185fa882f4bae97e25061c30ab7b29d8ce374a9"
+          }
+        ],
+        "gasUsed": "1763"
+      }
+    },
+    {
+      "label": "custom-new",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          },
+          {
+            "type": "int",
+            "value": "-1"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "1947"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          },
+          {
+            "type": "int",
+            "value": "-1"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "1947"
+      }
+    },
+    {
+      "label": "custom-repeated",
+      "method": 90046,
+      "args": [
+        "cell",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "2047"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "2047"
+      }
+    },
+    {
+      "label": "custom-collision-overwrites",
+      "method": 90046,
+      "args": [
+        "cell",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "2047"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          },
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "2047"
+      }
+    },
+    {
+      "label": "unrelated-pending-preserved",
+      "method": 90046,
+      "args": [
+        "cell",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c34bb90b6cf320e7b148eef3c1ab9535ed6b6452ea7e0020c9d8bc2e1465ab25"
+          },
+          {
+            "type": "int",
+            "value": "-1"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "3047"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c34bb90b6cf320e7b148eef3c1ab9535ed6b6452ea7e0020c9d8bc2e1465ab25"
+          },
+          {
+            "type": "int",
+            "value": "-1"
+          },
+          {
+            "type": "slice",
+            "cellHash": "a885feec1748909dbd60f3a1377bfdfeb414e83d2da5f6821796f11c00d20c55"
+          }
+        ],
+        "gasUsed": "3047"
+      }
+    },
+    {
+      "label": "asset-wrong-workchain",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "null"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "802"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "802"
+      }
+    },
+    {
+      "label": "asset-none",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "null"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "706"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "706"
+      }
+    },
+    {
+      "label": "resolver-wrong-workchain",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "1252"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "1252"
+      }
+    },
+    {
+      "label": "resolver-empty-record",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1120"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1120"
+      }
+    },
+    {
+      "label": "resolver-record-suffix",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1138"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1138"
+      }
+    },
+    {
+      "label": "resolver-none",
+      "method": 90046,
+      "args": [
+        "null",
+        "slice",
+        "cell"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1182"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1182"
+      }
+    },
+    {
+      "label": "register-empty",
+      "method": 90047,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16063a0961f015b675ca4f5a89574614fffd76b193be9cf1a833b9c5be347896"
+          },
+          {
+            "type": "cell",
+            "cellHash": "03f8eff53de74e8244369dca229d5ec27c904319a27e35c258de409df929789b"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "2272"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16063a0961f015b675ca4f5a89574614fffd76b193be9cf1a833b9c5be347896"
+          },
+          {
+            "type": "cell",
+            "cellHash": "03f8eff53de74e8244369dca229d5ec27c904319a27e35c258de409df929789b"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "2272"
+      }
+    },
+    {
+      "label": "register-with-existing-entries",
+      "method": 90047,
+      "args": [
+        "cell",
+        "cell",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "adc71e41b5886467cd92d519a3a8dd3ba1225b6c67068732aa1692cae8300493"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8475a0a632f2e5a3677442758363b0e2f87ae11ec573f92cac53c50b67d3ecf8"
+          },
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          }
+        ],
+        "gasUsed": "4472"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "adc71e41b5886467cd92d519a3a8dd3ba1225b6c67068732aa1692cae8300493"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8475a0a632f2e5a3677442758363b0e2f87ae11ec573f92cac53c50b67d3ecf8"
+          },
+          {
+            "type": "cell",
+            "cellHash": "4497dd5855b0b48c3981ce140dfd267cfc0e10fa43854a711bee37a3a13de900"
+          }
+        ],
+        "gasUsed": "4472"
+      }
+    },
+    {
+      "label": "duplicate-asset",
+      "method": 90047,
+      "args": [
+        "cell",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "1578"
+      },
+      "after": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "1578"
+      }
+    },
+    {
+      "label": "duplicate-wallet",
+      "method": 90047,
+      "args": [
+        "null",
+        "cell",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "2394"
+      },
+      "after": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "2394"
+      }
+    },
+    {
+      "label": "duplicate-asset-precedes-wallet-validation",
+      "method": 90047,
+      "args": [
+        "cell",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "1578"
+      },
+      "after": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "1578"
+      }
+    },
+    {
+      "label": "stored-previous-value-not-decoded",
+      "method": 90047,
+      "args": [
+        "cell",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "1578"
+      },
+      "after": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "1578"
+      }
+    },
+    {
+      "label": "registration-asset-workchain",
+      "method": 90047,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "776"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "776"
+      }
+    },
+    {
+      "label": "registration-wallet-workchain",
+      "method": 90047,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "1592"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "1592"
+      }
+    },
+    {
+      "label": "registration-none",
+      "method": 90047,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "706"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "706"
+      }
+    },
+    {
+      "label": "lookup-middle-registry",
+      "method": 90048,
+      "args": [
+        "cell",
+        "cell",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "d7b4b7198d1b3c15f059a36bc185fa882f4bae97e25061c30ab7b29d8ce374a9"
+          }
+        ],
+        "gasUsed": "1028"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "d7b4b7198d1b3c15f059a36bc185fa882f4bae97e25061c30ab7b29d8ce374a9"
+          }
+        ],
+        "gasUsed": "1028"
+      }
+    },
+    {
+      "label": "lookup-any-none-value",
+      "method": 90048,
+      "args": [
+        "null",
+        "cell",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+          }
+        ],
+        "gasUsed": "1028"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "slice",
+            "cellHash": "a1bb2a842d54edb8942f95bedaf53923d2d788d698232cfb256571e9e8b10a86"
+          }
+        ],
+        "gasUsed": "1028"
+      }
+    },
+    {
+      "label": "lookup-missing",
+      "method": 90048,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 40,
+        "stack": null,
+        "gasUsed": "924"
+      },
+      "after": {
+        "exitCode": 40,
+        "stack": null,
+        "gasUsed": "924"
+      }
+    },
+    {
+      "label": "lookup-wrong-workchain",
+      "method": 90048,
+      "args": [
+        "null",
+        "cell",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "802"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "802"
+      }
+    },
+    {
+      "label": "lookup-none",
+      "method": 90048,
+      "args": [
+        "null",
+        "cell",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "732"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "732"
+      }
+    },
+    {
+      "label": "lookup-empty-record",
+      "method": 90048,
+      "args": [
+        "null",
+        "cell",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1050"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1050"
+      }
+    },
+    {
+      "label": "lookup-trailing-record",
+      "method": 90048,
+      "args": [
+        "null",
+        "cell",
+        "null",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1068"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1068"
+      }
+    },
+    {
+      "label": "finish-resolver-request",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16063a0961f015b675ca4f5a89574614fffd76b193be9cf1a833b9c5be347896"
+          },
+          {
+            "type": "cell",
+            "cellHash": "03f8eff53de74e8244369dca229d5ec27c904319a27e35c258de409df929789b"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "2801"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16063a0961f015b675ca4f5a89574614fffd76b193be9cf1a833b9c5be347896"
+          },
+          {
+            "type": "cell",
+            "cellHash": "03f8eff53de74e8244369dca229d5ec27c904319a27e35c258de409df929789b"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "gasUsed": "2801"
+      }
+    },
+    {
+      "label": "finish-preserves-unrelated-request",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16063a0961f015b675ca4f5a89574614fffd76b193be9cf1a833b9c5be347896"
+          },
+          {
+            "type": "cell",
+            "cellHash": "03f8eff53de74e8244369dca229d5ec27c904319a27e35c258de409df929789b"
+          },
+          {
+            "type": "cell",
+            "cellHash": "01da2e0c0c0e803ad4c225c778d91d3ee7e0f249e85f341c183f17b2b3589ed4"
+          }
+        ],
+        "gasUsed": "3501"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16063a0961f015b675ca4f5a89574614fffd76b193be9cf1a833b9c5be347896"
+          },
+          {
+            "type": "cell",
+            "cellHash": "03f8eff53de74e8244369dca229d5ec27c904319a27e35c258de409df929789b"
+          },
+          {
+            "type": "cell",
+            "cellHash": "01da2e0c0c0e803ad4c225c778d91d3ee7e0f249e85f341c183f17b2b3589ed4"
+          }
+        ],
+        "gasUsed": "3501"
+      }
+    },
+    {
+      "label": "finish-missing-request",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 41,
+        "stack": null,
+        "gasUsed": "898"
+      },
+      "after": {
+        "exitCode": 41,
+        "stack": null,
+        "gasUsed": "898"
+      }
+    },
+    {
+      "label": "missing-request-precedes-wallet-validation",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "null",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 41,
+        "stack": null,
+        "gasUsed": "898"
+      },
+      "after": {
+        "exitCode": 41,
+        "stack": null,
+        "gasUsed": "898"
+      }
+    },
+    {
+      "label": "finish-resolver-workchain",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "776"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "776"
+      }
+    },
+    {
+      "label": "finish-empty-record",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1024"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1024"
+      }
+    },
+    {
+      "label": "finish-record-suffix",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1042"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1042"
+      }
+    },
+    {
+      "label": "finish-asset-workchain",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "1300"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "1300"
+      }
+    },
+    {
+      "label": "finish-wallet-workchain",
+      "method": 90049,
+      "args": [
+        "null",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "2116"
+      },
+      "after": {
+        "exitCode": 32,
+        "stack": null,
+        "gasUsed": "2116"
+      }
+    },
+    {
+      "label": "finish-duplicate-asset",
+      "method": 90049,
+      "args": [
+        "cell",
+        "null",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "2102"
+      },
+      "after": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "2102"
+      }
+    },
+    {
+      "label": "finish-duplicate-wallet",
+      "method": 90049,
+      "args": [
+        "null",
+        "cell",
+        "cell",
+        "slice",
+        "slice"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "2918"
+      },
+      "after": {
+        "exitCode": 39,
+        "stack": null,
+        "gasUsed": "2918"
+      }
+    }
+  ]
+}

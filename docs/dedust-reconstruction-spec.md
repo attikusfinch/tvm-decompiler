@@ -95,3 +95,9 @@ single role or its assembler reference passes.
   Isolated builds pass serialized BOC comparisons, 62 independent differential
   probes including gas, and 4 native Acton module tests. Full Pool message paths
   and whole-contract byte equality remain outstanding.
+- Four shared wallet registry helpers are exact: schedule resolution, register
+  both lookup directions, map wallet to asset, consume resolution and register.
+  The isolated complete BOC matches; 39 differential probes including gas and
+  independent dictionary/error expectations plus 4 Acton tests pass. Pending
+  overwrite semantics, strict records and validation order are preserved. This
+  brings the project to 33 native tests without claiming a complete Pool yet.
