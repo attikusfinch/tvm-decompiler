@@ -27,6 +27,7 @@
     "dedust:pool-routing": "node scripts/check-dedust-pool-routing.mjs",
     "dedust:pool-settlement": "node scripts/check-dedust-pool-settlement.mjs",
     "dedust:pool-processing": "node scripts/check-dedust-pool-processing.mjs",
+    "dedust:pool-handlers": "node scripts/check-dedust-pool-handlers.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
     "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",

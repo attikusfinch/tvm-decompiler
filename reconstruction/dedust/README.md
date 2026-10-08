@@ -145,6 +145,22 @@ emulator resolves three libraries compiled from recovered source; original
 method bodies are used only on the oracle side of the test. Whole Pool message
 handlers and byte identity remain pending.
 
+## Complete readable Pool V2 candidate
+
+`CpmmPoolV2/candidate.tolk` is the entrypoint for a complete readable candidate.
+It dispatches all 16 incoming message variants through named lifecycle, payment,
+liquidity, fee, reward, state and upgrade handlers. `npm run dedust:pool-handlers`
+compares it directly with the complete frozen V2 contract: 99 state/action probes
+match, 12 public-getter probes also match exact gas and independent results, and
+six state-response probes independently validate each contract's own code hash.
+Three native integration tests bring the Acton suite to 67 tests.
+
+The compiled candidate is **not byte-identical**. Gas, carry-balance outgoing
+values and the self-reported code hash differ. `candidate-progress.json` records
+the complete BOC comparison and the declared identity differences; these are not
+normalized into a passing acceptance result. The candidate has no `main.tolk`
+and remains outside the `exact-readable` gate. The verified whole count is 3/21.
+
 ## Oracle provenance
 
 `oracles.json` pins every code hash and BOC SHA-256 and preserves discovery

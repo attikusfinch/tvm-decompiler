@@ -152,3 +152,10 @@ single role or its assembler reference passes.
   expectations. Four native tests bring the suite to 64. Gas and carry-balance
   outgoing values differ and its method hash does not match, so it is explicitly
   excluded from exact acceptance. Whole readable recovery remains 3/21.
+- Pool V2 now has a complete readable `candidate.tolk`, covering every incoming
+  variant and all public getters. Against the whole frozen V2, 99 probes match
+  state/actions and 12 getter probes match gas plus independent results. Six
+  state responses separately validate each actual code root's hash; they remain
+  declared identity differences. Gas, carry-balance amounts and serialized BOC
+  differ, so the candidate remains outside the exact gate. Three native whole-
+  candidate integration tests bring the project to 67. Whole exact count: 3/21.

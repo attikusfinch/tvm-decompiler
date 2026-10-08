@@ -11,7 +11,7 @@
     "routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
     "payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
     "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
-    "payout-basic.tolk": "e786fa10996e465eb2b1683ee6a9cf35cdf88d7096eff8d3fd6db3bd91695600"
+    "payout-basic.tolk": "df7888f40d11af33959f47e1de315ad4ab0dbf6f0e2be82b8df2032995de3f4c"
   },
   "librarySourceSha256": {
     "main.tolk": "c7e0f5f95aa36d0a4a8f345e3cdbdc60118e1a35270e432c26689131ae61878a",

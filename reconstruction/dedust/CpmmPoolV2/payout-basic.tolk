@@ -1,5 +1,6 @@
 import "payout-config"
 
+@overflow1023_policy("suppress")
 struct PoolBasicPayout {
     options: PoolPayoutOptions
     excessesTo: any_address
