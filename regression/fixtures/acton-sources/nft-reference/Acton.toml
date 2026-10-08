@@ -1,0 +1,42 @@
+[package]
+name = "nft-reference"
+description = "A TON blockchain project"
+version = "0.1.0"
+license = "MIT"
+
+[toolchain]
+acton = "1.0.0"
+
+[contracts.NftCollection]
+display-name = "NftCollection"
+src = "contracts/NftCollection.tolk"
+depends = []
+
+[contracts.NftItem]
+display-name = "NftItem"
+src = "contracts/NftItem.tolk"
+depends = []
+
+[test]
+
+[fmt]
+width = 100
+ignore = []
+
+[scripts]
+deploy-emulation = "acton script scripts/deploy-collection.tolk"
+deploy-testnet = "acton script scripts/deploy-collection.tolk --net testnet"
+nft-change-admin = "acton script scripts/change-admin.tolk"
+nft-deploy-batch = "acton script scripts/deploy-batch.tolk"
+nft-deploy-item = "acton script scripts/deploy-item.tolk"
+nft-transfer-item = "acton script scripts/transfer-item.tolk"
+
+[import-mappings]
+acton = ".acton"
+contracts = "contracts"
+gen = "gen"
+tests = "tests"
+wrappers = "wrappers"
+
+# Check full Acton.toml reference and all available keys:
+# https://ton-blockchain.github.io/acton/docs/acton-toml

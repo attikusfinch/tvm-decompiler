@@ -18,4 +18,6 @@ TRY/catch and dynamic continuations remain unsupported. MYCODE can change behavi
 
 The local improvements cover typed embedded INMSGPARAM/GETPARAM selectors, typed balance-pair access and executable Fift literals for referenced cells. Unit/CLI fixtures exercise an Acton Tolk counter, unsupported TRY and a dynamic EXECUTE.
 
-Full BOC → decompile → FunC/Fift → emulator checks are in [regression](regression/README.md). The corpus includes minimal examples of generation bugs and transaction probes for Acton Counter, NFT Item, Jetton Wallet and Jetton Minter. Use a TVM 11 capable Fift for these modern Tolk outputs. The legacy Gradle roundTripTest only runs source files supplied under func_sources. See the [measured results and limitations](docs/regression-results.md).
+Full BOC → decompile → FunC/Fift → emulator checks are in [regression](regression/README.md). The corpus includes minimal examples of generation bugs and transaction probes for all eight contracts from Acton's empty, counter, nft, jetton and w5-extension templates. Use a TVM 11 capable Fift for these modern Tolk outputs. The legacy Gradle roundTripTest only runs source files supplied under func_sources. See the [measured results and limitations](docs/regression-results.md).
+
+The [standalone HTML report](reports/acton-contracts.html) shows original Tolk, compiled TVM/BOC, generated FunC and comparison results for all eight template contracts. Download it and open it in a browser; it works offline and includes exact artifact downloads. Regeneration instructions are in the regression README.

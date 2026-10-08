@@ -29,7 +29,7 @@ npm run corpus -- --local --native --strict
 
 The 20-case corpus compiles fixture source, decompiles it, recompiles the output, and compares code-cell hashes and getter results in a local TON sandbox. Strict corpus mode rejects unexpected failures while recording TRY and dynamic EXECUTE as known unsupported cases. A partial result is never counted as a successful recompilation, even if its generated source could compile.
 
-`npm run acton -- --local --native` checks all four archived Acton fixtures. This currently exits 1 because some observable effects differ; see ../docs/regression-results.md. Synthetic storage, senders and messages are defined in fixtures/acton-probes.mjs. Each message starts with a fresh contract and identical input state, time and random seed. Original exit codes and successful outgoing-message counts are checked before trusting a comparison. Gas and outgoing values are recorded; remaining account balances are not compared. Getters that expose MYCODE are compared without suppressing their differing code hashes.
+`npm run acton -- --local --native` checks all eight archived contracts from every built-in template (empty, counter, nft, jetton, w5-extension). This currently exits 1 because some observable effects differ, NftCollection returns a WHILE stack-depth diagnostic, and WalletV5 uses unsupported AGAINEND; see ../docs/regression-results.md. Synthetic storage, senders and messages are defined in fixtures/acton-probes.mjs. Each internal message starts with a fresh contract and identical input state, time and random seed. Original exit codes and successful outgoing-message counts are checked before trusting a comparison. Gas and outgoing values are recorded; remaining account balances are not compared. External-message flows are not compared by this harness. Getters that expose MYCODE are compared without suppressing their differing code hashes.
 
 Optional --acton writes TASM disassembly with cell hashes and bit offsets. On Windows it uses WSL Ubuntu (WSL_DISTRO and ACTON_WSL_PATH override this); on Linux it uses acton from PATH. The emulator tests themselves do not require Acton to be installed.
 
@@ -40,3 +40,7 @@ npm run check -- --boc fixtures/bocs/getparam.boc --local --native
 ```
 
 Artifacts contain the original and recompiled BOC, request/response metadata, FunC, compiler errors or diagnostics, and JSON reports. These are ignored by Git. Small reproducing BOCs and their hashes are committed under fixtures/bocs.
+
+## Standalone HTML report
+
+Run `npm run acton -- --local --native --acton` to generate all eight cases with TASM views (the known differences and partial outputs make this command exit 1). Then run `npm run report` separately. The exporter validates BOC hashes and saved FunC against the response and writes ../reports/acton-contracts.html. `--artifacts <directory>` and `--output <file>` override the input/output paths. The report is self-contained, works offline, includes the original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. NftCollection and WalletV5 are visibly partial and have no recompiled BOC or comparison results.

@@ -1,0 +1,44 @@
+[package]
+name = "jetton-reference"
+description = "A TON blockchain project"
+version = "0.1.0"
+license = "MIT"
+
+[toolchain]
+acton = "1.0.0"
+
+[contracts.JettonMinter]
+display-name = "JettonMinter"
+src = "contracts/JettonMinter.tolk"
+depends = ["JettonWallet"]
+
+[contracts.JettonWallet]
+display-name = "JettonWallet"
+src = "contracts/JettonWallet.tolk"
+depends = []
+
+[test]
+
+[fmt]
+width = 100
+ignore = []
+
+[scripts]
+deploy-emulation = "acton script scripts/deploy.tolk"
+deploy-testnet = "acton script scripts/deploy.tolk --net testnet"
+jetton-change-admin = "acton script scripts/change-admin.tolk"
+jetton-change-metadata = "acton script scripts/change-metadata.tolk"
+jetton-claim-admin = "acton script scripts/claim-admin.tolk"
+jetton-info = "acton script scripts/info.tolk"
+jetton-mint = "acton script scripts/mint.tolk"
+jetton-transfer = "acton script scripts/transfer.tolk"
+
+[import-mappings]
+acton = ".acton"
+contracts = "contracts"
+gen = "gen"
+tests = "tests"
+wrappers = "wrappers"
+
+# Check full Acton.toml reference and all available keys:
+# https://ton-blockchain.github.io/acton/docs/acton-toml

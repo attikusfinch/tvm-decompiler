@@ -9,6 +9,7 @@
     "corpus": "node scripts/corpus.mjs",
     "test": "node --test tests/*.test.mjs",
     "acton": "node scripts/check-acton.mjs",
+    "report": "node scripts/export-html.mjs",
     "verify": "node scripts/corpus.mjs --local --native --strict"
   },
   "dependencies": {
