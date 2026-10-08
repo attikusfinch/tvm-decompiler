@@ -1,0 +1,49 @@
+{
+  "compiler": "Acton 1.0.0 (3a4f0dc)",
+  "notes": "Unmodified official source snapshots used for declaration matching. Compiler builtins and function bodies are not inferred from asm. Common is implicit; other modules require explicit imports for native calls.",
+  "commit": "4539cfabf2877e09d13032861f36c1490d13a941",
+  "version": "Tolk 1.4.0",
+  "files": [
+    {
+      "name": "common.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/common.tolk",
+      "sha256": "c7c89e090c017b6c32aea92b8d46a5a1a1bf0c2712a922634346e98bb78f2092"
+    },
+    {
+      "name": "exotic-cells.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/exotic-cells.tolk",
+      "sha256": "89a811d6786bc8145a320a9027b12c1112d137b69dbdd833bdd97244babe4d66"
+    },
+    {
+      "name": "gas-payments.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/gas-payments.tolk",
+      "sha256": "8fdc0ba6840ccf6829dcb5be80574d4786e5f1ee97d16846ac44cf295fa5001c"
+    },
+    {
+      "name": "lisp-lists.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/lisp-lists.tolk",
+      "sha256": "ca105fdf05403d8765fb88d6bbc76a370ec14c5219e09b5c64bb6f36ee21277d"
+    },
+    {
+      "name": "reflection.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/reflection.tolk",
+      "sha256": "46425348d811511d2c46e7beccb47501287e20c7b1e7d03e5f30afd66cb4c134"
+    },
+    {
+      "name": "strings.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/strings.tolk",
+      "sha256": "a178377be9db209e7893ecd5b08525b6f8515e7b6d577314b28137ea89d09011"
+    },
+    {
+      "name": "tvm-dicts.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/tvm-dicts.tolk",
+      "sha256": "13dbd3d2d7fc25cb2b51ea3e345d76b9f9431be97a6249a0e3ffdf28b3641d18"
+    },
+    {
+      "name": "tvm-lowlevel.tolk",
+      "source": "https://raw.githubusercontent.com/ton-blockchain/ton/4539cfabf2877e09d13032861f36c1490d13a941/crypto/smartcont/tolk-stdlib/tvm-lowlevel.tolk",
+      "sha256": "9092108ed89fc426a3a607e65e119f66e618286369833ccaf23a86a58449e097"
+    }
+  ],
+  "license": "LGPL-2.0-or-later"
+}

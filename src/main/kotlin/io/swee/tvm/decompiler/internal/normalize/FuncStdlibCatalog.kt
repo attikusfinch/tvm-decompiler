@@ -1,7 +1,5 @@
 package io.swee.tvm.decompiler.internal.normalize
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import io.swee.tvm.decompiler.internal.instructions.Cp0InstructionRegistry
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Token
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.callArguments
 import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.closingParenthesis
@@ -12,12 +10,11 @@ internal class FuncStdlibCatalog(library: String, builtin: String = "") {
     data class Declaration(val signature: FuncSource.Signature, val name: String,
         val arguments: List<Type>, val results: List<Type>, val generics: Set<String>,
         val inputOrder: List<Int>, val outputOrder: List<Int>, val impure: Boolean,
-        val instructions: List<Instruction>, val builtin: Boolean) {
+        val instructions: List<StdlibAsm.Instruction>, val builtin: Boolean) {
         val physicalArguments get() = inputOrder.map { arguments[it] }
         // asm(-> 1 0) names physical results in the order returned to FunC.
         val physicalResults get() = outputOrder.indices.map { physical -> results[outputOrder.indexOf(physical)] }
     }
-    data class Instruction(val kind: String, val operands: Map<String, String>)
     val declarations = listOf(library to false, builtin to true).flatMap { (text, builtIn) ->
         val source = FuncSource(text)
         source.signatures.mapNotNull { declaration(it, builtIn) }
@@ -52,19 +49,6 @@ internal class FuncStdlibCatalog(library: String, builtin: String = "") {
     }
 
     companion object {
-        private val cp0 by lazy { Cp0InstructionRegistry.create() }
-        private val documentedAliases: Map<String, String> by lazy {
-            val root = FuncStdlibCatalog::class.java.getResourceAsStream("/cp0_fixed.json")!!.use { ObjectMapper().readTree(it) }
-            root["aliases"].flatMap { alias ->
-                val name = alias["mnemonic"].asText()
-                if (cp0.getByOpcode(name) == null) emptyList() else
-                    alias["doc_fift"]?.asText()?.lineSequence()?.map { it.trim() }
-                        ?.filter { it.matches(Regex("[A-Z][A-Z0-9_]*")) }?.map { it to name }?.toList() ?: emptyList()
-            }.groupBy({ it.first }, { it.second }).mapNotNull { (alias, names) ->
-                names.distinct().singleOrNull()?.let { alias to it }
-            }.toMap()
-        }
-
         fun declaration(signature: FuncSource.Signature, builtin: Boolean = false): Declaration? {
             if (signature.modifying || !signature.name.value.matches(Regex("[A-Za-z_][A-Za-z0-9_?]*"))) return null
             val resultTokens = signature.result
@@ -99,7 +83,7 @@ internal class FuncStdlibCatalog(library: String, builtin: String = "") {
             }
             if (inputs.sorted() != arguments.indices.toList() || outputs.sorted() != results.indices.toList()) return null
             if (body.isEmpty() || body.any { !it.value.startsWith('"') || !it.value.endsWith('"') || '\\' in it.value }) return null
-            val instructions = instructionKey(body.joinToString(" ") { it.value.substring(1, it.value.lastIndex) }) ?: return null
+            val instructions = StdlibAsm.key(body.joinToString(" ") { it.value.substring(1, it.value.lastIndex) }) ?: return null
             return Declaration(signature, signature.name.value, arguments, results, generics, inputs, outputs,
                 qualifiers.take(asm).any { it.value == "impure" }, instructions, builtin)
         }
@@ -120,26 +104,5 @@ internal class FuncStdlibCatalog(library: String, builtin: String = "") {
             return null
         }
 
-        /** Fail closed on unconsumed constants, unknown words, refs, macros and incomplete operands. */
-        private fun instructionKey(expression: String): List<Instruction>? {
-            val text = expression.replace(Regex("c(\\d+)\\s+PUSH\\b"), "$1 PUSHCTR")
-                .replace(Regex("c(\\d+)\\s+POP\\b"), "$1 POPCTR")
-            val pending = ArrayDeque<String>()
-            val result = mutableListOf<Instruction>()
-            for (word in text.trim().split(Regex("\\s+"))) {
-                val data = cp0.getByOpcode(word) ?: documentedAliases[word]?.let { cp0.getByOpcode(it) }
-                if (data == null) {
-                    val number = word.removePrefix("c").removePrefix("s").toBigIntegerOrNull() ?: return null
-                    pending.addLast(number.toString())
-                } else {
-                    val operands = data.implicitOperands.mapValues { it.value.toString() }.toMutableMap()
-                    for (operand in data.instDescriptionRaw.bytecode.operands.asReversed()) {
-                        if (operand.name !in operands) operands[operand.name] = pending.removeLastOrNull() ?: return null
-                    }
-                    result += Instruction(data.instClass.name, operands)
-                }
-            }
-            return result.takeIf { it.isNotEmpty() && pending.isEmpty() }
-        }
     }
 }

@@ -1,10 +1,72 @@
 # Tolk normalization patterns
 
-The pipeline is **BOC → shared TVM IR → emitted Tolk → TolkNormalizer → normalized Tolk**. The normalizer consumes emitted source, independently of TVM parsing and Tolk printing. Its token view recognizes function boundaries and excludes strings/comments from matching. Rules apply in order and return an audit trail; JSON exposes `normalizations`. `--no-normalize` returns the exact input to this stage. Compatibility helpers remain the emitter's responsibility.
+The pipeline is **BOC → shared TVM IR → emitted Tolk → TolkNormalizer → normalized Tolk**. The normalizer consumes emitted source, independently of TVM parsing and Tolk printing. Its token view recognizes function boundaries and excludes strings/comments from matching. Rules apply in order and return an audit trail; JSON exposes `normalizations`. `--no-normalize` returns the exact input to this stage. The final stdlib rule edits helper declarations and their calls in both emitted files together. Partial outputs skip all normalization.
 
 The first rules come from the address getter in Empty and Counter. They do not consume the original Acton sources. A separate inventory examines all eight raw outputs; [tolk-patterns.json](tolk-patterns.json) records per-contract counts, examples, raw-source line numbers, applied rules and parser diagnostics. These are observed forms, not a claim that every occurrence can be rewritten safely.
 
 ## Implemented rules
+
+### Names and APIs from the standard library
+
+The catalog reads all eight unmodified official stdlib modules from Tolk 1.4.0,
+commit `4539cfabf2877e09d13032861f36c1490d13a941`, matching the installed Acton
+1.0.0 compiler. [Source metadata](../src/main/resources/tolk-stdlib/source.json)
+records every SHA-256 and source URL; LGPL is preserved with the snapshots.
+Common functions are implicit in the compiler. Other modules are imported
+when a native replacement uses them. Snapshots are catalog inputs, not
+duplicate builtin declarations emitted into generated source.
+
+`tolk-stdlib-call` matches complete asm sequences through the shared CP0
+opcode/alias key, physical and declared API types, `@pure` and stack
+permutations. Only identical nonmutating, nongeneric APIs replace a wrapper:
+`tvmRand(n)` → `random.range(n)`, `tvmEndParse(s)` → `s.assertEnd()`.
+Receiver-first evaluation is preserved; `setGasLimit(n)` adds
+`import "@stdlib/gas-payments"`. The old support declaration is removed.
+
+`tolk-stdlib-wrapper` borrows a name when opcode and physical types match,
+while preserving the exact original typed asm. For example:
+
+```tolk
+// Formerly asm_GETPARAM_8 in both files.
+fun contractGetAddressTvm(): slice
+    asm "8 GETPARAM"
+
+@method_id(90097)
+fun fn_90097(): slice {
+    return contractGetAddressTvm();
+}
+```
+
+Standard `contract.getAddress()` returns `address` and is `@pure`; the emitted
+helper returns `slice` and is effectful. The retained `Tvm` suffix marks this
+distinction. Integer widths/coins/bool, nullable cells, address slices and
+single-field standard containers are compared by runtime layout for naming
+only. No address/nullability/map schema, validation or cast is injected.
+`mutate self` contributes updated parameters to physical results; these
+wrappers preserve their original API and permutations. Polymorphic bindings
+must be consistent and retain the exact specialization. Conflicts with local,
+global or qualified functions get safe wrapper names with numeric suffixes.
+
+Only remaining used `asm_*`/`tvm*` support helpers participate, after prior
+main-only rules. Strings, comments, user functions, public method IDs, function
+references and unsupported annotations stay unchanged. Multiple matching names,
+unknown asm, unconsumed operands and incompatible types prevent a match.
+Builtin functions without asm and ordinary function bodies remain opaque:
+`array.last`/`array.size` do not justify guessing names for LAST/TLEN. Identical
+LDDICT/LDOPTREF aliases do not distinguish dictionary and optional-ref schemas.
+
+`npm run tolk:stdlib` verifies 17 compiler-derived forms / 73 getter probes:
+context selectors, repeated reads, balance/seed/MYCODE, slice depth, native
+assertion/random/gas-limit calls, fee argument order, builder-to-slice,
+ambiguous nullable dictionary loads and retained builtins. Original source
+belongs only to the oracle. Raw/normalized code-cell, serialized BOC, full
+stack, exit and gas must match on valid/null/NaN/wrong-type/underflow/out-of-gas
+inputs; original behavior is checked independently. All eight template BOCs
+also match between stages. `tolk:stdlib-audit` checks current JAR identity,
+both generated source files and actual BOC bytes. Across templates, all 23
+opaque context-name occurrences are replaced; 50 helper declarations receive
+standard-derived wrapper names and 7 become native calls. These counts describe
+operations, not recovered author names.
 
 ### Compiler sources as a pattern catalog
 

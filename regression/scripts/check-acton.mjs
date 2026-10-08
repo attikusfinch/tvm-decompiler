@@ -30,9 +30,10 @@ try {
         assert.deepEqual(raw.diagnostics, response.diagnostics, fixture.id + ': normalization changed parser diagnostics');
         assert.equal(rawResult.status, result.status, fixture.id + ': normalization changed compilability');
         const support = values.language === 'tolk' ? 'stdlib.tolk' : 'stdlib.fc';
-        assert.equal(raw.files.find(file => file.name === support).content,
-          response.files.find(file => file.name === support).content, 'Normalization changed compatibility helpers');
-        entry.normalization = { changes:response.normalizations ?? [], rawRequest:await readJson(path.join(rawTarget, 'request.json')) };
+        const supportChanged = raw.files.find(file => file.name === support).content !== response.files.find(file => file.name === support).content;
+        if (values.language !== 'tolk') assert.equal(supportChanged,false,'Normalization changed FunC support');
+        if (supportChanged) assert.ok(response.normalizations.some(change => change.rule.startsWith('tolk-stdlib-')), 'Tolk support edits need an audit');
+        entry.normalization = { changes:response.normalizations ?? [], rawRequest:await readJson(path.join(rawTarget, 'request.json')), supportChanged };
         if (result.status === 'ok') {
           entry.normalization.comparison = compareBoc(rawResult.boc, result.boc);
           // Current rules change only presentation/types; require full TVM identity, including gas and MYCODE.

@@ -224,9 +224,9 @@ object TvmDecompilerImpl : TvmDecompiler {
         if (options.language == OutputLanguage.TOLK) {
             val builtin = TvmDecompilerImpl::class.java.getResourceAsStream("/builtin.fc")!!.use { it.readBytes().toString(Charsets.UTF_8) }
             val output = TolkPrinter(options, stdlibContent, builtin).print(rootNode)
-            val normalized = if (options.normalize && diagnostics.isEmpty()) TolkNormalizer.normalize(output.main)
+            val normalized = if (options.normalize && diagnostics.isEmpty()) TolkNormalizer.normalize(output.main, output.support)
                 else TolkNormalizer.Result(output.main, emptyList())
-            return Result(listOf(ResultFile("main.tolk", normalized.main), ResultFile("stdlib.tolk", output.support)),
+            return Result(listOf(ResultFile("main.tolk", normalized.main), ResultFile("stdlib.tolk", normalized.support ?: output.support)),
                 diagnostics.distinct(), normalized.changes)
         }
         val rootPrinter = RootPrinter(options)

@@ -4,7 +4,7 @@ import io.swee.tvm.decompiler.api.NormalizationChange
 
 /** Runs after Tolk emission. Rules edit complete, narrowly matched functions and retain an audit trail. */
 internal object TolkNormalizer {
-    data class Result(val main: String, val changes: List<NormalizationChange>)
+    data class Result(val main: String, val changes: List<NormalizationChange>, val support: String? = null)
     internal data class Edit(val start: Int, val end: Int, val replacement: String, val change: NormalizationChange)
     internal fun interface Rule { fun edits(source: TolkSource): List<Edit> }
     private val rules = listOf(AddressGetterReturnRule, OptionalAddressGetterRule, NullCoalesceRule, NativeNullCheckRule, BooleanGuardRule,
@@ -27,6 +27,12 @@ internal object TolkNormalizer {
             }
         }
         return Result(code, changes.distinct())
+    }
+
+    fun normalize(main: String, support: String, catalog: TolkStdlibCatalog = TolkStdlibCatalog.standard): Result {
+        val existing = normalize(main)
+        val library = TolkStdlibNames.normalize(existing.main,support,catalog)
+        return library.copy(changes = (existing.changes + library.changes).distinct())
     }
 }
 

@@ -17,6 +17,8 @@
     "verify:tolk": "node scripts/corpus.mjs --local --native --language tolk --strict",
     "tolk:edges": "node scripts/check-tolk-edges.mjs",
     "tolk:normalization": "node scripts/check-tolk-normalization.mjs",
+    "tolk:stdlib": "node scripts/check-tolk-stdlib.mjs",
+    "tolk:stdlib-audit": "node scripts/audit-tolk-stdlib.mjs",
     "tolk:matches": "node scripts/check-tolk-matches.mjs",
     "tolk:recovery": "node scripts/check-tolk-recovery.mjs",
     "tolk:builders": "node scripts/check-tolk-builders.mjs",

@@ -148,6 +148,14 @@ boundaries; a successful round trip does not imply full author-schema recovery.
 
 ## Standalone HTML report
 
+`npm run tolk:stdlib` verifies standard-library normalization of both Tolk
+output files: 17 fixtures / 73 getter probes cover native calls and imports,
+context/type/effect/permutation wrappers, malformed inputs and retained
+ambiguous/builtin forms. Raw/normalized BOC, complete stack, exit and gas must
+match; original behavior is compared independently. `tolk:stdlib-audit` validates
+these artifacts and all eight templates against the current JAR, exact source
+files and actual BOC bytes. Snapshot metadata is under src/main/resources/tolk-stdlib.
+
 `npm run func:stdlib` checks library-derived helper names and cursor loaders
 against the pinned full output stdlib. Fourteen native FunC/Fift fixtures / 36
 getter probes require raw/normalized code-cell and serialized-BOC identity,
