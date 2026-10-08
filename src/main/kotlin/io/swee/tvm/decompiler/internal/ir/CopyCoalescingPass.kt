@@ -41,6 +41,7 @@ object CopyCoalescingPass {
         block.accept(object : IRNodeVisitor {
             override fun visit(node: IRNode.VariableDeclaration) {
                 if (!node.reassignment) return
+                if (node.untuple) return
                 if (node.entries.size != 1) return
                 val value = node.value
                 if (value !is IRNode.VariableUsage || !value.tracked) return

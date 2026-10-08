@@ -44,7 +44,7 @@ object RedundantStoreEliminationPass {
         for (node in block.entries) {
             when (node) {
                 is IRNode.VariableDeclaration -> {
-                    if (node.entries.size == 1) {
+                    if (node.entries.size == 1 && !node.untuple) {
                         val slot = node.entries.single()
                         val c = resolveConst(node.value, known)
                         if (node.reassignment && c != null && known[slot] == c) {

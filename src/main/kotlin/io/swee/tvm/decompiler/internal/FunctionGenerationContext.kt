@@ -186,19 +186,23 @@ fun analyze(root: IRNode.Root, options: DecompilerOptions = DecompilerOptions())
     val functionContexts = newRoot.functions.associateWith { analyzeFunction(it) }
 
     val globalTypes = mutableMapOf<Int, TvmStackEntryType>()
+    val globalWrites = mutableMapOf<Int, MutableSet<TvmStackEntryType>>()
     newRoot.accept(object : IRNodeVisitor {
         override fun visit(node: IRNode.GlobalWrite) {
             val writeType = (node.value as? IRNode.VariableUsage)?.entry?.type ?: TvmStackEntryType.UNKNOWN
-            if (writeType != TvmStackEntryType.UNKNOWN) {
-                globalTypes.putIfAbsent(node.number, writeType)
-            } else {
-                globalTypes.putIfAbsent(node.number, TvmStackEntryType.UNKNOWN)
-            }
+            globalWrites.getOrPut(node.number) { mutableSetOf() }.add(writeType)
+            globalTypes.putIfAbsent(node.number, TvmStackEntryType.UNKNOWN)
         }
         override fun visit(node: IRNode.GlobalRead) {
             globalTypes.putIfAbsent(node.number, TvmStackEntryType.UNKNOWN)
         }
     })
+    // A read carries no new type evidence. In particular, an early unknown read
+    // must not lock a later consistently written tuple/cell field to `int`.
+    // Unknown or conflicting writes remain unknown rather than choosing a writer.
+    for ((number, writes) in globalWrites) {
+        globalTypes[number] = writes.singleOrNull() ?: TvmStackEntryType.UNKNOWN
+    }
 
     return RootGenerationContext(
         functionContexts,

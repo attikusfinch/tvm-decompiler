@@ -90,6 +90,23 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
             sb.append("global $typeName __global_$num;\n")
         }
         if (genCtx.globalVariableTypes.isNotEmpty()) sb.append("\n")
+        // Typed [X,Y] and opaque tuple are distinct FunC types, although
+        // both occupy one TVM slot. This bridge emits no VM instruction.
+        sb.append("forall TupleValue -> tuple __tvm_opaque_tuple(TupleValue value) asm \"nop\";\n\n")
+
+        val tupleWidths = sortedSetOf<Int>()
+        root.accept(object : IRNodeVisitor {
+            override fun visit(node: VariableDeclaration) {
+                if (node.untuple) tupleWidths += node.entries.size
+            }
+        })
+        for (width in tupleWidths) {
+            val types = (0 until width).map { "TupleItem$it" }
+            if (types.isNotEmpty()) sb.append("forall ${types.joinToString(", ")} -> ")
+            sb.append(types.joinToString(", ", "(", ")"))
+            sb.append(" __tvm_unpack_tuple_$width(tuple value) impure asm \"$width UNTUPLE\";\n")
+        }
+        if (tupleWidths.isNotEmpty()) sb.append("\n")
 
         for (c in genCtx.node.constants) {
             sb.append("const slice ${c.name} = ${c.literal};\n")
@@ -261,28 +278,38 @@ class VariableDeclarationPrinter : LeafNodePrinter<VariableDeclaration>(Variable
     private fun print0(ctx: LeafPrinterContext, node: VariableDeclaration) {
         val entriesJoined = node.entries.joinToString(", ") { entry ->
             when (ctx.sar.stackEntryUsage.getOrDefault(entry, 0)) {
-                0 -> "_"
+                0 -> if (node.untuple) "int ${ctx.sar.stackEntryNameResolver(entry.name)}" else "_"
                 else -> if (node.reassignment) {
                     ctx.sar.stackEntryNameResolver(entry.name)
                 } else {
-                    "${entry.type.funcTypename} ${ctx.sar.stackEntryNameResolver(entry.name)}"
+                    val type = if (node.untuple && entry.type == TvmStackEntryType.UNKNOWN) "int" else entry.type.funcTypename
+                    "$type ${ctx.sar.stackEntryNameResolver(entry.name)}"
                 }
             }
         }
 
         when {
-            node.entries.isEmpty() -> {
+            node.untuple -> {
+                // A TVM tuple has a runtime arity. FunC's [X,Y] assignment also
+                // requires a statically typed tuple and rejects opaque `tuple`.
+                // Keep UNTUPLE and its type/arity exception even for dead slots.
+                if (node.entries.isNotEmpty()) ctx.append("($entriesJoined) = ")
+                ctx.append("__tvm_unpack_tuple_${node.entries.size}(")
                 ctx.print(node.value)
+                ctx.append(")")
             }
 
-            node.untuple -> {
-                ctx.append("[$entriesJoined] = ")
+            node.entries.isEmpty() -> {
                 ctx.print(node.value)
             }
 
             node.entries.size == 1 -> {
                 ctx.append("$entriesJoined = ")
+                val type = node.entries.single().type
+                val opaqueTuple = type is TvmStackEntryType.TUPLE && type.elements.isEmpty()
+                if (opaqueTuple) ctx.append("__tvm_opaque_tuple(")
                 ctx.print(node.value)
+                if (opaqueTuple) ctx.append(")")
             }
 
             else -> {
@@ -294,6 +321,7 @@ class VariableDeclarationPrinter : LeafNodePrinter<VariableDeclaration>(Variable
 }
 
 private fun isInlined(node: VariableDeclaration, ctx: LeafPrinterContext): Boolean {
+    if (node.untuple) return false
     val actual = node.entries.size == 1 && node.entries.all {
         val source = ctx.sar.stackEntrySources[it]!!.singleOrNull() ?: return@all false
 
@@ -354,7 +382,11 @@ class FunctionReturnStatementPrinter : LeafNodePrinter<FunctionReturnStatement>(
             if (idx != 0) {
                 ctx.append(", ")
             }
+            val type = variable.entry.type
+            val opaqueTuple = type is TvmStackEntryType.TUPLE && type.elements.isEmpty()
+            if (opaqueTuple) ctx.append("__tvm_opaque_tuple(")
             ctx.print(variable)
+            if (opaqueTuple) ctx.append(")")
         }
         ctx.append(")")
     }
@@ -544,7 +576,11 @@ private fun hasPrintableContent(ctx: LeafPrinterContext, block: CodeBlock?): Boo
 class GlobalWritePrinter : LeafNodePrinter<GlobalWrite>(GlobalWrite::class.java) {
     override fun print(ctx: LeafPrinterContext, node: GlobalWrite) {
         ctx.append("__global_${node.number} = ")
+        val type = (node.value as? VariableUsage)?.entry?.type
+        val opaqueTuple = type is TvmStackEntryType.TUPLE && type.elements.isEmpty()
+        if (opaqueTuple) ctx.append("__tvm_opaque_tuple(")
         ctx.print(node.value)
+        if (opaqueTuple) ctx.append(")")
     }
 }
 

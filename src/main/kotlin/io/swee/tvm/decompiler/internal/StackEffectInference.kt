@@ -38,6 +38,22 @@ fun staticVariableCallBody(instructions: List<TvmInst>, index: Int): List<TvmIns
     return body
 }
 
+// FunC's inline-return envelope establishes a local c1 before executing the
+// literal. RETALT inside it returns to EXECUTE, not from the containing method.
+// Keep this call boundary rather than splicing its returns into the caller IR.
+fun localAlternativeCallBody(instructions: List<TvmInst>, index: Int): List<TvmInst>? {
+    val body = when (val instruction = instructions.getOrNull(index)) {
+        is TvmConstDataPushcontShortInst -> instruction.c.list
+        is TvmConstDataPushcontInst -> instruction.c.list
+        is TvmConstDataPushrefcontInst -> instruction.c.list
+        else -> return null
+    }
+    val save = body.firstOrNull() as? TvmContRegistersSaveInst ?: return null
+    if (save.i != 2 || body.getOrNull(1) !is TvmContRegistersSamealtsaveInst ||
+        instructions.getOrNull(index + 1) !is TvmContBasicExecuteInst) return null
+    return body
+}
+
 fun extractCallrefBodies(methods: Map<BigInteger, List<TvmInst>>): CallrefExtractionResult {
     val callrefMapping = HashMap<List<TvmInst>, BigInteger>()
 
@@ -70,7 +86,7 @@ fun extractCallrefBodies(methods: Map<BigInteger, List<TvmInst>>): CallrefExtrac
     fun scan(instList: List<TvmInst>) {
         for ((index, inst) in instList.withIndex()) {
             val calledBody = if (inst is TvmContBasicCallrefInst) inst.c.list
-                else staticVariableCallBody(instList, index)
+                else staticVariableCallBody(instList, index) ?: localAlternativeCallBody(instList, index)
             if (calledBody != null) {
                 val fp = fingerprint(calledBody)
                 val existingId = fingerprintToId[fp]
@@ -333,6 +349,9 @@ private fun collectCallees(
 ) {
     for ((index, inst) in instList.withIndex()) {
         staticVariableCallBody(instList, index)?.let { body ->
+            callrefMapping[body]?.let(callees::add)
+        }
+        localAlternativeCallBody(instList, index)?.let { body ->
             callrefMapping[body]?.let(callees::add)
         }
         when (inst) {

@@ -34,7 +34,7 @@ object DeadPhiEliminationPass {
             val hasDeclaration = decls.any { !it.reassignment }
             if (!hasDeclaration) continue
             if (readCounts.getOrDefault(entry, 0) != 0) continue
-            if (!decls.all { isPure(it.value) }) continue
+            if (!decls.all { !it.untuple && isPure(it.value) }) continue
             removal.addAll(decls)
         }
 

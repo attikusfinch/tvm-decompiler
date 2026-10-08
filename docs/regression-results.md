@@ -199,3 +199,26 @@ enum member names and bool/int1. These facts do not enter normalization. General
 schema/type/CFG recovery and dynamic return widths remain explicitly bounded
 in the catalog. The renewed corpus, template, catalog and offline HTML checks
 preserve all prior original/recompiled differences.
+
+Local `SAVECTR c2 / SAMEALTSAVE` literal `EXECUTE` calls now keep their own return
+boundary. Previously a nested `RETALT` became a return from the containing method,
+corrupting asset decoder and caller signatures. The independent instruction
+fixture covers native/jetton branches, suffix execution, untouched caller slots,
+invalid tags and underflow, with 276 runtime probes across raw/normalized FunC
+and Tolk (`npm run continuation:local-return`). Raw/normalized serialized BOCs
+are identical per language. Original/candidate behavior matches every probe;
+original/candidate gas differs on 45/69 FunC and 46/69 Tolk probes and is reported.
+
+FunC global declarations use consistent write evidence rather than locking an
+early unknown read to int. Unknown/conflicting writes remain unresolved. Opaque
+and statically typed tuples use a zero-instruction type bridge. `UNTUPLE` uses
+explicit impure primitives, retaining runtime type/arity checks when results are
+dead. Single-result tuple unpacking is excluded from copy, constant and dead-phi
+elimination and no longer unifies the tuple input with its element type. The
+fixture checks sizes 0, 1, 2, 3 and 15, used/unused slots, invalid lengths/types,
+tuple/cell globals and tuple return boundaries. All 111 Kotlin tests pass.
+
+All eight Acton templates still compile in both languages, with identical
+raw/normalized BOCs. Getter/message/action comparisons retain the existing
+17/18, 65/71 and 70/71 results. Classic LiquidityDeposit now compiles in Tolk after
+local-return recovery; its readable-source and exact-byte acceptance remains open.

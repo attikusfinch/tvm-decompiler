@@ -49,7 +49,7 @@ object TypeSolver {
                     contribute(e, e.type)
                     seeds[e]?.let { contribute(e, it) }
                 }
-                if (node.entries.size == 1) {
+                if (node.entries.size == 1 && !node.untuple) {
                     val lhs = node.entries.single()
                     val rhs = node.value
                     if (rhs is IRNode.VariableUsage) union(lhs, rhs.entry)
