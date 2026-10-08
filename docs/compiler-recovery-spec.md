@@ -93,8 +93,8 @@ BOC → инструкции TVM → стековый IR → raw main.tolk + std
 | N04 | Нативные cursor-load / preload | Знать позиции результата/остатка, ширину, знак и snapshot получателя; живые алиасы, underflow и порядок проверок сохраняются; LDUX и LDU не взаимозаменять без доказательства | N01 | Частично: cursor-load для LDUX, LDIX, LDGRAMS; exact mutating-методы |
 | N05 | Builder/store-цепочки | Порядок битов и refs, исходные snapshots, лимиты 1023/4, переполнение; не переносить побочные эффекты внутрь цепочки | N04 | Готово для 13 store-helpers: функциональные exact-методы, snapshots и исключения |
 | N06 | Простые bool-предикаты | TVM true=-1/false=0, значения в арифметике/битовых операциях остаются int; не переносить вычисление из binding в цикл | N01 | Готово: boolean-guard в ограниченной области |
-| N07 | Null / nullable / `??` | Отличать физический null от статического non-nullable-типа; сохранить unknown escape, короткое замыкание, типы всех веток и ширину стека | N01, N03 | Частично: native-null-check; распространение nullable и `??` в очереди |
-| N08 | Адреса / optional address | Различать addr_none, стандартный/переменный/anycast адрес, семантику LDSTDADDR и nullable-encoding; не угадывать address по одному имени | N04, N07 | Частично: standalone address-getter-return; остальные случаи в очереди |
+| N07 | Null / nullable / `??` | Отличать физический null от статического non-nullable-типа; сохранить unknown escape, короткое замыкание, типы всех веток и ширину стека | N01, N03 | Частично: native-null-check и terminal null-coalesce; полное nullable propagation в очереди |
+| N08 | Адреса / optional address | Различать addr_none, стандартный/переменный/anycast адрес, семантику LDSTDADDR и nullable-encoding; не угадывать address по одному имени | N04, N07 | Частично: standalone address/optional-address getters; все LDOPTSTDADDR tuple-loads; общая address propagation в очереди |
 | N09 | Getter ABI и entrypoints | CRC16 + точная сигнатура + отсутствие коллизий и внутренних ссылок; имена явно помечены как предположенные | N01 | Частично: registry из 17 кандидатов, entrypoints; расширение по независимым ABI |
 | N10 | Lazy prefix / union `match` | Quiet-проверки, точные битовые ширины, prefix-free-набор, тот же хвост/refs/fallback, безопасный контекст return | N01 | Частично: terminal top-level dispatch, 4..48 бит, nibble alignment |
 | N11 | Расширение match: вложенность / joins / enums / type tests | Анализ CFG и доминирования, живые значения и phi, enum throw=5; не превращать неполный enum в исчерпывающий и не придумывать утраченный union type | N02, N07, N10, P01 | Очередь |
@@ -207,6 +207,32 @@ STGRAMS: для нулевой константы компилятор може�
 результат сохраняет проверку границ и исключение. Сериализационные схемы
 сообщений остаются отдельным пунктом N15/N18.
 
+### N07/N08: nullable-значения и optional address
+
+`null-coalesce` распознаёт соседние ISNULL-binding, snapshot `var phi = x`
+и единственное присваивание простого fallback в null-ветке, за которыми
+сразу следует `return phi`. Пустая ELSE допустима. Получается
+`var phi = ((x as unknown) ?? fallback) as T`; локальные значения должны
+иметь одинаковый известный scalar-тип. Escape через unknown обязателен:
+legacy int/slice/cell может физически содержать null. Вызовы, эффекты,
+комментарии, переопределённые helpers, shadowing, непустая ELSE и дальнейшее
+использование результата блокируют замену. Последний случай доказан:
+Tolk переносит общий SWAP внутрь ELSE, меняя код и газ. ISNULL+CONDSEL
+также не заменяется на `??`: eager CONDSEL превращается в lazy IF.
+
+`optional-address-cursor` учитывает обратный порядок tuple-результатов
+LDOPTSTDADDR: `(address, rest)` вместо `(rest, value)`. Exact impure
+mutating-метод возвращает `slice?`; legacy consumers получают значение
+через `as unknown as slice`, сохраняя физический null и прежние типы всех
+вызовов. Живые исходные slices и отброшенные результаты сохраняются.
+Это локальная нормализация, не полное nullable propagation.
+
+`optional-address-getter` сворачивает соседние load + return в
+`return body.loadAddressOpt()` с результатом `address?`, если getter
+внешний, остаток отброшен, body — доказанный локальный slice, отсутствуют
+внутренние вызовы, ветки и комментарии. Имя остаётся anonymous при
+неизвестном ABI ID. Ширина стека и opcode остаются теми же.
+
 ## 6. Приёмка каждого пункта
 
 1. **Статический тест:** точное преобразование, аудит и идемпотентность;
@@ -240,6 +266,7 @@ STGRAMS: для нулевой константы компилятор може�
 | 2026-10-08 | N03 | conditional-select: CONDSEL → нативный ternary для заранее вычисленных однородных значений. В шаблонах 7 → 5 вызовов helper; остальные пять требуют анализа nullable GETPRECOMPILEDGAS. Проверены также одинаковые операнды, неканонические truthy int и утраченные runtime-типы. |
 | 2026-10-08 | N04 | cursor-load: LDUX/LDIX/LDGRAMS через exact mutating-методы с сохранением snapshots и исключений. В шаблонах 113 → 69 tuple-loads (44 преобразованы); оставшиеся — optional address и partial-контракты. |
 | 2026-10-08 | N05 | builder-store-chain: 13 exact функциональных store-методов; 44 → 3 helper-вызова в шаблонах, оставшиеся три в partial. 17 compiler-derived сценариев / 202 пробы, raw/normalized code-cell + serialized BOC + gas совпадают. Проверены нулевые/отрицательные/предельные coins, dynamic int widths, nullable refs/addresses, snapshots, отброшенный результат, 1023 бит / 4 refs и порядок побочных эффектов. Original/normalized поведение совпадает; 8/17 original/raw code-cell идентичны, остальные расхождения raw фиксируются отдельно. |
+| 2026-10-08 | N07/N08 | terminal null-coalesce, optional-address-getter и optional-address-cursor. 14 compiler-derived сценариев / 144 пробы с идентичными raw/normalized code-cell, serialized BOC и gas; original/normalized поведение совпадает, 13/14 original/raw code-cell идентичны. Проверены null в int/cell slots, эффектный fallback и eager CONDSEL без coalesce, addr_none/std/truncated/var, refs, snapshots, цепочки и оба отброшенных результата. В шаблонах 21 → 0 LDOPTSTDADDR helpers и 113 → 48 primitive tuple-loads; оставшиеся tuple-loads только в partial. ?? и optional getter применяются в synthetic-примерах, в текущих шаблонах их точной формы нет. |
 
 Приёмка первого прохода: 45 Kotlin-тестов; 19 compiler-derived сценариев,
 501 входная проба с равенством raw/normalized code-cell, serialized BOC и
@@ -251,12 +278,22 @@ gas. Original/normalized поведение совпадает на этих п�
 проверены; шесть complete сохраняют raw/normalized BOC, два partial —
 файлы/диагностики. HTML обновлён и проверен для обоих языков.
 
-Следующий проход начинается с N07/N08 (распространение nullable и адресов).
-N11/N15 требуют более полного анализа типов/CFG; их статус остаётся в очереди.
+Следующий проход — P01: устранение WHILE stack-depth дефекта, мешающего
+проверке NftCollection. N11/N15 требуют анализа типов/CFG; их статус остаётся
+в очереди. Nullable/address propagation за пределами указанных локальных
+форм также остаётся открытой.
 
 Порция N05 также прошла 50 Kotlin-тестов и проверки всех восьми шаблонов
 на обоих языках. HTML и raw/normalized каталог обновлены; шесть complete
 сохраняют BOC identity, два partial сохраняют файлы и диагностики.
+
+Порция N07/N08 прошла 56 Kotlin-тестов, четыре теста стенда и все предыдущие
+recovery/builders/matches/normalization/edges suites (501/202/348/26/13 проб).
+Оба 20-case corpus сохраняют 18 passing, два известных partial и ноль
+unexpected failures. Все восемь шаблонов проверены на обоих языках;
+raw/normalized идентичность шести complete и неизменность двух partial
+подтверждены. HTML обновлён и проверен, включая скачиваемые raw/normalized
+артефакты и мобильную верстку.
 
 Результаты предыдущих правил и известные original/recompiled-расхождения
 содержатся в [regression-results.md](regression-results.md). Эта спецификация

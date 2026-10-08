@@ -116,6 +116,36 @@ nullable addresses/refs, coins and width boundaries, dead calls and effects.
 All raw/normalized code cells, serialized BOCs and getter gas are identical;
 original/raw differences are recorded independently.
 
+### Nullable fallback and optional addresses (N07/N08)
+
+`null-coalesce` recovers adjacent ISNULL/snapshot/null-branch assignment
+followed immediately by returning the snapshot. The replacement is
+`var phi = ((x as unknown) ?? fallback) as T`. Operands are compatible
+local scalar values or integer constants, with no effects, shadows,
+comments or live flags. Empty ELSE is accepted. A live result/fallback
+beyond this branch is retained: Tolk changes stack permutations when
+materializing the expression. Eager ISNULL+CONDSEL stays explicit because
+`??` would introduce a lazy IF and change gas. General nullable propagation
+remains open; the unknown escape retains physical legacy nulls.
+
+`optional-address-cursor` converts LDOPTSTDADDR's `(address, rest)` to a
+snapshot cursor and an exact impure method returning `slice?`. Its result
+passes through `as unknown as slice` for existing legacy consumers, so
+casts cannot erase physical null or require changing all call-site types.
+Unlike ordinary cursor loads, its tuple order is reversed. Discarding
+either/both results retains malformed-address exceptions. A standalone
+external getter with a discarded tail can instead use `address?` and
+`return body.loadAddressOpt()` under `optional-address-getter`; internal
+calls, branches, comments and signature ambiguity prevent that change.
+
+The 14-fixture/144-probe suite requires identical raw/normalized code cells,
+serialized BOCs and getter gas. Original behavior is checked separately;
+13/14 original/raw code cells are identical. Cases include physical null
+in int/cell slots, retained effectful/eager/live fallbacks, addr_none/std,
+truncated/variable addresses, refs, aliases, dead results and load chains.
+All 21 optional-address loads in complete templates are converted; these
+templates have no exact coalesce or standalone optional-getter shape.
+
 ## Inventory across all eight templates
 
 The [compiler recovery specification](compiler-recovery-spec.md) tracks 24 families and their dependencies. The first batch adds three separate rules: `integer-match` for terminal ordered equality chains of a proven local int; `conditional-select` for CONDSEL with pre-evaluated local references/literals of the same scalar type; and `cursor-load` for LDUX/LDIX/LDGRAMS tuple bindings. Integer match retains fallback, signed/large constants and method IDs, and rejects joins, shadowing, effects and unsafe return contexts. Ternary selection keeps the surrounding result cast, removes operand casts to unknown (which would select IF/ELSE), and never makes a call or global read conditional. The compiler removes its zero-test before CONDSEL.
@@ -126,14 +156,14 @@ Cursor loads retain separate slice snapshots and mutable results. `loadUintExact
 |---|---:|---|---|
 | Anonymous `fn_<method_id>` getters | 18 → 9 | All eight | Candidate naming implemented for nine complete getters. Remaining nine are in partial contracts. Preserve hash/signature/collision checks. |
 | Adjacent returned address binding | 2 → 0 | Empty, Counter | Implemented: direct address return and candidate owner getter. |
-| Primitive loads destructured into tuples | 113 → 69 | All except Empty | Implemented cursor loads replace 44 bindings in complete contracts. Remaining forms are optional-address loads and partial outputs. Exact LDUX/LDIX/LDGRAMS methods preserve opcode selection, snapshots, mutable values and discarded-result exceptions. |
+| Primitive loads destructured into tuples | 113 → 48 | All except Empty | 65 bindings in complete contracts use cursor methods (44 ordinary and 21 optional-address). Remaining 48 are in partial outputs. Exact methods preserve opcode selection, snapshots, mutable values and discarded-result exceptions. |
 | CONDSEL compatibility calls | 7 → 5 | JettonWallet, JettonMinter | Two calls become native ternary expressions. Five calls involving values from GETPRECOMPILEDGAS remain explicit until nullable/type propagation is proven. Ordinary integer dispatch is covered by compiler-derived fixtures; these eight templates use prefix dispatch. |
 | Builder store compatibility calls | 44 → 3 | NftCollection, NftItem, JettonWallet, JettonMinter, SimpleExtension, WalletV5 | 41 calls become exact functional builder methods; three remaining calls belong to partial contracts. All 13 supported operations preserve opcodes, argument order, snapshots and discarded-result exceptions. |
 | `matchPrefix` dispatch | 41 → 30 | All eight | Lazy message dispatch implemented for five terminal chains (11 prefix calls). Remaining calls include guarded shapes and partial contracts. Preserve empty/truncated messages, refs, unmatched tails and throw codes. WalletV5 also uses one-byte prefixes. |
 | `.loadAddress() as slice` | 43 → 41 | All eight | Direct getter returns implemented; broader address propagation needs checks across comparisons/stores/calls and nullable/joined values. |
 | Bindings ending in `as int` | 69 → 52 | All eight | Boolean guards implemented. Integer/tuple casts and values used by bitwise logic remain; integer null-predicate contexts still need `as int`. |
 | ISNULL compatibility predicate | 21 → 7 | NftItem, JettonWallet, JettonMinter, SimpleExtension, WalletV5 | Native comparisons implemented. All seven remaining calls are in partial WalletV5. Retain unknown escapes and -1/0 integer semantics. |
-| Optional-address compatibility loads | 21 → 21 | NftItem, JettonWallet, JettonMinter | Infer `address?` only with proven null semantics and matching TVM encodings. |
+| Optional-address compatibility loads | 21 → 0 | NftItem, JettonWallet, JettonMinter | Exact nullable cursor methods with reversed tuple order and legacy unknown escapes. Native address? getter recovery is additionally covered by synthetic fixtures; broad type propagation stays open. |
 | `tvmNull() as slice/cell/int` | 9 → 9 | NftItem, JettonMinter, SimpleExtension | Recover nullable values across all branches and tuple return slots; test uninitialized NFT state. |
 | Raw message sends | 15 → 15 | NftCollection, NftItem, JettonWallet, JettonMinter, SimpleExtension | Recognize builder/message layouts before using native message structures. Preserve refs, flags, modes, c5 actions and gas-sensitive values. |
 

@@ -6,11 +6,12 @@ import io.swee.tvm.decompiler.internal.normalize.TolkSource.Companion.integer
 
 /** Make cursor updates explicit without replacing LDUX/LDIX with constant-width opcodes. */
 internal object CursorLoadRule : TolkNormalizer.Rule {
-    private data class Load(val method: String, val opcode: String, val width: Boolean = true)
+    private data class Load(val method: String, val opcode: String, val width: Boolean = true, val valueFirst: Boolean = false)
     private val loads = mapOf(
         "tvmLoadUint" to Load("loadUintExact", "LDUX"),
         "tvmLoadInt" to Load("loadIntExact", "LDIX"),
         "tvmLoadGrams" to Load("loadCoinsExact", "LDGRAMS", false),
+        "tvmLoadOptStdAddr" to Load("loadOptionalAddressExact", "LDOPTSTDADDR", false, true),
     )
 
     override fun edits(source: TolkSource): List<TolkNormalizer.Edit> = buildList {
@@ -50,7 +51,7 @@ internal object CursorLoadRule : TolkNormalizer.Rule {
                 val indentation = source.text.substring(source.text.lastIndexOf('\n', tokens[start].start) + 1, tokens[start].start)
                 // Unlike dispatch, cursor loads also occur on a one-line source. Preserve its space.
                 val indent = indentation.takeIf { it.all(Char::isWhitespace) } ?: ""
-                var cursor = names[0].value
+                var cursor = names[if (load.valueFirst) 2 else 0].value
                 if (cursor == "_") {
                     cursor = "cursor"
                     var suffix = 2
@@ -58,10 +59,13 @@ internal object CursorLoadRule : TolkNormalizer.Rule {
                     generated += cursor
                 }
                 val argument = if (width.isEmpty()) "" else source.code(width)
-                val value = names[2].value
+                val value = names[if (load.valueFirst) 0 else 2].value
                 val call = "$cursor.${load.method}($argument);"
-                val replacement = "var $cursor = $receiver;\n$indent" + if (value == "_") call else "var $value = $call"
-                val change = function.change("cursor-load")
+                // The legacy slot remains slice for its existing consumers; unknown preserves physical
+                // null across this cast. The method itself documents the nullable result explicitly.
+                val result = if (load.valueFirst) "($cursor.${load.method}() as unknown as slice);" else call
+                val replacement = "var $cursor = $receiver;\n$indent" + if (value == "_") call else "var $value = $result"
+                val change = function.change(if (load.valueFirst) "optional-address-cursor" else "cursor-load")
                 add(TolkNormalizer.Edit(tokens[start].start, tokens[end + 1].end, replacement, change))
                 used += load
                 index = end + 2
@@ -72,7 +76,7 @@ internal object CursorLoadRule : TolkNormalizer.Rule {
                 ?.let { source.tokens.getOrNull(it + 1)?.end } ?: 0
             val declarations = "\n\n// Preserve exact TVM loads and their exceptions, including discarded results.\n" + used.joinToString("\n\n") {
                 if (it.width) "fun slice.${it.method}(mutate self, len: int): int\n    asm (self len -> 1 0) \"${it.opcode}\""
-                else "fun slice.${it.method}(mutate self): int\n    asm ( -> 1 0) \"${it.opcode}\""
+                else "fun slice.${it.method}(mutate self): ${if (it.valueFirst) "slice?" else "int"}\n    asm ( -> 1 0) \"${it.opcode}\""
             } + "\n"
             add(TolkNormalizer.Edit(insertion, insertion, declarations, first().change))
         }

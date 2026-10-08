@@ -338,6 +338,11 @@
           "functionName": "fn_102351"
         },
         {
+          "rule": "optional-address-cursor",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "cursor-load",
           "methodId": "0",
           "functionName": "onInternalMessage"
@@ -506,6 +511,11 @@
         },
         {
           "rule": "conditional-select",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "optional-address-cursor",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -690,9 +700,24 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "optional-address-cursor",
+          "methodId": "106029",
+          "functionName": "fn_106029"
+        },
+        {
           "rule": "cursor-load",
           "methodId": "106029",
           "functionName": "fn_106029"
+        },
+        {
+          "rule": "optional-address-cursor",
+          "methodId": "78683",
+          "functionName": "fn_78683"
+        },
+        {
+          "rule": "optional-address-cursor",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
         },
         {
           "rule": "cursor-load",
@@ -1223,7 +1248,7 @@
         "WalletV5"
       ],
       "occurrences": 113,
-      "normalizedOccurrences": 69
+      "normalizedOccurrences": 48
     },
     {
       "id": "conditional-select",
@@ -1312,14 +1337,14 @@
     },
     {
       "id": "optional-address-load",
-      "status": "candidate",
+      "status": "implemented",
       "contracts": [
         "NftItem",
         "JettonWallet",
         "JettonMinter"
       ],
       "occurrences": 21,
-      "normalizedOccurrences": 21
+      "normalizedOccurrences": 0
     },
     {
       "id": "typed-null-value",

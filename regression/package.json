@@ -17,6 +17,7 @@
     "tolk:matches": "node scripts/check-tolk-matches.mjs",
     "tolk:recovery": "node scripts/check-tolk-recovery.mjs",
     "tolk:builders": "node scripts/check-tolk-builders.mjs",
+    "tolk:nullable": "node scripts/check-tolk-nullable.mjs",
     "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs"
   },
   "dependencies": {

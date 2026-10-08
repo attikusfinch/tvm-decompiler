@@ -37,6 +37,7 @@ npm run tolk:normalization
 npm run tolk:matches
 npm run tolk:recovery
 npm run tolk:builders
+npm run tolk:nullable
 npm run tolk:patterns
 ```
 
@@ -63,6 +64,16 @@ npm run check -- --boc fixtures/bocs/getparam.boc --local --native
 ```
 
 Artifacts contain the original and recompiled BOC, request/response metadata, generated sources, compiler errors or diagnostics, and JSON reports. These are ignored by Git. Small reproducing BOCs and their hashes are committed under fixtures/bocs.
+
+`tolk:nullable` covers N07/N08 with 14 compiler-derived fixtures and 144
+getter probes. Terminal lazy ISNULL/phi forms become ??; live result,
+effectful fallback and eager CONDSEL forms remain explicit. LDOPTSTDADDR
+gets exact nullable cursor methods with its reversed tuple order, retained
+legacy consumers, snapshots and discarded-result exceptions. Standalone
+external getters can expose native address?. Null int/cell slots,
+addr_none/std/truncated/var, refs and load/store chains are checked. Both
+normalized/raw BOC representations and gas must match, while original
+behavior/hash are checked separately. 13/14 original/raw code cells match.
 
 ## Standalone HTML report
 

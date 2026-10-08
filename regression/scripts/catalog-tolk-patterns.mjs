@@ -14,7 +14,7 @@ const patterns = [
   {id:'address-to-slice-cast',status:'candidate',regex:/\.loadAddress\(\) as slice/g},
   {id:'int-cast-bindings',status:'partial',regex:/ as int\);/g},
   {id:'null-predicate',status:'implemented',regex:/\btvmNull_x3f_\(/g},
-  {id:'optional-address-load',status:'candidate',regex:/\btvmLoadOptStdAddr\(/g},
+  {id:'optional-address-load',status:'implemented',regex:/\btvmLoadOptStdAddr\(/g},
   {id:'typed-null-value',status:'candidate',regex:/\btvmNull\(\) as (?:slice|cell|int)/g},
   {id:'raw-message-send',status:'candidate',regex:/\btvmSendRawMessage\(/g},
 ];
