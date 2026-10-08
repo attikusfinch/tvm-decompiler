@@ -40,7 +40,8 @@ internal class TolkPresentation(function: IRNode.Function, private val context: 
                         "load_coins" -> if (index == 0) "tail" else "coins"
                         "asm_INMSGPARAM_1" -> "isBounced"
                         "asm_INMSGPARAM_2" -> "sender"
-                        else -> null
+                        else -> if (call?.name?.startsWith("asm_SDBEGINSQ_") == true)
+                            if (index == 0) "bodyTail" else "matched" else null
                     }
                     if (hint != null) hints.putIfAbsent(entry.name, hint)
                 }

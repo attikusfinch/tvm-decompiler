@@ -6,6 +6,49 @@ The first rules come from the address getter in Empty and Counter. They do not c
 
 ## Implemented rules
 
+### Compiler sources as a pattern catalog
+
+Both compilers are open source in the TON monorepo: [FunC](https://github.com/ton-blockchain/ton/tree/master/crypto/func) and [Tolk](https://github.com/ton-blockchain/ton/tree/master/tolk). The prefix study uses the `tolk-1.4.0` tag, matching the compiler generation verified through Acton here. Compiler lowering provides recognizable families, rather than a unique inverse: optimizations erase names, types, aliases and distinctions between equivalent source constructs.
+
+| Source form | Compiler lowering | Recovery conditions |
+|---|---|---|
+| Ordinary `match (integer)` | Equality tests and nested IF/ELSE | Prove one stable subject, case values and exact fallback; an ordinary `if` chain can produce the same code. |
+| `lazy MessageUnion.fromSlice(body); match (msg)` | Ordered `slice.tryStripPrefix` calls and IF/ELSE | Quiet prefix tests, disjoint widths/values, preserved tails and explicit unmatched behavior. Implemented for the narrow shape below. |
+| Struct payload unpacking | Prefix checks followed by loads of bits/refs/coins | Stack positions, widths and cursor consumption can be recovered; semantic field names cannot. Pending schema rules. |
+| FunC `if` with an early return | IFJMP/IFNOTJMP or IF/ELSE according to continuation/return context | Branch boundaries matter; wrapping code in a high-level construct can change gas even when outputs agree. |
+
+Sources: Tolk's [`process_match_expression`](https://github.com/ton-blockchain/ton/blob/tolk-1.4.0/tolk/pipe-ast-to-legacy.cpp#L1253), union [`lazy_match`](https://github.com/ton-blockchain/ton/blob/tolk-1.4.0/tolk/pack-unpack-serializers.cpp#L991), [`compile_slice_sdbeginsq`](https://github.com/ton-blockchain/ton/blob/tolk-1.4.0/tolk/builtins.cpp#L1227), and FunC's [`_If` code generation](https://github.com/ton-blockchain/ton/blob/tolk-1.4.0/crypto/func/codegen.cpp#L547).
+
+`prefix-lazy-match` reverses the lazy-prefix family after emission. The parser/emitter first retains the original embedded SDBEGINSQ opcode as `matchPrefix_<width>_<hex>(slice)` with an exact asm helper. Previously it expanded SDBEGINSQ into PUSHSLICE + SDBEGINSXQ, adding gas and preventing a byte-identical normalization. Actual dynamic SDBEGINSXQ calls keep their existing representation. The shared parser also refines the input as slice, so prefix-only getters do not acquire an incorrect int parameter.
+
+```tolk
+// Before normalization
+var (bodyTail, matched) = matchPrefix_32_2CE05111(body);
+if (matched != 0) {
+    // existing branch statements
+    return;
+}
+assert (body.isEmpty()) throw 65535;
+
+// After normalization (declaration near imports)
+struct (0x2CE05111) Message_32_2CE05111 { tail: RemainingBitsAndRefs }
+val message = lazy Message_32_2CE05111.fromSlice(body);
+match (message) {
+    Message_32_2CE05111 => {
+        var bodyTail = message.tail;
+        // existing branch statements
+        return;
+    }
+    else => {
+        assert (body.isEmpty()) throw 65535;
+    }
+}
+```
+
+Multiple variants use an inferred union alias and retain source order. Names follow observed prefix bits and are not claims about the original message ABI. The tail remains opaque, including references; no schema is guessed. Empty/truncated/unknown prefixes reach the original fallback without an eager uint load. Exact widths include leading zeroes. Overlapping/duplicate prefixes, dynamic prefixes, comments, name collisions, nonterminal/joined arms, reused flags and live unmatched tails prevent reconstruction. The implemented path accepts nibble-aligned prefixes through 48 bits. Larger/non-nibble prefixes retain exact helpers. Nested early returns and a conditional/block immediately before the terminal return are excluded: JettonWallet demonstrated an IFJMP→IFNOT change under Tolk's match-arm return handling. Its dispatch stays explicit.
+
+The rule restores five dispatches in four complete templates: Empty, Counter, NftItem and both SimpleExtension entrypoints. JettonWallet and JettonMinter keep exact prefix helpers under the conservative return-context guard. The standalone compiler-derived check exercises 348 getter inputs across seven fixtures, requiring original/raw/normalized TVM identity and equal gas; it covers 4/8/32-bit widths, short bodies, leading zeroes, refs, overlaps, live fallback tails and joins. All six complete templates retain raw/normalized BOC identity. Partial contracts still skip this stage.
+
 `address-getter-return` recognizes an externally identified method returning a single address load through an adjacent immutable binding:
 
 ```tolk
@@ -61,7 +104,7 @@ All rules are idempotent; the engine repeats each productive rule to a fixed poi
 | Anonymous `fn_<method_id>` getters | 18 → 9 | All eight | Candidate naming implemented for nine complete getters. Remaining nine are in partial contracts. Preserve hash/signature/collision checks. |
 | Adjacent returned address binding | 2 → 0 | Empty, Counter | Implemented: direct address return and candidate owner getter. |
 | Primitive loads destructured into tuples | 113 → 113 | All except Empty | Native cursor loads with explicit receiver snapshots. Verify order, live aliases, result positions and underflow. Both storage and message loads occur here. Constant-width native loads can select different instructions; require additional gas/MYCODE/action checks. |
-| `matchPrefix` dispatch | 41 → 41 | All eight | Structured opcode dispatch after proving prefix width and fallback behavior. Preserve empty/truncated messages, unmatched tails and throw codes. WalletV5 also uses one-byte prefixes. |
+| `matchPrefix` dispatch | 41 → 30 | All eight | Lazy message dispatch implemented for five terminal chains (11 prefix calls). Remaining calls include guarded shapes and partial contracts. Preserve empty/truncated messages, refs, unmatched tails and throw codes. WalletV5 also uses one-byte prefixes. |
 | `.loadAddress() as slice` | 43 → 41 | All eight | Direct getter returns implemented; broader address propagation needs checks across comparisons/stores/calls and nullable/joined values. |
 | Bindings ending in `as int` | 69 → 52 | All eight | Boolean guards implemented. Integer/tuple casts and values used by bitwise logic remain; integer null-predicate contexts still need `as int`. |
 | ISNULL compatibility predicate | 21 → 7 | NftItem, JettonWallet, JettonMinter, SimpleExtension, WalletV5 | Native comparisons implemented. All seven remaining calls are in partial WalletV5. Retain unknown escapes and -1/0 integer semantics. |

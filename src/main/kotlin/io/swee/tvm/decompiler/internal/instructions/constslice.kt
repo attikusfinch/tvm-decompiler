@@ -1,6 +1,7 @@
 package io.swee.tvm.decompiler.internal.instructions
 
 import io.swee.tvm.decompiler.internal.*
+import io.swee.tvm.decompiler.api.OutputLanguage
 import io.swee.tvm.decompiler.internal.TvmStackEntryType.*
 import io.swee.tvm.decompiler.internal.ir.IRNode
 import org.ton.bytecode.TvmCell
@@ -11,8 +12,11 @@ private fun <T : TvmInst> embeddedConstSlice(
     outputs: List<Pair<TvmStackEntryType, String>>
 ): InstParserFull<T> = parser@{ ctx, inst ->
     if (ctx.options.exact) return@parser false
+    // Tolk lazy matching uses SDBEGINSQ. Keep the embedded opcode in the existing
+    // exact-asm fallback instead of replacing it with PUSHSLICE + SDBEGINSXQ.
+    if (funcName == "begins_with" && ctx.options.language == OutputLanguage.TOLK) return@parser false
     val subslice = InstValueAccessor.getValue(inst, "s") as TvmCell
-    val input = ctx.stackPop()
+    val input = ctx.stackPop(if (funcName == "store_slice") BUILDER.typename else SLICE.typename)
     val outEntries = outputs.map { (t, n) -> StackEntry.Simple(t, name(n)) }
     ctx.appendNode(
         IRNode.VariableDeclaration(

@@ -8,7 +8,7 @@ const patterns = [
   {id:'anonymous-getters',status:'partial',regex:/@method_id\((\d+)\)\s+fun fn_\d+\(/g,filter:match => Number(match[1]) >= 65536 && Number(match[1]) <= 131071},
   {id:'returned-address-alias',status:'implemented',regex:/val (\w+) = \([^;\n]+\.loadAddress\(\) as slice\);\s+return \1;/g},
   {id:'primitive-load-tuples',status:'candidate',regex:/^\s*var \([^\n]+\) = tvmLoad(?:Uint|Int|Grams|OptStdAddr)\([^\n]+\);/gm},
-  {id:'prefix-dispatch',status:'candidate',regex:/\bmatchPrefix\(/g},
+  {id:'prefix-dispatch',status:'partial',regex:/\bmatchPrefix(?:_\d+_[0-9A-F]+)?\(/g},
   {id:'address-to-slice-cast',status:'candidate',regex:/\.loadAddress\(\) as slice/g},
   {id:'int-cast-bindings',status:'partial',regex:/ as int\);/g},
   {id:'null-predicate',status:'implemented',regex:/\btvmNull_x3f_\(/g},

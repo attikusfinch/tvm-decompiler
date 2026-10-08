@@ -86,7 +86,9 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
     private fun rawName(value: String) = when (value) {
         "asm_INMSGPARAM_1" -> "incomingMessageIsBounced"
         "asm_INMSGPARAM_2" -> "incomingMessageSender"
-        else -> value
+        else -> raw[value]?.body?.let {
+            Regex("^\"x\\{([0-9A-Fa-f]+)} SDBEGINSQ\"$").matchEntire(it)?.groupValues?.get(1)
+        }?.let { "matchPrefix_${it.length * 4}_${it.uppercase()}" } ?: value
     }
     private fun variable(entry: StackEntry) = presentation.name(entry)
     private fun line(value: String = "") { output.append("    ".repeat(indentation)).append(value).append('\n') }

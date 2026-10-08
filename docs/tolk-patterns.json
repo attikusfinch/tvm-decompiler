@@ -16,6 +16,11 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "prefix-lazy-match",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "owner-getter-name",
           "methodId": "83229",
           "functionName": "owner"
@@ -48,7 +53,7 @@
           "examples": [
             {
               "line": 8,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_2CE05111("
             }
           ]
         },
@@ -90,6 +95,11 @@
         },
         {
           "rule": "boolean-guard",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "prefix-lazy-match",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -149,11 +159,11 @@
           "examples": [
             {
               "line": 8,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_7E8764EF("
             },
             {
               "line": 23,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_283B4C3F("
             }
           ]
         },
@@ -235,7 +245,7 @@
           "examples": [
             {
               "line": 56,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_00000001("
             },
             {
               "line": 89,
@@ -303,6 +313,11 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "prefix-lazy-match",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "102351",
           "functionName": "get_nft_data"
@@ -339,11 +354,11 @@
           "examples": [
             {
               "line": 26,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_5FCC3D14("
             },
             {
               "line": 87,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_2FCB26A2("
             }
           ]
         },
@@ -477,11 +492,11 @@
           "examples": [
             {
               "line": 7,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_178D4519("
             },
             {
               "line": 14,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_7BDD97DE("
             }
           ]
         },
@@ -628,11 +643,11 @@
           "examples": [
             {
               "line": 8,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_178D4519("
             },
             {
               "line": 17,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_7BDD97DE("
             }
           ]
         },
@@ -748,6 +763,16 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "prefix-lazy-match",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "prefix-lazy-match",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "118026",
           "functionName": "extensionInfo"
@@ -784,11 +809,11 @@
           "examples": [
             {
               "line": 7,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_283B4C3F("
             },
             {
               "line": 25,
-              "code": "matchPrefix("
+              "code": "matchPrefix_32_C28364EF("
             }
           ]
         },
@@ -912,11 +937,11 @@
           "examples": [
             {
               "line": 8,
-              "code": "matchPrefix("
+              "code": "matchPrefix_8_02("
             },
             {
               "line": 25,
-              "code": "matchPrefix("
+              "code": "matchPrefix_8_03("
             }
           ]
         },
@@ -1009,7 +1034,7 @@
     },
     {
       "id": "prefix-dispatch",
-      "status": "candidate",
+      "status": "partial",
       "contracts": [
         "Empty",
         "Counter",
@@ -1021,7 +1046,7 @@
         "WalletV5"
       ],
       "occurrences": 41,
-      "normalizedOccurrences": 41
+      "normalizedOccurrences": 30
     },
     {
       "id": "address-to-slice-cast",

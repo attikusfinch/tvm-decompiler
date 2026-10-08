@@ -61,7 +61,7 @@ function status(contract) {
 }
 function highlight(text, language) {
   if (language === 'plain') return esc(text);
-  const regex = /(?:\/\/|;;).*?$|"(?:\\.|[^"\\])*"(?:s)?|\b(?:import|contract|type|struct|enum|fun|get|val|var|match|else|assert|throw|return|if|while|repeat|const|slice|cell|builder|tuple|int|impure|method_id|inline_ref|asm|private|mutate|true|false|null)\b|\b(?:0x[\da-fA-F]+|\d+)\b/g;
+  const regex = /(?:\/\/|;;).*?$|"(?:\\.|[^"\\])*"(?:s)?|\b(?:import|contract|type|struct|enum|fun|get|val|var|lazy|match|else|assert|throw|return|if|while|repeat|const|slice|cell|builder|tuple|int|impure|method_id|inline_ref|asm|private|mutate|true|false|null)\b|\b(?:0x[\da-fA-F]+|\d+)\b/g;
   let html = '', position = 0;
   for (const match of text.matchAll(regex)) {
     html += esc(text.slice(position, match.index));
