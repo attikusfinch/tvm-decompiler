@@ -146,3 +146,9 @@ single role or its assembler reference passes.
   validation order. Its full-Pool dictionary reference placement is still a
   separate acceptance gate. The project has 60 native Acton tests; whole readable
   recovery remains 3/21.
+- Method 20 now has a readable V2 candidate covering swaps, deposits, reward
+  funding, activation and rejected-payment context. Its 113 isolated message
+  probes match state and raw actions and verify independent economic/event/error
+  expectations. Four native tests bring the suite to 64. Gas and carry-balance
+  outgoing values differ and its method hash does not match, so it is explicitly
+  excluded from exact acceptance. Whole readable recovery remains 3/21.

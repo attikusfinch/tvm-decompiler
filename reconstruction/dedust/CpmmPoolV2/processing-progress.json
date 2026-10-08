@@ -1,0 +1,2183 @@
+{
+  "scope": "Readable method-20 candidate, isolated message behavior only; full Pool and exact code acceptance pending",
+  "toolchain": {
+    "backend": "acton",
+    "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
+  },
+  "sourceSha256": {
+    "main.tolk": "489081e9cf4cf681b5c8c7f21ebee014804225ae12a071c2b0dbee791f4f77ef",
+    "addresses.tolk": "021e568c4ab6e4631d4e9c059480dbd39cf90c39ff967787f8b6595748efa061",
+    "affiliate-deployment.tolk": "063d6d5e008c8b099ef2e6a940a03bfdb9933d8f337427730939ba9b95a8ee5a",
+    "compat-address.tolk": "72d15f06d5720d4b7093856a8ebc72e826595d33fa3373bcdd9a39f2ea0f6ca8",
+    "events.tolk": "45c6267b03bb505b53403508e0c85b17d2d3243aa664dfd8f9ec193afef7ba3b",
+    "getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c",
+    "math.tolk": "2d1e34cd8ea748e703838a3894ecacddf1d33bbb6a95f9db0080da8e44c760f5",
+    "messages.tolk": "4f8eff1285ba999cbb1a7a3bdfd9e91a616f6edc1083b32481fedf72d3e9ee37",
+    "payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
+    "payout-basic.tolk": "e786fa10996e465eb2b1683ee6a9cf35cdf88d7096eff8d3fd6db3bd91695600",
+    "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
+    "processing.tolk": "7597025e8ba4a24e18b7af63803eab4e1c78166476712ea69dbc7085a80d335f",
+    "reward-config.tolk": "bd5066725cffc43d8529c2a18349277c8ae6571aed65eed4bc39a01ff34dd735",
+    "rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
+    "routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
+    "settlement.tolk": "802349c82245422f1c3c6a4f281094ba139ebb180b28c2dde60316fa979b9624",
+    "stdlib-legacy-stateinit.tolk": "c5d63bf2d540d96c694d31accc85f57ddeec93206be54cf80d46ffaf065bb815",
+    "storage.tolk": "0c68ce0aacba36d4548e8c856120f5ba97c6bbc632fc329e322552e6186f7927",
+    "transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
+    "wallets.tolk": "ff16bcd9618b90b1c5dcc3f3a751f5d1c67b6584fa42b895aaa28c41758b1af4"
+  },
+  "comparison": {
+    "originalMethodHash": "33c68c47a272507a261c084d7a6fe14f37a7e1d9ddd7906f419a8017a2aa35f2",
+    "candidateMethodHash": "12df3a9051ad09e834270b26789870951f02085f8fa556f6734b67b95402326d",
+    "sameMethodCode": false
+  },
+  "cases": [
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=0 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=0 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "8c718b7901aa1629f0484292c02f4dd5b31caed3babcb9e5fe550f3fa831c57a",
+        "gasUsed": "27026"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "8c718b7901aa1629f0484292c02f4dd5b31caed3babcb9e5fe550f3fa831c57a",
+        "gasUsed": "26562"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=0 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=0 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "49be1766cc1f05e9cc3bd23682b66953355831da3b7cd620dace6cde4d6bef83",
+        "gasUsed": "31403"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "49be1766cc1f05e9cc3bd23682b66953355831da3b7cd620dace6cde4d6bef83",
+        "gasUsed": "31413"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=0 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=0 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "8498866834b2978a7f01727a2cd6c53eb2ca74dabe43aead093af000b9ff278a",
+        "gasUsed": "35531"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "8498866834b2978a7f01727a2cd6c53eb2ca74dabe43aead093af000b9ff278a",
+        "gasUsed": "36059"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=0 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=0 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "8498866834b2978a7f01727a2cd6c53eb2ca74dabe43aead093af000b9ff278a",
+        "gasUsed": "35531"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "8498866834b2978a7f01727a2cd6c53eb2ca74dabe43aead093af000b9ff278a",
+        "gasUsed": "36059"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=1 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=1 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "b074f9d14c6473c3887ae31fb96f434a02ec8af1317e3a638b0c858898157d66",
+        "gasUsed": "27253"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "b074f9d14c6473c3887ae31fb96f434a02ec8af1317e3a638b0c858898157d66",
+        "gasUsed": "26789"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=1 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=1 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "fc22da2cdd4f593e6aa60a75ea2bc6d010f008d59c5291e57bed841a81dc044e",
+        "gasUsed": "31630"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "fc22da2cdd4f593e6aa60a75ea2bc6d010f008d59c5291e57bed841a81dc044e",
+        "gasUsed": "31640"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=1 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=1 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "64e03f3abcab7d77201bbc6f9c8ed66f67c75c601465312246069d9159b542ec",
+        "gasUsed": "35758"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "64e03f3abcab7d77201bbc6f9c8ed66f67c75c601465312246069d9159b542ec",
+        "gasUsed": "36286"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=1 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=1 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "64e03f3abcab7d77201bbc6f9c8ed66f67c75c601465312246069d9159b542ec",
+        "gasUsed": "35758"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "64e03f3abcab7d77201bbc6f9c8ed66f67c75c601465312246069d9159b542ec",
+        "gasUsed": "36286"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=2 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=2 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "27216"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "26854"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=2 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=2 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "27230"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "26868"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=2 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=2 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "27244"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "26882"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=true feeIn=2 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=true feeIn=2 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "27244"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "eeb344cb618a2a4faa818e4b6346574f86b86e9d715c8c5e43a304f6553e195e",
+        "gasUsed": "26882"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=0 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=0 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "24974"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "24656"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=0 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=0 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "24988"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "24670"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=0 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=0 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "25002"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "24684"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=0 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=0 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "25002"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "24684"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=1 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=1 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c32ca829179c42d00d4aeea8240f4937bbbf685bcb6020a53dc25e265baf5340",
+        "gasUsed": "25339"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c32ca829179c42d00d4aeea8240f4937bbbf685bcb6020a53dc25e265baf5340",
+        "gasUsed": "24887"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=1 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=1 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "68b196508bc60305e9b9d86f2677fc0fc40f0bdcb0595839a6d0dcb8af33d997",
+        "gasUsed": "29716"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "68b196508bc60305e9b9d86f2677fc0fc40f0bdcb0595839a6d0dcb8af33d997",
+        "gasUsed": "29738"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=1 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=1 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "ca8a0a5f0626d5c56e12055eaf146ddd8d0f1d01e698691cd9914c2c0a04717f",
+        "gasUsed": "33844"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "ca8a0a5f0626d5c56e12055eaf146ddd8d0f1d01e698691cd9914c2c0a04717f",
+        "gasUsed": "34384"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=1 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=1 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "ca8a0a5f0626d5c56e12055eaf146ddd8d0f1d01e698691cd9914c2c0a04717f",
+        "gasUsed": "33844"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "ca8a0a5f0626d5c56e12055eaf146ddd8d0f1d01e698691cd9914c2c0a04717f",
+        "gasUsed": "34384"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=2 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=2 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "25286"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "24968"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=2 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=2 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "25300"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "24982"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=2 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=2 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "25314"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "24996"
+      }
+    },
+    {
+      "name": "swap xTON=true yTON=false xToY=false feeIn=2 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=true yTON=false xToY=false feeIn=2 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "25314"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "0b643630c121ae078c46a7c072cc97b4b047bbe153644c10686f1de18fdc33a5",
+        "gasUsed": "24996"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=0 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=0 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24948"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24494"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=0 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=0 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24962"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24508"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=0 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=0 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24976"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24522"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=0 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=0 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24976"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "24522"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=1 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=1 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "25175"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "24721"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=1 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=1 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "25189"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "24735"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=1 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=1 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "25203"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "24749"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=1 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=1 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "25203"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c8d386a92daa3334c0ee007fbcc2b618f3f64ebf38f8400110efc86b58111321",
+        "gasUsed": "24749"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=2 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=2 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "822fbda30c74505721c5b604830b6b339c9dfc74802ac0614ee665cc0a30504c",
+        "gasUsed": "25294"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "822fbda30c74505721c5b604830b6b339c9dfc74802ac0614ee665cc0a30504c",
+        "gasUsed": "24906"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=2 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=2 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "f028ef323a49ca0a745ab9f81da2e6cc7637dbb3d8680da27a5176c8772b1bad",
+        "gasUsed": "29671"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "f028ef323a49ca0a745ab9f81da2e6cc7637dbb3d8680da27a5176c8772b1bad",
+        "gasUsed": "29757"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=2 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=2 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c0c291a90f876c5f2fce8f781c69ea149fef082e7580ec29010ef9939ef4be48",
+        "gasUsed": "33799"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c0c291a90f876c5f2fce8f781c69ea149fef082e7580ec29010ef9939ef4be48",
+        "gasUsed": "34403"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=true feeIn=2 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=true feeIn=2 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "c0c291a90f876c5f2fce8f781c69ea149fef082e7580ec29010ef9939ef4be48",
+        "gasUsed": "33799"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "c0c291a90f876c5f2fce8f781c69ea149fef082e7580ec29010ef9939ef4be48",
+        "gasUsed": "34403"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=0 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=0 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "df82ef38c2a9a00d0b1a5a9af5d0796ed10ea2bd948f36ed78548a597b3d4ff8",
+        "gasUsed": "27052"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "df82ef38c2a9a00d0b1a5a9af5d0796ed10ea2bd948f36ed78548a597b3d4ff8",
+        "gasUsed": "26724"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=0 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=0 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "8dfe68f9568666e7dffe0a804f5533215b59fa3b8cf5a8460168c99cba082b95",
+        "gasUsed": "31429"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "8dfe68f9568666e7dffe0a804f5533215b59fa3b8cf5a8460168c99cba082b95",
+        "gasUsed": "31575"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=0 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=0 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "b33d6c03cabf83a4e3a7946da2566f51afc134f02b360400cc354d112d1a4e2d",
+        "gasUsed": "35557"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "b33d6c03cabf83a4e3a7946da2566f51afc134f02b360400cc354d112d1a4e2d",
+        "gasUsed": "36221"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=0 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=0 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "b33d6c03cabf83a4e3a7946da2566f51afc134f02b360400cc354d112d1a4e2d",
+        "gasUsed": "35557"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "b33d6c03cabf83a4e3a7946da2566f51afc134f02b360400cc354d112d1a4e2d",
+        "gasUsed": "36221"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=1 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=1 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "27261"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "26835"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=1 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=1 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "27275"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "26849"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=1 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=1 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "27289"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "26863"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=1 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=1 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "27289"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "67d1f69eedbeeb102942bbe3ab223ac4431c9d8097aa23def376b9391867f61e",
+        "gasUsed": "26863"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=2 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=2 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "476d399226c144b4a44084e75861e6a7ddb52d488c0f9163ffbf04eb8f3f783f",
+        "gasUsed": "27364"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "476d399226c144b4a44084e75861e6a7ddb52d488c0f9163ffbf04eb8f3f783f",
+        "gasUsed": "27036"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=2 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=2 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "4aa4443e33c78c935de682ff2a3ae6ab0029eb4f08bd040ec7c567c950949e86",
+        "gasUsed": "31741"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "4aa4443e33c78c935de682ff2a3ae6ab0029eb4f08bd040ec7c567c950949e86",
+        "gasUsed": "31887"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=2 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=2 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "259d8d531b838892d46bbfbf0425db6d55927aacd663f18b38df4ecef3ab2efc",
+        "gasUsed": "35869"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "259d8d531b838892d46bbfbf0425db6d55927aacd663f18b38df4ecef3ab2efc",
+        "gasUsed": "36533"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=true xToY=false feeIn=2 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=true xToY=false feeIn=2 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "259d8d531b838892d46bbfbf0425db6d55927aacd663f18b38df4ecef3ab2efc",
+        "gasUsed": "35869"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "259d8d531b838892d46bbfbf0425db6d55927aacd663f18b38df4ecef3ab2efc",
+        "gasUsed": "36533"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=0 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=0 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26948"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26494"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=0 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=0 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26962"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26508"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=0 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=0 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26976"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26522"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=0 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=0 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26976"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "86968d61cc3af05db39958028b7e48d4a1c2135a2e0addb2ae72e4306941a9cc",
+        "gasUsed": "26522"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=1 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=1 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "27175"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "26721"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=1 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=1 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "27189"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "26735"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=1 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=1 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "27203"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "26749"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=1 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=1 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "27203"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "71c85b774cdfd34af45e0e56b168f3aba489b55249ec338bc9fb37a0feea69a9",
+        "gasUsed": "26749"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=2 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=2 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "27216"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "26846"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=2 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=2 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "27230"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "26860"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=2 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=2 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "27244"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "26874"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=true feeIn=2 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=true feeIn=2 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "27244"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1d83b7a18a20ebccefc231f1294af525eba8006c64adc4a607148b529b70e5e0",
+        "gasUsed": "26874"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=0 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=0 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "26974"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "26656"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=0 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=0 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "26988"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "26670"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=0 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=0 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "27002"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "26684"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=0 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=0 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "27002"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "48c933b384b0c847fb0f4c7c14e15320a7f05eb8fb194b227ac805361bbc8dc9",
+        "gasUsed": "26684"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=1 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=1 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "27261"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "26827"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=1 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=1 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "27275"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "26841"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=1 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=1 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "27289"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "26855"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=1 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=1 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "27289"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "37780561b45b7e4e7ec2b369a9dd0b5453096f49c449ef10e8254eb5b2112be2",
+        "gasUsed": "26855"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=2 partner=0 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=2 partner=0 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "27286"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "26968"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=2 partner=500 referrer=0",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=2 partner=500 referrer=0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "27300"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "26982"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=2 partner=600 referrer=9000",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=2 partner=600 referrer=9000",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "27314"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "26996"
+      }
+    },
+    {
+      "name": "swap xTON=false yTON=false xToY=false feeIn=2 partner=500 referrer=1",
+      "expectedError": null,
+      "label": "swap xTON=false yTON=false xToY=false feeIn=2 partner=500 referrer=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "27314"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "54c50e313fd014180be18efb7b43a1e12cf394cd90bc9a2897cfc95bbb325b88",
+        "gasUsed": "26996"
+      }
+    },
+    {
+      "name": "swap activation accepted 2a4d09d42d7b0f670c270f932b3e053a86056caf0f453d8250a2f4beec0597ee",
+      "expectedError": null,
+      "label": "swap activation accepted 2a4d09d42d7b0f670c270f932b3e053a86056caf0f453d8250a2f4beec0597ee",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "6033ca713f3f92fc09fa79cd570e983eacf1b398fbe6c110c16308d3e5812149",
+        "gasUsed": "27761"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "6033ca713f3f92fc09fa79cd570e983eacf1b398fbe6c110c16308d3e5812149",
+        "gasUsed": "27297"
+      }
+    },
+    {
+      "name": "swap activation accepted 3f7112ac126b6415296e681a18dccf3badf2a6bc88995704c944fccc08d4f2b2",
+      "expectedError": null,
+      "label": "swap activation accepted 3f7112ac126b6415296e681a18dccf3badf2a6bc88995704c944fccc08d4f2b2",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "bc519312595654eb3e8284d10828a3c963f52438c308ff5a84cc6e5d0c6e6e28",
+        "gasUsed": "27761"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "bc519312595654eb3e8284d10828a3c963f52438c308ff5a84cc6e5d0c6e6e28",
+        "gasUsed": "27297"
+      }
+    },
+    {
+      "name": "swap activation accepted 6e369ba0219f23cc04f6b152e1a5c28b3580c4a805e9b967efa58fe198d78b38",
+      "expectedError": null,
+      "label": "swap activation accepted 6e369ba0219f23cc04f6b152e1a5c28b3580c4a805e9b967efa58fe198d78b38",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "d00f2838521c9d301c5967805e48649ef9232daefdfd4097107773ebe361fccf",
+        "gasUsed": "27836"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "d00f2838521c9d301c5967805e48649ef9232daefdfd4097107773ebe361fccf",
+        "gasUsed": "27372"
+      }
+    },
+    {
+      "name": "zero payment",
+      "expectedError": 47,
+      "label": "zero payment",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "0bd71de1f429228934ab873b1fa010bcca5757e6f0575ef7993c9c08faeee37d",
+        "gasUsed": "6799"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "0bd71de1f429228934ab873b1fa010bcca5757e6f0575ef7993c9c08faeee37d",
+        "gasUsed": "6457"
+      }
+    },
+    {
+      "name": "low gas",
+      "expectedError": 25,
+      "label": "low gas",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "cfa721d9ac54c83370636888abf3b77238040ea426d8f05951253fd07dce6e94",
+        "gasUsed": "8361"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "cfa721d9ac54c83370636888abf3b77238040ea426d8f05951253fd07dce6e94",
+        "gasUsed": "8116"
+      }
+    },
+    {
+      "name": "unsupported asset",
+      "expectedError": 28,
+      "label": "unsupported asset",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "155362e2b4a6c99f7d97ea51b067b8671c60dc4135073858bbf7dbeb4d6c0baf",
+        "gasUsed": "8630"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "155362e2b4a6c99f7d97ea51b067b8671c60dc4135073858bbf7dbeb4d6c0baf",
+        "gasUsed": "8377"
+      }
+    },
+    {
+      "name": "zero liquidity",
+      "expectedError": 34,
+      "label": "zero liquidity",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "f217f59ec3b21b3bfb9b1b25275bd191c523f1eb2a234aea9280352396931753",
+        "gasUsed": "8656"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "f217f59ec3b21b3bfb9b1b25275bd191c523f1eb2a234aea9280352396931753",
+        "gasUsed": "8411"
+      }
+    },
+    {
+      "name": "expired swap",
+      "expectedError": 33,
+      "label": "expired swap",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "eaa164a53c0046a2a326b5ff8288890912ee0ddd43ec84e7757daf340e58d851",
+        "gasUsed": "9287"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "eaa164a53c0046a2a326b5ff8288890912ee0ddd43ec84e7757daf340e58d851",
+        "gasUsed": "8906"
+      }
+    },
+    {
+      "name": "minimum output",
+      "expectedError": 30,
+      "label": "minimum output",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "607271dc18a695c079b230675c3da6147eb160b3bff6623b442dfaee68ab6f5d",
+        "gasUsed": "10672"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "607271dc18a695c079b230675c3da6147eb160b3bff6623b442dfaee68ab6f5d",
+        "gasUsed": "10413"
+      }
+    },
+    {
+      "name": "activation future",
+      "expectedError": 37,
+      "label": "activation future",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "967b29a258677ab91c86ddca3e0ff630835b1588c9027acf1f5637f704a4715b",
+        "gasUsed": "9512"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "967b29a258677ab91c86ddca3e0ff630835b1588c9027acf1f5637f704a4715b",
+        "gasUsed": "9267"
+      }
+    },
+    {
+      "name": "activation wrong owner",
+      "expectedError": 37,
+      "label": "activation wrong owner",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "967b29a258677ab91c86ddca3e0ff630835b1588c9027acf1f5637f704a4715b",
+        "gasUsed": "9587"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "967b29a258677ab91c86ddca3e0ff630835b1588c9027acf1f5637f704a4715b",
+        "gasUsed": "9342"
+      }
+    },
+    {
+      "name": "zero fee division",
+      "expectedError": 4,
+      "label": "zero fee division",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "25db1bd33fa0294052f9a8569574d27a9d09e5d8dee959c411469616c76d5cde",
+        "gasUsed": "11098"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "25db1bd33fa0294052f9a8569574d27a9d09e5d8dee959c411469616c76d5cde",
+        "gasUsed": "10692"
+      }
+    },
+    {
+      "name": "deposit TON active=false",
+      "expectedError": null,
+      "label": "deposit TON active=false",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "d484e8e89a5ce314daa2bcfe325f058a9c7d1929c511a2048a41c607130c2156",
+        "gasUsed": "15357"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "d484e8e89a5ce314daa2bcfe325f058a9c7d1929c511a2048a41c607130c2156",
+        "gasUsed": "14651"
+      }
+    },
+    {
+      "name": "deposit TON active=true",
+      "expectedError": null,
+      "label": "deposit TON active=true",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "040e73d72efd6a55b643ae7e8a985def01c10c4e73df12ba8c3744f96f543c6c",
+        "gasUsed": "14810"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "040e73d72efd6a55b643ae7e8a985def01c10c4e73df12ba8c3744f96f543c6c",
+        "gasUsed": "14104"
+      }
+    },
+    {
+      "name": "deposit jetton active=false",
+      "expectedError": null,
+      "label": "deposit jetton active=false",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "d484e8e89a5ce314daa2bcfe325f058a9c7d1929c511a2048a41c607130c2156",
+        "gasUsed": "15453"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "d484e8e89a5ce314daa2bcfe325f058a9c7d1929c511a2048a41c607130c2156",
+        "gasUsed": "14747"
+      }
+    },
+    {
+      "name": "deposit jetton active=true",
+      "expectedError": null,
+      "label": "deposit jetton active=true",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "040e73d72efd6a55b643ae7e8a985def01c10c4e73df12ba8c3744f96f543c6c",
+        "gasUsed": "14906"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "040e73d72efd6a55b643ae7e8a985def01c10c4e73df12ba8c3744f96f543c6c",
+        "gasUsed": "14200"
+      }
+    },
+    {
+      "name": "deposit future gate",
+      "expectedError": 38,
+      "label": "deposit future gate",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "3a527c0a2807c35d4f796547b7593c0e09282701c99ec9bc0585e72b5ccdff62",
+        "gasUsed": "9826"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "3a527c0a2807c35d4f796547b7593c0e09282701c99ec9bc0585e72b5ccdff62",
+        "gasUsed": "9643"
+      }
+    },
+    {
+      "name": "reward funding new slot",
+      "expectedError": null,
+      "label": "reward funding new slot",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "ee9a4d7cc938b5d77f655836023c1b230db86692de53692642417f3d7ec7b350",
+        "gasUsed": "14375"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "ee9a4d7cc938b5d77f655836023c1b230db86692de53692642417f3d7ec7b350",
+        "gasUsed": "14096"
+      }
+    },
+    {
+      "name": "reward asset not allowed",
+      "expectedError": 42,
+      "label": "reward asset not allowed",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "0a9af57530209b3df95f43d1008c5bfb8f3603893483bc34d828dbe6e124ccdb",
+        "gasUsed": "9348"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "0a9af57530209b3df95f43d1008c5bfb8f3603893483bc34d828dbe6e124ccdb",
+        "gasUsed": "9090"
+      }
+    },
+    {
+      "name": "reward deadline too far",
+      "expectedError": 43,
+      "label": "reward deadline too far",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "3af8b559129eac2b5c3c6a0efe3018ea33a24a559366c2b4e5af1ae09f0a8a74",
+        "gasUsed": "9437"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "3af8b559129eac2b5c3c6a0efe3018ea33a24a559366c2b4e5af1ae09f0a8a74",
+        "gasUsed": "9179"
+      }
+    },
+    {
+      "name": "reward zero duration",
+      "expectedError": 44,
+      "label": "reward zero duration",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "6c8e57e655e26bbb6721fe4f0f72db980c891282c7739f5d118354dfe2d978eb",
+        "gasUsed": "10786"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "6c8e57e655e26bbb6721fe4f0f72db980c891282c7739f5d118354dfe2d978eb",
+        "gasUsed": "10528"
+      }
+    },
+    {
+      "name": "reward extension duration=150 amount=499",
+      "expectedError": 45,
+      "label": "reward extension duration=150 amount=499",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "ba52c59961ddcac6b3cdb0033127f0271e4d53cdc5063abee48f623e7defa022",
+        "gasUsed": "10996"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "ba52c59961ddcac6b3cdb0033127f0271e4d53cdc5063abee48f623e7defa022",
+        "gasUsed": "10832"
+      }
+    },
+    {
+      "name": "reward extension duration=150 amount=500",
+      "expectedError": null,
+      "label": "reward extension duration=150 amount=500",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "e7302c608ecf7a4606395e50e08052c63a30c5f793e78e9553000a6deb235ac8",
+        "gasUsed": "14135"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "e7302c608ecf7a4606395e50e08052c63a30c5f793e78e9553000a6deb235ac8",
+        "gasUsed": "13856"
+      }
+    },
+    {
+      "name": "reward extension duration=0 amount=100",
+      "expectedError": null,
+      "label": "reward extension duration=0 amount=100",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "6c499ff90b97a393821bdf6e7bba5929f547a17ca66b70d7397a1f057623d7a0",
+        "gasUsed": "14201"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "6c499ff90b97a393821bdf6e7bba5929f547a17ca66b70d7397a1f057623d7a0",
+        "gasUsed": "13822"
+      }
+    },
+    {
+      "name": "reward extension duration=100 amount=1",
+      "expectedError": null,
+      "label": "reward extension duration=100 amount=1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "4cefac81962e9c0aa3c27d26cfe9fb08b4f3bf4caca5401ccca3b1aca648d491",
+        "gasUsed": "14149"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "4cefac81962e9c0aa3c27d26cfe9fb08b4f3bf4caca5401ccca3b1aca648d491",
+        "gasUsed": "13770"
+      }
+    },
+    {
+      "name": "continued swap inputTON=true",
+      "expectedError": null,
+      "label": "continued swap inputTON=true",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "8498866834b2978a7f01727a2cd6c53eb2ca74dabe43aead093af000b9ff278a",
+        "gasUsed": "37025"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "8498866834b2978a7f01727a2cd6c53eb2ca74dabe43aead093af000b9ff278a",
+        "gasUsed": "37439"
+      }
+    },
+    {
+      "name": "continued swap inputTON=false",
+      "expectedError": null,
+      "label": "continued swap inputTON=false",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "27150"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "41bc0e034adb3f5219f0180c279de64a13eefe4f72e64e41b409020a3b1fc216",
+        "gasUsed": "26718"
+      }
+    },
+    {
+      "name": "continued swap inputTON=false",
+      "expectedError": null,
+      "label": "continued swap inputTON=false",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "27124"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "1c8a2210b115989694f583ad4419457560da889b6bfd9f6887de136553bccb6e",
+        "gasUsed": "26556"
+      }
+    },
+    {
+      "name": "continued swap inputTON=true",
+      "expectedError": null,
+      "label": "continued swap inputTON=true",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "b33d6c03cabf83a4e3a7946da2566f51afc134f02b360400cc354d112d1a4e2d",
+        "gasUsed": "37051"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "b33d6c03cabf83a4e3a7946da2566f51afc134f02b360400cc354d112d1a4e2d",
+        "gasUsed": "37601"
+      }
+    },
+    {
+      "name": "normalize all three payout addresses",
+      "expectedError": null,
+      "label": "normalize all three payout addresses",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "8c718b7901aa1629f0484292c02f4dd5b31caed3babcb9e5fe550f3fa831c57a",
+        "gasUsed": "27108"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "8c718b7901aa1629f0484292c02f4dd5b31caed3babcb9e5fe550f3fa831c57a",
+        "gasUsed": "26644"
+      }
+    },
+    {
+      "name": "normalized rejection context",
+      "expectedError": 47,
+      "label": "normalized rejection context",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "da8d5dfb7a28b80b37ddb6a58217834dbdb0c6a332cfbf11e0b9504a78404a7b",
+        "gasUsed": "6881"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "da8d5dfb7a28b80b37ddb6a58217834dbdb0c6a332cfbf11e0b9504a78404a7b",
+        "gasUsed": "6539"
+      }
+    },
+    {
+      "name": "payment unknown opcode",
+      "expectedError": 63,
+      "label": "payment unknown opcode",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "7bf49c3d796b5eed4e14a4e27d05775119abd680327fdb63ae2b0de00b433c92",
+        "gasUsed": "4225"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "7bf49c3d796b5eed4e14a4e27d05775119abd680327fdb63ae2b0de00b433c92",
+        "gasUsed": "4137"
+      }
+    },
+    {
+      "name": "payment known opcode truncated",
+      "expectedError": 9,
+      "label": "payment known opcode truncated",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "4158"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "4070"
+      }
+    },
+    {
+      "name": "payment trailing bits",
+      "expectedError": 9,
+      "label": "payment trailing bits",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "4780"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "payment trailing reference",
+      "expectedError": 9,
+      "label": "payment trailing reference",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "4641"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "4563"
+      }
+    },
+    {
+      "name": "payout trailing bits",
+      "expectedError": 9,
+      "label": "payout trailing bits",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "5278"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "7ae411e91a418b90aae3f5b574360ef24311a47bf3e9ccc502772afd5041eff3",
+        "gasUsed": "5080"
+      }
+    },
+    {
+      "name": "config missing address",
+      "expectedError": 9,
+      "label": "config missing address",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "9c82640e2a468bc358562597c2dc66c65d8ef65a612981ea4de4a749e8d8e6b4",
+        "gasUsed": "6825"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "9c82640e2a468bc358562597c2dc66c65d8ef65a612981ea4de4a749e8d8e6b4",
+        "gasUsed": "6627"
+      }
+    },
+    {
+      "name": "fees malformed",
+      "expectedError": 9,
+      "label": "fees malformed",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "9c82640e2a468bc358562597c2dc66c65d8ef65a612981ea4de4a749e8d8e6b4",
+        "gasUsed": "12028"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "9c82640e2a468bc358562597c2dc66c65d8ef65a612981ea4de4a749e8d8e6b4",
+        "gasUsed": "11468"
+      }
+    },
+    {
+      "name": "extra malformed after swap state update",
+      "expectedError": 9,
+      "label": "extra malformed after swap state update",
+      "sameObservedBehavior": true,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "9c82640e2a468bc358562597c2dc66c65d8ef65a612981ea4de4a749e8d8e6b4",
+        "gasUsed": "20940"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "9c82640e2a468bc358562597c2dc66c65d8ef65a612981ea4de4a749e8d8e6b4",
+        "gasUsed": "20357"
+      }
+    },
+    {
+      "name": "dispatcher preserves lifecycle state 0",
+      "expectedError": null,
+      "label": "dispatcher preserves lifecycle state 0",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "21f070c5beef6b56a6d93d1bd9e881aeb73284ec0786046ef86b0752a267ca3a",
+        "gasUsed": "26548"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "21f070c5beef6b56a6d93d1bd9e881aeb73284ec0786046ef86b0752a267ca3a",
+        "gasUsed": "25984"
+      }
+    },
+    {
+      "name": "dispatcher preserves lifecycle state 1",
+      "expectedError": null,
+      "label": "dispatcher preserves lifecycle state 1",
+      "sameObservedBehavior": false,
+      "sameEffectsAndActions": true,
+      "expectedOriginalExit": null,
+      "matchesExpectedOriginal": true,
+      "before": {
+        "exitCode": 0,
+        "dataHash": "dd86e31f06d134de27ac0585b8636a7374407f231efab01a1bc9c11e131931ed",
+        "gasUsed": "26925"
+      },
+      "after": {
+        "exitCode": 0,
+        "dataHash": "dd86e31f06d134de27ac0585b8636a7374407f231efab01a1bc9c11e131931ed",
+        "gasUsed": "26461"
+      }
+    }
+  ]
+}

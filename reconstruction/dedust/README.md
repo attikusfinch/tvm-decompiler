@@ -128,6 +128,23 @@ The decompiler's branch merge now joins the types of all incoming slots. A tagge
 union may reuse one physical slot for an integer in one arm and a cell in another;
 assuming the first arm's type incorrectly rejected the original Position code.
 
+## Pool payment dispatcher candidate
+
+`CpmmPoolV2/processing.tolk` recovers method 20's swaps, deposits, reward funding,
+activation, fee splitting, continuation routing and five-field rejection context.
+`npm run dedust:pool-processing` runs 113 isolated message comparisons against
+the archived V2 method. State and raw actions match; independent expectations
+check reserves, fee counters/checkpoints, swap event bodies, reward duration and
+budget, rounding boundaries, malformed input and rejection context. Four native
+Acton tests bring the project to 64 tests.
+
+This module is a **candidate**, not an exact recovery. Its method hash differs,
+gas differs, and carry-balance outgoing values differ. `processing-progress.json`
+records those limits explicitly. The full readable count remains 3/21. The
+emulator resolves three libraries compiled from recovered source; original
+method bodies are used only on the oracle side of the test. Whole Pool message
+handlers and byte identity remain pending.
+
 ## Oracle provenance
 
 `oracles.json` pins every code hash and BOC SHA-256 and preserves discovery

@@ -191,8 +191,9 @@ export async function actonDisasm(bocPath, outputPath) {
   return run('wsl.exe', ['-d', distro, '--exec', located, ...args], opts);
 }
 
-export async function compareMessages(original, recompiled, probes, { data, address, accurateStorageStats = false, balance = 10000000000n }) {
+export async function compareMessages(original, recompiled, probes, { data, address, libraries, accurateStorageStats = false, balance = 10000000000n }) {
   const blockchain = await Blockchain.create();
+  if (libraries !== undefined) blockchain.libs = libraries;
   blockchain.now = 1700000000;
   blockchain.verbosity = { print: false, blockchainLogs: false, vmLogs: 'none', debugLogs: false };
   const results = [];
