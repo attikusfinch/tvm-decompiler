@@ -140,3 +140,9 @@ single role or its assembler reference passes.
   source-built for local emulation. The project now has 57 passing Acton tests.
   Whole readable contract recovery remains 3/21; complete Pool handlers and
   swap/liquidity accounting remain pending.
+- Method 19's shared settlement implementation is exact. The isolated complete
+  BOC matches, 139 differential probes compare gas, action chains and independent
+  reserve calculations, and three Acton tests verify sends/reserve/excesses and
+  validation order. Its full-Pool dictionary reference placement is still a
+  separate acceptance gate. The project has 60 native Acton tests; whole readable
+  recovery remains 3/21.

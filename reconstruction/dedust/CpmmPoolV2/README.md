@@ -185,3 +185,24 @@ which stores kind bit 1; the second `referrerConfig` uses tag 132 and bit 0. The
 behavior-derived names correct the earlier tentative AffiliateAccount labels.
 The readable AffiliateAccount still compiles to its identical complete BOC and
 its getter continues to return the same numeric values.
+
+`settlement.tolk` recovers method 19: pay positive X/Y amounts, reserve the
+pre-message balance plus storage paid and forwarding fees minus native principal,
+then optionally send excesses. It reads only the first two config addresses and
+ignores the config suffix; zero/negative amounts do not resolve a wallet or
+serialize a payment. An invalid query is ignored when nothing is sent.
+
+The implementation cell equals
+`c36d44dbe543d3dc6890e484f1827cb15798f2c2f149b429f8c963fe1bf102fd`
+in both Pool revisions. The full archived dictionary value references it and has
+hash `b1867598da3ab19adde6cefea2cf5b842b05b91ca851d593822cb566b879e66b`;
+reproducing that placement remains part of the whole-contract build. Two typed
+identity primitives materialize the send context, preserving original argument
+lifetimes without adding VM instructions. One two-opcode primitive reads the
+incoming value from c7; the remaining settlement logic is Tolk.
+
+Run `npm run dedust:pool-settlement`: complete isolated BOC equality and 139
+differential probes establish exact gas/action chains and independent reserve
+amounts under a documented getter c7 context. Three native Acton tests inspect
+payment order, reserve/excesses modes, skipped payouts and config/wallet errors.
+`settlement-verification.json` records the proof; the project has 60 Acton tests.

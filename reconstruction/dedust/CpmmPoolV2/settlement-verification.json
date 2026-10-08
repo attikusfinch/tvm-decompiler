@@ -1,0 +1,5669 @@
+{
+  "scope": "Exact shared method 19 implementation, including payout action chain and RAWRESERVE; full Pool dictionary placement remains pending",
+  "toolchain": {
+    "backend": "acton",
+    "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
+  },
+  "sourceSha256": {
+    "main.tolk": "c2383466cc67887758885b247957500ac71a0ab70f2b021d40fa85d7cc8ff023",
+    "settlement.tolk": "802349c82245422f1c3c6a4f281094ba139ebb180b28c2dde60316fa979b9624",
+    "transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
+    "wallets.tolk": "ff16bcd9618b90b1c5dcc3f3a751f5d1c67b6584fa42b895aaa28c41758b1af4",
+    "payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
+    "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03"
+  },
+  "revisions": [
+    "CpmmPoolV1",
+    "CpmmPoolV2"
+  ],
+  "implementationHash": "c36d44dbe543d3dc6890e484f1827cb15798f2c2f149b429f8c963fe1bf102fd",
+  "originalDictionaryValueHash": "b1867598da3ab19adde6cefea2cf5b842b05b91ca851d593822cb566b879e66b",
+  "wrapperComparison": {
+    "originalHash": "c175c69ab6896f6fbda71818c3dcdf780141e62ff66fb482742aad4088c30fd4",
+    "recompiledHash": "c175c69ab6896f6fbda71818c3dcdf780141e62ff66fb482742aad4088c30fd4",
+    "sameCodeCell": true,
+    "sameSerializedBoc": true,
+    "originalBytes": 416,
+    "recompiledBytes": 416
+  },
+  "getterContext": {
+    "balance": "10000000000",
+    "incomingValue": "0",
+    "storagePaid": "0"
+  },
+  "cases": [
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000066656",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d2d00ad313d3eb21fabd417847e018f73c3194af49b545a9e3c5e7af7fc8b46d"
+          }
+        ],
+        "gasUsed": "5943"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d2d00ad313d3eb21fabd417847e018f73c3194af49b545a9e3c5e7af7fc8b46d"
+          }
+        ],
+        "gasUsed": "5943"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000081590",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5176f80507fa683ecd3dd7856e31d2fd08c4f80f8eddd043ac9c1bd3ca5f014c"
+          }
+        ],
+        "gasUsed": "6143"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5176f80507fa683ecd3dd7856e31d2fd08c4f80f8eddd043ac9c1bd3ca5f014c"
+          }
+        ],
+        "gasUsed": "6143"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10009999989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "76722060bae30dfa402394109422c69d68e24dff00b7bde2e7e91c10df832356"
+          }
+        ],
+        "gasUsed": "4409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "76722060bae30dfa402394109422c69d68e24dff00b7bde2e7e91c10df832356"
+          }
+        ],
+        "gasUsed": "4409"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000081590",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e75b45b8b53ae5d061cd48c0cfd5ed4721356611f6d454cfd9f9f9851a20ec14"
+          }
+        ],
+        "gasUsed": "4609"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e75b45b8b53ae5d061cd48c0cfd5ed4721356611f6d454cfd9f9f9851a20ec14"
+          }
+        ],
+        "gasUsed": "4609"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10000128068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4aaf5e6781915183388e895b1c8e594d58e149e11b7283cd372aea0ecd1a9dee"
+          }
+        ],
+        "gasUsed": "8782"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4aaf5e6781915183388e895b1c8e594d58e149e11b7283cd372aea0ecd1a9dee"
+          }
+        ],
+        "gasUsed": "8782"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000143001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a3a7fee6b51efc0fcea5fbbbb16f9849b0c81f3b922900d1872606e1790d66d9"
+          }
+        ],
+        "gasUsed": "8956"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a3a7fee6b51efc0fcea5fbbbb16f9849b0c81f3b922900d1872606e1790d66d9"
+          }
+        ],
+        "gasUsed": "8956"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000117068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9f7d2da519c8ac31f22ecadc892c5ef4f76d822d07a6e4f17f537b90cafe1ca3"
+          }
+        ],
+        "gasUsed": "6415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9f7d2da519c8ac31f22ecadc892c5ef4f76d822d07a6e4f17f537b90cafe1ca3"
+          }
+        ],
+        "gasUsed": "6415"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10000132001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9018dde28694cc156f7b3aff3ccb8991776ea3d93dca5724521e27f14c7a5793"
+          }
+        ],
+        "gasUsed": "6857"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9018dde28694cc156f7b3aff3ccb8991776ea3d93dca5724521e27f14c7a5793"
+          }
+        ],
+        "gasUsed": "6857"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10010128057",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e02e03f3faa5151411be135b442d9ff144b89dc71ff120c129a6d4bcea880bc9"
+          }
+        ],
+        "gasUsed": "11102"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e02e03f3faa5151411be135b442d9ff144b89dc71ff120c129a6d4bcea880bc9"
+          }
+        ],
+        "gasUsed": "11102"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000224591",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "852400da3e40429f8cc95f3dd24869ecf667ae4ab4b04cb4079d9ed5663d18aa"
+          }
+        ],
+        "gasUsed": "11326"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "852400da3e40429f8cc95f3dd24869ecf667ae4ab4b04cb4079d9ed5663d18aa"
+          }
+        ],
+        "gasUsed": "11326"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000183724",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "189c259ce90970e359d04330089d6712ac8d65b19287a5bdb6f13101dde84e86"
+          }
+        ],
+        "gasUsed": "8735"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "189c259ce90970e359d04330089d6712ac8d65b19287a5bdb6f13101dde84e86"
+          }
+        ],
+        "gasUsed": "8735"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/jetton amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10012371990",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "3b1857d1f6be56d0eb9af17dc105ed93a8143066f9d22616eb0f3d5364f61a2c"
+          }
+        ],
+        "gasUsed": "9227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "3b1857d1f6be56d0eb9af17dc105ed93a8143066f9d22616eb0f3d5364f61a2c"
+          }
+        ],
+        "gasUsed": "9227"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000128068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5e94c3b2e429ff2e5de4b1133f7c6319acb50ab6ad588b3912ce12ac36cb3f90"
+          }
+        ],
+        "gasUsed": "8776"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5e94c3b2e429ff2e5de4b1133f7c6319acb50ab6ad588b3912ce12ac36cb3f90"
+          }
+        ],
+        "gasUsed": "8776"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000143001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "dcdb46436faa6aec23cb61efad07617cd387ec162337821728ffee5f5f900ca2"
+          }
+        ],
+        "gasUsed": "8950"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "dcdb46436faa6aec23cb61efad07617cd387ec162337821728ffee5f5f900ca2"
+          }
+        ],
+        "gasUsed": "8950"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000117068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2301e0a6ef4241414db66e5bb67854f0c274f4017a92a8675bd141e0695dd67f"
+          }
+        ],
+        "gasUsed": "6409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2301e0a6ef4241414db66e5bb67854f0c274f4017a92a8675bd141e0695dd67f"
+          }
+        ],
+        "gasUsed": "6409"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000132001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c0f03528734fd9122236f5adf7ebeb4a489d5bfe301dc5df6dac5ec68e7562ab"
+          }
+        ],
+        "gasUsed": "6851"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c0f03528734fd9122236f5adf7ebeb4a489d5bfe301dc5df6dac5ec68e7562ab"
+          }
+        ],
+        "gasUsed": "6851"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10009999987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "f181221af786a5deb31543af5ed56c99f6473e03a82b217d6fee3279f5db495c"
+          }
+        ],
+        "gasUsed": "5949"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "f181221af786a5deb31543af5ed56c99f6473e03a82b217d6fee3279f5db495c"
+          }
+        ],
+        "gasUsed": "5949"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000081588",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "6fac8d08f9887af6cb22002d72d1d954a89b7034e802a90c99355e933cc93723"
+          }
+        ],
+        "gasUsed": "6149"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "6fac8d08f9887af6cb22002d72d1d954a89b7034e802a90c99355e933cc93723"
+          }
+        ],
+        "gasUsed": "6149"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000066654",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9abc3d28b6b799ce702841e21f31cc72d835df42cc83aa30e8b8237d2be99f07"
+          }
+        ],
+        "gasUsed": "4415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9abc3d28b6b799ce702841e21f31cc72d835df42cc83aa30e8b8237d2be99f07"
+          }
+        ],
+        "gasUsed": "4415"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10012239987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b4e6309f081d34a6dcd625f857111c2e8e2d88fb690a7f32f22b7e97860d3282"
+          }
+        ],
+        "gasUsed": "4615"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b4e6309f081d34a6dcd625f857111c2e8e2d88fb690a7f32f22b7e97860d3282"
+          }
+        ],
+        "gasUsed": "4615"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10000194722",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "1f06cadb1f23348033613c7c3c44afce97f4c14e5cf455442cf03b933daf8206"
+          }
+        ],
+        "gasUsed": "11102"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "1f06cadb1f23348033613c7c3c44afce97f4c14e5cf455442cf03b933daf8206"
+          }
+        ],
+        "gasUsed": "11102"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000224589",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "461f458d5c9e2a51edf46d5bcf1ca0765cf06723679f2a8787ada7ec724b1942"
+          }
+        ],
+        "gasUsed": "11326"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "461f458d5c9e2a51edf46d5bcf1ca0765cf06723679f2a8787ada7ec724b1942"
+          }
+        ],
+        "gasUsed": "11326"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10010117055",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d84251e49abfffbfa69018375aa0b6aba93d12a86393cd8dacba48cab4b0e1c4"
+          }
+        ],
+        "gasUsed": "8735"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d84251e49abfffbfa69018375aa0b6aba93d12a86393cd8dacba48cab4b0e1c4"
+          }
+        ],
+        "gasUsed": "8735"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/TON amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10000213589",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "851544f6391c6d5549720e2c8ba361b4df39c9c9a87aceda3f68ed6139c21b11"
+          }
+        ],
+        "gasUsed": "9227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "851544f6391c6d5549720e2c8ba361b4df39c9c9a87aceda3f68ed6139c21b11"
+          }
+        ],
+        "gasUsed": "9227"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000128068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "11be1b4e9fc0c27ff06d1b260cb421e041dc1c5649d26bda0f669df36a098211"
+          }
+        ],
+        "gasUsed": "8776"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "11be1b4e9fc0c27ff06d1b260cb421e041dc1c5649d26bda0f669df36a098211"
+          }
+        ],
+        "gasUsed": "8776"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000143001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "bf18570ff9fffe4486ad0d29e7ad38bf7a24cde63d52fb0df5db1dbd8dbb5b54"
+          }
+        ],
+        "gasUsed": "8950"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "bf18570ff9fffe4486ad0d29e7ad38bf7a24cde63d52fb0df5db1dbd8dbb5b54"
+          }
+        ],
+        "gasUsed": "8950"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000117068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2301e0a6ef4241414db66e5bb67854f0c274f4017a92a8675bd141e0695dd67f"
+          }
+        ],
+        "gasUsed": "6409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2301e0a6ef4241414db66e5bb67854f0c274f4017a92a8675bd141e0695dd67f"
+          }
+        ],
+        "gasUsed": "6409"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000132001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a416468ac8c5499fe6b983b2e6fbc743d4bd1f4c3db095e2b09ee33b5fa8fc65"
+          }
+        ],
+        "gasUsed": "6851"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a416468ac8c5499fe6b983b2e6fbc743d4bd1f4c3db095e2b09ee33b5fa8fc65"
+          }
+        ],
+        "gasUsed": "6851"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10000128068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4aaf5e6781915183388e895b1c8e594d58e149e11b7283cd372aea0ecd1a9dee"
+          }
+        ],
+        "gasUsed": "8782"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4aaf5e6781915183388e895b1c8e594d58e149e11b7283cd372aea0ecd1a9dee"
+          }
+        ],
+        "gasUsed": "8782"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000143001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d2eb1eda0a67e442c33f21334b2cc7a668615004928b4fbb32225a570c328b19"
+          }
+        ],
+        "gasUsed": "8956"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d2eb1eda0a67e442c33f21334b2cc7a668615004928b4fbb32225a570c328b19"
+          }
+        ],
+        "gasUsed": "8956"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000117068",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "04b3d9531ee75ee01a4081e6a62da17ab0a8480ee25abc2842c7853182f8bc83"
+          }
+        ],
+        "gasUsed": "6415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "04b3d9531ee75ee01a4081e6a62da17ab0a8480ee25abc2842c7853182f8bc83"
+          }
+        ],
+        "gasUsed": "6415"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10000132001",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9018dde28694cc156f7b3aff3ccb8991776ea3d93dca5724521e27f14c7a5793"
+          }
+        ],
+        "gasUsed": "6857"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9018dde28694cc156f7b3aff3ccb8991776ea3d93dca5724521e27f14c7a5793"
+          }
+        ],
+        "gasUsed": "6857"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10000256136",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5264bfcc0fc2fe3136309fa28f398ea9d6ee2f7831759dadc31c0065374a0149"
+          }
+        ],
+        "gasUsed": "13635"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5264bfcc0fc2fe3136309fa28f398ea9d6ee2f7831759dadc31c0065374a0149"
+          }
+        ],
+        "gasUsed": "13635"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000286002",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "65ea5631f9d06c96175ef44ae8f08d5e076f0e4406a8d690a80149307f27baa5"
+          }
+        ],
+        "gasUsed": "13833"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "65ea5631f9d06c96175ef44ae8f08d5e076f0e4406a8d690a80149307f27baa5"
+          }
+        ],
+        "gasUsed": "13833"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000234136",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "6033f716ac44389ee34de2a8571fe1eb8f03e5d4a691a8f2a52c5ee68a3c8780"
+          }
+        ],
+        "gasUsed": "10510"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "6033f716ac44389ee34de2a8571fe1eb8f03e5d4a691a8f2a52c5ee68a3c8780"
+          }
+        ],
+        "gasUsed": "10510"
+      }
+    },
+    {
+      "name": "chain=0 assets=jetton/jetton amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10000264002",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "1b916c89ea2fb13818196a1b6563c2d994597b5c8ca17d9739e5312213c10053"
+          }
+        ],
+        "gasUsed": "11244"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "1b916c89ea2fb13818196a1b6563c2d994597b5c8ca17d9739e5312213c10053"
+          }
+        ],
+        "gasUsed": "11244"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000066656",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d2d00ad313d3eb21fabd417847e018f73c3194af49b545a9e3c5e7af7fc8b46d"
+          }
+        ],
+        "gasUsed": "5943"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d2d00ad313d3eb21fabd417847e018f73c3194af49b545a9e3c5e7af7fc8b46d"
+          }
+        ],
+        "gasUsed": "5943"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000081590",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5176f80507fa683ecd3dd7856e31d2fd08c4f80f8eddd043ac9c1bd3ca5f014c"
+          }
+        ],
+        "gasUsed": "6143"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5176f80507fa683ecd3dd7856e31d2fd08c4f80f8eddd043ac9c1bd3ca5f014c"
+          }
+        ],
+        "gasUsed": "6143"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10009999989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "76722060bae30dfa402394109422c69d68e24dff00b7bde2e7e91c10df832356"
+          }
+        ],
+        "gasUsed": "4409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "76722060bae30dfa402394109422c69d68e24dff00b7bde2e7e91c10df832356"
+          }
+        ],
+        "gasUsed": "4409"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000081590",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e75b45b8b53ae5d061cd48c0cfd5ed4721356611f6d454cfd9f9f9851a20ec14"
+          }
+        ],
+        "gasUsed": "4609"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "e75b45b8b53ae5d061cd48c0cfd5ed4721356611f6d454cfd9f9f9851a20ec14"
+          }
+        ],
+        "gasUsed": "4609"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10000066654",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cc365db378be7f5a188036dbd289f5eb9a0ada1854f48de0d2132f4751aa35b1"
+          }
+        ],
+        "gasUsed": "5949"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cc365db378be7f5a188036dbd289f5eb9a0ada1854f48de0d2132f4751aa35b1"
+          }
+        ],
+        "gasUsed": "5949"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10012239987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "35a0a5352ca428a75b4e6b009b597f8283d94a3ec5585f608937c7d677d35870"
+          }
+        ],
+        "gasUsed": "6149"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "35a0a5352ca428a75b4e6b009b597f8283d94a3ec5585f608937c7d677d35870"
+          }
+        ],
+        "gasUsed": "6149"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000066654",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9abc3d28b6b799ce702841e21f31cc72d835df42cc83aa30e8b8237d2be99f07"
+          }
+        ],
+        "gasUsed": "4415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9abc3d28b6b799ce702841e21f31cc72d835df42cc83aa30e8b8237d2be99f07"
+          }
+        ],
+        "gasUsed": "4415"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10000081588",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a7d4d189ea2c6acec7b6a85138bde628bf2d4587c30e686c6b3ab2881231cc4d"
+          }
+        ],
+        "gasUsed": "4615"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "a7d4d189ea2c6acec7b6a85138bde628bf2d4587c30e686c6b3ab2881231cc4d"
+          }
+        ],
+        "gasUsed": "4615"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10019999976",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8d88b6af50f9e4dd1573c661ec89cf62bef4dd331ddc19099b22a2ef95a95557"
+          }
+        ],
+        "gasUsed": "8269"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8d88b6af50f9e4dd1573c661ec89cf62bef4dd331ddc19099b22a2ef95a95557"
+          }
+        ],
+        "gasUsed": "8269"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10000163178",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0ff608870ce8a31828f9528f7e5a20b15973470699025dc0e8796c8f4cd1d099"
+          }
+        ],
+        "gasUsed": "8519"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0ff608870ce8a31828f9528f7e5a20b15973470699025dc0e8796c8f4cd1d099"
+          }
+        ],
+        "gasUsed": "8519"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10000133310",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "1245f0d4e25222341866e7c253c3d173b6cea82c4eee5858e9872c4206695394"
+          }
+        ],
+        "gasUsed": "6735"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "1245f0d4e25222341866e7c253c3d173b6cea82c4eee5858e9872c4206695394"
+          }
+        ],
+        "gasUsed": "6735"
+      }
+    },
+    {
+      "name": "chain=0 assets=TON/TON amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10024479976",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "df8d3a51173cee4d0820e8882745bc595a0fb0c8f848927077b8b26b74f5db16"
+          }
+        ],
+        "gasUsed": "6985"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "df8d3a51173cee4d0820e8882745bc595a0fb0c8f848927077b8b26b74f5db16"
+          }
+        ],
+        "gasUsed": "6985"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10009999989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8a3e5af1d2301fbab66020e990362ffad7a4898d592330102965ecacf60a3054"
+          }
+        ],
+        "gasUsed": "5943"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8a3e5af1d2301fbab66020e990362ffad7a4898d592330102965ecacf60a3054"
+          }
+        ],
+        "gasUsed": "5943"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10012239989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9475193023205a75efede3ae8a089b6a3202b06d8fc7833e67692fd9fa4246a5"
+          }
+        ],
+        "gasUsed": "6143"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9475193023205a75efede3ae8a089b6a3202b06d8fc7833e67692fd9fa4246a5"
+          }
+        ],
+        "gasUsed": "6143"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10009999989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ddb4bd7490d590e41b1c415951c51fbc8bdda6c5a7bf4c52426150bf7f700505"
+          }
+        ],
+        "gasUsed": "4409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ddb4bd7490d590e41b1c415951c51fbc8bdda6c5a7bf4c52426150bf7f700505"
+          }
+        ],
+        "gasUsed": "4409"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10012239989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9691771235b5f0641164181968daa1b90efbcabf7d21748bbba8d4bb1466fe1b"
+          }
+        ],
+        "gasUsed": "4609"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9691771235b5f0641164181968daa1b90efbcabf7d21748bbba8d4bb1466fe1b"
+          }
+        ],
+        "gasUsed": "4609"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10019210000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "01ef32f54c630b031b7ce2705774e70f542f90f645f0dcadb8f65b87dc180239"
+          }
+        ],
+        "gasUsed": "8782"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "01ef32f54c630b031b7ce2705774e70f542f90f645f0dcadb8f65b87dc180239"
+          }
+        ],
+        "gasUsed": "8782"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10021450000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "6e909d9d563e724333ed43ed1a9b653a708d53383ac043015b365f62fd1ee35a"
+          }
+        ],
+        "gasUsed": "8956"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "6e909d9d563e724333ed43ed1a9b653a708d53383ac043015b365f62fd1ee35a"
+          }
+        ],
+        "gasUsed": "8956"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10017560000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "614e57bbeae6273797298f470c9fd1383bd3f3f1bab5860ffe8fc122cf59bfc6"
+          }
+        ],
+        "gasUsed": "6415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "614e57bbeae6273797298f470c9fd1383bd3f3f1bab5860ffe8fc122cf59bfc6"
+          }
+        ],
+        "gasUsed": "6415"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10019800000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "3526a67742eacf120337437f064696dd1edd8075fbbf298a7fdfebfe2f42f904"
+          }
+        ],
+        "gasUsed": "6857"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "3526a67742eacf120337437f064696dd1edd8075fbbf298a7fdfebfe2f42f904"
+          }
+        ],
+        "gasUsed": "6857"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10029209989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8f736ed236c44d7d3261d17abbd10ec4fd0c7369eecc9a0a48bb3c7c266f199f"
+          }
+        ],
+        "gasUsed": "11102"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8f736ed236c44d7d3261d17abbd10ec4fd0c7369eecc9a0a48bb3c7c266f199f"
+          }
+        ],
+        "gasUsed": "11102"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10033689989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0aedaedfec36fa776d6812c40a53f92db4dbe62eedf1ffb14ba6f392c7f1691a"
+          }
+        ],
+        "gasUsed": "11326"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "0aedaedfec36fa776d6812c40a53f92db4dbe62eedf1ffb14ba6f392c7f1691a"
+          }
+        ],
+        "gasUsed": "11326"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10027559989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4cccdfa3e8208992462519813ebc206c46d233113abb34f73a6325ad67fa4cde"
+          }
+        ],
+        "gasUsed": "8735"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4cccdfa3e8208992462519813ebc206c46d233113abb34f73a6325ad67fa4cde"
+          }
+        ],
+        "gasUsed": "8735"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/jetton amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10032039989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "11044b7606cfc68e78b7c1668bc7f55e0118235a9ebb448417dd299ac1ea8fa6"
+          }
+        ],
+        "gasUsed": "9227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "11044b7606cfc68e78b7c1668bc7f55e0118235a9ebb448417dd299ac1ea8fa6"
+          }
+        ],
+        "gasUsed": "9227"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10019210000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "380b7ea715b41d6daa2599367e8f57a3ed86935a619362255f0fc723ec4aab9a"
+          }
+        ],
+        "gasUsed": "8776"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "380b7ea715b41d6daa2599367e8f57a3ed86935a619362255f0fc723ec4aab9a"
+          }
+        ],
+        "gasUsed": "8776"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10021450000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "fa3d464ef487871d5b0b4289756d66de77262eecc14486df3f30651821061429"
+          }
+        ],
+        "gasUsed": "8950"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "fa3d464ef487871d5b0b4289756d66de77262eecc14486df3f30651821061429"
+          }
+        ],
+        "gasUsed": "8950"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10017560000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b184cad4af8b299fadaa65c30f032e9ddfc2676b858ef0ad8dcb31ae0516a845"
+          }
+        ],
+        "gasUsed": "6409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b184cad4af8b299fadaa65c30f032e9ddfc2676b858ef0ad8dcb31ae0516a845"
+          }
+        ],
+        "gasUsed": "6409"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10019800000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "124375cf1e8d414d4caa09e9d686af80a96d5e31989333c5c6737ec41561402d"
+          }
+        ],
+        "gasUsed": "6851"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "124375cf1e8d414d4caa09e9d686af80a96d5e31989333c5c6737ec41561402d"
+          }
+        ],
+        "gasUsed": "6851"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10009999987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "da55a32056e8cc7aa42cb3beb89ffe0b3a29119c147fc09e4fbb9108f6e40312"
+          }
+        ],
+        "gasUsed": "5949"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "da55a32056e8cc7aa42cb3beb89ffe0b3a29119c147fc09e4fbb9108f6e40312"
+          }
+        ],
+        "gasUsed": "5949"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10012239987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ab116ca80ca05b3235f316534280b405192a796cb7a177d6330bc816aa36cd11"
+          }
+        ],
+        "gasUsed": "6149"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ab116ca80ca05b3235f316534280b405192a796cb7a177d6330bc816aa36cd11"
+          }
+        ],
+        "gasUsed": "6149"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10009999987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "7ddf9ef444ee89ccf3f7928649e9f3d69239096a9abc1c1095d8c9bcd0b00484"
+          }
+        ],
+        "gasUsed": "4415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "7ddf9ef444ee89ccf3f7928649e9f3d69239096a9abc1c1095d8c9bcd0b00484"
+          }
+        ],
+        "gasUsed": "4415"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10012239987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "7ad8e49ef450425ca264b461c64289be6f8d94cab28473b3d23eec7ef50dba8a"
+          }
+        ],
+        "gasUsed": "4615"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "7ad8e49ef450425ca264b461c64289be6f8d94cab28473b3d23eec7ef50dba8a"
+          }
+        ],
+        "gasUsed": "4615"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10029209987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2dad34c388742429846c2781a769157d09a7e9e5032d366006e4bbc31c27730d"
+          }
+        ],
+        "gasUsed": "11102"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "2dad34c388742429846c2781a769157d09a7e9e5032d366006e4bbc31c27730d"
+          }
+        ],
+        "gasUsed": "11102"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10033689987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b03da799f8dccf5b71696168da13d6dae6ba8f80fb0fdcafb5c4c4a25a33ba74"
+          }
+        ],
+        "gasUsed": "11326"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b03da799f8dccf5b71696168da13d6dae6ba8f80fb0fdcafb5c4c4a25a33ba74"
+          }
+        ],
+        "gasUsed": "11326"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10027559987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4e703a2537c346f9561c226cad774bf02004e046a17ad2fcb52d90de228dbbe2"
+          }
+        ],
+        "gasUsed": "8735"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4e703a2537c346f9561c226cad774bf02004e046a17ad2fcb52d90de228dbbe2"
+          }
+        ],
+        "gasUsed": "8735"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/TON amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10032039987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16bcd23ef8d24cce35fba4711095379b469c43b4f7e8a8507ddb4c9adf654d5e"
+          }
+        ],
+        "gasUsed": "9227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "16bcd23ef8d24cce35fba4711095379b469c43b4f7e8a8507ddb4c9adf654d5e"
+          }
+        ],
+        "gasUsed": "9227"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10019210000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8654d4f25c79d696ecbdaa9f37b14697fdffddea68f076d5c6426f7249138c3e"
+          }
+        ],
+        "gasUsed": "8776"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8654d4f25c79d696ecbdaa9f37b14697fdffddea68f076d5c6426f7249138c3e"
+          }
+        ],
+        "gasUsed": "8776"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10021450000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "fa3d464ef487871d5b0b4289756d66de77262eecc14486df3f30651821061429"
+          }
+        ],
+        "gasUsed": "8950"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "fa3d464ef487871d5b0b4289756d66de77262eecc14486df3f30651821061429"
+          }
+        ],
+        "gasUsed": "8950"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10017560000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5462ca0aa18d437cd716c120b5f4c6bbbdd3c9e1b0adcb660f9531572e091719"
+          }
+        ],
+        "gasUsed": "6409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "5462ca0aa18d437cd716c120b5f4c6bbbdd3c9e1b0adcb660f9531572e091719"
+          }
+        ],
+        "gasUsed": "6409"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10019800000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "96765d78f4b33ec6c96dc9be5d15955870186030eb66d9d43afc248f80506ddb"
+          }
+        ],
+        "gasUsed": "6851"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "96765d78f4b33ec6c96dc9be5d15955870186030eb66d9d43afc248f80506ddb"
+          }
+        ],
+        "gasUsed": "6851"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10019210000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ed707b2fa4e877f7bf6b2d3ee778bc76e57240a28cf549f7cb4a540888deec49"
+          }
+        ],
+        "gasUsed": "8782"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ed707b2fa4e877f7bf6b2d3ee778bc76e57240a28cf549f7cb4a540888deec49"
+          }
+        ],
+        "gasUsed": "8782"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10021450000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ca3039e1ba3330a67470eedf87cdf1a064ef263e018a61707ae9d1d8707c6ad9"
+          }
+        ],
+        "gasUsed": "8956"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ca3039e1ba3330a67470eedf87cdf1a064ef263e018a61707ae9d1d8707c6ad9"
+          }
+        ],
+        "gasUsed": "8956"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10017560000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "614e57bbeae6273797298f470c9fd1383bd3f3f1bab5860ffe8fc122cf59bfc6"
+          }
+        ],
+        "gasUsed": "6415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "614e57bbeae6273797298f470c9fd1383bd3f3f1bab5860ffe8fc122cf59bfc6"
+          }
+        ],
+        "gasUsed": "6415"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10019800000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "78cc200c310d9da52129e0b4280080ddd091691c2582675110e5d8297cd7ac08"
+          }
+        ],
+        "gasUsed": "6857"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "78cc200c310d9da52129e0b4280080ddd091691c2582675110e5d8297cd7ac08"
+          }
+        ],
+        "gasUsed": "6857"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10038420000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d5e95ddea071f2db45babb07ee6e0b61e3c0db3357aca660ab541283ac581045"
+          }
+        ],
+        "gasUsed": "13635"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "d5e95ddea071f2db45babb07ee6e0b61e3c0db3357aca660ab541283ac581045"
+          }
+        ],
+        "gasUsed": "13635"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10042900000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "483b55c2460a9292713a07d791688e60b6a673add1e22bbcdae2c290b70581f8"
+          }
+        ],
+        "gasUsed": "13833"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "483b55c2460a9292713a07d791688e60b6a673add1e22bbcdae2c290b70581f8"
+          }
+        ],
+        "gasUsed": "13833"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10035120000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "43f1219cd5ea256ca61a91fa31323aa1757b6107ef405254ce3957f63f1c23a0"
+          }
+        ],
+        "gasUsed": "10510"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "43f1219cd5ea256ca61a91fa31323aa1757b6107ef405254ce3957f63f1c23a0"
+          }
+        ],
+        "gasUsed": "10510"
+      }
+    },
+    {
+      "name": "chain=-1 assets=jetton/jetton amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10039600000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "41e7293e291248676f82282a165c94a70398932149683ab1f2247ffd03c97ba7"
+          }
+        ],
+        "gasUsed": "11244"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "41e7293e291248676f82282a165c94a70398932149683ab1f2247ffd03c97ba7"
+          }
+        ],
+        "gasUsed": "11244"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "cfe8b17558a00e03ea99325cad0cd2426da5a052719767bf590c763abe4928f7"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "424e90a8604e55fd806cd3115332fb5af57ec9e29b566c74c307897dec9196f6"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/0 skip=false payload=false wrap=true",
+      "expectedReserve": "10009999989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8a3e5af1d2301fbab66020e990362ffad7a4898d592330102965ecacf60a3054"
+          }
+        ],
+        "gasUsed": "5943"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "8a3e5af1d2301fbab66020e990362ffad7a4898d592330102965ecacf60a3054"
+          }
+        ],
+        "gasUsed": "5943"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/0 skip=false payload=true wrap=true",
+      "expectedReserve": "10012239989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9475193023205a75efede3ae8a089b6a3202b06d8fc7833e67692fd9fa4246a5"
+          }
+        ],
+        "gasUsed": "6143"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9475193023205a75efede3ae8a089b6a3202b06d8fc7833e67692fd9fa4246a5"
+          }
+        ],
+        "gasUsed": "6143"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/0 skip=true payload=false wrap=false",
+      "expectedReserve": "10009999989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ddb4bd7490d590e41b1c415951c51fbc8bdda6c5a7bf4c52426150bf7f700505"
+          }
+        ],
+        "gasUsed": "4409"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ddb4bd7490d590e41b1c415951c51fbc8bdda6c5a7bf4c52426150bf7f700505"
+          }
+        ],
+        "gasUsed": "4409"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/0 skip=true payload=true wrap=false",
+      "expectedReserve": "10012239989",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9691771235b5f0641164181968daa1b90efbcabf7d21748bbba8d4bb1466fe1b"
+          }
+        ],
+        "gasUsed": "4609"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "9691771235b5f0641164181968daa1b90efbcabf7d21748bbba8d4bb1466fe1b"
+          }
+        ],
+        "gasUsed": "4609"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10009999987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "f181221af786a5deb31543af5ed56c99f6473e03a82b217d6fee3279f5db495c"
+          }
+        ],
+        "gasUsed": "5949"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "f181221af786a5deb31543af5ed56c99f6473e03a82b217d6fee3279f5db495c"
+          }
+        ],
+        "gasUsed": "5949"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10012239987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ab116ca80ca05b3235f316534280b405192a796cb7a177d6330bc816aa36cd11"
+          }
+        ],
+        "gasUsed": "6149"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "ab116ca80ca05b3235f316534280b405192a796cb7a177d6330bc816aa36cd11"
+          }
+        ],
+        "gasUsed": "6149"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10009999987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "556382c6224eb4b5c1b04d32211ce729cc976f9a99f70745d8182726faeca457"
+          }
+        ],
+        "gasUsed": "4415"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "556382c6224eb4b5c1b04d32211ce729cc976f9a99f70745d8182726faeca457"
+          }
+        ],
+        "gasUsed": "4415"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=0/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10012239987",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b4e6309f081d34a6dcd625f857111c2e8e2d88fb690a7f32f22b7e97860d3282"
+          }
+        ],
+        "gasUsed": "4615"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "b4e6309f081d34a6dcd625f857111c2e8e2d88fb690a7f32f22b7e97860d3282"
+          }
+        ],
+        "gasUsed": "4615"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/13 skip=false payload=false wrap=true",
+      "expectedReserve": "10019999976",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "96c5b7a5e683fa3d97325264a67d2384d9772315a6079f94c36ec0cd08e4130e"
+          }
+        ],
+        "gasUsed": "8269"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "96c5b7a5e683fa3d97325264a67d2384d9772315a6079f94c36ec0cd08e4130e"
+          }
+        ],
+        "gasUsed": "8269"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/13 skip=false payload=true wrap=true",
+      "expectedReserve": "10024479976",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "87dbebb8bb96e3cc1526e15adfd121d59764f6a24675e2410f4bce4b4ccd9c79"
+          }
+        ],
+        "gasUsed": "8519"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "87dbebb8bb96e3cc1526e15adfd121d59764f6a24675e2410f4bce4b4ccd9c79"
+          }
+        ],
+        "gasUsed": "8519"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/13 skip=true payload=false wrap=false",
+      "expectedReserve": "10019999976",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c96425bb430164fa785ee08a2921331f7fb92cfa063330af0ce7f5aa419cd172"
+          }
+        ],
+        "gasUsed": "6735"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "c96425bb430164fa785ee08a2921331f7fb92cfa063330af0ce7f5aa419cd172"
+          }
+        ],
+        "gasUsed": "6735"
+      }
+    },
+    {
+      "name": "chain=-1 assets=TON/TON amounts=11/13 skip=true payload=true wrap=false",
+      "expectedReserve": "10024479976",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "081b612b89134ef1280e6525df9e430d60e4e9706e57c71f1ca120639675ed8e"
+          }
+        ],
+        "gasUsed": "6985"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "081b612b89134ef1280e6525df9e430d60e4e9706e57c71f1ca120639675ed8e"
+          }
+        ],
+        "gasUsed": "6985"
+      }
+    },
+    {
+      "name": "query only validated when sent -1 skip=false",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2384"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2384"
+      }
+    },
+    {
+      "name": "query only validated when sent -1 skip=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "query only validated when sent 18446744073709551616 skip=false",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2384"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2384"
+      }
+    },
+    {
+      "name": "query only validated when sent 18446744073709551616 skip=true",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "829a9bf3bbcaafc86f4b4a3ca03a868840675528509f27207b34e42927e9e8cd"
+          }
+        ],
+        "gasUsed": "1939"
+      }
+    },
+    {
+      "name": "nonpositive amounts skipped",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4604bc0d7bbc02c36c4cb3de5ee2a13d75ea92dbe21ebb6203597683ff531986"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4604bc0d7bbc02c36c4cb3de5ee2a13d75ea92dbe21ebb6203597683ff531986"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "missing wallet when paid",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "null",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 40,
+        "stack": null,
+        "gasUsed": "1897"
+      },
+      "after": {
+        "exitCode": 40,
+        "stack": null,
+        "gasUsed": "1897"
+      }
+    },
+    {
+      "name": "missing wallet ignored for zero amount",
+      "expectedReserve": "10000066656",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "null",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "38028c46d569404244afdfdb8c86313044e9ff5087dcaa9e59c089ff13d93451"
+          }
+        ],
+        "gasUsed": "5943"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "38028c46d569404244afdfdb8c86313044e9ff5087dcaa9e59c089ff13d93451"
+          }
+        ],
+        "gasUsed": "5943"
+      }
+    },
+    {
+      "name": "unsupported external asset paid",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 31,
+        "stack": null,
+        "gasUsed": "2051"
+      },
+      "after": {
+        "exitCode": 31,
+        "stack": null,
+        "gasUsed": "2051"
+      }
+    },
+    {
+      "name": "unsupported asset ignored for zero amount",
+      "expectedReserve": "10000000000",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4604bc0d7bbc02c36c4cb3de5ee2a13d75ea92dbe21ebb6203597683ff531986"
+          }
+        ],
+        "gasUsed": "3473"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "cell",
+            "cellHash": "4604bc0d7bbc02c36c4cb3de5ee2a13d75ea92dbe21ebb6203597683ff531986"
+          }
+        ],
+        "gasUsed": "3473"
+      }
+    },
+    {
+      "name": "malformed config read even without payout",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1001"
+      },
+      "after": {
+        "exitCode": 9,
+        "stack": null,
+        "gasUsed": "1001"
+      }
+    },
+    {
+      "name": "reserve underflow after huge native principal",
+      "method": 90046,
+      "args": [
+        "int",
+        "cell",
+        "cell",
+        "null",
+        "cell",
+        "int",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "3869"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "3869"
+      }
+    }
+  ]
+}
