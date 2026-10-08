@@ -97,6 +97,25 @@ The `unknown` escape is mandatory for legacy slots that can contain null despite
 
 All rules are idempotent; the engine repeats each productive rule to a fixed point and checks edit overlap/progress. Applied-rule audit records are deduplicated per rule/function. Partial decompilations skip the entire normalization stage and keep their files/diagnostics. Current rules must preserve the complete TVM code cell; the Acton harness compiles both stages and requires identical code-cell hashes. All six complete templates meet this requirement, with identical serialized BOCs as well. NftCollection and WalletV5 remain partial and unchanged. This compares normalization to the raw decompilation, separately from known differences between original contracts and recompiled output.
 
+### Exact builder methods (N05)
+
+`builder-store-chain` changes nested calls such as
+`tvmStoreMaybeRef(tvmStoreGrams(b, amount), ref)` into
+`b.storeCoinsExact(amount).storeMaybeRefExact(ref)`. Thirteen exact methods
+are generated in main.tolk; stdlib remains unchanged. Methods return a new
+builder without mutating self, so a live original `b` keeps its snapshot.
+Receiver/argument effects retain their order and evaluation count.
+
+The methods preserve each original opcode and asm argument permutation.
+Native `storeCoins(0)` may become an optimized four-bit store and combine
+with neighbors, so it cannot replace STGRAMS under the identity requirement.
+Exact methods are impure to keep errors even when their result is discarded.
+Custom helpers, method collisions, comments and invalid arity retain the
+original calls. The 17-fixture/202-probe suite covers bit/ref overflow,
+nullable addresses/refs, coins and width boundaries, dead calls and effects.
+All raw/normalized code cells, serialized BOCs and getter gas are identical;
+original/raw differences are recorded independently.
+
 ## Inventory across all eight templates
 
 The [compiler recovery specification](compiler-recovery-spec.md) tracks 24 families and their dependencies. The first batch adds three separate rules: `integer-match` for terminal ordered equality chains of a proven local int; `conditional-select` for CONDSEL with pre-evaluated local references/literals of the same scalar type; and `cursor-load` for LDUX/LDIX/LDGRAMS tuple bindings. Integer match retains fallback, signed/large constants and method IDs, and rejects joins, shadowing, effects and unsafe return contexts. Ternary selection keeps the surrounding result cast, removes operand casts to unknown (which would select IF/ELSE), and never makes a call or global read conditional. The compiler removes its zero-test before CONDSEL.
@@ -109,6 +128,7 @@ Cursor loads retain separate slice snapshots and mutable results. `loadUintExact
 | Adjacent returned address binding | 2 → 0 | Empty, Counter | Implemented: direct address return and candidate owner getter. |
 | Primitive loads destructured into tuples | 113 → 69 | All except Empty | Implemented cursor loads replace 44 bindings in complete contracts. Remaining forms are optional-address loads and partial outputs. Exact LDUX/LDIX/LDGRAMS methods preserve opcode selection, snapshots, mutable values and discarded-result exceptions. |
 | CONDSEL compatibility calls | 7 → 5 | JettonWallet, JettonMinter | Two calls become native ternary expressions. Five calls involving values from GETPRECOMPILEDGAS remain explicit until nullable/type propagation is proven. Ordinary integer dispatch is covered by compiler-derived fixtures; these eight templates use prefix dispatch. |
+| Builder store compatibility calls | 44 → 3 | NftCollection, NftItem, JettonWallet, JettonMinter, SimpleExtension, WalletV5 | 41 calls become exact functional builder methods; three remaining calls belong to partial contracts. All 13 supported operations preserve opcodes, argument order, snapshots and discarded-result exceptions. |
 | `matchPrefix` dispatch | 41 → 30 | All eight | Lazy message dispatch implemented for five terminal chains (11 prefix calls). Remaining calls include guarded shapes and partial contracts. Preserve empty/truncated messages, refs, unmatched tails and throw codes. WalletV5 also uses one-byte prefixes. |
 | `.loadAddress() as slice` | 43 → 41 | All eight | Direct getter returns implemented; broader address propagation needs checks across comparisons/stores/calls and nullable/joined values. |
 | Bindings ending in `as int` | 69 → 52 | All eight | Boolean guards implemented. Integer/tuple casts and values used by bitwise logic remain; integer null-predicate contexts still need `as int`. |

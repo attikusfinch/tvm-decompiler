@@ -104,6 +104,36 @@ internal class TolkSource(val text: String) {
     }
 
     companion object {
+        fun callArguments(tokens: List<Token>, open: Int, close: Int): List<List<Token>> {
+            val result = mutableListOf<List<Token>>()
+            var start = open + 1
+            var depth = 0
+            for (index in open + 1 until close) {
+                if (tokens[index].value in setOf("(", "[", "{")) depth++
+                if (tokens[index].value in setOf(")", "]", "}")) depth--
+                if (depth == 0 && tokens[index].value == ",") {
+                    result += tokens.subList(start, index)
+                    start = index + 1
+                }
+            }
+            if (start < close) result += tokens.subList(start, close)
+            return result
+        }
+
+        /** An identifier/call/member chain or an already enclosed expression can take a dot suffix. */
+        fun memberReceiver(tokens: List<Token>): Boolean {
+            if (tokens.isEmpty()) return false
+            if (tokens[0].value == "(" && closingParenthesis(tokens, 0) == tokens.lastIndex) return true
+            if (!tokens[0].identifier) return false
+            var index = 1
+            while (index < tokens.size) {
+                if (tokens[index].value == "(") index = (closingParenthesis(tokens, index) ?: return false) + 1
+                else if (tokens[index].value == "." && tokens.getOrNull(index + 1)?.identifier == true) index += 2
+                else return false
+            }
+            return true
+        }
+
         fun closingBrace(tokens: List<Token>, start: Int): Int? {
             if (tokens.getOrNull(start)?.value != "{") return null
             var depth = 0

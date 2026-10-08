@@ -36,6 +36,7 @@ npm run tolk:edges
 npm run tolk:normalization
 npm run tolk:matches
 npm run tolk:recovery
+npm run tolk:builders
 npm run tolk:patterns
 ```
 
@@ -48,6 +49,8 @@ The 20-case corpus compiles fixture source, decompiles it, recompiles the output
 `tolk:matches` compiles seven compiler-derived prefix fixtures, decompiles/recompiles both stages and checks original/raw/normalized code-cell identity. Its 348 getter probes also require identical gas and cover truncated prefix/payload bits, unknown opcodes, 4/8/32-bit widths, leading zeroes and tail references. Overlapping prefixes, live unmatched tails and nonterminal joins stay explicit. Unit tests additionally reject nested early returns and a conditional/block immediately before the terminal return: wrapping them in a match arm can change the compiler's IFJMP/IFNOT selection. Raw Tolk retains the original embedded SDBEGINSQ through exact asm helpers; actual SDBEGINSXQ instructions remain dynamic helpers.
 
 `tolk:recovery` exercises the first batch of the [compiler recovery specification](../docs/compiler-recovery-spec.md): integer match, CONDSEL/ternary and exact cursor loads. It compiles original/raw/normalized separately, requires raw/normalized code-cell and serialized-BOC identity, compares getter behavior and gas, and compares original behavior independently. It includes signed/large/unknown match values, underflow, different source spellings, retained joins/early returns, erased runtime types, live slice snapshots, dynamic/signed widths, refs, coins and discarded results. Original/raw hash differences are reported separately and do not count as an exact original round trip.
+
+`tolk:builders` exercises N05 with 17 compiler-derived fixtures and 202 getter probes. Functional exact methods cover 13 store operations without changing original builder snapshots, opcodes, argument order or exceptions. Probes include zero/negative/maximum/oversized coins, dynamic widths, nullable refs and addresses, invalid slices, bit/ref overflow, dead results, nested chains and effects in receiver/arguments. Raw/normalized code-cell, serialized BOC and gas must match. Original behavior is checked independently; only 8/17 original/raw code cells are identical, with existing raw differences recorded in the report. The shared recovery runner is reusable by subsequent families.
 
 `npm run acton -- --local --native` checks all eight archived contracts from every built-in template (empty, counter, nft, jetton, w5-extension). This currently exits 1 because some observable effects differ, NftCollection returns a WHILE stack-depth diagnostic, and WalletV5 uses unsupported AGAINEND; see ../docs/regression-results.md. Synthetic storage, senders and messages are defined in fixtures/acton-probes.mjs. Each internal message starts with a fresh contract and identical input state, time and random seed. Original exit codes and successful outgoing-message counts are checked before trusting a comparison. Gas and outgoing values are recorded; remaining account balances are not compared. External-message flows are not compared by this harness. Getters that expose MYCODE are compared without suppressing their differing code hashes.
 

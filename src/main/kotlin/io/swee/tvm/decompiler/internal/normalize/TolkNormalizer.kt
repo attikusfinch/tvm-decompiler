@@ -8,7 +8,7 @@ internal object TolkNormalizer {
     internal data class Edit(val start: Int, val end: Int, val replacement: String, val change: NormalizationChange)
     internal fun interface Rule { fun edits(source: TolkSource): List<Edit> }
     private val rules = listOf(AddressGetterReturnRule, NativeNullCheckRule, BooleanGuardRule,
-        IntegerMatchRule, ConditionalSelectRule, CursorLoadRule, PrefixMatchRule, GetterNameRule)
+        IntegerMatchRule, ConditionalSelectRule, CursorLoadRule, BuilderStoreRule, PrefixMatchRule, GetterNameRule)
 
     fun normalize(main: String): Result {
         var code = main

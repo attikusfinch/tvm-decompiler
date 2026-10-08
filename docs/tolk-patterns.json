@@ -250,6 +250,16 @@
           ]
         },
         {
+          "id": "builder-store-helpers",
+          "count": 1,
+          "examples": [
+            {
+              "line": 78,
+              "code": "tvmStoreGrams("
+            }
+          ]
+        },
+        {
           "id": "prefix-dispatch",
           "count": 4,
           "examples": [
@@ -333,6 +343,11 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "prefix-lazy-match",
           "methodId": "0",
           "functionName": "onInternalMessage"
@@ -365,6 +380,20 @@
             {
               "line": 30,
               "code": "var (s22, x2) = tvmLoadUint(bodyTail, 64);"
+            }
+          ]
+        },
+        {
+          "id": "builder-store-helpers",
+          "count": 2,
+          "examples": [
+            {
+              "line": 71,
+              "code": "tvmStoreGrams("
+            },
+            {
+              "line": 78,
+              "code": "tvmStoreGrams("
             }
           ]
         },
@@ -486,6 +515,11 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "97026",
           "functionName": "get_wallet_data"
@@ -527,6 +561,20 @@
             {
               "line": 97,
               "code": "tvmCondSelect("
+            }
+          ]
+        },
+        {
+          "id": "builder-store-helpers",
+          "count": 13,
+          "examples": [
+            {
+              "line": 24,
+              "code": "tvmStoreGrams("
+            },
+            {
+              "line": 53,
+              "code": "tvmStoreGrams("
             }
           ]
         },
@@ -652,6 +700,11 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "106029",
           "functionName": "get_jetton_data"
@@ -707,6 +760,20 @@
             {
               "line": 111,
               "code": "tvmCondSelect("
+            }
+          ]
+        },
+        {
+          "id": "builder-store-helpers",
+          "count": 18,
+          "examples": [
+            {
+              "line": 14,
+              "code": "tvmStoreGrams("
+            },
+            {
+              "line": 38,
+              "code": "tvmStoreGrams("
             }
           ]
         },
@@ -851,6 +918,16 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "builder-store-chain",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "prefix-lazy-match",
           "methodId": "-1",
           "functionName": "onExternalMessage"
@@ -888,6 +965,20 @@
             {
               "line": 32,
               "code": "var (s22, x3) = tvmLoadUint(s2, 1);"
+            }
+          ]
+        },
+        {
+          "id": "builder-store-helpers",
+          "count": 8,
+          "examples": [
+            {
+              "line": 19,
+              "code": "tvmStoreMaybeRef("
+            },
+            {
+              "line": 41,
+              "code": "tvmStoreGrams("
             }
           ]
         },
@@ -1020,6 +1111,20 @@
           ]
         },
         {
+          "id": "builder-store-helpers",
+          "count": 2,
+          "examples": [
+            {
+              "line": 23,
+              "code": "tvmStoreMaybeRef("
+            },
+            {
+              "line": 45,
+              "code": "tvmStoreMaybeRef("
+            }
+          ]
+        },
+        {
           "id": "prefix-dispatch",
           "count": 9,
           "examples": [
@@ -1129,6 +1234,20 @@
       ],
       "occurrences": 7,
       "normalizedOccurrences": 5
+    },
+    {
+      "id": "builder-store-helpers",
+      "status": "implemented",
+      "contracts": [
+        "NftCollection",
+        "NftItem",
+        "JettonWallet",
+        "JettonMinter",
+        "SimpleExtension",
+        "WalletV5"
+      ],
+      "occurrences": 44,
+      "normalizedOccurrences": 3
     },
     {
       "id": "prefix-dispatch",

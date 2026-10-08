@@ -9,6 +9,7 @@ const patterns = [
   {id:'returned-address-alias',status:'implemented',regex:/val (\w+) = \([^;\n]+\.loadAddress\(\) as slice\);\s+return \1;/g},
   {id:'primitive-load-tuples',status:'partial',regex:/^\s*var \([^\n]+\) = tvmLoad(?:Uint|Int|Grams|OptStdAddr)\([^\n]+\);/gm},
   {id:'conditional-select',status:'partial',regex:/\btvmCondSelect\(/g},
+  {id:'builder-store-helpers',status:'implemented',regex:/\btvmStore(?:Grams|Coins|Varuint32|MaybeRef|Dict|OptStdAddr|StdAddr|Uint|Int|SliceDirect|Slice|Ref|Builder)\(/g},
   {id:'prefix-dispatch',status:'partial',regex:/\bmatchPrefix(?:_\d+_[0-9A-F]+)?\(/g},
   {id:'address-to-slice-cast',status:'candidate',regex:/\.loadAddress\(\) as slice/g},
   {id:'int-cast-bindings',status:'partial',regex:/ as int\);/g},
