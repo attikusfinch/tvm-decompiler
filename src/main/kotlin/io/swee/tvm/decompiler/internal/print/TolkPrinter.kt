@@ -15,6 +15,7 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
     private val raw = linkedMapOf<String, AsmFunction>()
     private val usedRaw = linkedSetOf<String>()
     private val functions = linkedMapOf<String, IRNode.Function>()
+    private val exceptionValues = mutableSetOf<StackEntry>()
     private lateinit var context: FunctionGenerationContext
     private lateinit var presentation: TolkPresentation
     private val output = StringBuilder()
@@ -116,6 +117,9 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
         val generation = analyze(root, options.copy(exact = true))
         generation.node.asmFunctions.forEach { raw[it.name] = it }
         generation.functions.keys.forEach { functions[it.name] = it }
+        generation.node.accept(object : io.swee.tvm.decompiler.internal.ir.IRNodeVisitor {
+            override fun visit(node: TryCatch) { exceptionValues += node.exceptionValue }
+        })
         line("// Decompiled TVM code. Source names and storage schemas were not present in the BOC.")
         line("import \"stdlib\"")
         line()
@@ -159,7 +163,9 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
 
     private fun expression(node: IRNode): Expression = when (node) {
         is IntLiteral -> Expression(node.literal.toString(), "int")
-        is VariableUsage -> presentation.inline[node.entry]?.let(::expression) ?: Expression(variable(node.entry), type(node.entry.type))
+        is VariableUsage -> presentation.inline[node.entry]?.let(::expression) ?: Expression(
+            variable(node.entry), if (node.entry in exceptionValues) "unknown" else type(node.entry.type)
+        )
         is GlobalRead -> Expression("__tvm_get_global_${node.number}()", "unknown")
         is FunctionCall -> call(node)
         is CodeBlock -> expression(node.entries.last())
@@ -339,6 +345,13 @@ class TolkPrinter(private val options: DecompilerOptions, stdlib: String, builti
                     line("} else {"); indentation++; block(node.elseCodeBlock); indentation--
                 }
                 line("}")
+            }
+            is TryCatch -> {
+                line("try {"); indentation++
+                block(node.tryBlock)
+                indentation--; line("} catch (${variable(node.exceptionCode)}, ${variable(node.exceptionValue)}) {"); indentation++
+                block(node.catchBlock)
+                indentation--; line("}")
             }
             is WhileLoop -> {
                 val condition = checkNotNull(node.condCodeBlock)

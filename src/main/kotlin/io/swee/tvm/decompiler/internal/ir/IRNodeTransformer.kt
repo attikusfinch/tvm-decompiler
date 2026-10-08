@@ -12,6 +12,7 @@ interface IRNodeTransformer {
             is IRNode.ConstSliceDecl -> transformConstSliceDecl(node)
             is IRNode.SliceConstRef -> transformSliceConstRef(node)
             is IRNode.IfElse -> transformIfElse(node)
+            is IRNode.TryCatch -> transformTryCatch(node)
             is IRNode.WhileLoop -> transformWhileLoop(node)
             is IRNode.UntilLoop -> transformUntilLoop(node)
             is IRNode.RepeatLoop -> transformRepeatLoop(node)
@@ -29,6 +30,9 @@ interface IRNodeTransformer {
     fun transformConstSliceDecl(node: IRNode.ConstSliceDecl): IRNode = node
     fun transformSliceConstRef(node: IRNode.SliceConstRef): IRNode = node
     fun transformAsmFunction(node: IRNode.AsmFunction): IRNode = node
+    fun transformTryCatch(node: IRNode.TryCatch): IRNode = IRNode.TryCatch(
+        transformCodeBlock(node.tryBlock), transformCodeBlock(node.catchBlock), node.exceptionValue, node.exceptionCode
+    )
     fun transformComment(node: IRNode.Comment): IRNode = node
     fun transformFunctionReturnStatement(node: IRNode.FunctionReturnStatement): IRNode = node
     fun transformGlobalRead(node: IRNode.GlobalRead): IRNode = node

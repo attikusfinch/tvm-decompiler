@@ -84,7 +84,7 @@ internal class TolkPresentation(function: IRNode.Function, private val context: 
             is IfElse -> evaluationBefore(node.condCodeBlock, target) // Never sink an unconditional call into a branch.
             is WhileLoop -> node.condCodeBlock?.let { evaluationBefore(it, target) } ?: Evaluation.BARRIER
             is RepeatLoop -> evaluationBefore(node.countExpression, target)
-            is UntilLoop -> Evaluation.BARRIER
+            is UntilLoop, is TryCatch -> Evaluation.BARRIER
             else -> sequence(node.directChildren().toList())
         }
     }

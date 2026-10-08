@@ -23,6 +23,9 @@ object BranchFoldingPass {
     }
 
     private fun recurse(node: IRNode): IRNode = when (node) {
+        is IRNode.TryCatch -> IRNode.TryCatch(
+            transformBlock(node.tryBlock), transformBlock(node.catchBlock), node.exceptionValue, node.exceptionCode
+        )
         is IRNode.IfElse -> {
             val c = transformBlock(node.condCodeBlock)
             val i = node.ifCodeBlock?.let { transformBlock(it) }

@@ -109,7 +109,7 @@ BOC → инструкции TVM → стековый IR → raw main.tolk + std
 | N20 | Вызовы, методы, generics, lambda/inlining | Stack ABI, порядок вычисления и результирующие слоты; стёртые generics и авторские границы inline обычно не восстановимы однозначно | N16, P01, P04 | Очередь / недоказуемые имена и границы отмечать явно |
 | P01 | CFG: stack joins, WHILE / UNTIL / REPEAT | Стек до/после каждой дуги, эффектные условия, сохранённые значения и exits; сначала исправить неполный raw IR | N01 | Частично: исправлен WHILE condition/pop/body и false edge; NftCollection complete на обоих языках; продолжение CFG анализа |
 | P02 | AGAINEND и другие continuation-формы | Не терять хвост continuation или выход; явная диагностика до реализации | P01 | Частично: AGAIN/AGAINEND, loop-carried stack и RETALT; WalletV5 complete на обоих языках. AGAINBRK/AGAINENDBRK и динамические exits остаются открытыми |
-| P03 | TRY / catch / THROWARG | Catch stack, exception value/code, c0/c1/c2, успешный и аварийный путь; нормализатор не маскирует unsupported parser | P01 | Очередь |
+| P03 | TRY / catch / THROWARG | Catch stack, exception value/code, c0/c1/c2, успешный и аварийный путь; нормализатор не маскирует unsupported parser | P01 | Частично: canonical FunC/Tolk register envelopes, captured stack до 255, nested joins/returns и THROWARG; arbitrary handlers/TRYARGS остаются с диагностикой |
 | P04 | Динамические continuations / dispatch | CALLX/EXECUTE/JMPX, c3 и динамическая цель, stack ABI и return; без доказанной цели сохранять явный low-level вызов/диагностику | P01..P03 | Очередь |
 
 N01–N04 — первый проход. Затем N05–N10 и анализ блокеров P01/P02,
@@ -269,6 +269,7 @@ mutating-метод возвращает `slice?`; legacy consumers получа
 | 2026-10-08 | N07/N08 | terminal null-coalesce, optional-address-getter и optional-address-cursor. 14 compiler-derived сценариев / 144 пробы с идентичными raw/normalized code-cell, serialized BOC и gas; original/normalized поведение совпадает, 13/14 original/raw code-cell идентичны. Проверены null в int/cell slots, эффектный fallback и eager CONDSEL без coalesce, addr_none/std/truncated/var, refs, snapshots, цепочки и оба отброшенных результата. В шаблонах 21 → 0 LDOPTSTDADDR helpers и 113 → 48 primitive tuple-loads; оставшиеся tuple-loads только в partial. ?? и optional getter применяются в synthetic-примерах, в текущих шаблонах их точной формы нет. |
 | 2026-10-08 | P01 | WHILE сначала выполняет condition, снимает флаг, затем выполняет body; false edge возвращает condition stack без флага. Discovery и back edge учитывают обе фазы. Восстановлен NftCollection: компилируется на FunC/Tolk, 4/4 getter, 11/12 messages с values, 12/12 state/actions; royalty value отличается из-за газа. Дополнительно исправлены synthetic CALLREF method IDs и generic FunC tuple indexing, необходимые для его компиляции. Восемь compiler-derived loop-сценариев / 70 проб, raw/normalized BOC + gas идентичны, original behavior совпадает; 1/8 original/raw code-cell идентичен. |
 | 2026-10-08 | P02 | AGAIN/AGAINEND сохраняют бесконечный back edge и явные RETALT, вложенные возвраты задают тип функции. Embedded control register печатается как c5, purity asm переносится в FunC, forward declarations inline_ref сохраняют impure. WalletV5 complete на обоих языках: 5/5 getters, 10/10 messages, 10/10 state/actions. Шесть compiler-derived сценариев / 36 проб, raw/normalized BOC + gas и original behavior совпадают, 5/6 original/raw code-cell идентичны. AGAINBRK/AGAINENDBRK и динамические exits остаются открытыми. |
+| 2026-10-08 | P03 | Native try/catch из доказанных envelopes: FunC PUSHCTR/SETCONTCTR c1/c3/c4/c5/c7 и compact Tolk SETCONTCTRMANY 186. Catch stack содержит captured slots, exception value/code, без живого try stack. Сохранены lexical joins, nested rethrow, early returns и THROWARGANY divergence. Десять compiler-derived сценариев / 75 проб проверяют captured snapshots, cell/null exception values, c4/c5/c7 restoration; raw/normalized BOC + gas и original behavior совпадают, 1/10 original/raw code-cell идентичен. Noncanonical TRY не считается complete. |
 
 Приёмка первого прохода: 45 Kotlin-тестов; 19 compiler-derived сценариев,
 501 входная проба с равенством raw/normalized code-cell, serialized BOC и
@@ -310,6 +311,13 @@ state/actions. HTML обновлён и проверен. `tolk:audit` допо�
 Original/recompiled: 17/18 getters, 65/71 messages с values, 70/71
 state/actions. Новый WalletV5 проходит все свои пробы; прежние MYCODE и
 gas/carried-value расхождения сохранены в отчёте. Каталог и HTML обновлены.
+
+Порция P03 прошла 62 Kotlin-теста, четыре теста стенда, шесть основных
+recovery suites / 1028 проб, а также prefix/normalization/edges. Оба corpus
+теперь 19 passing / 1 известный dynamic EXECUTE partial, 75 getter-проб;
+original code-cell identities остаются 8 Tolk / 15 FunC. Все восемь шаблонов
+проверены, их raw/normalized BOC идентичны; прежние original/recompiled
+расхождения сохранены. HTML обновлён и проверен для обоих языков.
 
 Результаты предыдущих правил и известные original/recompiled-расхождения
 содержатся в [regression-results.md](regression-results.md). Эта спецификация

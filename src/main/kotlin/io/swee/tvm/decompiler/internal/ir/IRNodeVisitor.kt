@@ -19,6 +19,7 @@ interface IRNodeVisitor {
     fun visit(node: IRNode.FunctionReturnStatement) = visitAny(node)
     fun visit(node: IRNode.FunctionCall) = visitAny(node)
     fun visit(node: IRNode.IfElse) = visitAny(node)
+    fun visit(node: IRNode.TryCatch) = visitAny(node)
     fun visit(node: IRNode.WhileLoop) = visitAny(node)
     fun visit(node: IRNode.UntilLoop) = visitAny(node)
     fun visit(node: IRNode.RepeatLoop) = visitAny(node)

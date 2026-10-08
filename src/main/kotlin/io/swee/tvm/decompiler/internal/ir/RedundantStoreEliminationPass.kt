@@ -59,6 +59,13 @@ object RedundantStoreEliminationPass {
                     }
                 }
 
+                is IRNode.TryCatch -> {
+                    val tried = transformBlock(node.tryBlock, HashMap(known), removed)
+                    val caught = transformBlock(node.catchBlock, HashMap(known), removed)
+                    for (e in collectAssigned(node.tryBlock) + collectAssigned(node.catchBlock)) known.remove(e)
+                    out.add(IRNode.TryCatch(tried, caught, node.exceptionValue, node.exceptionCode))
+                }
+
                 is IRNode.IfElse -> {
                     val newCond = transformBlock(node.condCodeBlock, known, removed)
                     val newIf = node.ifCodeBlock?.let { transformBlock(it, HashMap(known), removed) }

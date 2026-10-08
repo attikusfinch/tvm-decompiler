@@ -76,6 +76,7 @@ class RootPrinter(private val options: DecompilerOptions = DecompilerOptions()) 
             RepeatLoopPrinter(),
             UntilLoopPrinter(),
             IfElsePrinter(),
+            TryCatchPrinter(),
             GlobalWritePrinter(),
             GlobalReadPrinter()
         ).associateBy { it.clazz } as Map<Class<out IRNode>, LeafNodePrinter<IRNode>>)
@@ -487,6 +488,18 @@ class UntilLoopPrinter : LeafNodePrinter<UntilLoop>(UntilLoop::class.java) {
     }
 }
 
+class TryCatchPrinter : LeafNodePrinter<TryCatch>(TryCatch::class.java) {
+    override fun print(ctx: LeafPrinterContext, node: TryCatch) {
+        ctx.append("try {\n")
+        ctx.print(node.tryBlock)
+        ctx.append(ctx.indent()).append("} catch (")
+        ctx.append(ctx.sar.stackEntryNameResolver(node.exceptionValue.name))
+        ctx.append(", ").append(ctx.sar.stackEntryNameResolver(node.exceptionCode.name)).append(") {\n")
+        ctx.print(node.catchBlock)
+        ctx.append(ctx.indent()).append("}")
+    }
+}
+
 class IfElsePrinter : LeafNodePrinter<IfElse>(IfElse::class.java) {
     override fun print(ctx: LeafPrinterContext, node: IfElse) {
         val ifHasContent = hasPrintableContent(ctx, node.ifCodeBlock)
@@ -541,7 +554,7 @@ fun isSingleLine(ctx: LeafPrinterContext, node: CodeBlock): Boolean {
 
 fun isStatement(node: IRNode): Boolean {
     return when (node) {
-        is IfElse, is WhileLoop, is RepeatLoop, is Comment -> false
+        is IfElse, is TryCatch, is WhileLoop, is RepeatLoop, is Comment -> false
         else -> true
     }
 }

@@ -31,7 +31,8 @@ object ControlFlowResolver {
         newNodes: List<IRNode>,
         finalized: List<IrBlockBuilder>,
         fallthrough: IrBlockBuilder? = null,
-        used: List<IrBlockBuilder> = listOf()
+        used: List<IrBlockBuilder> = listOf(),
+        scopeLocal: Set<StackEntry> = emptySet()
     ) {
         val allBranches = buildList {
             fallthrough?.let(::add)
@@ -54,7 +55,8 @@ object ControlFlowResolver {
             val entriesAtPosition = allBranches.map { it.stackFetch(i) }
             val sampleEntry = headBranch.stackFetch(i)
 
-            val merged = StackEntry.merge(entriesAtPosition)!!
+            val joined = StackEntry.merge(entriesAtPosition)!!
+            val merged = if (joined in scopeLocal) StackEntry.Simple(joined.type, StackEntryName.Const("phi")) else joined
             if (merged === entriesAtPosition.first()) {
                 mergedStack.add(merged)
             } else {

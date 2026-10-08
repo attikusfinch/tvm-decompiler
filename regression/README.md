@@ -40,6 +40,7 @@ npm run tolk:builders
 npm run tolk:nullable
 npm run tolk:loops
 npm run tolk:again
+npm run tolk:exceptions
 npm run tolk:audit
 npm run tolk:patterns
 ```
@@ -48,7 +49,7 @@ npm run tolk:patterns
 
 Tolk's local Acton run also obtains `--no-normalize` output under each case's `raw` directory, compiles both stages and requires identical TVM code for the current presentation/type rules. Requests/cache identities include the normalization setting. `tolk:normalization` has seven complete fixtures for unknown getter IDs, incompatible signatures, nullable returns, successful/failing assertions, integer null values/branches and a counter ABI candidate: 26 probes compare valid/truncated storage. Another fixture checks that the parser's known dynamic EXECUTE in an internal getter call leaves partial files/diagnostics unchanged and skips normalization. `tolk:patterns` regenerates ../docs/tolk-patterns.json from all eight raw/normalized results, including counts for both stages. The [normalization catalog](../docs/tolk-normalization-patterns.md) distinguishes implemented rules from future candidates.
 
-The 20-case corpus compiles fixture source, decompiles it, recompiles the output, and compares code-cell hashes and getter results in a local TON sandbox. Strict corpus mode rejects unexpected failures while recording TRY and dynamic EXECUTE as known unsupported cases. A partial result is never counted as a successful recompilation, even if its generated source could compile.
+The 20-case corpus compiles fixture source, decompiles it, recompiles the output, and compares code-cell hashes and getter results in a local TON sandbox. Nineteen cases now compile; canonical TRY passes its four probes. Strict corpus mode rejects unexpected failures while recording dynamic EXECUTE as known unsupported. A partial result is never counted as a successful recompilation, even if its generated source could compile.
 
 `tolk:matches` compiles seven compiler-derived prefix fixtures, decompiles/recompiles both stages and checks original/raw/normalized code-cell identity. Its 348 getter probes also require identical gas and cover truncated prefix/payload bits, unknown opcodes, 4/8/32-bit widths, leading zeroes and tail references. Overlapping prefixes, live unmatched tails and nonterminal joins stay explicit. Unit tests additionally reject nested early returns and a conditional/block immediately before the terminal return: wrapping them in a match arm can change the compiler's IFJMP/IFNOT selection. Raw Tolk retains the original embedded SDBEGINSQ through exact asm helpers; actual SDBEGINSXQ instructions remain dynamic helpers.
 
@@ -59,6 +60,8 @@ The 20-case corpus compiles fixture source, decompiles it, recompiles the output
 `npm run acton -- --local --native` checks all eight archived contracts from every built-in template (empty, counter, nft, jetton, w5-extension). All eight now compile in both languages. The command exits 1 because six original/recompiled message outcomes and one getter still differ; see ../docs/regression-results.md. WalletV5 passes 5/5 getters, 10/10 message outcomes and 10/10 state/action comparisons. NftCollection passes 4/4 getters, 11/12 message outcomes with values and 12/12 state/action comparisons. Synthetic storage, senders and messages are defined in fixtures/acton-probes.mjs. Each internal message starts with a fresh contract and identical input state, time and random seed. Original exit codes and successful outgoing-message counts are checked before trusting a comparison. Gas and outgoing values are recorded; remaining account balances are not compared. External-message flows are not compared by this harness. Getters that expose MYCODE are compared without suppressing their differing code hashes.
 
 `tolk:again` covers P02 with six compiler-derived fixtures / 36 probes: infinite loops with scalar/tuple returns, global effects, exceptions, ref-chain cursors and c5 POPCTR/PUSHCTR. Original behavior and raw/normalized BOC plus gas match for every probe; 5/6 original/raw code cells are identical. AGAINBRK/AGAINENDBRK and arbitrary continuation targets remain unsupported. The WalletV5 message probes also catch removal of void effectful calls by FunC when `impure` is missing from asm definitions or inline-ref forward declarations.
+
+`tolk:exceptions` covers P03 with ten compiler-derived fixtures / 75 probes: canonical register-saving TRY envelopes, captured values/snapshots, exception code/value including cell/null, nested rethrow, early return and c4/c5/c7 restoration. Every probe preserves original behavior and raw/normalized BOC plus gas; 1/10 original/raw code cells is identical. Only the proven compiler envelope is recovered. Noncanonical handlers, more than one capture chunk and TRYARGS retain diagnostics; unit/CLI tests use a separate noncanonical TRY fixture for strict rejection.
 
 Optional --acton writes TASM disassembly with cell hashes and bit offsets. On Windows it uses WSL Ubuntu (WSL_DISTRO and ACTON_WSL_PATH override this); on Linux it uses acton from PATH. The emulator tests themselves do not require Acton to be installed.
 

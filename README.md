@@ -23,13 +23,13 @@ The default Tolk output uses arithmetic/comparison operators, assertions, standa
 
 The library result exposes structured diagnostics for unsupported instructions, parser failures and function failures. Instruction diagnostics identify the method, mnemonic and logical instruction location. Complete means no such failures were detected, not that recompilation or equivalence has been proven.
 
-WHILE condition/exit stacks and AGAIN/AGAINEND infinite loops with explicit returns are recovered. All eight archived Acton templates now compile in both languages; WalletV5 passes its five getter and ten internal-message comparisons. FunC preserves effectful asm calls and inline-ref procedure declarations through `impure`. Further continuation forms, TRY and dynamic targets remain separate recovery items.
+WHILE condition/exit stacks and AGAIN/AGAINEND infinite loops with explicit returns are recovered. All eight archived Acton templates now compile in both languages; WalletV5 passes its five getter and ten internal-message comparisons. FunC preserves effectful asm calls and inline-ref procedure declarations through `impure`. Canonical compiler TRY/catch envelopes recover captured values, exception slots, register restoration, nested joins and returns.
 
 The default CLI retains partial files for inspection and writes warnings to stderr. `--strict` exits with code 2 for incomplete decompilation, omitting partial source files; JSON still contains diagnostics. Fatal input/disassembly errors exit with code 1. Logs stay off stdout so JSON can be consumed by another process.
 
-TRY/catch and dynamic continuations remain unsupported. MYCODE can change behavior if recompilation changes the code hash: derived addresses and returned code cells may change. Different gas usage can affect outgoing values in carry-value send modes.
+Noncanonical TRY/TRYARGS and dynamic continuations remain unsupported. MYCODE can change behavior if recompilation changes the code hash: derived addresses and returned code cells may change. Different gas usage can affect outgoing values in carry-value send modes.
 
-The local improvements cover typed embedded INMSGPARAM/GETPARAM selectors, typed balance-pair access and executable Fift literals for referenced cells. Unit/CLI fixtures exercise an Acton Tolk counter, unsupported TRY and a dynamic EXECUTE.
+The local improvements cover typed embedded INMSGPARAM/GETPARAM selectors, typed balance-pair access and executable Fift literals for referenced cells. Unit/CLI fixtures exercise both compiler TRY envelopes, noncanonical TRY rejection and dynamic EXECUTE diagnostics.
 
 Full BOC → decompile → FunC/Fift or Tolk/Acton → emulator checks are in [regression](regression/README.md). The corpus includes minimal examples of generation bugs and transaction probes for all eight contracts from Acton's empty, counter, nft, jetton and w5-extension templates. Use a TVM 11 capable Fift for FunC recompilation of these modern contracts. The legacy Gradle roundTripTest only runs source files supplied under func_sources. See the [measured results and limitations](docs/regression-results.md).
 

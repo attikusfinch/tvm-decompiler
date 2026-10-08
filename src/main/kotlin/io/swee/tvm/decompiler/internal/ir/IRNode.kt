@@ -116,6 +116,16 @@ sealed interface IRNode {
         override fun accept0(visitor: IRNodeVisitor) = visitor.visit(this)
     }
 
+    class TryCatch(
+        val tryBlock: CodeBlock,
+        val catchBlock: CodeBlock,
+        val exceptionValue: StackEntry,
+        val exceptionCode: StackEntry
+    ) : IRNode {
+        override fun directChildren() = listOf(tryBlock, catchBlock)
+        override fun accept0(visitor: IRNodeVisitor) = visitor.visit(this)
+    }
+
     class IfElse(
         val condCodeBlock: CodeBlock,
         val ifCodeBlock: CodeBlock?,

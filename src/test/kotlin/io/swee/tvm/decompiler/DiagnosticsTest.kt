@@ -12,8 +12,8 @@ class DiagnosticsTest {
     )
 
     @Test
-    fun `unsupported TRY produces an incomplete result with instruction and method`() {
-        val result = decompile("try-catch")
+    fun `noncanonical TRY produces an incomplete result with instruction and method`() {
+        val result = decompile("raw-try")
         assertFalse(result.complete)
         val diagnostic = result.diagnostics.single { it.mnemonic == "TRY" }
         assertEquals(Kind.UNSUPPORTED_INSTRUCTION, diagnostic.kind)
@@ -24,7 +24,7 @@ class DiagnosticsTest {
 
     @Test
     fun `strict JSON keeps diagnostic evidence and excludes partial files`() {
-        val tree = ObjectMapper().readTree(OutputWriter.json(decompile("try-catch"), includeFiles = false))
+        val tree = ObjectMapper().readTree(OutputWriter.json(decompile("raw-try"), includeFiles = false))
         assertFalse(tree["complete"].asBoolean())
         assertTrue(tree["diagnostics"].size() > 0)
         assertEquals(0, tree["files"].size())
@@ -43,7 +43,7 @@ class DiagnosticsTest {
 
     @Test
     fun `diagnostics do not leak between independent requests`() {
-        assertFalse(decompile("try-catch").complete)
+        assertFalse(decompile("raw-try").complete)
         val result = decompile("acton-counter")
         assertTrue(result.complete, result.diagnostics.toString())
         assertTrue(result.diagnostics.isEmpty())

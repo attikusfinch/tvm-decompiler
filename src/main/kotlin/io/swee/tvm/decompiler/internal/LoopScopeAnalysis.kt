@@ -35,6 +35,10 @@ fun analyzeLoopScopes(node: IRNode): LoopScopeMap {
         }
 
         when (n) {
+            is IRNode.TryCatch -> {
+                walk(n.tryBlock, fresh())
+                walk(n.catchBlock, fresh())
+            }
             is IRNode.WhileLoop -> {
                 val s = fresh()
                 n.condCodeBlock?.let { walk(it, s) }

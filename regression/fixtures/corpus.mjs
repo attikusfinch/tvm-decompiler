@@ -35,6 +35,6 @@ export default [
   { id: 'embedded-ref-cell', source: contract('cell embedded() asm "<b x{AB} s, <b x{C_} s, b> ref, b> PUSHREF"; cell evaluate() method_id { return embedded(); }'), probes: probes([[]]) },
   { id: 'dynamic-continuation', knownUnsupported: true, source: contract('int execute_cell(cell code) asm "CTOS" "BLESS" "EXECUTE"; int evaluate() method_id { return execute_cell(get_data()); }'),
     probes: probes([[]]), dataHex: '802a' },
-  { id: 'try-catch', knownUnsupported: true, source: contract('int evaluate(int n) method_id { int r = 7; try { throw_if(401,n == 0); r = 100 / n; } catch (_,int code) { r = code; } return r; }'),
+  { id: 'try-catch', source: contract('int evaluate(int n) method_id { int r = 7; try { throw_if(401,n == 0); r = 100 / n; } catch (_,int code) { r = code; } return r; }'),
     probes: probes([[0], [1], [-1], [3]]) },
 ];

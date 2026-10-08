@@ -659,6 +659,15 @@ fun registerContinuationParsers(registry: ParserRegistry) {
             ctx.hasDiverged = true
             ctx.remainingInstructions?.clear()
         }
+        register<TvmExceptionsThrowarganyInst>(ParserLevel.MANUAL) { ctx, _ ->
+            val code = ctx.stackPop(TvmStackEntryType.INT.typename)
+            val value = ctx.stackPop()
+            ctx.appendNode(IRNode.FunctionCall("throw_arg", listOf(
+                IRNode.VariableUsage(value, tracked = true), IRNode.VariableUsage(code, tracked = true)
+            )))
+            ctx.hasDiverged = true
+            ctx.remainingInstructions?.clear()
+        }
     }
 }
 

@@ -4,9 +4,9 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 
 | Check | Public API | Patched local decompiler |
 |---|---|---|
-| 20 minimal FunC cases | 15 pass; 3 generation errors; 2 incomplete | 18 pass; 2 incomplete; no unexpected failures |
+| 20 minimal FunC cases | 15 pass; 3 generation errors; 2 incomplete | 19 pass; 1 incomplete; no unexpected failures |
 | Identical code-cell hashes in corpus | 12 | 15 |
-| Getter probes in passing corpus cases | 68 | 71 |
+| Getter probes in passing corpus cases | 68 | 75 |
 | Acton Counter | Compilation error | 2/2 getters and 9/9 messages match |
 | Acton Empty | Not queried | 1/1 getter and 5/5 internal messages match |
 | Acton NFT Collection | Not queried | Compiles on FunC/Tolk; 4/4 getters, 11/12 messages with values, 12/12 state/action results match |
@@ -16,9 +16,9 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 | Acton SimpleExtension | Not queried | Compiles; 1/1 getter, 6/7 internal message outcomes and 7/7 storage/action results match |
 | Acton WalletV5 | Not queried | Compiles on FunC/Tolk; 5/5 getters, 10/10 message outcomes and state/action comparisons |
 
-Kotlin unit/CLI tests: 60 passed, including WHILE/AGAINEND/CALLREF recovery, effectful FunC declarations, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 4 passed. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+Kotlin unit/CLI tests: 62 passed, including WHILE/AGAINEND/CALLREF/TRY recovery, effectful FunC declarations, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 4 passed. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
 
-The three newly passing minimal cases reproduce typed BALANCE indexing, embedded GETPARAM selectors, and a PUSHREF cell containing references. Counter also reproduces INMSGPARAM result typing and embedded selectors. The incomplete cases exercise TRY and dynamic EXECUTE and now return structured diagnostics instead of a success-shaped partial result.
+The newly passing minimal cases reproduce typed BALANCE indexing, embedded GETPARAM selectors, a PUSHREF cell containing references and canonical TRY/catch. Counter also reproduces INMSGPARAM result typing and embedded selectors. Dynamic EXECUTE remains incomplete with structured diagnostics. Noncanonical TRY has a separate negative unit/CLI fixture.
 
 ## Observable differences still present
 
@@ -34,7 +34,7 @@ The standalone [HTML report](../reports/acton-contracts.html) contains original 
 
 Gas is reported separately; remaining account balances are not compared. Every message starts from independent original storage and fixed emulator time/random seed. A code-cell identity comparison is distinct from equality of BOC serialization bytes. No chain deployment is involved in these tests.
 
-TRY/catch and dynamic continuations remain unsupported. Complete means no detected parsing failures, not verified recompilation or equivalence. The CLI's strict mode is intended to let callers reject known partial outputs before compilation.
+Noncanonical TRY/TRYARGS and dynamic continuations remain unsupported. Complete means no detected parsing failures, not verified recompilation or equivalence. The CLI's strict mode is intended to let callers reject known partial outputs before compilation.
 
 ## Tolk output backend
 
@@ -55,7 +55,17 @@ effects. Six additional fixtures / 36 probes compare loops, returns,
 exceptions, ref chains and action-register writes; original behavior and
 raw/normalized BOC + gas match. Five of six original/raw code cells match.
 
-Tolk recompilation used Acton 1.0.0 (3a4f0dc 2026-05-11). The 20-case corpus has 18 passing recompilations, 71 matching getter probes, eight identical code-cell hashes and no unexpected failures. TRY and dynamic EXECUTE are the same two known partial cases. A separate 13-probe check passes for global slot 7, repeated loop-condition side effects, branch/argument order, dynamic exception arguments, independent builder snapshots and null owner/content on the uninitialized NFT getter branch. The existing FunC corpus still has 18 passing recompilations and 15 identical code-cell hashes.
+Tolk recompilation used Acton 1.0.0 (3a4f0dc 2026-05-11). The 20-case corpus has 19 passing recompilations, 75 matching getter probes, eight identical code-cell hashes and no unexpected failures. Canonical TRY now passes; dynamic EXECUTE remains partial. A separate 13-probe check passes for global slot 7, repeated loop-condition side effects, branch/argument order, dynamic exception arguments, independent builder snapshots and null owner/content on the uninitialized NFT getter branch. The FunC corpus has 19 passing recompilations and 15 identical code-cell hashes.
+
+P03 recovers the compiler's TRY register envelope, including captured stack
+values and snapshots, two exception slots, nested rethrow/early return and
+c4/c5/c7 restoration. FunC and Tolk print their respective catch argument
+orders. Each TRY arm is an inlining barrier; a single surviving arm still
+exports its local result through an outer phi. Ten compiler-derived fixtures
+exercise 75 probes with matching original behavior and identical
+raw/normalized BOC plus gas. Only 1/10 original/raw code cells is identical;
+the raw emitter's remaining code/gas differences are reported separately.
+Arbitrary handlers, multiple capture chunks and TRYARGS retain diagnostics.
 
 All eight Acton template outputs compile as Tolk. Seventeen of eighteen getter probes match; 65/71 internal-message outcomes match including outgoing values; 70/71 match exit/storage/raw actions. Empty, Counter and WalletV5 pass every executed probe. The MYCODE and carried-value differences described above also occur with Tolk, with different gas figures available in the HTML. External-message flows remain untested.
 

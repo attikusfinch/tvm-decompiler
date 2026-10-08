@@ -351,7 +351,8 @@ object TvmDecompilerImpl : TvmDecompiler {
         ctx: IrBlockBuilder,
         nextElements: MutableList<TvmInst>
     ) {
-        if (!registry.parse(ctx, inst, nextElements)) {
+        if (!io.swee.tvm.decompiler.internal.instructions.tryParseCompilerTry(registry, ctx, inst, nextElements) &&
+            !registry.parse(ctx, inst, nextElements)) {
             ctx.appendNode(IRNode.Comment("unparsed: ${inst.mnemonic} $inst",
                 DecompilationDiagnostic(
                     DecompilationDiagnostic.Kind.UNSUPPORTED_INSTRUCTION,
