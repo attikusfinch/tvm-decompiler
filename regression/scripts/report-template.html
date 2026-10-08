@@ -55,6 +55,7 @@ const labels = {
 };
 function status(contract) {
   if (!contract.complete) return { text:'Частичная декомпиляция', kind:'error' };
+  if (!contract.recompiled) return { text:'Ошибка рекомпиляции', kind:'error' };
   if (contract.report.status !== 'passed') return { text:'Есть различия при исполнении', kind:'warn' };
   return { text:'Все выполненные проверки совпали', kind:'' };
 }
@@ -106,16 +107,14 @@ function notice(contract) {
     const diagnostic = contract.report.diagnostics[0];
     return '<div class="notice error"><strong>' + esc(diagnostic.mnemonic) + ': ' + esc(diagnostic.message) + '</strong><p>' + languageName() + ' справа — частичный результат. Декомпилятор вернул <code>complete=false</code>; рекомпиляция и сравнение исполнения не запускались. Диагностика: метод <code>' + esc(diagnostic.methodId) + '</code>, <code>' + esc(diagnostic.location) + '</code>. Это логическая позиция парсера, а не битовый адрес инструкции.</p></div>';
   }
-  const texts = {
-    Empty:['Рекомпиляция успешна; поведение совпало в 6 проверках','Геттер владельца и все 5 внутренних сообщений дали одинаковые результаты. Кодовая ячейка и BOC отличаются; расход газа указан в таблице.'],
-    Counter:['Рекомпиляция успешна; поведение совпало в 11 проверках','Оба геттера и все 9 сообщений дали одинаковые результаты. Кодовая ячейка и BOC после рекомпиляции отличаются; расход газа некоторых сообщений тоже изменился.'],
-    NftItem:['Рекомпиляция успешна; одно исходящее значение TON отличается','Геттер, хранилище и исходные действия совпали. В ответе на static-data запрос другой расход газа изменил сумму, перенесённую в исходящее сообщение.'],
-    JettonWallet:['Рекомпиляция успешна; MYCODE меняет наблюдаемое поведение','Кошелёк возвращает свой код и использует его для state-init другого кошелька. Новый хеш кода меняет ответ get_wallet_data, адрес назначения и state-init перевода; при сжигании также отличается остаток TON.'],
-    JettonMinter:['Рекомпиляция успешна; wallet-discovery возвращает другую сумму TON','Все три геттера и все результаты хранилища / исходных действий совпали. В ответе с адресом кошелька отличается сумма TON из-за изменившегося расхода газа. Код встроенного JettonWallet сохранён как отдельная ячейка.'],
-    SimpleExtension:['Рекомпиляция успешна; отмена подписки переносит другую сумму TON','Геттер extensionInfo, хранилище и исходные действия всех 7 внутренних сообщений совпали. При отмене подписки сумма исходящего сообщения отличается из-за другого расхода газа. Внешние сообщения collect / withdraw в этом наборе не сравнивались.'],
-  };
-  const entry = texts[contract.id];
-  return '<div class="notice ' + (contract.report.status === 'passed' ? '' : 'warn') + '"><strong>' + entry[0] + '</strong><p>' + entry[1] + '</p></div>';
+  if (!contract.recompiled) return '<div class="notice error"><strong>Компилятор отклонил результат</strong><p>' + esc(contract.report.message) + '</p></div>';
+  const probes = [...(contract.report.getters ?? []), ...(contract.report.messages ?? [])];
+  const failed = probes.filter(probe => !probe.sameObservedBehavior).length;
+  const title = failed ? 'Рекомпиляция успешна; отличаются ' + failed + ' из ' + probes.length + ' проверок'
+    : 'Рекомпиляция успешна; поведение совпало в ' + probes.length + ' проверках';
+  const text = failed ? 'Результаты геттеров, хранилище, исходные действия и сообщения приведены ниже. Изменение MYCODE и расхода газа может менять адреса и суммы TON.'
+    : 'Все выполненные геттеры и внутренние сообщения дали одинаковые результаты. Расход газа и хеш кода проверяются отдельно и показаны ниже.';
+  return '<div class="notice ' + (failed ? 'warn' : '') + '"><strong>' + title + '</strong><p>' + text + '</p></div>';
 }
 function gas(before, after) {
   const delta = BigInt(after) - BigInt(before);

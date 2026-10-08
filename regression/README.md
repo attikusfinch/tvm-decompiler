@@ -35,7 +35,7 @@ npm run acton -- --local --native --language tolk --acton
 npm run tolk:edges
 ```
 
-`tolk:edges` requires the Tolk NftItem artifacts from the preceding Acton run. It checks explicit global slot 7, side effects in while conditions, and null owner/content returned by an uninitialized NFT item. Partial-result rejection applies to both output languages. Public swap.coffee requests support only FunC in this harness.
+`tolk:edges` requires the Tolk NftItem artifacts from the preceding Acton run. Its 13 getter probes check explicit global slot 7, side effects in loop conditions, branch/argument evaluation order, dynamic exception arguments even when no exception is raised, independent builder snapshots, and null owner/content returned by an uninitialized NFT item. Partial-result rejection applies to both output languages. Public swap.coffee requests support only FunC in this harness.
 
 The 20-case corpus compiles fixture source, decompiles it, recompiles the output, and compares code-cell hashes and getter results in a local TON sandbox. Strict corpus mode rejects unexpected failures while recording TRY and dynamic EXECUTE as known unsupported cases. A partial result is never counted as a successful recompilation, even if its generated source could compile.
 
