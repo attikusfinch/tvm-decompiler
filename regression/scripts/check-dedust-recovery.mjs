@@ -10,10 +10,12 @@ import { checkDeposit } from './dedust-deposit-fixtures.mjs';
 import { checkAffiliate } from './dedust-affiliate-fixtures.mjs';
 import { checkPosition } from './dedust-position-fixtures.mjs';
 import { checkPool, checkPoolV1 } from './dedust-pool-fixtures.mjs';
+import { checkBlank } from './dedust-blank-fixtures.mjs';
+import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
+const fixtures={ClassicBlank:checkBlank,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));
@@ -23,13 +25,18 @@ for(const entry of manifest.contracts) {
     const assembly=compareBoc(original,assembleExact(reference,entry.name+'.tasm'));
     assert.equal(assembly.sameSerializedBoc,true,entry.name+': assembly');
     const result={name:entry.name,assembly,status:'instruction-reference-only'};
-    let source;
-    try { source=await fs.readFile(path.join(project,entry.name,'main.tolk'),'utf8'); }
-    catch(error) { if(error.code!=='ENOENT') throw error; }
+    let source,language;
+    for(const extension of ['tolk','fc']) {
+        try { source=await fs.readFile(path.join(project,entry.name,'main.'+extension),'utf8');language=extension;break; }
+        catch(error) { if(error.code!=='ENOENT') throw error; }
+    }
     if(source) {
-        const sources=await loadTolkSources(project,entry.name+'/main.tolk');
-        const compiled=await compileTolk({sources});
+        const filename=entry.name+'/main.'+language;
+        const sources=language==='tolk'?await loadTolkSources(project,filename):await loadFuncSources(project,filename);
+        const compiled=language==='tolk'?await compileTolk({sources}):await compileLegacyFunc({sources,targets:[filename]});
         assert.equal(compiled.status,'ok',entry.name+': '+compiled.message);
+        result.language=language==='fc'?'func':'tolk';
+        result.compiler=language==='fc'?await legacyFuncVersion():await tolkVersion();
         const raw=Buffer.from(compiled.codeBoc,'base64');
         // Explicit BOC wire format: no index, CRC32. Acton's --boc uses no CRC32.
         // This serializes the candidate cell; it never copies any oracle bytes.

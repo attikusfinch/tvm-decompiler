@@ -1,25 +1,27 @@
 # DeDust reconstruction
 
-Readable, byte-identical Tolk recovery is verified for **5 of 21 archived code
-families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1 and CpmmPoolV2.
+Readable, byte-identical recovery is verified for **6 of 21 archived code
+families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
+and ClassicBlank. The five CPMM contracts use Tolk; ClassicBlank uses FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
-| Contract | Serialized BOC | Getter probes | Message probes |
+| Contract | Serialized BOC | Getter/hook probes | Message probes |
 | --- | ---: | ---: | ---: |
 | CpmmDeposit | 522 bytes | 9 | 21 |
 | CpmmAffiliateAccount | 306 bytes | 6 | 21 |
 | CpmmPosition | 1540 bytes | 14 | 49 |
 | CpmmPoolV1 | 10014 bytes | 12 | 116 |
 | CpmmPoolV2 | 10032 bytes | 12 | 116 |
+| ClassicBlank | 165 bytes | 2 | 33 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **70 native tests**. See `verification.json` for per-family results.
+project passes **73 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **16 families** have not passed readable-source acceptance. Their
+The remaining **15 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -98,6 +100,28 @@ Pool V2 adds a 10,000,000 minimum processing fee to wallet resolution; V1 lacks
 it. A low-gas-price configuration verifies this distinction. Complete Pool V1
 acceptance additionally uses the whole-contract proofs above.
 
+## ClassicBlank
+
+`ClassicBlank/main.fc` recovers owner authorization, code installation and immediate
+handoff to the installed constructor (method 58662, seven arguments). Failure
+restores data/actions and sends an empty full-balance refund with mode 160, deleting
+the emptied account. The loader preserves template and body suffixes for the
+constructor; it does not suppress bounced messages. The complete 165-byte BOC has
+hash `b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf`.
+
+The reproducible build uses pinned FunC 0.4.4 from `func-bin-044`, including its
+bundled Fift. Ordinary FunC expresses the whole flow; two fixed-width field codecs
+retain the archived loader's physical result order. A single STZEROES primitive
+retains the refund header. There are no original executable blobs or byte patches.
+`func-stdlib.fc` retains the TON standard library and its LGPL notice.
+
+`npm run dedust:classic-blank` compares complete BOC bytes, 33 message probes and
+two constructor-hook probes, including exact gas and refund amounts. An independent
+source-built constructor records all seven arguments and deliberately changes data
+and sends before throwing, verifying rollback. Three native Acton tests additionally
+verify code identity, immediate construction and deletion after failure.
+See `ClassicBlank/recovery-verification.json`.
+
 ## Reproduce
 
 Install pinned Node dependencies with `npm ci` in `regression/`. Install Acton
@@ -114,6 +138,11 @@ npm run dedust:pool-processing
 Builds read editable Tolk and serialize the compiler output. Frozen BOCs in
 `oracles/` serve only as independent comparisons and local emulator oracles.
 Temporary output goes into `build/` and `regression/artifacts/`.
+
+The recovery gate also builds FunC 0.4.4 contracts from editable sources. Acton
+consumes those generated BOCs in `build/`, after byte comparison, because its
+default FunC compiler differs. Run the gate before running the native tests directly;
+the tracked oracle files never supply a reconstructed build artifact.
 
 ## Other recovered contracts
 

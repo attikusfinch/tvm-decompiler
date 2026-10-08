@@ -26,6 +26,12 @@ depends = ["CpmmDeposit", "CpmmPosition", "CpmmAffiliateAccount"]
 src = "CpmmPoolV1/main.tolk"
 depends = ["CpmmDeposit", "CpmmPosition", "CpmmAffiliateAccount"]
 
+# Generated from ClassicBlank/main.fc by the recovery gate's pinned FunC 0.4.4.
+# Acton consumes this source-built artifact after compiler/BOC comparison.
+[contracts.ClassicBlank]
+src = "build/ClassicBlank/code.boc"
+depends = []
+
 [test]
 
 [fmt]
