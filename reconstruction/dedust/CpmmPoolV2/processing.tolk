@@ -95,7 +95,8 @@ fun sendPoolAffiliateFee(kind: int, identity: uint256, fee: uint16, amount: coin
 }
 
 @method_id(20)
-fun processPoolPayment(
+@inline
+fun processPoolPaymentEntry(
     storage: PoolStorage,
     initiator: any_address,
     queryId: uint64,
@@ -107,9 +108,10 @@ fun processPoolPayment(
 ) {
     val request=PoolPaymentRequest.fromCell(paymentCell);
     val payout=normalizePoolPayout(PoolExtendedPayout.fromCell(payoutCell),initiator);
+    var configSlice=storage.config.beginParse();
     try {
         assert(amount > 0) throw 47;
-        val config=PoolConfig.fromCell(storage.config,{assertEndAfterReading:false});
+        val config=PoolConfig.fromSlice(configSlice,{assertEndAfterReading:false});
         if(request is PoolSwapPayload) {
             val nativeInput=asset.isNone() ? amount as int : 0;
             val maxPayoutGas=max(payout.fulfill.extraGas,payout.reject.extraGas);
@@ -234,3 +236,9 @@ fun processPoolPayment(
         throw(code,poolPaymentRejectContext(payout.excessesTo,payout.reject));
     }
 }
+
+// Public dispatch keeps CALLDICT. The inline entry isolates its try/catch
+// in the same 18-argument continuation form as the archived method.
+fun processPoolPayment(storage: PoolStorage, initiator: any_address, queryId: uint64,
+    payoutCell: cell, paymentCell: cell, asset: any_address, amount: coins,
+    originalForwardFee: coins): void asm "20 CALLDICT"

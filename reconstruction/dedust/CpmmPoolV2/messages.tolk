@@ -3,12 +3,22 @@ struct (0xd53276db) PoolExcesses { queryId: uint64 }
 struct (0xde8402ce) InitPool { queryId: uint64; payload: cell? }
 struct (0xd1735400) TakeWalletAddress { queryId: uint64; wallet: any_address; owner: cell? }
 struct (0xa5a7cbf8) PayNative { queryId: uint64; amount: coins; payment: cell; payout: cell }
+type PoolJettonPayload = cell | RemainingBitsAndRefs
+
+fun PoolJettonPayload.unpackFromSlice(mutate s: slice): PoolJettonPayload {
+    return s.loadUint(1) != 0 ? s.loadRef() : s as RemainingBitsAndRefs;
+}
+
+fun PoolJettonPayload.packToBuilder(self, mutate b: builder) {
+    if (self is cell) { b.storeBool(true).storeRef(self); }
+    else { b.storeBool(false).storeSlice(self); }
+}
+
 struct (0x7362d09c) JettonNotification {
     queryId: uint64
     amount: coins
     sender: any_address
-    payloadIsRef: bool
-    payload: RemainingBitsAndRefs
+    payload: PoolJettonPayload
 }
 @overflow1023_policy("suppress")
 struct (0x25251ee0) JoinLiquidity { queryId: uint64; config: cell; x: coins; y: coins; initiator: any_address }

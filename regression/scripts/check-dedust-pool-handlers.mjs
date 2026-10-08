@@ -17,6 +17,11 @@ const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},pa
 const originalMethods=methods(Cell.fromBoc(oracle)[0]),candidateMethods=methods(Cell.fromBoc(candidate)[0]);
 const exactMethodIds=[19,21,22,23,24,72157,81689,112421];
 for(const id of exactMethodIds)assert.ok(candidateMethods.get(id).equals(originalMethods.get(id)),`complete candidate: exact dictionary value ${id}`);
+const incomingDecoderHash='4d8dcc10bbe8ada52bbcbbe299ae4bd8364d684794a493b303cd048efdb39602';
+assert.equal(originalMethods.get(0).refs[0].hash().toString('hex'),incomingDecoderHash,'archived incoming decoder');
+assert.equal(candidateMethods.get(0).refs[0].hash().toString('hex'),incomingDecoderHash,'candidate: exact incoming union decoder');
+const unwrap=c=>!c.bits.length&&c.refs.length===1?c.refs[0]:c;
+assert.equal(unwrap(candidateMethods.get(20)).bits.toString(),unwrap(originalMethods.get(20)).bits.toString(),'candidate: method 20 outer continuation instructions');
 await fs.writeFile(path.join(directory,'candidate.boc'),candidate);await fs.writeFile(path.join(directory,'candidate.fif'),compiled.fiftCode);
 const libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell());
 for(const role of ['CpmmDeposit','CpmmPosition','CpmmAffiliateAccount']) {
@@ -64,7 +69,7 @@ function jetton(payment=swap(),amount=100000000n,p=payout(),asRef=true,malformed
     if(asRef)b.storeRef(forward);else b.storeSlice(forward.beginParse());return b.endCell();
 }
 const cases=[];
-async function check(name,o,body,{from=sender,value=5000000000n,exit=0,expectedState,bounced=false,data,selfIdentityBodies}={}) {
+async function check(name,o,body,{from=sender,value=5000000000n,exit=0,expectedState,bounced=false,data,selfIdentityBodies,sameGas=false,noActions=false}={}) {
     const [result]=await compareMessages(oracle,candidate,[{label:name,from,value,body,bounced,expectExit:exit}],{data:data??state(o),address:pool,libraries});
     if(selfIdentityBodies) {
         const clean=(outcome,expectedBody)=>{
@@ -80,6 +85,8 @@ async function check(name,o,body,{from=sender,value=5000000000n,exit=0,expectedS
         assert.equal(result.sameEffectsAndActions,true,name+': '+JSON.stringify(result));
     }
     assert.equal(result.before.exitCode,exit,name+': unexpected original exit');
+    if(sameGas)assert.equal(result.after.gasUsed,result.before.gasUsed,name+': exact decoding gas');
+    if(noActions)assert.deepEqual(result.before.actions,[],name+': no refund from malformed outer message');
     if(expectedState)assert.equal(result.before.dataHash,expectedState.hash().toString('hex'),name+': independent expected state');
     cases.push({name,...result});
 }
@@ -123,7 +130,13 @@ await check('jetton payment unknown payload',defaults,jetton(empty),{from:wallet
 await check('jetton payment failed swap wraps reject callback',defaults,jetton(swap({minimum:999999999999n})),{from:walletY,exit:30});
 await check('jetton reward funding',defaults,jetton(funding(1700000100)),{from:walletY,exit:42});
 await check('unknown message opcode',defaults,beginCell().storeUint(0,32).endCell(),{exit:65535});
-await check('bounced malformed message ignores even malformed storage',defaults,empty,{bounced:true,data:empty});
+await check('bounced malformed message ignores even malformed storage',defaults,empty,{bounced:true,data:empty,sameGas:true,noActions:true});
+const missingJettonRef=beginCell().storeUint(0x7362d09c,32).storeUint(9,64).storeCoins(1).storeAddress(sender).storeBit(true).endCell();
+await check('jetton reference selector without payload fails before handler',defaults,missingJettonRef,{from:walletY,exit:9,sameGas:true,noActions:true});
+await check('malformed jetton reference wins over malformed root storage',defaults,missingJettonRef,{from:walletY,data:empty,exit:9,sameGas:true,noActions:true});
+const shortJettonHeader=beginCell().storeUint(0x7362d09c,32).storeUint(9,32).endCell();
+await check('truncated jetton query fails before handler',defaults,shortJettonHeader,{from:walletY,exit:9,sameGas:true,noActions:true});
+await check('truncated native payment refs fail before handler',defaults,beginCell().storeUint(0xa5a7cbf8,32).storeUint(9,64).storeCoins(1).endCell(),{exit:9,sameGas:true,noActions:true});
 for(const body of [native(),init(9),walletReply(9,walletY)]) {
     const withTail=beginCell().storeSlice(body.beginParse()).storeUint(0xbeef,16).storeRef(leaf).endCell();
     const isInit=body.beginParse().preloadUint(32)===0xde8402ce;
@@ -232,6 +245,8 @@ for(const [status,liquidity]of [[0,1000000n],[1,1000000n],[2,1000000n],[2,0n]]) 
 }
 const proof={scope:'Complete readable V2 candidate: all 16 incoming message variants and all 3 getters; exact gas/outgoing balances/byte acceptance pending',
     exactMethodIds,
+    exactIncomingDecoder:incomingDecoderHash,
+    exactMethod20OuterInstructions:true,
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([n,s])=>[n,createHash('sha256').update(s).digest('hex')])),
     comparison:compareBoc(oracle,Cell.fromBoc(candidate)[0].toBoc({idx:false,crc32:true})),
     limitations:['Compute gas differs','Carry-balance outgoing values differ','Self-reported code hash differs and is verified against each actual code root'],

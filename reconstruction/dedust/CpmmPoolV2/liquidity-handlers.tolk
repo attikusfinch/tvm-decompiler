@@ -11,6 +11,7 @@ import "payout-config"
 import "payout-basic"
 import "events"
 import "math"
+import "transaction-context"
 
 @inline
 fun assertPoolDeploymentSender(deployment:AutoDeployAddress,sender:any_address) {
@@ -100,12 +101,12 @@ struct (0xbc1531a9) PoolWithdrawLiquidity {
 }
 
 @inline
-fun requestPoolWithdrawal(storage:PoolStorage,message:Withdraw,sender:any_address,incomingValue:coins,originalForwardFee:coins) {
+fun requestPoolWithdrawal(storage:PoolStorage,message:Withdraw,sender:any_address,incomingValue:coins) {
     assert(storage.status is PoolInitialized) throw 22;
     storage.rewards=synchronizePoolRewards(storage.rewards,storage.liquidity);
     contract.setData(storage.toCell());
     val payout=normalizePoolBasicPayout(PoolBasicPayout.fromCell(message.payout),sender);
-    val budget=contract.getStoragePaidPayment()+(originalForwardFee << 2)+calculateGasFee(0,25000)+
+    val budget=contract.getStoragePaidPayment()+(poolOriginalForwardFee() << 2)+calculateGasFee(0,25000)+
         calculateGasFee(0,20000)+calculateGasFee(0,29000)+((50000000+payout.options.extraGas) << 1);
     assert(budget <= incomingValue) throw 25;
     val fees=PoolFees.fromCell(storage.fees);

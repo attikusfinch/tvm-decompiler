@@ -164,3 +164,11 @@ single role or its assembler reference passes.
   Typed CALLDICT bridges retain calls to readable referenced entry bodies;
   isolated settlement/calculation/event proofs preserve the same placement.
   Entry point 0 and payment dispatcher 20 still require exact reconstruction.
+- The complete 16-variant incoming decoder now matches its archived code cell.
+  Jetton forwarding payloads use the TEP74 ref/inline selector, with malformed
+  references rejected before handler execution or storage decoding. Four added
+  outer-message probes and the bounced path match gas and empty action lists.
+  Method 20's outer 18-argument continuation instructions also match; its body
+  remains pending. Forwarding-fee reads in withdrawal/reward handlers occur
+  after the lifecycle check. Full-candidate state/action probes now total 103,
+  alongside 6 explicitly different self-code responses and 12 exact getters.

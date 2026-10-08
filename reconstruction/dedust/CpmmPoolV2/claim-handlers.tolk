@@ -11,6 +11,7 @@ import "settlement"
 import "payment"
 import "transfers"
 import "payout-config"
+import "transaction-context"
 
 @inline
 fun poolStandardAddressOrFallback(value:any_address,fallback:any_address):any_address {
@@ -94,9 +95,9 @@ struct (0x2e0cccba) PoolClaimPositionReward {
 }
 
 @inline
-fun claimPoolReward(storage:PoolStorage,message:ClaimReward,sender:any_address,incomingValue:coins,originalForwardFee:coins) {
+fun claimPoolReward(storage:PoolStorage,message:ClaimReward,sender:any_address,incomingValue:coins) {
     assert(storage.status is PoolInitialized) throw 22;
-    val budget=contract.getStoragePaidPayment()+(originalForwardFee << 2)+calculateGasFee(0,18500)+
+    val budget=contract.getStoragePaidPayment()+(poolOriginalForwardFee() << 2)+calculateGasFee(0,18500)+
         calculateGasFee(0,10000)+calculateGasFee(0,19000)+50000000;
     assert(budget <= incomingValue) throw 25;
     val reward=accruePoolReward(storage.rewards.mustGet(message.rewardId,46),storage.liquidity);

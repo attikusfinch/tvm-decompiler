@@ -57,6 +57,13 @@ placement and calls. Together with the three getters, eight complete dictionary
 values match the frozen whole contract. Methods 0 and 20 remain outside the
 exact gate; full Pool byte equality is still pending.
 
+Pool V2's entire incoming-message union decoder is also exact. Ref/inline TEP74
+payload decoding preserves malformed-reference failure before the refund handler
+and before storage decoding. Transaction fields are read inside each handler,
+and method 20 preserves its original outer continuation instructions. The full
+candidate passes 103 state/action probes, 6 declared self-code differences and
+12 exact getter probes. The two method bodies still differ from the original.
+
 Excesses sending, payout-wallet selection, reward lookup and both resolver-request
 revisions are exact. Pool V2 adds a 10,000,000 processing-fee floor that V1 lacks;
 a custom local gas-price fixture verifies this difference. The isolated BOC and
