@@ -61,3 +61,28 @@ Four short typed primitives preserve the old workchain check and nullable query/
 delete stack layouts. Routing, updates, duplicate rejection and strict record
 decoding are Tolk; no executable code blob is included. Run
 `npm run dedust:pool-wallets` to reproduce this module proof.
+
+`storage.tolk` recovers the Pool root and its strict config/fees/extra references.
+`getters.tolk` now compiles all three public getters to their exact dictionary
+values in both revisions. An isolated build containing all three methods is
+byte-identical to the independent oracle wrapper. The two additional hashes are
+`0b3ae88f9bf57e2e591b9462064cd53d4c3a4db998bb8cef3147768af18599f8`
+(`get_pool_data`) and
+`3647ba7c349e6e81721b09bbc8eacefdbe56b735102c9173b4e5205e16e6777d`
+(method 112421, descriptively named `estimateWithdrawal`; its original name is
+unknown). The estimate returns floor-rounded reserve shares and zero when the
+Pool has no liquidity. Signed getter arguments retain their original behavior.
+
+Returning typed maps directly preserves the original wide-stack result layout;
+converting them to low-level dictionaries changes compiler register lifetimes.
+Lazy decoding in the estimate skips unused dictionaries/flags and intentionally
+does not inspect config/fee/extra payloads. The data getter eagerly validates
+those references and permits a root suffix, just like the archived code.
+
+Run `npm run dedust:pool-getters`: 202 differential probes compare stack values,
+exit codes and exact gas with independent expectations. They cover every lifecycle
+and fee selector, populated maps, maximum coin fields, signed estimates, zero
+liquidity, malformed tags and strict nested suffixes. Four Acton tests exercise
+the readable getter/storage logic. The proof is `getters-verification.json`.
+`messages.tolk` currently provides ABI layouts and compiler tag allocation;
+complete message handlers and full Pool byte equality remain pending.

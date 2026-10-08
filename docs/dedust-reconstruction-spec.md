@@ -101,3 +101,11 @@ single role or its assembler reference passes.
   independent dictionary/error expectations plus 4 Acton tests pass. Pending
   overwrite semantics, strict records and validation order are preserved. This
   brings the project to 33 native tests without claiming a complete Pool yet.
+- All three public Pool getters now match their complete method cells in both
+  revisions. Named storage/config/fee/extra schemas, direct typed-map returns and
+  lazy withdrawal-estimate decoding reproduce the original bytecode. The isolated
+  three-method build is byte-identical; 202 independent differential probes with
+  exact gas and 4 Acton tests pass. There are now 37 native tests. Method 112421 is
+  descriptively named `estimateWithdrawal`, without claiming its original name.
+  Message layouts preserve allocation order, but full message handlers, swap and
+  liquidity logic and whole-Pool byte equality remain outstanding.

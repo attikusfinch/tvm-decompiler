@@ -34,6 +34,11 @@ Four wallet registry helpers also match both Pool revisions. Their isolated buil
 is byte-identical and 39 differential probes with gas plus four native module tests
 pass (`CpmmPoolV2/wallets-verification.json`). The project now has 33 Acton tests.
 
+All three public Pool getters are now exact in both revisions. The typed storage
+and getter sources pass a complete isolated BOC comparison and 202 independent
+differential probes including gas. Four Acton tests bring the project to 37 native
+tests. See `CpmmPoolV2/getters-verification.json`; full Pool recovery is still open.
+
 Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
 `npm run dedust:pool-decompile` checks 33 getter cases per revision against the
 frozen code and independent expectations, including the Position address derived
