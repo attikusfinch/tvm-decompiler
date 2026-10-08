@@ -146,9 +146,9 @@ function normalizeStack(stack) {
 }
 
 export async function compareGetters(original, recompiled, probes, {
-  data = beginCell().endCell(), address = new Address(0, Buffer.alloc(32, 7)),
+  data = beginCell().endCell(), address = new Address(0, Buffer.alloc(32, 7)), config,
 } = {}) {
-  const blockchain = await Blockchain.create();
+  const blockchain = await Blockchain.create(config === undefined ? undefined : { config });
   blockchain.verbosity = { print: false, blockchainLogs: false, vmLogs: 'none', debugLogs: false };
   const create = boc => SmartContract.create(blockchain, {
     address, code: codeCell(boc), data, balance: 10000000000n,

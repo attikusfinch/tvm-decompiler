@@ -122,3 +122,10 @@ single role or its assembler reference passes.
   calculated from the pinned validator formula. Three Acton tests bring the
   project to 44 tests. Getter/math bounds cover `(1 << 120) - 1`, the full maximum
   of the original `VarUInteger 16` coin encoding. Message-path recovery continues.
+- Pool excesses sender, payout-wallet selection, default reward lookup and both
+  resolver-request revisions are exact. V2 adds a minimum processing fee of
+  10,000,000; V1 lacks it. A low-gas-price local config makes this difference
+  observable. Five implementation cells and the complete isolated BOC match;
+  192 independent probes with exact gas/actions/fee/dictionary expectations and
+  four Acton tests pass. There are 48 native tests. Reward lookup uses one small
+  typed zero constructor; no original executable blob is included.

@@ -122,3 +122,17 @@ values. The fee formula follows the pinned official validator's
 [`MsgPrices` implementation](https://github.com/ton-blockchain/ton/blob/4539cfabf2877e09d13032861f36c1490d13a941/crypto/block/transaction.cpp).
 Three native Acton tests inspect the actual send actions. The proof is
 `events-verification.json`; full Pool transaction paths remain pending.
+
+`transfers.tolk` recovers excesses, payout-wallet selection and the V2 wallet
+resolver request. `rewards.tolk` also recovers strict lookup with a zero default;
+one typed four-slot zero constructor preserves the archived constant layout.
+V1's request lives in `../CpmmPoolV1/transfers-v1.tolk`: it retains the same two
+asymmetric forwarding-size estimates but has no 10,000,000 processing-fee floor.
+The V2 helper adds that floor. Other recovered helper implementations are shared.
+
+Run `npm run dedust:pool-transfers`. Its isolated BOC and five implementation
+cells (three shared and two request revisions) match the original code. The 192
+probes compare exact gas, raw send actions, independently calculated resolver
+amounts, strict dictionary records and errors. A lowered local gas-price config
+makes the request revisions observably different. Four native Acton tests bring
+the full project to 48 tests. The proof is `transfers-verification.json`.

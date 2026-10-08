@@ -6,6 +6,16 @@ struct PoolReward {
     lastUpdate: uint40
 }
 
+// Preserve the original four-slot zero constructor instead of PUSH3 folding.
+fun emptyPoolReward(): PoolReward
+    asm "0 PUSHINT DUP 0 PUSHINT OVER"
+
+@inline_ref
+fun poolRewardOrEmpty(rewards: map<uint2, PoolReward>, key: uint2): PoolReward {
+    val reward = rewards.get(key);
+    return reward.isFound ? reward.loadValue() : emptyPoolReward();
+}
+
 // Preserve the original EQINT instead of folding equality into IFNOT.
 fun isZero(value: int): bool
     asm "0 EQINT"

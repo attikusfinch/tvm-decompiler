@@ -61,7 +61,7 @@ const samples=[
     reward(0,100000,3n*Q,NOW-1n),reward(1000,0,7,NOW-250n),
     reward(17,101,1,NOW-3n),reward(1,1,0,NOW-1n),
     reward(1000,100000,7,NOW),reward(1000,100000,7,NOW+100n),
-    reward((1n<<40n)-1n,(1n<<119n)-1n,1n<<240n,0),
+    reward((1n<<40n)-1n,(1n<<120n)-1n,1n<<240n,0),
 ];
 const single=[];
 for(const r of samples)for(const liquidity of [0n,1n,13n,1000n,1n<<119n]) {

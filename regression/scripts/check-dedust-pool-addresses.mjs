@@ -89,7 +89,7 @@ for(const pool of pools)for(const owner of owners) {
     assert.equal(result.before.gasUsed,result.after.gasUsed);
     assert.deepEqual(result.before.stack,expected(positionLib,positionData,pool));
     positions.push({pool:pool.toRawString(),owner:String(owner),...result});
-    for(const [x,y,l,locked] of [[1n,2n,3n,2500n],[(1n<<119n)-1n,0n,1n,65535n],[0n,0n,0n,0n]]) {
+    for(const [x,y,l,locked] of [[1n,2n,3n,2500n],[(1n<<120n)-1n,0n,1n,65535n],[0n,0n,0n,0n]]) {
         const config=beginCell().storeCoins(x).storeCoins(y).storeCoins(l).storeUint(locked,16).storeRef(payload).endCell();
         const data=beginCell().storeRef(config).storeAddress(pool).storeSlice(ownerCell.beginParse()).storeCoins(0).storeCoins(0).endCell();
         const [deposit]=await compareGetters(oracle,candidate,[{method:90047,args:[{type:'slice',cell:ownerCell},

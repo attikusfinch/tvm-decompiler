@@ -50,6 +50,12 @@ Three Acton tests bring the project to 44 native tests. See
 `CpmmPoolV2/events-verification.json`. Getter/math bounds now include the full
 120-bit maximum of `VarUInteger 16`.
 
+Excesses sending, payout-wallet selection, reward lookup and both resolver-request
+revisions are exact. Pool V2 adds a 10,000,000 processing-fee floor that V1 lacks;
+a custom local gas-price fixture verifies this difference. The isolated BOC and
+192 probes with gas, send actions and independent fee/dictionary expectations pass.
+There are now 48 native Acton tests. See `CpmmPoolV2/transfers-verification.json`.
+
 Both CPMM Pool revisions now decode completely and their full raw Tolk compiles.
 `npm run dedust:pool-decompile` checks 33 getter cases per revision against the
 frozen code and independent expectations, including the Position address derived
