@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
         val noStdlib by option(ArgType.Boolean, shortName = "n", description = "Exclude the generated support library from output")
             .default(false)
 
-        val noNormalize by option(ArgType.Boolean, fullName = "no-normalize", description = "Return Tolk before the separate normalization stage")
+        val noNormalize by option(ArgType.Boolean, fullName = "no-normalize", description = "Return FunC/Tolk before the separate normalization stage")
             .default(false)
 
         val exact by option(ArgType.Boolean, shortName = "e", fullName = "exact", description = "Byte-exact mode: keep asm_* wrappers for constant-slice opcodes")

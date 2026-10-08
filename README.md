@@ -1,5 +1,7 @@
 # TVM → FunC / Tolk decompiler
 
+FunC now has its own separate normalization stage: native mutating cursor loads, operation-derived local names, literal prefix labels, readable message primitives and named send modes. Both languages support `--no-normalize` and expose the rule audit under `normalizations`; partial output skips this stage. See the [FunC rule catalog](docs/func-normalization-patterns.md). Getter method IDs remain explicit in FunC.
+
 Inverse compiler patterns are tracked in the [implementation specification](docs/compiler-recovery-spec.md) and [complete family catalog](docs/compiler-recovery-catalog.md): all 24 families have reproducible examples, implemented forms and explicit remaining boundaries. Recovery includes integer/nested `match`, native ternary/arithmetic, exact cursor/builder methods, nullable forms and message modes. Normalization remains a separate stage after decompilation.
 
 Requires JDK 17+. Build the runnable JAR and run the unit/CLI tests:

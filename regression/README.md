@@ -1,5 +1,7 @@
 # Decompiler regression harness
 
+`npm run func:normalization` checks the separate FunC stage with native FunC/Fift: raw/normalized code-cell and serialized BOC identity, getter exit/stack/gas on valid and invalid inputs, original behavior, unchanged support library, distinct cache identities and untouched partial output. Fixtures cover cursor loads, snapshots/effects, loops/catch, prefix labels and send modes. The all-eight-template `acton --local` check applies the same raw/normalized BOC requirement to **both** output languages.
+
 Requires Node 22+, a built decompiler JAR, and FunC/Fift capable of assembling TVM 11 instructions. Dependencies are pinned in package-lock.json. Native tool download URLs and SHA-256 digests are recorded in toolchain-lock.json; downloaded executables are not committed.
 
 From the repository root:

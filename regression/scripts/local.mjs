@@ -8,7 +8,7 @@ const java = process.env.JAVA_EXE ?? (process.env.JAVA_HOME ? path.join(process.
 let identity;
 export async function localIdentity(exact, language = 'func', normalize = true) {
   identity ??= createHash('sha256').update(await fs.readFile(jar)).digest('hex');
-  return `local:${identity}:exact=${exact}:language=${language}${language === 'tolk' ? ':normalize=' + normalize : ''}`;
+  return `local:${identity}:exact=${exact}:language=${language}:normalize=${normalize}`;
 }
 
 export async function decompileLocal(boc, directory, { exact = false, language = 'func', normalize = true } = {}) {

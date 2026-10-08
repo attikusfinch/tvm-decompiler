@@ -6,6 +6,7 @@ import io.swee.tvm.decompiler.api.DecompilationDiagnostic
 import io.swee.tvm.decompiler.api.OutputLanguage
 import io.swee.tvm.decompiler.api.NormalizationChange
 import io.swee.tvm.decompiler.internal.normalize.TolkNormalizer
+import io.swee.tvm.decompiler.internal.normalize.FuncNormalizer
 import io.swee.tvm.decompiler.internal.ir.BranchFoldingPass
 import io.swee.tvm.decompiler.internal.ir.CopyCoalescingPass
 import io.swee.tvm.decompiler.internal.ir.DeadPhiEliminationPass
@@ -228,13 +229,16 @@ object TvmDecompilerImpl : TvmDecompiler {
                 diagnostics.distinct(), normalized.changes)
         }
         val rootPrinter = RootPrinter(options)
+        val main = rootPrinter.print(rootNode)
+        val normalized = if (options.normalize && diagnostics.isEmpty()) FuncNormalizer.normalize(main)
+            else FuncNormalizer.Result(main, emptyList())
 
         return Result(
             listOf(
-                ResultFile("main.fc", rootPrinter.print(rootNode)),
+                ResultFile("main.fc", normalized.main),
                 ResultFile("stdlib.fc", stdlibContent)
             ),
-            diagnostics.distinct()
+            diagnostics.distinct(), normalized.changes
         )
     }
 

@@ -23,14 +23,15 @@ try {
     try {
       const response = await decompile(original, target, values);
       const result = await recompile(response, target);
-      if (values.language === 'tolk' && values.local) {
+      if (values.local) {
         const rawTarget = path.join(target, 'raw');
         const raw = await decompile(original, rawTarget, { ...values, normalize:false });
         const rawResult = await recompile(raw, rawTarget);
         assert.deepEqual(raw.diagnostics, response.diagnostics, fixture.id + ': normalization changed parser diagnostics');
         assert.equal(rawResult.status, result.status, fixture.id + ': normalization changed compilability');
-        assert.equal(raw.files.find(file => file.name === 'stdlib.tolk').content,
-          response.files.find(file => file.name === 'stdlib.tolk').content, 'Normalization changed compatibility helpers');
+        const support = values.language === 'tolk' ? 'stdlib.tolk' : 'stdlib.fc';
+        assert.equal(raw.files.find(file => file.name === support).content,
+          response.files.find(file => file.name === support).content, 'Normalization changed compatibility helpers');
         entry.normalization = { changes:response.normalizations ?? [], rawRequest:await readJson(path.join(rawTarget, 'request.json')) };
         if (result.status === 'ok') {
           entry.normalization.comparison = compareBoc(rawResult.boc, result.boc);
