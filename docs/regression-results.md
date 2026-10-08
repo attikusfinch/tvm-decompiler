@@ -16,7 +16,7 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 | Acton SimpleExtension | Not queried | Compiles; 1/1 getter, 6/7 internal message outcomes and 7/7 storage/action results match |
 | Acton WalletV5 | Not queried | Compiles on FunC/Tolk; 5/5 getters, 10/10 message outcomes and state/action comparisons |
 
-Kotlin unit/CLI tests: 94 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, stdlib opcode/type/effect/permutation matching, generic and modifying-overload guards, UTF-8 output, normalization rules for both languages, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+Kotlin unit/CLI tests: 105 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, stdlib opcode/type/effect/permutation matching, generic and modifying-overload guards, UTF-8 output, normalization rules for both languages, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
 
 ## Separate FunC normalization
 
@@ -92,6 +92,24 @@ Gas is reported separately; remaining account balances are not compared. Every m
 Noncanonical TRY/TRYARGS and dynamic calls with unknown output width remain unsupported. Fixed CALLXARGS and concrete JMPX are supported in the tested forms. Complete means no detected parsing failures, not verified recompilation or equivalence. The CLI's strict mode is intended to let callers reject known partial outputs before compilation.
 
 ## Tolk output backend
+
+The stdlib catalog now reads eight pinned official Tolk 1.4.0 modules and runs
+last as a separate normalization rule over main.tolk and generated stdlib.tolk.
+Exact matching nonmutating APIs become standard calls with required imports;
+type/effect/permutation/mutating/generic differences retain typed asm wrappers
+with library-derived names. Ambiguous aliases, opaque builtins and user names
+remain explicit. Across templates, 50 declarations receive wrapper names, 7
+become native calls, and all 23 opaque context-name occurrences disappear.
+All eight raw/normalized code cells and BOC bytes remain identical.
+
+`tolk:stdlib` passes 17 forms / 73 getter probes with equal raw/normalized
+BOC, stack, exit and gas; original behavior matches independently. It covers
+context selectors including MYCODE, random seed/range, assertion, gas limits
+including out-of-gas, fee argument order, builder-to-slice, invalid runtime
+types and retained ambiguous dictionary/builtin forms. `tolk:stdlib-audit`
+checks the current JAR and both source files with actual BOCs. Both full
+corpora and template baselines retain their original/recompiled differences;
+the refreshed offline HTML displays the actual normalized support library too.
 
 P01 fixes WHILE's phase ordering: condition runs before the body, its flag
 is consumed, and the false edge keeps the resulting stack without the flag.
