@@ -1,0 +1,20 @@
+[package]
+name = "dedust-reconstruction"
+version = "0.1.0"
+description = "Local differential checks for reconstructed DeDust contracts"
+
+[toolchain]
+acton = "1.0.0"
+
+[contracts.CpmmDeposit]
+src = "CpmmDeposit/main.tolk"
+depends = []
+
+[test]
+
+[fmt]
+width = 100
+
+[import-mappings]
+acton = ".acton"
+tests = "tests"

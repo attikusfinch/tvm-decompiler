@@ -1,0 +1,344 @@
+// Independent TVM instruction reference; not recovered high-level source.
+// Mainnet executable code hash: 2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9
+SETCP 0
+DICTPUSHCONST 19 [
+    0 => {
+        SWAP
+        CTOS
+        LDU 4
+        LDMSGADDR
+        DROP
+        SWAP
+        SWAP
+        SETGLOB 1
+        PUSHINT_4 1
+        AND
+        THROWIF_SHORT 0
+        DUP
+        PLDU 32
+        DUP
+        PUSHINT_16 444
+        EQUAL
+        PUSHCONT_SHORT {
+            DROP
+            NIP
+            CALLDICT 62
+        }
+        IFJMP
+        DUP
+        PUSHINT_LONG 1223010653
+        EQUAL
+        PUSHCONT_SHORT {
+            DROP
+            CALLDICT 63
+        }
+        IFJMP
+        PUSHINT_LONG 4053307989
+        EQUAL
+        PUSHCONT_SHORT {
+            CALLDICT 64
+        }
+        IFJMP
+        DROP2
+        PUSHPOW2DEC 16
+        THROWANY
+    }
+    62 => {
+        CALLREF {
+            PUSHCTR c4
+            CTOS
+            LDMSGADDR
+            SWAP
+            SETGLOB 2
+            LDU 16
+            SWAP
+            SETGLOB 3
+            LDU 8
+            SWAP
+            SETGLOB 4
+            LDMSGADDR
+            SWAP
+            SETGLOB 5
+            LDU 32
+            SWAP
+            SETGLOB 6
+            ENDS
+        }
+        GETGLOB 2
+        GETGLOB 1
+        SWAP
+        SDEQ
+        THROWIFNOT 257
+        PUSHINT_8 32
+        SDSKIPFIRST
+        LDU 64
+        SWAP
+        SWAP
+        LDU 16
+        SWAP
+        SWAP
+        LDREF
+        ENDS
+        POP s2
+        GETGLOB 3
+        PUXC s1 s-1
+        GREATER
+        THROWIFNOT 295
+        SETGLOB 3
+        CALLREF {
+            GETGLOB 6
+            NEWC
+            GETGLOB 2
+            STSLICER
+            GETGLOB 3
+            SWAP
+            STU 16
+            GETGLOB 4
+            SWAP
+            STU 8
+            GETGLOB 5
+            STSLICER
+            STU 32
+            ENDC
+            POPCTR c4
+        }
+        DUP
+        SETCODE
+        CTOS
+        BLESS
+        POPCTR c3
+        PUSHINT_LONG 43092
+        PUSHCTR c3
+        EXECUTE
+    }
+    63 => {
+        CALLREF {
+            PUSHCTR c4
+            CTOS
+            LDMSGADDR
+            SWAP
+            SETGLOB 2
+            LDU 16
+            SWAP
+            SETGLOB 3
+            LDU 8
+            SWAP
+            SETGLOB 4
+            LDMSGADDR
+            SWAP
+            SETGLOB 5
+            LDU 32
+            SWAP
+            SETGLOB 6
+            ENDS
+        }
+        GETGLOB 2
+        GETGLOB 1
+        SWAP
+        SDEQ
+        THROWIFNOT 257
+        PUSHINT_8 32
+        SDSKIPFIRST
+        LDU 64
+        SWAP
+        SWAP
+        LDMSGADDR
+        ENDS
+        NIP
+        SETGLOB 5
+        NOW
+        PUSHINT_LONG 172800
+        ADD
+        SETGLOB 6
+        CALLREF {
+            GETGLOB 6
+            NEWC
+            GETGLOB 2
+            STSLICER
+            GETGLOB 3
+            SWAP
+            STU 16
+            GETGLOB 4
+            SWAP
+            STU 8
+            GETGLOB 5
+            STSLICER
+            STU 32
+            ENDC
+            POPCTR c4
+        }
+        STORAGEFEES
+        PUSHINT_16 5181
+        PUSHINT_4 0
+        GETGASFEE
+        ADD
+        SUB
+        PUSHINT_4 0
+        GETGLOB 2
+        XCHG_1I s1 s2
+        PUSHINT_8 16
+        NEWC
+        STU 6
+        SWAP
+        STSLICER
+        SWAP
+        STGRAMS
+        PUSHINT_8 107
+        STZEROES
+        ENDC
+        SWAP
+        SENDRAWMSG
+    }
+    64 => {
+        CALLREF {
+            PUSHCTR c4
+            CTOS
+            LDMSGADDR
+            SWAP
+            SETGLOB 2
+            LDU 16
+            SWAP
+            SETGLOB 3
+            LDU 8
+            SWAP
+            SETGLOB 4
+            LDMSGADDR
+            SWAP
+            SETGLOB 5
+            LDU 32
+            SWAP
+            SETGLOB 6
+            ENDS
+        }
+        GETGLOB 5
+        GETGLOB 1
+        SWAP
+        SDEQ
+        THROWIFNOT 257
+        NOW
+        GETGLOB 6
+        GEQ
+        THROWIFNOT 297
+        PUSHINT_8 32
+        SDSKIPFIRST
+        LDU 64
+        SWAP
+        SWAP
+        LDMSGADDR
+        LDREF
+        ENDS
+        POP s2
+        STORAGEFEES
+        PUSHINT_16 4133
+        PUSHINT_4 0
+        GETGASFEE
+        ADD
+        XCHG_1I s1 s3
+        SUB
+        PUSHINT_4 0
+        XCHG_0I s3
+        PUSHINT_8 24
+        NEWC
+        STU 6
+        SWAP
+        STSLICER
+        SWAP
+        STGRAMS
+        PUSHINT_8 106
+        STZEROES
+        STDICT
+        ENDC
+        SWAP
+        SENDRAWMSG
+    }
+    43092 => {}
+    58662 => {
+        NIP
+        POP s2
+        POP s3
+        XCHG_0I s3
+        SETGLOB 2
+        SWAP
+        SETGLOB 3
+        LDU 8
+        SWAP
+        SETGLOB 4
+        SWAP
+        LDMSGADDR
+        SWAP
+        SETGLOB 5
+        PUSHINT_4 0
+        SETGLOB 6
+        SWAP
+        ENDS
+        ENDS
+        CALLREF {
+            GETGLOB 6
+            NEWC
+            GETGLOB 2
+            STSLICER
+            GETGLOB 3
+            SWAP
+            STU 16
+            GETGLOB 4
+            SWAP
+            STU 8
+            GETGLOB 5
+            STSLICER
+            STU 32
+            ENDC
+            POPCTR c4
+        }
+    }
+    79987 => {
+        CALLREF {
+            PUSHCTR c4
+            CTOS
+            LDMSGADDR
+            SWAP
+            SETGLOB 2
+            LDU 16
+            SWAP
+            SETGLOB 3
+            LDU 8
+            SWAP
+            SETGLOB 4
+            LDMSGADDR
+            SWAP
+            SETGLOB 5
+            LDU 32
+            SWAP
+            SETGLOB 6
+            ENDS
+        }
+        GETGLOB 2
+        GETGLOB 4
+        GETGLOB 5
+        GETGLOB 6
+    }
+    82320 => {
+        CALLREF {
+            PUSHCTR c4
+            CTOS
+            LDMSGADDR
+            SWAP
+            SETGLOB 2
+            LDU 16
+            SWAP
+            SETGLOB 3
+            LDU 8
+            SWAP
+            SETGLOB 4
+            LDMSGADDR
+            SWAP
+            SETGLOB 5
+            LDU 32
+            SWAP
+            SETGLOB 6
+            ENDS
+        }
+        GETGLOB 3
+    }
+]
+DICTIGETJMPZ
+THROWARG 11

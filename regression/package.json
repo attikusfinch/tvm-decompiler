@@ -13,6 +13,8 @@
     "dedust:collect": "node scripts/collect-dedust.mjs",
     "dedust:archive": "node scripts/collect-dedust.mjs --archive",
     "dedust:report": "node scripts/report-dedust.mjs",
+    "dedust:oracles": "node scripts/export-dedust-oracles.mjs",
+    "dedust:recovery": "node scripts/check-dedust-recovery.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
     "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",
@@ -43,6 +45,7 @@
     "@ton-community/func-js": "0.11.0",
     "@ton/core": "0.63.1",
     "@ton/crypto": "3.3.0",
-    "@ton/sandbox": "0.45.0"
+    "@ton/sandbox": "0.45.0",
+    "@ton/tasm": "0.6.1"
   }
 }

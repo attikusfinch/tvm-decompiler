@@ -1,0 +1,87 @@
+// Independent TVM instruction reference; not recovered high-level source.
+// Mainnet executable code hash: b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf
+SETCP 0
+DICTPUSHCONST 19 [
+    0 => {
+        SWAP
+        CTOS
+        PUSHINT_4 4
+        SDSKIPFIRST
+        LDMSGADDR
+        DROP
+        DUP
+        PUSHCTR c4
+        PUSHCTR c5
+        PUSHCTR c7
+        PUSHCONT {
+            DROP2
+            PUSHINT_16 160
+            PUSHINT_4 0
+            ROT
+            PUSHINT_8 16
+            NEWC
+            STU 6
+            SWAP
+            STSLICER
+            SWAP
+            STGRAMS
+            PUSHINT_8 107
+            STZEROES
+            ENDC
+            SWAP
+            SENDRAWMSG
+        }
+        SETCONTCTR c7
+        SETCONTCTR c5
+        SETCONTCTR c4
+        PUSHINT_4 1
+        PUSHINT_4 -1
+        SETCONTVARARGS
+        PUSHCONT {
+            PUSHCTR c4
+            CTOS
+            LDMSGADDR
+            LDU 8
+            XCPU s3 s2
+            SDEQ
+            THROWIFNOT 259
+            PUSHPOW2DEC 16
+            XCHG_0I s4
+            LDU 32
+            SWAP
+            PUSHINT_LONG 2604311546
+            EQUAL
+            XCHG_1I s1 s5
+            THROWANYIFNOT
+            XCHG_0I s3
+            LDU 64
+            SWAP
+            DROP
+            LDREF
+            LDU 16
+            SWAP
+            SWAP
+            LDREF
+            OVER
+            SETCODE
+            OVER
+            CTOS
+            BLESS
+            POPCTR c3
+            XCHG_IJ s4 s6
+            XCHG_IJ s4 s5
+            PUSHINT_LONG 58662
+            PUSHCTR c3
+            EXECUTE
+        }
+        PUSHCTR c1
+        BOOLOR
+        SWAP
+        TRY
+    }
+    58662 => {
+        BLKDROP 7
+    }
+]
+DICTIGETJMPZ
+THROWARG 11

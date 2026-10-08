@@ -1,0 +1,313 @@
+// Independent TVM instruction reference; not recovered high-level source.
+// Mainnet executable code hash: 2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825
+SETCP 0
+DICTPUSHCONST 19 [
+    0 => {
+        INMSG_BOUNCED
+        THROWIF_SHORT 0
+        SDBEGINSQ x{DC5DDBA1}
+        PUSHCONT_SHORT {
+            LDU 64
+            LDI 1
+            LDGRAMS
+            PUSHINT_16 132
+        }
+        PUSHCONT {
+            SDBEGINSQ x{3DB5F13A}
+            PUSHCONT_SHORT {
+                PUSHPOW2DEC 16
+                THROWANY
+            }
+            IFNOTJMP
+            LDU 64
+            PUSHNULL
+            PUSHNULL
+            SWAP2
+            PUSHINT_16 133
+        }
+        IFELSE
+        SWAP
+        ENDS
+        PUSHCTR c4
+        CTOS
+        LDREF
+        LDMSGADDR
+        LDMSGADDR
+        LDGRAMS
+        LDGRAMS
+        ENDS
+        PUSHINT_16 132
+        XCHG2 s0 s6
+        EQUAL
+        IFJMPREF {
+            INMSG_SRC
+            PUSH s3
+            SDEQ
+            THROWIFNOT_SHORT 23
+            XCHG_0I s6
+            PUSHCONT_SHORT {
+                XCHG2 s5 s4
+                ADD
+            }
+            PUSHCONT_SHORT {
+                XCHG2 s3 s4
+                ADD
+                XCHG3 s0 s1 s4
+            }
+            IFELSE
+            OVER
+            CTOS
+            LDGRAMS
+            LDGRAMS
+            LDGRAMS
+            NIP
+            LDU 16
+            NIP
+            LDREF
+            ENDS
+            PUXC s3 s2
+            GEQ
+            PUSHCONT_SHORT {
+                PUSH s4
+                LEQ
+                NEQINT 0
+            }
+            PUSHCONT_SHORT {
+                DROP
+                PUSHINT_4 0
+            }
+            IFELSE
+            PUSHCONT {
+                CTOS
+                LDMSGADDR
+                NIP
+                LDGRAMS
+                NIP
+                LDDICT
+                NIP
+                LDI 1
+                NIP
+                LDMSGADDR
+                NIP
+                LDGRAMS
+                NIP
+                LDDICT
+                NIP
+                LDI 1
+                NIP
+                LDMSGADDR
+                ENDS
+                XCHG2 s0 s6
+                PUSHPOW2 7
+                CALLREF {
+                    NEWC
+                    STSLICECONST x{42_}
+                    XCHG_1I s1 s3
+                    STSLICE
+                    PUSHINT_LONG 3576854235
+                    STUR 143
+                    STU 64
+                    ENDC
+                    SWAP
+                    PUSHINT_4 2
+                    OR
+                    SENDRAWMSG
+                }
+                XCHG2 s4 s4
+            }
+            IFREFELSE {
+                DROP
+                NEWC
+                STSLICECONST x{25251EE0}
+                XCHG_1I s1 s6
+                STU 64
+                OVER
+                STREFR
+                XCHG2 s0 s5
+                STGRAMS
+                SWAP
+                STGRAMS
+                OVER
+                STSLICER
+                ENDC
+                NEWC
+                STSLICECONST x{42_}
+                PUSH s3
+                STSLICER
+                PUSHINT_4 1
+                STUR 111
+                STREF
+                ENDC
+                PUSHINT_16 160
+                SENDRAWMSG
+                PUSHINT_4 0
+                DUP
+            }
+            CALLDICT 2
+        }
+        POP s6
+        POP s6
+        INMSG_SRC
+        PUSH s6
+        SDEQ
+        THROWIFNOT_SHORT 23
+        OVER
+        CTOS
+        LDGRAMS
+        NIP
+        LDGRAMS
+        NIP
+        LDGRAMS
+        NIP
+        LDU 16
+        NIP
+        LDREF
+        ENDS
+        CTOS
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        NIP
+        LDDICT
+        NIP
+        LDI 1
+        NIP
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        LDDICT
+        NIP
+        LDI 1
+        NIP
+        LDMSGADDR
+        NIP
+        ENDS
+        PUSH s2
+        ref {
+            PUSHPOW2 9
+            CDATASIZE
+            DROP
+            PUSHINT_4 0
+            GETFORWARDFEE
+            PUSH s6
+            GTINT 0
+            PUSHCONT_SHORT {
+                PUSH s4
+                GTINT 0
+                NEQINT 0
+            }
+            PUSHCONT_SHORT {
+                PUSHINT_4 0
+            }
+            IFELSE
+            PUSHINT_4 2
+            PUSHINT_4 1
+            CONDSEL
+            STORAGEFEES
+            PUSHINT_16 6500
+            PUSHINT_4 0
+            GETGASFEE
+            ADD
+            PUSHINT_16 21000
+            PUSHINT_4 0
+            GETGASFEE
+            ADD
+            PUSH s2
+            ADD
+            XCHG2 s2 s3
+            ADD
+            PUSHINT_LONG 50000000
+            ADD
+            MUL
+            ADD
+            INMSG_VALUE
+            LEQ
+            THROWIFNOT_SHORT 25
+            NEWC
+            STSLICECONST x{0D299E12}
+            XCHG_1I s1 s4
+            STU 64
+            OVER
+            STREFR
+            XCHG2 s0 s4
+            STGRAMS
+            SWAP
+            STGRAMS
+            PUSH s3
+            STSLICER
+            ENDC
+            NEWC
+            STSLICECONST x{42_}
+            PUSH s2
+            STSLICER
+            PUSHINT_4 1
+            STUR 111
+            STREF
+            ENDC
+            PUSHINT_16 160
+            SENDRAWMSG
+            PUSHINT_4 0
+            DUP
+            XCHG_IJ s3 s4
+            XCHG_IJ s2 s3
+            CALLDICT 2
+        }
+    }
+    2 => {
+        ref {
+            XCHG_0I s4
+            NEWC
+            STREF
+            XCHG_1I s1 s3
+            STSLICE
+            STSLICE
+            SWAP
+            STGRAMS
+            SWAP
+            STGRAMS
+            ENDC
+            POPCTR c4
+        }
+    }
+    70330 => {
+        PUSHCTR c4
+        CTOS
+        LDREF
+        LDMSGADDR
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        LDGRAMS
+        ENDS
+        XCHG_0I s3
+        CTOS
+        LDGRAMS
+        LDGRAMS
+        LDGRAMS
+        LDU 16
+        LDREF
+        ENDS
+        CTOS
+        LDMSGADDR
+        LDGRAMS
+        NIP
+        LDDICT
+        NIP
+        LDI 1
+        NIP
+        LDMSGADDR
+        LDGRAMS
+        NIP
+        LDDICT
+        NIP
+        LDI 1
+        NIP
+        LDMSGADDR
+        NIP
+        ENDS
+        XCHG2 s7 s6
+        XCHG3 s3 s0 s8
+    }
+]
+DICTIGETJMPZ
+THROWARG 11

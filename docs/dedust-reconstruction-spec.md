@@ -1,0 +1,56 @@
+# DeDust source reconstruction
+
+Target: readable source for the archived DeDust code families that compiles to the
+same executable cell graph **and the same serialized BOC**. The archive in
+`F:/dedust/dedust-mainnet` is the independent oracle and must not be replaced by a
+candidate's compilation output. The original programming language, compiler
+version, variable names and comments are unknown.
+
+## Acceptance gates
+
+1. Pin each oracle's code-cell hash, BOC SHA-256, library dependencies and public ABI.
+2. Export an editable instruction reference, assemble it without reading the oracle
+   during the build, and compare cell graphs and BOC bytes. This gate verifies the
+   instruction reference only; it does **not** establish readable Tolk recovery.
+3. Recover storage, message layouts, authorization, calculations, outgoing messages
+   and getter semantics in named Tolk source. Preserve eager reads, overflow checks,
+   exceptions, reference order, bounces and transaction effects.
+4. Use Acton's installed Tolk compiler to build candidates. Run local differential
+   tests against the original code, using identical data, messages, config, time,
+   balance and libraries. Compare getter stacks, exits, state and actions. Report
+   gas and monetary differences rather than hiding them behind normalized output.
+5. Compare candidate instructions, cell boundaries, library-cell flags, code hash
+   and serialized BOC. Compiler optimizations and layout are part of this gate.
+6. Only label a contract `exact-readable` after gates 3–5 pass. An exact assembler
+   reference and a behaviorally matching Tolk candidate remain different results.
+
+No original BOC embedding, post-compilation substitution of original code, or
+runtime `setCode` from the oracle can satisfy the final gate. Typed asm for an
+individual operation may be used when documented and independently tested.
+
+## Work order
+
+| Portion | Contracts / work | Required proof |
+| --- | --- | --- |
+| 1 | CPMM Deposit and AffiliateAccount; independent build/comparison tools | ABI, adversarial local tests, byte differences |
+| 2 | CPMM Position; fix branch joins in the decompiler | Liquidity, fee, reward and authorization paths |
+| 3 | CPMM Pool V1/V2; calls, loops, dynamic dispatch | Swap, liquidity, fees, admin and library dependencies |
+| 4 | Classic factory, vaults, deposit, LP wallet, operator and pool revisions | Per-role storage/messages and behavioral checks |
+| 5 | Uranus factory, meme and wallet revisions; related X1000 wallet | Deployment, trading, graduation and dependencies |
+| 6 | Close instruction/layout differences for every family | All unique families pass both byte comparisons |
+
+Commit and push verified portions to the authorized fork. Keep an explicit status
+for every family and unresolved difference; do not mark all recovered because a
+single role or its assembler reference passes.
+
+## Current baseline
+
+- Archive: 21 unique executable code families (22 folders including an alias).
+- Decompiled Tolk: 10 complete, 8 compile, 0 byte-identical.
+- Installed toolchain: Acton 1.0.0, Tolk 1.4.0; reference assembler `@ton/tasm` 0.6.1.
+- Assembler round-trip: all 21 identical. The local encoder adapter preserves
+  explicit exotic declarations instead of guessing library cells from their bytes.
+- CPMM Deposit: named, typed source in `reconstruction/dedust/CpmmDeposit` passes
+  both byte comparisons, 9 getter probes, 21 message probes (including gas), and
+  7 native Acton tests. Union-ID allocation and one referenced storage helper are
+  explicit compatibility details. No original executable code bytes are embedded.
