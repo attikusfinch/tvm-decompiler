@@ -15,7 +15,7 @@ const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',co
 const candidate=Buffer.from(compiled.codeBoc,'base64'),oracle=await fs.readFile(path.join(project,'oracles/CpmmPoolV2.boc'));
 const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},parse:s=>s.asCell()},c.refs[0]);
 const originalMethods=methods(Cell.fromBoc(oracle)[0]),candidateMethods=methods(Cell.fromBoc(candidate)[0]);
-const exactMethodIds=[19,21,22,23,24,72157,81689,112421];
+const exactMethodIds=[19,20,21,22,23,24,72157,81689,112421];
 for(const id of exactMethodIds)assert.ok(candidateMethods.get(id).equals(originalMethods.get(id)),`complete candidate: exact dictionary value ${id}`);
 const incomingDecoderHash='4d8dcc10bbe8ada52bbcbbe299ae4bd8364d684794a493b303cd048efdb39602';
 assert.equal(originalMethods.get(0).refs[0].hash().toString('hex'),incomingDecoderHash,'archived incoming decoder');

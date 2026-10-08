@@ -172,3 +172,12 @@ single role or its assembler reference passes.
   remains pending. Forwarding-fee reads in withdrawal/reward handlers occur
   after the lifecycle check. Full-candidate state/action probes now total 103,
   alongside 6 explicitly different self-code responses and 12 exact getters.
+- Pool V2 method 20 is now byte-identical in the complete candidate, including
+  its referenced 18-argument wrapper, all continuations and dictionary placement.
+  Deposit deployment uses the legacy typed message header; reward funding uses
+  a one-field codec preserving the archived union's nine-slot runtime layout.
+  No original executable blob is included. The isolated complete fixture also
+  matches its archived-method oracle: all 113 probes now compare outgoing values
+  and exact gas as well as state/actions and independent economic expectations.
+  All nine public method dictionary values match; entry point 0 remains pending.
+  The whole readable count is still 3/21, with 67 native Acton tests passing.

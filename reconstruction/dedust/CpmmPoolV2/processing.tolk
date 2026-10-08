@@ -1,6 +1,5 @@
-// Payment dispatcher candidate. Isolated state/actions and economic expectations
-// are tested; exact gas, complete outgoing balances and byte identity are pending.
-// This file is not a complete Pool contract.
+// Byte-identical Pool V2 payment dispatcher (method 20).
+// This module alone is not a complete Pool contract.
 import "@stdlib/gas-payments"
 import "storage"
 import "routing"
@@ -14,6 +13,7 @@ import "addresses"
 import "compat-address"
 import "affiliate-deployment"
 import "events"
+import "deployment-message"
 
 struct (0xc9a015da) PoolDepositPayload {
     targetX: coins
@@ -43,6 +43,39 @@ fun PoolOptionalReferrer.unpackFromSlice(mutate s: slice): PoolOptionalReferrer 
 fun PoolSwapPayload.unpackFromSlice(mutate s: slice): PoolSwapPayload {
     return {minimalAmountOut:s.loadCoins(),deadline:s.loadUint(40),next:s.loadDict(),
         partner:s.loadAny<PoolOptionalPartner>(),referrer:s.loadAny<PoolOptionalReferrer>()};
+}
+
+@pure
+fun paymentHasDepositPrefix(mutate s: slice): bool asm "x{C9A015DA} SDBEGINSQ"
+@pure
+fun paymentHasSwapPrefix(mutate s: slice): bool asm "x{C442500F} SDBEGINSQ"
+@pure
+fun paymentHasRewardPrefix(mutate s: slice): bool asm "x{2EB87DF9} SDBEGINSQ"
+
+// The archived compiler right-aligns every variant in nine value slots plus
+// its runtime tag. Tolk 1.4 pads the one-field reward arm in a different order.
+// This field codec retains the legacy padding; it contains no payment logic.
+// Return order: eight nulls, finishAt, reward tag; mutable slice is slot zero.
+fun unpackLegacyPoolReward(mutate s: slice): PoolPaymentRequest
+    asm(-> 1 2 3 4 5 6 7 8 0 9 10)
+    "40 LDU PUSHNULL PUSHNULL PUSHNULL PUSHNULL 2 4 BLKSWAP PUSHNULL PUSHNULL SWAP2 PUSHNULL PUSHNULL s0 s0 s3 XCHG3 160 PUSHINT"
+
+fun PoolPaymentRequest.unpackFromSlice(mutate s: slice): PoolPaymentRequest {
+    var result: PoolPaymentRequest;
+    if (paymentHasDepositPrefix(mutate s)) {
+        result = PoolDepositPayload{targetX:s.loadCoins(),targetY:s.loadCoins(),
+            minimalLiquidity:s.loadCoins(),lockedShare:s.loadUint(16)};
+    } else if (paymentHasSwapPrefix(mutate s)) {
+        result = PoolSwapPayload.unpackFromSlice(mutate s);
+    } else if (paymentHasRewardPrefix(mutate s)) {
+        // Compile-time layout anchor, eliminated as unused. Register reward
+        // tag 160 after deposit/partner/referrer/swap and before activation tags.
+        val layoutAnchor: PoolPaymentRequest = PoolRewardFundingPayload{finishAt:0};
+        result = unpackLegacyPoolReward(mutate s);
+    } else {
+        throw 63;
+    }
+    return result;
 }
 
 struct (0x01) PoolActivationAtTime { time: uint40 }
@@ -77,6 +110,25 @@ struct (0xdc5ddba1) PoolCreditDeposit { queryId: uint64; isX: bool; amount: coin
 fun poolPaymentRejectContext(excessesTo:any_address,options:PoolPayoutOptions):unknown
     asm "5 TUPLE"
 
+// Conditional coin selection preserves the original single TVM CONDSEL.
+@pure
+fun selectPoolPrincipal(condition:bool,whenTrue:coins,whenFalse:coins):coins asm "CONDSEL"
+
+@pure
+fun poolNumberIsZero(value:int):bool asm "0 EQINT"
+
+// Preserve materialized tagged-union predicates used by the archived compiler.
+@pure
+fun keepPoolPredicate(value:bool):bool asm "NOP"
+
+@pure
+fun negatePoolPredicate(value:bool):bool asm "NOT nop"
+
+@inline
+fun effectivePoolPartnerRate(partnerRate:int,referrerRate:int):int {
+    return referrerRate > 0 ? mulDivFloor(partnerRate,5,6) : partnerRate;
+}
+
 @inline
 fun poolActivationAllows(activation: cell, initiator: any_address): bool {
     val gate=PoolActivation.fromCell(activation);
@@ -88,14 +140,14 @@ fun poolActivationAllows(activation: cell, initiator: any_address): bool {
 
 @inline
 fun sendPoolAffiliateFee(kind: int, identity: uint256, fee: uint16, amount: coins, queryId: uint64) {
-    val destination=affiliateDeployment(kind,identity,fee).calculateArchivedAddress();
-    val message=beginCell().storeUint(0x18,6).storeSlice(destination as slice).storeCoins(amount)
+    val destination=affiliateDeployment(kind,identity,fee).calculateArchivedAddressBuilder();
+    val message=beginCell().storeUint(0x18,6).storeBuilder(destination).storeCoins(amount)
         .storeUint(0x773faf30,139).storeUint(queryId,64).endCell();
     sendRawMessage(message,2);
 }
 
 @method_id(20)
-@inline
+@inline_ref
 fun processPoolPaymentEntry(
     storage: PoolStorage,
     initiator: any_address,
@@ -113,11 +165,11 @@ fun processPoolPaymentEntry(
         assert(amount > 0) throw 47;
         val config=PoolConfig.fromSlice(configSlice,{assertEndAfterReading:false});
         if(request is PoolSwapPayload) {
-            val nativeInput=asset.isNone() ? amount as int : 0;
+            val nativeInput=selectPoolPrincipal(asset.isNone(),amount,0);
             val maxPayoutGas=max(payout.fulfill.extraGas,payout.reject.extraGas);
-            val hops=request.next == null ? 1 : request.next!.depth()+2;
             val minimumValue=contract.getStoragePaidPayment()+nativeInput+
-                hops*(calculateGasFee(0,45000)+50000000+originalForwardFee)+maxPayoutGas;
+                (request.next == null ? 1 : request.next!.depth()+2)*
+                (calculateGasFee(0,45000)+50000000+originalForwardFee)+maxPayoutGas;
             assert(minimumValue <= poolIncomingCoins()) throw 25;
             val xToY=(asset as slice).bitsEqual(config.assetX as slice);
             assert(xToY || (asset as slice).bitsEqual(config.assetY as slice)) throw 28;
@@ -126,9 +178,8 @@ fun processPoolPaymentEntry(
                 assert(poolActivationAllows(config.swapActivation!,initiator)) throw 37;
                 storage.swapActive=true;
             }
-            assert(request.deadline == 0 || blockchain.now() < request.deadline) throw 33;
-            val outputReserve=xToY ? storage.reserveY : storage.reserveX;
-            val inputReserve=xToY ? storage.reserveX : storage.reserveY;
+            assert(poolNumberIsZero(request.deadline) || blockchain.now() < request.deadline) throw 33;
+            val (inputReserve,outputReserve)=xToY ? (storage.reserveX,storage.reserveY) : (storage.reserveY,storage.reserveX);
             val feeFromInput=match(config.feeIn) {
                 FeeFromBoth => true,
                 FeeFromX => xToY,
@@ -138,18 +189,16 @@ fun processPoolPaymentEntry(
             val feeAsset=feeFromY ? config.assetY : config.assetX;
             var partnerRate=0;
             var referrerRate=0;
-            if(feeAsset.isNone() && request.partner != null) {
+            if(feeAsset.isNone() && negatePoolPredicate(request.partner == null)) {
                 partnerRate=min(request.partner!.fee,500);
-                if(request.referrer != null) {referrerRate=min(request.referrer!.fee,8000);}
+                if(!keepPoolPredicate(request.referrer == null)) {referrerRate=min(request.referrer!.fee,8000);}
             }
-            val effectivePartnerRate=referrerRate > 0 ? mulDivFloor(partnerRate,5,6) : partnerRate;
-            val totalRate=effectivePartnerRate+config.baseFee;
-            val netInput=feeFromInput ? mulDivFloor(amount,10000,10000+totalRate) : amount as int;
+            val netInput=feeFromInput ? mulDivFloor(amount,10000,10000+(effectivePoolPartnerRate(partnerRate,referrerRate)+config.baseFee)) : amount as int;
             val grossOutput=mulDivFloor(netInput,outputReserve,inputReserve+netInput);
-            val netOutput=feeFromInput ? grossOutput : mulDivFloor(grossOutput,10000,10000+totalRate);
+            val netOutput=feeFromInput ? grossOutput : mulDivFloor(grossOutput,10000,10000+(effectivePoolPartnerRate(partnerRate,referrerRate)+config.baseFee));
             assert(netOutput >= request.minimalAmountOut) throw 30;
             val totalFee=feeFromInput ? (amount as int)-netInput : grossOutput-netOutput;
-            val baseFee=mulDivFloor(totalFee,config.baseFee,totalRate);
+            val baseFee=mulDivFloor(totalFee,config.baseFee,effectivePoolPartnerRate(partnerRate,referrerRate)+config.baseFee);
             val protocolFee=mulDivFloor(baseFee,20,100);
             val creatorFee=mulDivFloor(baseFee-protocolFee,config.creatorFee,10000);
             val lpFee=baseFee-protocolFee-creatorFee;
@@ -182,24 +231,26 @@ fun processPoolPaymentEntry(
                 recipient:payout.fulfill.destination,nextState:state,fees:breakdown});
             val wallets=PoolExtra.fromCell(storage.extra).wallets;
             val outputAsset=xToY ? config.assetY : config.assetX;
-            val previousBalance=contract.getOriginalBalance()-poolIncomingCoins()+contract.getStoragePaidPayment();
             if(request.next == null) {
                 val wallet=poolWalletForAsset(wallets,outputAsset);
                 val (principal,forwardFee)=sendPoolPayment(outputAsset,wallet,netOutput,payout.fulfill,payout.excessesTo,queryId,0);
-                reserveToncoinsOnBalance(previousBalance+nativeInput+eventFee+forwardFee-principal-partnerFee-referrerFee,2);
+                val previousBalance=contract.getOriginalBalance()-poolIncomingCoins()+contract.getStoragePaidPayment();
+                reserveToncoinsOnBalance(previousBalance+eventFee+forwardFee-principal+nativeInput-partnerFee-referrerFee,2);
                 sendPoolExcesses(payout.excessesTo,queryId,128);
             } else {
                 val nativeOutput=outputAsset.isNone() ? netOutput : 0;
+                val previousBalance=contract.getOriginalBalance()-poolIncomingCoins()+contract.getStoragePaidPayment();
                 reserveToncoinsOnBalance(previousBalance+eventFee-nativeOutput+nativeInput-partnerFee-referrerFee,2);
                 val step=PoolSwapStep.fromCell(request.next!);
                 val wallet=poolWalletForAsset(wallets,outputAsset);
+                val forwardedPayout=payout.toCell();
                 val gas=poolIncomingCoins()-contract.getStoragePaidPayment()-calculateGasFee(0,45000)-eventFee-nativeInput+nativeOutput;
                 routePoolSwap(outputAsset,step.pool,wallet,payout.excessesTo,queryId,netOutput,
                     {minimalAmountOut:step.minimalAmountOut,deadline:step.deadline,next:step.next,partner:request.partner,referrer:request.referrer},
-                    payout.toCell(),gas);
+                    forwardedPayout,gas);
             }
         } else if(request is PoolDepositPayload) {
-            val nativeInput=asset.isNone() ? amount as int : 0;
+            val nativeInput=selectPoolPrincipal(asset.isNone(),amount,0);
             val deploymentCosts=contract.getStoragePaidPayment()+nativeInput+calculateGasFee(0,20000)+(originalForwardFee << 2)+
                 calculateForwardFeeWithoutLumpPrice(0,5294,15)+calculateGasFee(0,6000)+calculateGasFee(0,40000);
             val firstReply=calculateForwardFeeWithoutLumpPrice(0,13789,34)+calculateGasFee(0,20000)+50000000+payout.fulfill.extraGas;
@@ -212,10 +263,12 @@ fun processPoolPaymentEntry(
             }
             reserveToncoinsOnBalance(contract.getStoragePaidPayment()+nativeInput,4);
             val destination=depositDeployment(initiator,request.targetX,request.targetY,request.minimalLiquidity,request.lockedShare,payout.toCell());
-            createMessage({bounce:BounceMode.NoBounce,value:0,dest:destination,
-                body:PoolCreditDeposit{queryId,isX,amount}}).send(144);
+            val credit=PoolCreditDeposit{queryId,isX,amount};
+            var deployment=archivedPoolInlineDeploymentHeader(destination);
+            deployment.storeAny(credit);
+            sendRawMessage(deployment.endCell(),144);
         } else {
-            val nativeInput=asset.isNone() ? amount as int : 0;
+            val nativeInput=selectPoolPrincipal(asset.isNone(),amount,0);
             assert(contract.getStoragePaidPayment()+calculateGasFee(0,25000)+nativeInput <= poolIncomingCoins()) throw 25;
             val (allowed,slot)=findAllowedPoolReward(config,asset);
             val duration=max(request.finishAt-blockchain.now(),0);
@@ -225,7 +278,7 @@ fun processPoolPaymentEntry(
             val previousRate=reward.remainingTime > 0 && reward.remainingBudget > 0
                 ? mulDivFloor(reward.remainingBudget,1 << 120,reward.remainingTime) : 0;
             val extension=max(duration-reward.remainingTime,0);
-            assert(extension == 0 || mulDivFloor(previousRate,extension,1 << 120) <= amount) throw 45;
+            assert(poolNumberIsZero(extension) || mulDivFloor(previousRate,extension,1 << 120) <= amount) throw 45;
             reward.remainingBudget+=amount;reward.remainingTime+=extension;
             storage.rewards.set(slot,reward);
             contract.setData(storage.toCell());

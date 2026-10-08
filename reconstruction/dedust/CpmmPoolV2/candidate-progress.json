@@ -2,6 +2,7 @@
   "scope": "Complete readable V2 candidate: all 16 incoming message variants and all 3 getters; exact gas/outgoing balances/byte acceptance pending",
   "exactMethodIds": [
     19,
+    20,
     21,
     22,
     23,
@@ -22,7 +23,8 @@
     "affiliate-deployment.tolk": "063d6d5e008c8b099ef2e6a940a03bfdb9933d8f337427730939ba9b95a8ee5a",
     "candidate.tolk": "7f4ecffbad951dba3521f88bfb398b2a4865053e34ebf3ea248c2c1ab4d34d73",
     "claim-handlers.tolk": "4f1fac742b9e13015a51db5096b5375e46b9ba3e2f7fc4af57a407ff58d03275",
-    "compat-address.tolk": "72d15f06d5720d4b7093856a8ebc72e826595d33fa3373bcdd9a39f2ea0f6ca8",
+    "compat-address.tolk": "8a624258542425f60322be9da1b2c12472b4b93cf13d9b6c68c403c49ac4aaf5",
+    "deployment-message.tolk": "9e0e2a6fe4dfeb3db6d002e34f1f2c1f589869c27623df8cab48e6fbd9b8e6bf",
     "events.tolk": "8464731c1dd44e32f14e985b8963ce87465818b24c36742c126cac8e472e49c1",
     "getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c",
     "handlers.tolk": "cedb74167d93a9fd5cb1e14c2f25b2637b6f73283d145456d77b224ef37e97c1",
@@ -32,7 +34,7 @@
     "payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
     "payout-basic.tolk": "df7888f40d11af33959f47e1de315ad4ab0dbf6f0e2be82b8df2032995de3f4c",
     "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
-    "processing.tolk": "224c0cf5d0d25aba176d5fcd5182517da8928d3d11bcd981fc04b30e8cc3daff",
+    "processing.tolk": "f3da3d717c31353441c1599cd1793ac8b5af5159788514d621843db2443d5a94",
     "reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
     "rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
     "routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
@@ -45,11 +47,11 @@
   },
   "comparison": {
     "originalHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
-    "recompiledHash": "20ed5543f2f4f69ac4227d66293f8a664f62f024e8e21a34b53163c983b3663c",
+    "recompiledHash": "0538d8d7510c350667773156cb724589649a1884a9a95751b9c7b677b9218c6c",
     "sameCodeCell": false,
     "sameSerializedBoc": false,
     "originalBytes": 10032,
-    "recompiledBytes": 10098
+    "recompiledBytes": 10206
   },
   "limitations": [
     "Compute gas differs",
@@ -1384,7 +1386,7 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "11698"
+        "gasUsed": "11808"
       }
     },
     {
@@ -1402,7 +1404,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
-        "gasUsed": "28563"
+        "gasUsed": "28849"
       }
     },
     {
@@ -1420,7 +1422,7 @@
       "after": {
         "exitCode": 25,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "11805"
+        "gasUsed": "11962"
       }
     },
     {
@@ -1438,7 +1440,7 @@
       "after": {
         "exitCode": 33,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "14003"
+        "gasUsed": "14296"
       }
     },
     {
@@ -1456,7 +1458,7 @@
       "after": {
         "exitCode": 63,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "9240"
+        "gasUsed": "9350"
       }
     },
     {
@@ -1474,7 +1476,7 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "11780"
+        "gasUsed": "11890"
       }
     },
     {
@@ -1564,7 +1566,7 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "15697"
+        "gasUsed": "15807"
       }
     },
     {
@@ -1582,7 +1584,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
-        "gasUsed": "28327"
+        "gasUsed": "28467"
       }
     },
     {
@@ -1672,7 +1674,7 @@
       "after": {
         "exitCode": 47,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "15841"
+        "gasUsed": "15951"
       }
     },
     {
@@ -1690,7 +1692,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "c21da96bbce744b8b72edad52eb2a79248bc7b89ee8311ca493d393f3563371d",
-        "gasUsed": "28471"
+        "gasUsed": "28611"
       }
     },
     {
@@ -1762,7 +1764,7 @@
       "after": {
         "exitCode": 63,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "12624"
+        "gasUsed": "12734"
       }
     },
     {
@@ -1780,7 +1782,7 @@
       "after": {
         "exitCode": 30,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "19637"
+        "gasUsed": "19798"
       }
     },
     {
@@ -1798,7 +1800,7 @@
       "after": {
         "exitCode": 42,
         "dataHash": "8c6cf96f49316c52bbb93eb00a96fe20d53a69a2eb48f4c2c3b1951a06301b76",
-        "gasUsed": "18023"
+        "gasUsed": "18108"
       }
     },
     {
@@ -1924,7 +1926,7 @@
       "after": {
         "exitCode": 0,
         "dataHash": "b2ee6ddf36656e8b52cba9cd745b319049dd329ca0d41e0e297b0330a9c163cd",
-        "gasUsed": "28563"
+        "gasUsed": "28849"
       }
     },
     {

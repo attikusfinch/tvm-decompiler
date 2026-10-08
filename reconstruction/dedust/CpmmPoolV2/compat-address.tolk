@@ -5,7 +5,7 @@ fun archivedAddressSlice(b: builder): address
     asm "ENDC CTOS"
 
 @inline
-fun AutoDeployAddress.calculateArchivedAddress(self): address {
+fun AutoDeployAddress.calculateArchivedAddressBuilder(self): builder {
     val state = self.stateInit;
     val shard = self.toShard;
     var stateHash: uint256;
@@ -29,5 +29,10 @@ fun AutoDeployAddress.calculateArchivedAddress(self): address {
     } else {
         result = beginCell().storeUint(4, 3).storeInt(self.workchain, 8).storeUint(stateHash, 256);
     }
-    return archivedAddressSlice(result);
+    return result;
+}
+
+@inline
+fun AutoDeployAddress.calculateArchivedAddress(self): address {
+    return archivedAddressSlice(self.calculateArchivedAddressBuilder());
 }

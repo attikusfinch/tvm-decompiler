@@ -51,18 +51,18 @@ Three Acton tests bring the project to 44 native tests. See
 120-bit maximum of `VarUInteger 16`.
 
 The complete Pool V2 candidate also preserves the original dictionary values of
-methods 19, 21, 22, 23 and 24, including their referenced implementation cells.
+methods 19, 20, 21, 22, 23 and 24, including their referenced implementation cells.
 Readable `@inline_ref` entry bodies and typed `CALLDICT` bridges preserve both
-placement and calls. Together with the three getters, eight complete dictionary
-values match the frozen whole contract. Methods 0 and 20 remain outside the
-exact gate; full Pool byte equality is still pending.
+placement and calls. Together with the three getters, nine complete dictionary
+values match the frozen whole contract. Method 0 remains outside the exact gate;
+full Pool byte equality is still pending.
 
 Pool V2's entire incoming-message union decoder is also exact. Ref/inline TEP74
 payload decoding preserves malformed-reference failure before the refund handler
 and before storage decoding. Transaction fields are read inside each handler,
-and method 20 preserves its original outer continuation instructions. The full
+and method 20 preserves its complete original code tree. The full
 candidate passes 103 state/action probes, 6 declared self-code differences and
-12 exact getter probes. The two method bodies still differ from the original.
+12 exact getter probes. Entry point 0 still differs from the original.
 
 Excesses sending, payout-wallet selection, reward lookup and both resolver-request
 revisions are exact. Pool V2 adds a 10,000,000 processing-fee floor that V1 lacks;
@@ -142,19 +142,23 @@ The decompiler's branch merge now joins the types of all incoming slots. A tagge
 union may reuse one physical slot for an integer in one arm and a cell in another;
 assuming the first arm's type incorrectly rejected the original Position code.
 
-## Pool payment dispatcher candidate
+## Exact Pool V2 payment dispatcher
 
 `CpmmPoolV2/processing.tolk` recovers method 20's swaps, deposits, reward funding,
 activation, fee splitting, continuation routing and five-field rejection context.
 `npm run dedust:pool-processing` runs 113 isolated message comparisons against
-the archived V2 method. State and raw actions match; independent expectations
+the archived V2 method. State, raw actions, outgoing amounts and gas match; independent expectations
 check reserves, fee counters/checkpoints, swap event bodies, reward duration and
 budget, rounding boundaries, malformed input and rejection context. Four native
 Acton tests bring the project to 64 tests.
 
-This module is a **candidate**, not an exact recovery. Its method hash differs,
-gas differs, and carry-balance outgoing values differ. `processing-progress.json`
-records those limits explicitly. The full readable count remains 3/21. The
+The complete method-20 dictionary value is byte-identical, including referenced
+continuations, with hash `33c68c47a272507a261c084d7a6fe14f37a7e1d9ddd7906f419a8017a2aa35f2`.
+Its isolated fixture also recompiles to an identical code cell. Both halves retain
+the same dictionary layout so lookup gas is comparable. A typed one-field codec
+preserves legacy reward-union padding and a discarded type anchor registers its
+runtime tag before the activation variants. `processing-progress.json` records
+the proof. The full readable count remains 3/21. The
 emulator resolves three libraries compiled from recovered source; original
 method bodies are used only on the oracle side of the test. Whole Pool message
 handlers and byte identity remain pending.
@@ -164,7 +168,7 @@ handlers and byte identity remain pending.
 `CpmmPoolV2/candidate.tolk` is the entrypoint for a complete readable candidate.
 It dispatches all 16 incoming message variants through named lifecycle, payment,
 liquidity, fee, reward, state and upgrade handlers. `npm run dedust:pool-handlers`
-compares it directly with the complete frozen V2 contract: 99 state/action probes
+compares it directly with the complete frozen V2 contract: 103 state/action probes
 match, 12 public-getter probes also match exact gas and independent results, and
 six state-response probes independently validate each contract's own code hash.
 Three native integration tests bring the Acton suite to 67 tests.

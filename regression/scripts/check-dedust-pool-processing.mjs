@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {Address, Cell, Dictionary, beginCell} from '@ton/core';
-import {root, compareMessages, writeJson} from './lib.mjs';
+import {root, compareMessages, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
@@ -20,11 +20,17 @@ const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},pa
 const candidateMethods=methods(Cell.fromBoc(candidate)[0]);
 const originalCode=Cell.fromBoc(await fs.readFile(path.join(project,'oracles/CpmmPoolV2.boc')))[0];
 const originalMethods=methods(originalCode);
+assert.ok(candidateMethods.get(20).equals(originalMethods.get(20)),
+    'exact method 20, including dictionary reference placement');
 // The oracle side alone contains archived method bodies. Both halves use the
-// same source-built probe entrypoint and the same 18-slot method-20 ABI.
+// same source-built probe entrypoint and dictionary layout: DICT lookup gas
+// depends on the layout even when a called method's code cell is identical.
+// Archived method 20 calls only 21 and 22; other entries are not its oracle.
 const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n'+
-    [0,20,21,22,23,24,90046].map(id=>id+'=>{\n'+disassembleExact((id===0||id===90046?candidateMethods:originalMethods).get(id).toBoc())+'\n}').join('\n')+
+    [...candidateMethods.keys()].sort((a,b)=>a-b).map(id=>id+'=>{\n'+disassembleExact(([20,21,22,23,24].includes(id)?originalMethods:candidateMethods).get(id).toBoc())+'\n}').join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','pool-processing-oracle.tasm');
+const isolatedComparison=compareBoc(oracle,candidate);
+assert.equal(isolatedComparison.sameCodeCell,true,'exact complete isolated fixture with archived method bodies');
 await fs.writeFile(path.join(directory,'candidate.boc'),candidate);
 await fs.writeFile(path.join(directory,'candidate.fif'),compiled.fiftCode);
 await fs.writeFile(path.join(directory,'original20.tasm'),disassembleExact(originalMethods.get(20).toBoc()));
@@ -120,8 +126,9 @@ const cases=[];
 async function check(name,o,payment,asset,amount,{expectedState,expectedEvent,expectedError,wrapped=true,value=5000000000n,payoutOptions={},payoutCell}={}) {
     const [result]=await compareMessages(oracle,candidate,[{label:name,from:initiator,value,body:probeBody(payment,asset,amount,payoutCell??payout(payoutOptions))}],
         {data:state(o),address:pool,libraries});
-    if(!result.sameEffectsAndActions)await writeJson(path.join(directory,'failure.json'),result);
-    assert.equal(result.sameEffectsAndActions,true,name+': '+JSON.stringify(result));
+    if(!result.sameObservedBehavior)await writeJson(path.join(directory,'failure.json'),result);
+    assert.equal(result.sameObservedBehavior,true,name+': '+JSON.stringify(result));
+    assert.equal(result.after.gasUsed,result.before.gasUsed,name+': exact gas');
     assert.equal(result.before.exitCode,0,name+': unexpected outer error');
     if(expectedError!==undefined)expectedState=wrapped?rejectData(expectedError,payoutOptions):
         beginCell().storeUint(0xdeadbeef,32).storeInt(expectedError,32).storeBit(false).endCell();
@@ -196,8 +203,8 @@ for(const status of [0,1]) {
 }
 const comparison={originalMethodHash:originalMethods.get(20).hash().toString('hex'),candidateMethodHash:candidateMethods.get(20).hash().toString('hex'),
     sameMethodCode:originalMethods.get(20).equals(candidateMethods.get(20))};
-const proof={scope:'Readable method-20 candidate, isolated message behavior only; full Pool and exact code acceptance pending',
-    toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([n,s])=>[n,createHash('sha256').update(s).digest('hex')])),comparison,cases};
+const proof={scope:'Byte-identical readable V2 method 20, including dictionary placement; isolated state/actions/outgoing amounts/gas and independent expectations. Whole Pool recovery pending',
+    toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([n,s])=>[n,createHash('sha256').update(s).digest('hex')])),comparison,isolatedComparison,cases};
 await writeJson(path.join(directory,'report.json'),proof);
 await writeJson(path.join(project,'CpmmPoolV2/processing-progress.json'),{
     ...proof,cases:cases.map(({before,after,...test})=>({...test,before:{exitCode:before.exitCode,dataHash:before.dataHash,gasUsed:before.gasUsed},
