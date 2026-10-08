@@ -1,0 +1,8117 @@
+{
+  "scope": "Exact shared TON/jetton payout helper; complete Pool is still pending",
+  "toolchain": {
+    "backend": "acton",
+    "acton": "acton 1.0.0 (3a4f0dc 2026-05-11)"
+  },
+  "sourceSha256": {
+    "main.tolk": "4c67ec1967127647b4e4fc5a38fd7520ded52a62284b6334f195d278113fa367",
+    "payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
+    "payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03"
+  },
+  "revisions": [
+    "CpmmPoolV1",
+    "CpmmPoolV2"
+  ],
+  "helperHash": "6c6ac69613082d653edca6da9a4121af14c37c8855f38cac713059cfd1de6fe5",
+  "wrapperComparison": {
+    "originalHash": "0e0c14c86524068cf4330be4b4be8e9ff4d3a5aebee1106f08c0df59eeb65918",
+    "recompiledHash": "0e0c14c86524068cf4330be4b4be8e9ff4d3a5aebee1106f08c0df59eeb65918",
+    "sameCodeCell": true,
+    "sameSerializedBoc": true,
+    "originalBytes": 241,
+    "recompiledBytes": 241
+  },
+  "cases": [
+    {
+      "name": "chain=0 jetton amount=0 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "116534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "105e35c516ea182c609f883fc3fcad4a28c8d43974289537b33443c4f4857984"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "116534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "105e35c516ea182c609f883fc3fcad4a28c8d43974289537b33443c4f4857984"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8d5b21cc69bc8ceb5acbef61cb8f3437f9f04191e1dd5697aad30f11195be561"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8d5b21cc69bc8ceb5acbef61cb8f3437f9f04191e1dd5697aad30f11195be561"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "127534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a29e3661e346c215ea93b0b88e28080b304c5d97fe01ac2cdc4ac360318bf76d"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "127534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a29e3661e346c215ea93b0b88e28080b304c5d97fe01ac2cdc4ac360318bf76d"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "6e21849893277a8a9d84a30098ac4e9bd9ed4a783b4e8049f2f3237133df2d6e"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "6e21849893277a8a9d84a30098ac4e9bd9ed4a783b4e8049f2f3237133df2d6e"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "123201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "82df7b9168e1b152dfa5319e178d6f10441e27cb3eb0d37cc93d822748fa0c8e"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "123201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "82df7b9168e1b152dfa5319e178d6f10441e27cb3eb0d37cc93d822748fa0c8e"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "00281b3e4c021ae73e86c8131b4e6fa989b775600c33a5898fc6cab1aa21794a"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "00281b3e4c021ae73e86c8131b4e6fa989b775600c33a5898fc6cab1aa21794a"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "134201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7a6869d17f3e4372f14882397a20073df48a4bbb4c1f632a628ac4e58d4db0ed"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "134201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7a6869d17f3e4372f14882397a20073df48a4bbb4c1f632a628ac4e58d4db0ed"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "53bbe3c44745b19fad1f3e3f3872a06c6f582912de55e718208ae2127dcd50f1"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "53bbe3c44745b19fad1f3e3f3872a06c6f582912de55e718208ae2127dcd50f1"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "e65b209c12206edafb2ed766fd88024a5ca32622ab07699074b024f542b634a0"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "e65b209c12206edafb2ed766fd88024a5ca32622ab07699074b024f542b634a0"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19880000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "76be8b2f8ab73797ed21f4ca9eea25196e4432389d88f6f01a24f1fc5fd8b4f0"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19880000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "76be8b2f8ab73797ed21f4ca9eea25196e4432389d88f6f01a24f1fc5fd8b4f0"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "143534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "39a7784f00c212f7a159bf923a0dc1235de821493c554e4b4c2f84d473abaaa2"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "143534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "39a7784f00c212f7a159bf923a0dc1235de821493c554e4b4c2f84d473abaaa2"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "09fbe1d7a56265c0a8a04547a761c98b1730a5149b3d1570806e68ca047b1424"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "09fbe1d7a56265c0a8a04547a761c98b1730a5149b3d1570806e68ca047b1424"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "117068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0c31d072dc6bec334ad8ddd6593230f4f2d032f81dbbed6409509214279ddcdc"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "117068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0c31d072dc6bec334ad8ddd6593230f4f2d032f81dbbed6409509214279ddcdc"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cf03ec92abea5d5d3354458fa0ecfd2d7577bf9eba656d293a6a02c62e494e57"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cf03ec92abea5d5d3354458fa0ecfd2d7577bf9eba656d293a6a02c62e494e57"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "128068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6df8be10c4376087b475f4ce5e311f795c1e619c8d0b539068c75dcae7def56"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "128068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6df8be10c4376087b475f4ce5e311f795c1e619c8d0b539068c75dcae7def56"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3fa5ffb601440aa3e7318e6a5c153212a6fad493b69df04f5e74ee74b1eab86b"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3fa5ffb601440aa3e7318e6a5c153212a6fad493b69df04f5e74ee74b1eab86b"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "123734"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a5407980ed655986c0aeee4f3e459a2f4da0fd4bd6d7fcf229d46518ed03d0c4"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "123734"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a5407980ed655986c0aeee4f3e459a2f4da0fd4bd6d7fcf229d46518ed03d0c4"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "4ccc808442be3050cc170fe2da4a0e20a53e09051861fa37328d3ff314b6dbf4"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "4ccc808442be3050cc170fe2da4a0e20a53e09051861fa37328d3ff314b6dbf4"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "134734"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3ce69b9ba1a266c2c7b6efbc816a183df84db6b2ddbc79a4904c1eeed6f05275"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "134734"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3ce69b9ba1a266c2c7b6efbc816a183df84db6b2ddbc79a4904c1eeed6f05275"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c08664098247a64da8d28b3b18dd4b1465d8e6b932ec520b318934252378985f"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c08664098247a64da8d28b3b18dd4b1465d8e6b932ec520b318934252378985f"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "133068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b88dcd2a8cecc707ac04142f6e6a90d7863034ead32754833bf58208930900ab"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "133068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b88dcd2a8cecc707ac04142f6e6a90d7863034ead32754833bf58208930900ab"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19960000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "eeec808e3c3dc2c2c0b39476a8bb27f98e74ed6da094879b285d9b77310f8c09"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19960000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "eeec808e3c3dc2c2c0b39476a8bb27f98e74ed6da094879b285d9b77310f8c09"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "144068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "01ffd993597a605d5498c87d46b29c4e531b76b1649d531827c5fee8a1adfc25"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "144068"
+          },
+          {
+            "type": "cell",
+            "cellHash": "01ffd993597a605d5498c87d46b29c4e531b76b1649d531827c5fee8a1adfc25"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21610000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "99f468ccba6b7fdfa8cbc5d94fffeb4e16cfe47b2ecff19299af4b9c4c6a013a"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21610000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "99f468ccba6b7fdfa8cbc5d94fffeb4e16cfe47b2ecff19299af4b9c4c6a013a"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "124534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9635133f8e15e7debfeed2f167b66874ba88e318d8000e461570f632726d1ba0"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "124534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9635133f8e15e7debfeed2f167b66874ba88e318d8000e461570f632726d1ba0"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "969e3a50b5ae95ce60fa2594c74b8cfa4150c3897a9aca358544ef6cfe0d6798"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "969e3a50b5ae95ce60fa2594c74b8cfa4150c3897a9aca358544ef6cfe0d6798"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "135534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "92a12c1b48d5d94c0810cc88520328fc1ab18ec160a7c91d665addb2081d7c84"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "135534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "92a12c1b48d5d94c0810cc88520328fc1ab18ec160a7c91d665addb2081d7c84"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ba263ea6b2f7c63a9256f24cb6437fa357ba63c803f833ac5bc2b07c9ed4d592"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ba263ea6b2f7c63a9256f24cb6437fa357ba63c803f833ac5bc2b07c9ed4d592"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "131201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "56bd53bbe2a1b1dc1c4a22141b27d4cd33cdee62b476754ae22ee1d748543efd"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "131201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "56bd53bbe2a1b1dc1c4a22141b27d4cd33cdee62b476754ae22ee1d748543efd"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c8ca0fe193926b35d0e2f6909f61eae52cf9062153783633dee36baf6099d7e9"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c8ca0fe193926b35d0e2f6909f61eae52cf9062153783633dee36baf6099d7e9"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "142201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f4e12a7edf5a52ce443e981aa023cfbbdeae7e31c098f09b225c0629bb271811"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "142201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f4e12a7edf5a52ce443e981aa023cfbbdeae7e31c098f09b225c0629bb271811"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "484a1a7a6fe186c1a34a2ec72b93259f20f98a5f3c2f490311dd334b431b73c6"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "484a1a7a6fe186c1a34a2ec72b93259f20f98a5f3c2f490311dd334b431b73c6"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "140534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee0b7668d9ae5ae1ab71c0e477c6708ba2028586e3d4cd0248f52652124c9348"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "140534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee0b7668d9ae5ae1ab71c0e477c6708ba2028586e3d4cd0248f52652124c9348"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21080000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "19fff62b71a6bb97da02f480f8f3e82b10048d96c2b8fba404cff7f26b6dcf14"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21080000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "19fff62b71a6bb97da02f480f8f3e82b10048d96c2b8fba404cff7f26b6dcf14"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "151534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a0dd9c2ab30241dbc1f9ee5b7690802856579cdc2b5f8449b6e9be738f1f1401"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "151534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a0dd9c2ab30241dbc1f9ee5b7690802856579cdc2b5f8449b6e9be738f1f1401"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=0 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "22730000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f2ea23460ef041e493156f59a807d893341b87749078b846589beb1ff362024e"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "22730000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f2ea23460ef041e493156f59a807d893341b87749078b846589beb1ff362024e"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2bfe64477a16f0e797a0578e618285e3d7e615910361506afa11e8553f51dfa9"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2bfe64477a16f0e797a0578e618285e3d7e615910361506afa11e8553f51dfa9"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "693f2f7e5b9077408a947cb1ca24ad3c182ecfbe0b0ea5886dde8be2eb0cd984"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "693f2f7e5b9077408a947cb1ca24ad3c182ecfbe0b0ea5886dde8be2eb0cd984"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9aafbe724d8d267c65dadf5374e0884fd8a54f46e4ca76f1525585822a226753"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9aafbe724d8d267c65dadf5374e0884fd8a54f46e4ca76f1525585822a226753"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "55ca1040e867ef122448960ec3670406e6089fb40dfd8bd17de636aaaa0ad5b3"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "55ca1040e867ef122448960ec3670406e6089fb40dfd8bd17de636aaaa0ad5b3"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cd96fd363fb9e0ff7ef8ab7e89c802926a520c1e534e044c3584deadef76f82d"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cd96fd363fb9e0ff7ef8ab7e89c802926a520c1e534e044c3584deadef76f82d"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "647e5a5816b9624426d60ad58b83ecf15fba4e61ab9ab617076ec9eab681f459"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "647e5a5816b9624426d60ad58b83ecf15fba4e61ab9ab617076ec9eab681f459"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "560da8b71cb87afbef60bd4f5a25ee1417aad3c8a54f151a80c700105d11685d"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "560da8b71cb87afbef60bd4f5a25ee1417aad3c8a54f151a80c700105d11685d"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "df3c9710610bd1e4271ce85806483a2ac43b3036d66cc28760bf27cdfdbb9c5a"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "df3c9710610bd1e4271ce85806483a2ac43b3036d66cc28760bf27cdfdbb9c5a"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61f22f18ff0ab6bb68509c2ac9e497ccc59dfb27200fd117f5b6948694956a07"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61f22f18ff0ab6bb68509c2ac9e497ccc59dfb27200fd117f5b6948694956a07"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3bf7fc518e22ed7aaedacef56b05b5c47c47be5ae148cbf476cc391e405bbdaa"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3bf7fc518e22ed7aaedacef56b05b5c47c47be5ae148cbf476cc391e405bbdaa"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c28b22571ffaad6814155fa2ec3d971359fff2351f8364973e54efcabb3b6bc9"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c28b22571ffaad6814155fa2ec3d971359fff2351f8364973e54efcabb3b6bc9"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "be8427a0a8b99a9aa66f9be42575e1d6d11c6dde982aef2c0818c11383a4a5e2"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "be8427a0a8b99a9aa66f9be42575e1d6d11c6dde982aef2c0818c11383a4a5e2"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ffbd02afe405745cb4c2184bb39c3845972eab0065514a3faaec49b62decc96b"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ffbd02afe405745cb4c2184bb39c3845972eab0065514a3faaec49b62decc96b"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7bb41b02fe76c0a25ae37cf954afdcf99ff37145841ab4ad1e5a04897818d72c"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7bb41b02fe76c0a25ae37cf954afdcf99ff37145841ab4ad1e5a04897818d72c"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ce99863b895cb64de9b0d9aa7c2c14af97794d163f7c72b65e771f7f0d3ba758"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "66667"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ce99863b895cb64de9b0d9aa7c2c14af97794d163f7c72b65e771f7f0d3ba758"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "debceaf65991e2f44ef2e53db841039248b82b4c9694b16cb81790471b932f03"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "debceaf65991e2f44ef2e53db841039248b82b4c9694b16cb81790471b932f03"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "addcdc6588e9b49093a8f957235db89fd4c353211e5e83404b35f4e44ff140f1"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "addcdc6588e9b49093a8f957235db89fd4c353211e5e83404b35f4e44ff140f1"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "393cfd1d63ace50eebae5353d3bd17614db1716ed71a63ac800818643f238ff6"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "393cfd1d63ace50eebae5353d3bd17614db1716ed71a63ac800818643f238ff6"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "23e641401de2ef0c630464249fc0cbe654ebc898cb4c7c95386066db31ad27ee"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "73334"
+          },
+          {
+            "type": "cell",
+            "cellHash": "23e641401de2ef0c630464249fc0cbe654ebc898cb4c7c95386066db31ad27ee"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8cfd427ce14890ead1fb6d858621901cf0844c5a873831c046824759f5d36874"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8cfd427ce14890ead1fb6d858621901cf0844c5a873831c046824759f5d36874"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "504e673b84795726872144a77a6a73ab5ea93f7170836a8e5f6c3d254b6df1b8"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "504e673b84795726872144a77a6a73ab5ea93f7170836a8e5f6c3d254b6df1b8"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61b1242fd8c314a2387f9d695bbe0f96c3c19f6c3a6fe5283d6ec4cbc9a57857"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61b1242fd8c314a2387f9d695bbe0f96c3c19f6c3a6fe5283d6ec4cbc9a57857"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "90f911e5edcbcf8ba89aca3c5d33e0a7b368a4489e0b06f4c0487fcd5c5df272"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "82668"
+          },
+          {
+            "type": "cell",
+            "cellHash": "90f911e5edcbcf8ba89aca3c5d33e0a7b368a4489e0b06f4c0487fcd5c5df272"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "781ebb8e5185ca7c5e4a7e2fa0a79e8469ee7c0bf29bc6eddd77c8756ea4d555"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "781ebb8e5185ca7c5e4a7e2fa0a79e8469ee7c0bf29bc6eddd77c8756ea4d555"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "90201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "954056fe32c1ae261b9d42e59402b4b50f074dc67f200d2023b18b2b0bd3373e"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "90201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "954056fe32c1ae261b9d42e59402b4b50f074dc67f200d2023b18b2b0bd3373e"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "88a92c71d1fb2ed69205b68058456455069b4492f46c1ce476d3008a6b516a78"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "88a92c71d1fb2ed69205b68058456455069b4492f46c1ce476d3008a6b516a78"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "90201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d2c86491bcf191a2f68bcd2479826011fe63be4767b84804d0fe66f3cda1e095"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "90201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d2c86491bcf191a2f68bcd2479826011fe63be4767b84804d0fe66f3cda1e095"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0f12a1459bb1bd2535b08c37b225d11764c975006709472fb6f74dfb3aada004"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0f12a1459bb1bd2535b08c37b225d11764c975006709472fb6f74dfb3aada004"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "96868"
+          },
+          {
+            "type": "cell",
+            "cellHash": "48c3cfc6ef7be97272490a619226062e8abf0d760cccff2f9361c61630ebb818"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "96868"
+          },
+          {
+            "type": "cell",
+            "cellHash": "48c3cfc6ef7be97272490a619226062e8abf0d760cccff2f9361c61630ebb818"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a4159ca9004cb4776ff5c0c8d28a46f592846407351439f19242174442b83a38"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a4159ca9004cb4776ff5c0c8d28a46f592846407351439f19242174442b83a38"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "96868"
+          },
+          {
+            "type": "cell",
+            "cellHash": "60d9aa845fa7500a8416aec5eabf227b07a60771a339b49946d90a75e6cadb3b"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "96868"
+          },
+          {
+            "type": "cell",
+            "cellHash": "60d9aa845fa7500a8416aec5eabf227b07a60771a339b49946d90a75e6cadb3b"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2c66aa2a756d8d140e819b991ba275012e3d270b76aa14c3240f6c9b26191e07"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2c66aa2a756d8d140e819b991ba275012e3d270b76aa14c3240f6c9b26191e07"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "106201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6a0106643c5e36ea28f4c81dcc5a4f00847d10f21e1c8327796565dd5b5232f"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "106201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6a0106643c5e36ea28f4c81dcc5a4f00847d10f21e1c8327796565dd5b5232f"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2f648f1dca07fb7bcb39b9582e39535d2ce8e1bf5e9282bcca6e9eb38f07acd7"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2f648f1dca07fb7bcb39b9582e39535d2ce8e1bf5e9282bcca6e9eb38f07acd7"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "106201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d7152ca944a12f095e44933a4e8ad6e07c943996782b9341c614f9bd886e52ee"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "106201"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d7152ca944a12f095e44933a4e8ad6e07c943996782b9341c614f9bd886e52ee"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=0 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "5170a04a856509472e00aaba89bd6d8de1c6d6bccac3c493b766b8d6af7743f9"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "5170a04a856509472e00aaba89bd6d8de1c6d6bccac3c493b766b8d6af7743f9"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "105e35c516ea182c609f883fc3fcad4a28c8d43974289537b33443c4f4857984"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "105e35c516ea182c609f883fc3fcad4a28c8d43974289537b33443c4f4857984"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8d5b21cc69bc8ceb5acbef61cb8f3437f9f04191e1dd5697aad30f11195be561"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8d5b21cc69bc8ceb5acbef61cb8f3437f9f04191e1dd5697aad30f11195be561"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a29e3661e346c215ea93b0b88e28080b304c5d97fe01ac2cdc4ac360318bf76d"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a29e3661e346c215ea93b0b88e28080b304c5d97fe01ac2cdc4ac360318bf76d"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "6e21849893277a8a9d84a30098ac4e9bd9ed4a783b4e8049f2f3237133df2d6e"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "6e21849893277a8a9d84a30098ac4e9bd9ed4a783b4e8049f2f3237133df2d6e"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "82df7b9168e1b152dfa5319e178d6f10441e27cb3eb0d37cc93d822748fa0c8e"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "82df7b9168e1b152dfa5319e178d6f10441e27cb3eb0d37cc93d822748fa0c8e"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "00281b3e4c021ae73e86c8131b4e6fa989b775600c33a5898fc6cab1aa21794a"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18480000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "00281b3e4c021ae73e86c8131b4e6fa989b775600c33a5898fc6cab1aa21794a"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7a6869d17f3e4372f14882397a20073df48a4bbb4c1f632a628ac4e58d4db0ed"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7a6869d17f3e4372f14882397a20073df48a4bbb4c1f632a628ac4e58d4db0ed"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "53bbe3c44745b19fad1f3e3f3872a06c6f582912de55e718208ae2127dcd50f1"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20130000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "53bbe3c44745b19fad1f3e3f3872a06c6f582912de55e718208ae2127dcd50f1"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19880000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "e65b209c12206edafb2ed766fd88024a5ca32622ab07699074b024f542b634a0"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19880000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "e65b209c12206edafb2ed766fd88024a5ca32622ab07699074b024f542b634a0"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19880000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "76be8b2f8ab73797ed21f4ca9eea25196e4432389d88f6f01a24f1fc5fd8b4f0"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19880000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "76be8b2f8ab73797ed21f4ca9eea25196e4432389d88f6f01a24f1fc5fd8b4f0"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "39a7784f00c212f7a159bf923a0dc1235de821493c554e4b4c2f84d473abaaa2"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "39a7784f00c212f7a159bf923a0dc1235de821493c554e4b4c2f84d473abaaa2"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "09fbe1d7a56265c0a8a04547a761c98b1730a5149b3d1570806e68ca047b1424"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "09fbe1d7a56265c0a8a04547a761c98b1730a5149b3d1570806e68ca047b1424"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0c31d072dc6bec334ad8ddd6593230f4f2d032f81dbbed6409509214279ddcdc"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0c31d072dc6bec334ad8ddd6593230f4f2d032f81dbbed6409509214279ddcdc"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cf03ec92abea5d5d3354458fa0ecfd2d7577bf9eba656d293a6a02c62e494e57"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "17560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cf03ec92abea5d5d3354458fa0ecfd2d7577bf9eba656d293a6a02c62e494e57"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6df8be10c4376087b475f4ce5e311f795c1e619c8d0b539068c75dcae7def56"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6df8be10c4376087b475f4ce5e311f795c1e619c8d0b539068c75dcae7def56"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3fa5ffb601440aa3e7318e6a5c153212a6fad493b69df04f5e74ee74b1eab86b"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3fa5ffb601440aa3e7318e6a5c153212a6fad493b69df04f5e74ee74b1eab86b"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a5407980ed655986c0aeee4f3e459a2f4da0fd4bd6d7fcf229d46518ed03d0c4"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a5407980ed655986c0aeee4f3e459a2f4da0fd4bd6d7fcf229d46518ed03d0c4"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "4ccc808442be3050cc170fe2da4a0e20a53e09051861fa37328d3ff314b6dbf4"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18560000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "4ccc808442be3050cc170fe2da4a0e20a53e09051861fa37328d3ff314b6dbf4"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3ce69b9ba1a266c2c7b6efbc816a183df84db6b2ddbc79a4904c1eeed6f05275"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3ce69b9ba1a266c2c7b6efbc816a183df84db6b2ddbc79a4904c1eeed6f05275"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c08664098247a64da8d28b3b18dd4b1465d8e6b932ec520b318934252378985f"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20210000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c08664098247a64da8d28b3b18dd4b1465d8e6b932ec520b318934252378985f"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19960000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b88dcd2a8cecc707ac04142f6e6a90d7863034ead32754833bf58208930900ab"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19960000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b88dcd2a8cecc707ac04142f6e6a90d7863034ead32754833bf58208930900ab"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19960000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "eeec808e3c3dc2c2c0b39476a8bb27f98e74ed6da094879b285d9b77310f8c09"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19960000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "eeec808e3c3dc2c2c0b39476a8bb27f98e74ed6da094879b285d9b77310f8c09"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21610000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "01ffd993597a605d5498c87d46b29c4e531b76b1649d531827c5fee8a1adfc25"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21610000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "01ffd993597a605d5498c87d46b29c4e531b76b1649d531827c5fee8a1adfc25"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21610000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "99f468ccba6b7fdfa8cbc5d94fffeb4e16cfe47b2ecff19299af4b9c4c6a013a"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21610000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "99f468ccba6b7fdfa8cbc5d94fffeb4e16cfe47b2ecff19299af4b9c4c6a013a"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9635133f8e15e7debfeed2f167b66874ba88e318d8000e461570f632726d1ba0"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9635133f8e15e7debfeed2f167b66874ba88e318d8000e461570f632726d1ba0"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "969e3a50b5ae95ce60fa2594c74b8cfa4150c3897a9aca358544ef6cfe0d6798"
+          }
+        ],
+        "gasUsed": "3785"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "18680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "969e3a50b5ae95ce60fa2594c74b8cfa4150c3897a9aca358544ef6cfe0d6798"
+          }
+        ],
+        "gasUsed": "3785"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "92a12c1b48d5d94c0810cc88520328fc1ab18ec160a7c91d665addb2081d7c84"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "92a12c1b48d5d94c0810cc88520328fc1ab18ec160a7c91d665addb2081d7c84"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ba263ea6b2f7c63a9256f24cb6437fa357ba63c803f833ac5bc2b07c9ed4d592"
+          }
+        ],
+        "gasUsed": "4618"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "20330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ba263ea6b2f7c63a9256f24cb6437fa357ba63c803f833ac5bc2b07c9ed4d592"
+          }
+        ],
+        "gasUsed": "4618"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "56bd53bbe2a1b1dc1c4a22141b27d4cd33cdee62b476754ae22ee1d748543efd"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "56bd53bbe2a1b1dc1c4a22141b27d4cd33cdee62b476754ae22ee1d748543efd"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c8ca0fe193926b35d0e2f6909f61eae52cf9062153783633dee36baf6099d7e9"
+          }
+        ],
+        "gasUsed": "4127"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "19680000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c8ca0fe193926b35d0e2f6909f61eae52cf9062153783633dee36baf6099d7e9"
+          }
+        ],
+        "gasUsed": "4127"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f4e12a7edf5a52ce443e981aa023cfbbdeae7e31c098f09b225c0629bb271811"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f4e12a7edf5a52ce443e981aa023cfbbdeae7e31c098f09b225c0629bb271811"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "484a1a7a6fe186c1a34a2ec72b93259f20f98a5f3c2f490311dd334b431b73c6"
+          }
+        ],
+        "gasUsed": "4692"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21330000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "484a1a7a6fe186c1a34a2ec72b93259f20f98a5f3c2f490311dd334b431b73c6"
+          }
+        ],
+        "gasUsed": "4692"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21080000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee0b7668d9ae5ae1ab71c0e477c6708ba2028586e3d4cd0248f52652124c9348"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21080000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ee0b7668d9ae5ae1ab71c0e477c6708ba2028586e3d4cd0248f52652124c9348"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21080000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "19fff62b71a6bb97da02f480f8f3e82b10048d96c2b8fba404cff7f26b6dcf14"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "21080000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "19fff62b71a6bb97da02f480f8f3e82b10048d96c2b8fba404cff7f26b6dcf14"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "22730000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a0dd9c2ab30241dbc1f9ee5b7690802856579cdc2b5f8449b6e9be738f1f1401"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "22730000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a0dd9c2ab30241dbc1f9ee5b7690802856579cdc2b5f8449b6e9be738f1f1401"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=-1 jetton amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "22730000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f2ea23460ef041e493156f59a807d893341b87749078b846589beb1ff362024e"
+          }
+        ],
+        "gasUsed": "4792"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "22730000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f2ea23460ef041e493156f59a807d893341b87749078b846589beb1ff362024e"
+          }
+        ],
+        "gasUsed": "4792"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2bfe64477a16f0e797a0578e618285e3d7e615910361506afa11e8553f51dfa9"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2bfe64477a16f0e797a0578e618285e3d7e615910361506afa11e8553f51dfa9"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "693f2f7e5b9077408a947cb1ca24ad3c182ecfbe0b0ea5886dde8be2eb0cd984"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "693f2f7e5b9077408a947cb1ca24ad3c182ecfbe0b0ea5886dde8be2eb0cd984"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9aafbe724d8d267c65dadf5374e0884fd8a54f46e4ca76f1525585822a226753"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "9aafbe724d8d267c65dadf5374e0884fd8a54f46e4ca76f1525585822a226753"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "55ca1040e867ef122448960ec3670406e6089fb40dfd8bd17de636aaaa0ad5b3"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "55ca1040e867ef122448960ec3670406e6089fb40dfd8bd17de636aaaa0ad5b3"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cd96fd363fb9e0ff7ef8ab7e89c802926a520c1e534e044c3584deadef76f82d"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "cd96fd363fb9e0ff7ef8ab7e89c802926a520c1e534e044c3584deadef76f82d"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "647e5a5816b9624426d60ad58b83ecf15fba4e61ab9ab617076ec9eab681f459"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "647e5a5816b9624426d60ad58b83ecf15fba4e61ab9ab617076ec9eab681f459"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "560da8b71cb87afbef60bd4f5a25ee1417aad3c8a54f151a80c700105d11685d"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "560da8b71cb87afbef60bd4f5a25ee1417aad3c8a54f151a80c700105d11685d"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "df3c9710610bd1e4271ce85806483a2ac43b3036d66cc28760bf27cdfdbb9c5a"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "df3c9710610bd1e4271ce85806483a2ac43b3036d66cc28760bf27cdfdbb9c5a"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61f22f18ff0ab6bb68509c2ac9e497ccc59dfb27200fd117f5b6948694956a07"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61f22f18ff0ab6bb68509c2ac9e497ccc59dfb27200fd117f5b6948694956a07"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3bf7fc518e22ed7aaedacef56b05b5c47c47be5ae148cbf476cc391e405bbdaa"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "3bf7fc518e22ed7aaedacef56b05b5c47c47be5ae148cbf476cc391e405bbdaa"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c28b22571ffaad6814155fa2ec3d971359fff2351f8364973e54efcabb3b6bc9"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "c28b22571ffaad6814155fa2ec3d971359fff2351f8364973e54efcabb3b6bc9"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=0 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "be8427a0a8b99a9aa66f9be42575e1d6d11c6dde982aef2c0818c11383a4a5e2"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "be8427a0a8b99a9aa66f9be42575e1d6d11c6dde982aef2c0818c11383a4a5e2"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ffbd02afe405745cb4c2184bb39c3845972eab0065514a3faaec49b62decc96b"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ffbd02afe405745cb4c2184bb39c3845972eab0065514a3faaec49b62decc96b"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7bb41b02fe76c0a25ae37cf954afdcf99ff37145841ab4ad1e5a04897818d72c"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "7bb41b02fe76c0a25ae37cf954afdcf99ff37145841ab4ad1e5a04897818d72c"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ce99863b895cb64de9b0d9aa7c2c14af97794d163f7c72b65e771f7f0d3ba758"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "ce99863b895cb64de9b0d9aa7c2c14af97794d163f7c72b65e771f7f0d3ba758"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "debceaf65991e2f44ef2e53db841039248b82b4c9694b16cb81790471b932f03"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "10000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "debceaf65991e2f44ef2e53db841039248b82b4c9694b16cb81790471b932f03"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "addcdc6588e9b49093a8f957235db89fd4c353211e5e83404b35f4e44ff140f1"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "addcdc6588e9b49093a8f957235db89fd4c353211e5e83404b35f4e44ff140f1"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "393cfd1d63ace50eebae5353d3bd17614db1716ed71a63ac800818643f238ff6"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "393cfd1d63ace50eebae5353d3bd17614db1716ed71a63ac800818643f238ff6"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "23e641401de2ef0c630464249fc0cbe654ebc898cb4c7c95386066db31ad27ee"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "23e641401de2ef0c630464249fc0cbe654ebc898cb4c7c95386066db31ad27ee"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8cfd427ce14890ead1fb6d858621901cf0844c5a873831c046824759f5d36874"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "11000000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "8cfd427ce14890ead1fb6d858621901cf0844c5a873831c046824759f5d36874"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "504e673b84795726872144a77a6a73ab5ea93f7170836a8e5f6c3d254b6df1b8"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "504e673b84795726872144a77a6a73ab5ea93f7170836a8e5f6c3d254b6df1b8"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61b1242fd8c314a2387f9d695bbe0f96c3c19f6c3a6fe5283d6ec4cbc9a57857"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "61b1242fd8c314a2387f9d695bbe0f96c3c19f6c3a6fe5283d6ec4cbc9a57857"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "90f911e5edcbcf8ba89aca3c5d33e0a7b368a4489e0b06f4c0487fcd5c5df272"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "90f911e5edcbcf8ba89aca3c5d33e0a7b368a4489e0b06f4c0487fcd5c5df272"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=11 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "781ebb8e5185ca7c5e4a7e2fa0a79e8469ee7c0bf29bc6eddd77c8756ea4d555"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "11"
+          },
+          {
+            "type": "int",
+            "value": "12400000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "781ebb8e5185ca7c5e4a7e2fa0a79e8469ee7c0bf29bc6eddd77c8756ea4d555"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=null wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "954056fe32c1ae261b9d42e59402b4b50f074dc67f200d2023b18b2b0bd3373e"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "954056fe32c1ae261b9d42e59402b4b50f074dc67f200d2023b18b2b0bd3373e"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=null wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "88a92c71d1fb2ed69205b68058456455069b4492f46c1ce476d3008a6b516a78"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "88a92c71d1fb2ed69205b68058456455069b4492f46c1ce476d3008a6b516a78"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=null wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d2c86491bcf191a2f68bcd2479826011fe63be4767b84804d0fe66f3cda1e095"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d2c86491bcf191a2f68bcd2479826011fe63be4767b84804d0fe66f3cda1e095"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=null wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "null",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0f12a1459bb1bd2535b08c37b225d11764c975006709472fb6f74dfb3aada004"
+          }
+        ],
+        "gasUsed": "2207"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "13530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "0f12a1459bb1bd2535b08c37b225d11764c975006709472fb6f74dfb3aada004"
+          }
+        ],
+        "gasUsed": "2207"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "48c3cfc6ef7be97272490a619226062e8abf0d760cccff2f9361c61630ebb818"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "48c3cfc6ef7be97272490a619226062e8abf0d760cccff2f9361c61630ebb818"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a4159ca9004cb4776ff5c0c8d28a46f592846407351439f19242174442b83a38"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "a4159ca9004cb4776ff5c0c8d28a46f592846407351439f19242174442b83a38"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "60d9aa845fa7500a8416aec5eabf227b07a60771a339b49946d90a75e6cadb3b"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "60d9aa845fa7500a8416aec5eabf227b07a60771a339b49946d90a75e6cadb3b"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7 wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2c66aa2a756d8d140e819b991ba275012e3d270b76aa14c3240f6c9b26191e07"
+          }
+        ],
+        "gasUsed": "2307"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "14530000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2c66aa2a756d8d140e819b991ba275012e3d270b76aa14c3240f6c9b26191e07"
+          }
+        ],
+        "gasUsed": "2307"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6a0106643c5e36ea28f4c81dcc5a4f00847d10f21e1c8327796565dd5b5232f"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "f6a0106643c5e36ea28f4c81dcc5a4f00847d10f21e1c8327796565dd5b5232f"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=false master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2f648f1dca07fb7bcb39b9582e39535d2ce8e1bf5e9282bcca6e9eb38f07acd7"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "2f648f1dca07fb7bcb39b9582e39535d2ce8e1bf5e9282bcca6e9eb38f07acd7"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d7152ca944a12f095e44933a4e8ad6e07c943996782b9341c614f9bd886e52ee"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "d7152ca944a12f095e44933a4e8ad6e07c943996782b9341c614f9bd886e52ee"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "chain=-1 TON amount=1329227995784915872903807060280344575 payload=809eb263adbffc0c73d2a29683bcf38563cb3eac6a4abc503513055881f8805a wrap=true master=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "5170a04a856509472e00aaba89bd6d8de1c6d6bccac3c493b766b8d6af7743f9"
+          }
+        ],
+        "gasUsed": "2407"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "1329227995784915872903807060280344575"
+          },
+          {
+            "type": "int",
+            "value": "15930000"
+          },
+          {
+            "type": "cell",
+            "cellHash": "5170a04a856509472e00aaba89bd6d8de1c6d6bccac3c493b766b8d6af7743f9"
+          }
+        ],
+        "gasUsed": "2407"
+      }
+    },
+    {
+      "name": "invalid query -1 native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1980"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1980"
+      }
+    },
+    {
+      "name": "invalid query 18446744073709551616 native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1980"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1980"
+      }
+    },
+    {
+      "name": "invalid query -1 native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "894"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "894"
+      }
+    },
+    {
+      "name": "invalid query 18446744073709551616 native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "894"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "894"
+      }
+    },
+    {
+      "name": "invalid amount -1 native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2032"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2032"
+      }
+    },
+    {
+      "name": "invalid amount 1329227995784915872903807060280344576 native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2032"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2032"
+      }
+    },
+    {
+      "name": "invalid amount -1 native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "938"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "938"
+      }
+    },
+    {
+      "name": "invalid amount 1329227995784915872903807060280344576 native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "793"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "793"
+      }
+    },
+    {
+      "name": "message value overflow native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2995"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "2995"
+      }
+    },
+    {
+      "name": "message value overflow native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "793"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "793"
+      }
+    },
+    {
+      "name": "invalid status -2147483649 native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1201"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1201"
+      }
+    },
+    {
+      "name": "invalid status 2147483648 native=false",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1201"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "1201"
+      }
+    },
+    {
+      "name": "invalid status -2147483649 native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "982"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "982"
+      }
+    },
+    {
+      "name": "invalid status 2147483648 native=true",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "982"
+      },
+      "after": {
+        "exitCode": 5,
+        "stack": null,
+        "gasUsed": "982"
+      }
+    },
+    {
+      "name": "external asset rejected",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 31,
+        "stack": null,
+        "gasUsed": "692"
+      },
+      "after": {
+        "exitCode": 31,
+        "stack": null,
+        "gasUsed": "692"
+      }
+    },
+    {
+      "name": "raw payload ignores out-of-range status",
+      "method": 90046,
+      "args": [
+        "slice",
+        "slice",
+        "int",
+        "slice",
+        "int",
+        "cell",
+        "int",
+        "slice",
+        "int",
+        "int"
+      ],
+      "sameObservedBehavior": true,
+      "before": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b4bc69704c0f3854419ea2e7f1a5b23aaead67b15c7e9ab7d8bd3ed342d46123"
+          }
+        ],
+        "gasUsed": "4227"
+      },
+      "after": {
+        "exitCode": 0,
+        "stack": [
+          {
+            "type": "int",
+            "value": "0"
+          },
+          {
+            "type": "int",
+            "value": "132534"
+          },
+          {
+            "type": "cell",
+            "cellHash": "b4bc69704c0f3854419ea2e7f1a5b23aaead67b15c7e9ab7d8bd3ed342d46123"
+          }
+        ],
+        "gasUsed": "4227"
+      }
+    }
+  ]
+}

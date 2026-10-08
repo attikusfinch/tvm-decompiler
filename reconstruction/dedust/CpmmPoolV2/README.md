@@ -136,3 +136,27 @@ probes compare exact gas, raw send actions, independently calculated resolver
 amounts, strict dictionary records and errors. A lowered local gas-price config
 makes the request revisions observably different. Four native Acton tests bring
 the full project to 48 tests. The proof is `transfers-verification.json`.
+
+`payment.tolk` recovers the complete referenced TON/jetton payment function,
+shared by both revisions. Its compiled cell equals
+`6c6ac69613082d653edca6da9a4121af14c37c8855f38cac713059cfd1de6fe5`.
+TON payments attach principal plus extra gas and an inline signed status/payload
+notification. Jetton transfers attach 50,000,000 plus extra gas, preserve the
+recipient and excesses address, and select an absent, raw-reference or wrapped
+callback payload. The result contains native principal spent and `SENDMSG`'s
+forwarding-fee estimate; both sends retain mode 17.
+
+The readable source updates a union variable inside the payload branches. A
+fresh expression changes compiler variable lifetimes and stack moves. One typed
+two-slot empty-slice constructor preserves the original union representation;
+all branching and message serialization remain Tolk.
+
+Run `npm run dedust:pool-payment`: the isolated complete BOC is byte-identical,
+and 160 probes check gas, action hashes, independently encoded messages and
+fees, maximum coin/query values, signed status bounds and invalid assets. The
+independent fee calculation includes `SENDMSG` moving an inline body to a new
+cell after filling the source address and forwarding-fee header, following the
+pinned official [`exec_send_message` implementation](https://github.com/ton-blockchain/ton/blob/4539cfabf2877e09d13032861f36c1490d13a941/crypto/vm/tonops.cpp).
+Four native Acton tests bring the project to 52 passing tests. The proof is
+`payment-verification.json`; complete Pool dispatch and swap/liquidity paths
+remain pending.

@@ -23,6 +23,7 @@
     "dedust:pool-calculations": "node scripts/check-dedust-pool-calculations.mjs",
     "dedust:pool-events": "node scripts/check-dedust-pool-events.mjs",
     "dedust:pool-transfers": "node scripts/check-dedust-pool-transfers.mjs",
+    "dedust:pool-payment": "node scripts/check-dedust-pool-payment.mjs",
     "func:normalization": "node scripts/check-func-normalization.mjs",
     "func:stdlib": "node scripts/check-func-stdlib.mjs",
     "func:audit": "node scripts/audit-func-normalization.mjs",
