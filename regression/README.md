@@ -120,6 +120,30 @@ counts, all probe outcomes and raw/normalized gas/BOC identities against
 the current JAR SHA-256 in every cached request. It detects stale or partial
 suite reports without re-running compilation.
 
+`tolk:catalog` covers N11–N20 with 40 compiler-derived forms / 1593 probes:
+nested terminal match and retained joins/loops, sequential/sparse enum checks,
+fixed/variable serialization, ref/inline/tails, Maybe/Either/constructor unions,
+nested/lazy/custom serializers, tensor/tuple/snake arrays, typed maps, arithmetic
+and generic/lambda forms. The literal continuation + NOP lambda is also recompiled
+and executed as FunC. Targeted valid prefix/array cases complement truncations;
+the nested match suite requires every intended branch result to be observed.
+
+`tolk:arithmetic` checks 18 forms / 1400 probes, including distinct terminal
+operands, all division roundings, muldiv overflow/zero divisor and retained
+constant/repeated/nonterminal/unused calls. Discarded MIN/MAX/MINMAX/ABS calls
+are tested on both languages with null/NaN/cell and boundary int values.
+`tolk:dictionary` checks all six lookup+THROWIFNOT opcodes, short/long throw codes
+and a discarded result: 13 forms / 351 probes on both languages, including null,
+malformed/missing dictionaries, key sign/range and width boundaries.
+
+`schema:ambiguity` proves six distinct source pairs compile to identical BOCs:
+cell/string, nested/flat struct, generic/inline, semantic alias, enum member names
+and bool/int1. It checks 238 probes including gas. The normalizer never receives
+these source facts. `tolk:audit` includes all these reports, the seven prior
+recovery suites, dispatch ambiguity and message probes against the current JAR.
+See the [24-family catalog](../docs/compiler-recovery-catalog.md) for remaining
+boundaries; a successful round trip does not imply full author-schema recovery.
+
 ## Standalone HTML report
 
 Run `npm run acton -- --local --native --acton` to generate all eight FunC cases with TASM views, and the same command with `--language tolk` for Tolk. Known differences and partial outputs make both commands exit 1. Then run `npm run report` separately. The exporter validates original/recompiled BOC hashes and saved sources against each response and writes ../reports/acton-contracts.html. It includes a Tolk selector when the tolk/report.json artifact is available. `--artifacts <directory>`, `--tolk-artifacts <directory>` and `--output <file>` override paths. The report is self-contained, works offline, includes original Tolk import dependencies, and supports downloading exact code/BOC and comparison JSON. Each language retains its own JAR SHA-256, compiler metadata and check timestamp. All eight outputs include raw/normalized recompilation and comparison; original/recompiled differences remain visible in the report.

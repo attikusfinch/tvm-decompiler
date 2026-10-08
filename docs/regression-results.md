@@ -16,7 +16,7 @@ Baseline: swiftail/tvm-decompiler commit 2e10e7bbd0ac44c33614c9118774e36e74f2ed8
 | Acton SimpleExtension | Not queried | Compiles; 1/1 getter, 6/7 internal message outcomes and 7/7 storage/action results match |
 | Acton WalletV5 | Not queried | Compiles on FunC/Tolk; 5/5 getters, 10/10 message outcomes and state/action comparisons |
 
-Kotlin unit/CLI tests: 68 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, effectful FunC declarations, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
+Kotlin unit/CLI tests: 77 passed, including WHILE/AGAINEND/CALLREF/TRY/CALLXARGS/JMPX recovery, guarded dictionary lookups, literal lambda continuations/NOP, discarded arithmetic checks, normalization rules, raw/normalized output selection and strict partial-result rejection. Harness unit tests: 5 passed, including carry-all-balance on a synthetic account with accurate storage counters. Original Acton template tests: 85 passed across all five built-in templates. These counts are separate from emulator comparisons of recompiled contracts. The legacy Gradle roundTripTest had no func_sources fixtures in this snapshot; the committed Node harness performs the actual compilation round trips.
 
 The newly passing minimal cases reproduce typed BALANCE indexing, embedded GETPARAM selectors, a PUSHREF cell containing references and canonical TRY/catch. Counter also reproduces INMSGPARAM result typing and embedded selectors. Dynamic EXECUTE remains incomplete with structured diagnostics. Noncanonical TRY has a separate negative unit/CLI fixture.
 
@@ -99,4 +99,30 @@ A separate post-emission normalizer folds address returns and boolean guards, re
 
 Compiler-derived prefix reconstruction restores five `lazy`/`match` dispatches in Empty, Counter, NftItem and both SimpleExtension entrypoints. Payloads remain `RemainingBitsAndRefs`; names follow observed prefixes. The emitter retains SDBEGINSQ through exact asm helpers, avoiding the previous PUSHSLICE + SDBEGINSXQ expansion, and the shared parser infers slice parameters for prefix-only getters. Seven fixtures exercise 348 getter inputs with original/raw/normalized bytecode identity and equal gas. These include 4/8/32-bit prefixes, leading zeroes, truncated bodies/payloads and tail refs, plus excluded overlaps, live fallback tails, joins and a conditional immediately before return. A separate 48-bit boundary round trip also preserves the BOC. JettonWallet and JettonMinter retain explicit dispatch under the conservative return-context guard: wrapping a conditional before return in a match arm can change IFJMP/IFNOT selection. Existing original/recompiled template differences and partial parser diagnostics remain.
 
-The first batch of the [compiler recovery specification](compiler-recovery-spec.md), N01–N04, adds `integer-match`, `conditional-select` and `cursor-load` as separate normalization rules. Nineteen compiler-derived fixtures pass 501 getter probes with identical raw/normalized code cells, serialized BOCs and gas; original/normalized getter behavior also matches on all probes. Seventeen original/raw code cells are identical; the local constant-width load and joined-branch fixtures retain existing decompiler hash differences, reported separately. Coverage includes signed/large/unknown integer match values, two source spellings, retained joins/early returns, homogeneous and erased runtime types, equal CONDSEL operands, a retained constant condition, dynamic/signed load widths, live slice snapshots, refs, large coins and discarded results. Exact LDUX/LDIX/LDGRAMS cursor methods preserve instructions and exceptions: a native pure loadCoins call would be eliminated when both outputs are unused. The templates contain no ordinary integer-dispatch chain; they demonstrate 44 cursor binding rewrites and two ternary rewrites. All existing prefix/normalization/edge probes, both corpora and HTML text/download checks passed again. Original/recompiled template differences and the two known partial outputs are unchanged.
+The first batch of the [compiler recovery specification](compiler-recovery-spec.md), N01–N04, adds `integer-match`, `conditional-select` and `cursor-load` as separate normalization rules. Nineteen compiler-derived fixtures pass 501 getter probes with identical raw/normalized code cells, serialized BOCs and gas; original/normalized getter behavior also matches on all probes. Seventeen original/raw code cells are identical; the local constant-width load and joined-branch fixtures retain existing decompiler hash differences, reported separately. Coverage includes signed/large/unknown integer match values, two source spellings, retained joins/early returns, homogeneous and erased runtime types, equal CONDSEL operands, a retained constant condition, dynamic/signed load widths, live slice snapshots, refs, large coins and discarded results. Exact LDUX/LDIX/LDGRAMS cursor methods preserve instructions and exceptions: a native pure loadCoins call would be eliminated when both outputs are unused. The templates contain no ordinary integer-dispatch chain; they demonstrate 44 cursor binding rewrites and two ternary rewrites. Subsequent P01/P02 portions made all eight templates complete; original/recompiled differences remain separately reported.
+
+The [24-family catalog](compiler-recovery-catalog.md) completes the first compiler
+inventory. The N11–N20 matrix exercises 40 forms / 1593 probes, including nested
+terminal integer match, retained joins/loops and enum validations, primitive
+serialization, ref/inline/tails, Maybe/Either/unions, nested/lazy/custom layouts,
+tensor/shaped tuples/snake arrays, typed maps and generic/lambda boundaries.
+Targeted success-path assertions cover actual branch values and valid serializer
+samples, including zero/signed/max variable integers. All raw/normalized BOCs and
+gas are identical and original behavior matches; 14/40 original/raw code cells
+match. The literal single-CALLDICT lambda additionally passes 14 FunC probes.
+
+Guarded dictionary lookups recover six opcodes with a fixed surviving result
+width after THROWIFNOT. Thirteen fixtures / 351 probes run on both languages;
+all original/raw code cells, gas and behavior match. Terminal native arithmetic
+adds 18 fixtures / 1400 probes with original/raw/normalized code-cell and gas
+identity. Discarded MIN/MAX/MINMAX/ABS retain type/overflow checks, including on
+FunC. The new nested/arithmetic rules have zero applicability on the current
+eight templates. Across the ten recovery suites there are 151 scenarios / 4504
+getter probes, separate from prefix/normalization/edge and transaction checks.
+
+Six distinct source pairs compile to identical serialized BOCs, with 238 probes
+including gas: cell/string, nested/flat struct, generic/inline, width alias,
+enum member names and bool/int1. These facts do not enter normalization. General
+schema/type/CFG recovery and dynamic return widths remain explicitly bounded
+in the catalog. The renewed corpus, template, catalog and offline HTML checks
+preserve all prior original/recompiled differences.

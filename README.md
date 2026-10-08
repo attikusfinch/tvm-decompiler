@@ -1,6 +1,6 @@
 # TVM → FunC / Tolk decompiler
 
-Inverse compiler patterns are tracked in the [implementation specification](docs/compiler-recovery-spec.md): 24 families, source references, prerequisites, acceptance checks and progress. The first new batch restores terminal integer `match`, native ternary selection of already evaluated values, and explicit slice cursors with exact TVM load methods. Normalization remains a separate stage after decompilation.
+Inverse compiler patterns are tracked in the [implementation specification](docs/compiler-recovery-spec.md) and [complete family catalog](docs/compiler-recovery-catalog.md): all 24 families have reproducible examples, implemented forms and explicit remaining boundaries. Recovery includes integer/nested `match`, native ternary/arithmetic, exact cursor/builder methods, nullable forms and message modes. Normalization remains a separate stage after decompilation.
 
 Requires JDK 17+. Build the runnable JAR and run the unit/CLI tests:
 
@@ -28,6 +28,8 @@ WHILE condition/exit stacks and AGAIN/AGAINEND infinite loops with explicit retu
 The default CLI retains partial files for inspection and writes warnings to stderr. `--strict` exits with code 2 for incomplete decompilation, omitting partial source files; JSON still contains diagnostics. Fatal input/disassembly errors exit with code 1. Logs stay off stdout so JSON can be consumed by another process.
 
 Fixed CALLXARGS preserves its encoded input/output widths through an effectful assembly call, including runtime continuations. Static JMPX recovers its target and discards unreachable caller code. Noncanonical TRY/TRYARGS and calls with unbounded runtime output width retain diagnostics: identical BOCs can return different numbers of slots depending on the callback. MYCODE can change behavior if recompilation changes the code hash: derived addresses and returned code cells may change. Different gas usage can affect outgoing values in carry-value send modes.
+
+Guarded dictionary lookups preserve all six signed/unsigned/slice-key and slice/ref-result forms through lookup + THROWIFNOT, with a fixed surviving stack width. Noncapturing lambdas with a literal single-CALLDICT continuation retain construction, c3 lookup, NOP and CALLXARGS. Discarded MIN/MAX/MINMAX/ABS calls retain runtime type/overflow checks. Six compiler source pairs prove erased schema/type boundaries with identical BOCs; unsupported high-level recovery retains its raw form.
 
 The local improvements cover typed embedded INMSGPARAM/GETPARAM selectors, typed balance-pair access and executable Fift literals for referenced cells. Unit/CLI fixtures exercise both compiler TRY envelopes, noncanonical TRY rejection and dynamic EXECUTE diagnostics.
 

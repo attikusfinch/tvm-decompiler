@@ -47,7 +47,7 @@ match (message) {
 
 Multiple variants use an inferred union alias and retain source order. Names follow observed prefix bits and are not claims about the original message ABI. The tail remains opaque, including references; no schema is guessed. Empty/truncated/unknown prefixes reach the original fallback without an eager uint load. Exact widths include leading zeroes. Overlapping/duplicate prefixes, dynamic prefixes, comments, name collisions, nonterminal/joined arms, reused flags and live unmatched tails prevent reconstruction. The implemented path accepts nibble-aligned prefixes through 48 bits. Larger/non-nibble prefixes retain exact helpers. Nested early returns and a conditional/block immediately before the terminal return are excluded: JettonWallet demonstrated an IFJMP→IFNOT change under Tolk's match-arm return handling. Its dispatch stays explicit.
 
-The rule restores five dispatches in four complete templates: Empty, Counter, NftItem and both SimpleExtension entrypoints. JettonWallet and JettonMinter keep exact prefix helpers under the conservative return-context guard. The standalone compiler-derived check exercises 348 getter inputs across seven fixtures, requiring original/raw/normalized TVM identity and equal gas; it covers 4/8/32-bit widths, short bodies, leading zeroes, refs, overlaps, live fallback tails and joins. All six complete templates retain raw/normalized BOC identity. Partial contracts still skip this stage.
+The rule restores five dispatches in four templates: Empty, Counter, NftItem and both SimpleExtension entrypoints. JettonWallet and JettonMinter keep exact prefix helpers under the conservative return-context guard. The standalone compiler-derived check exercises 348 getter inputs across seven fixtures, requiring original/raw/normalized TVM identity and equal gas; it covers 4/8/32-bit widths, short bodies, leading zeroes, refs, overlaps, live fallback tails and joins. All eight templates now compile and retain raw/normalized BOC identity. Partial inputs elsewhere still skip this stage.
 
 `address-getter-return` recognizes an externally identified method returning a single address load through an adjacent immutable binding:
 
@@ -70,7 +70,7 @@ get fun owner(): address {
 }
 ```
 
-The name is an ABI candidate, not a recovered fact: CRC16 collisions are possible. Native `get fun owner` computes the same method ID. Acton's compiler rejects combining `@method_id` with `get fun`, so the annotation is removed only after verifying the candidate's hash/signature. Unknown IDs, incompatible signatures, internal references and conflicting names remain explicit functions. All nine getters in the six complete templates currently match registry candidates; the remaining nine are in partial contracts, which skip normalization.
+The name is an ABI candidate, not a recovered fact: CRC16 collisions are possible. Native `get fun owner` computes the same method ID. Acton's compiler rejects combining `@method_id` with `get fun`, so the annotation is removed only after verifying the candidate's hash/signature. Unknown IDs, incompatible signatures, internal references and conflicting names remain explicit functions. Seventeen getters across all eight templates have candidate names; get_nft_content remains anonymous because its required cell parameter fact is not proven.
 
 `boolean-guard` folds a single-use immutable boolean binding into an immediately following `assert` or `if`, retaining inversion for `== 0` and `!`. It recognizes native `bitsEqual`/`isEmpty` predicates and comparisons, while retaining integer helpers, bitwise expressions and values used elsewhere:
 
@@ -197,6 +197,14 @@ AccountStorage stats: Sandbox's default zero counters underflow when balance
 shrinks with unchanged refs. A harness regression reproduces and fixes this.
 
 ## Adding the next rule
+
+The [complete compiler-family catalog](compiler-recovery-catalog.md) covers the
+remaining N11–N20 families and the new `nested-integer-match` and
+`terminal-native-arithmetic` rules. The compiler matrix checks 40 forms / 1593
+probes, arithmetic checks 18 / 1400, and dictionary checks 13 / 351 on both
+backends. Six source pairs / 238 probes demonstrate erased schema facts with
+identical BOCs. Nested and terminal-arithmetic rules have zero applicability in
+the current eight templates; their compiler-derived coverage is recorded separately.
 
 1. Record representative raw fragments and their source-independent facts in this inventory, including negative examples.
 2. Implement a separate `TolkNormalizer.Rule` with narrowly checked preconditions and an audit record. The emitter's output remains accessible with `--no-normalize`.

@@ -1,6 +1,8 @@
 # Спецификация восстановления конструкций FunC / Tolk
 
-Статус: выполняется по пунктам. Базовая версия компилятора для доказательств —
+Статус: первый каталогизированный проход по всем 24 семействам; реализованные
+формы и открытые границы перечислены в [полном каталоге](compiler-recovery-catalog.md).
+Базовая версия компилятора для доказательств —
 TON `tolk-1.4.0`, сборка Tolk через Acton 1.0.0 (3a4f0dc). FunC проверяется
 отдельно. Это спецификация обратных преобразований, а не копирование C++
 компилятора: одно и то же TVM-представление может соответствовать нескольким
@@ -97,16 +99,16 @@ BOC → инструкции TVM → стековый IR → raw main.tolk + std
 | N08 | Адреса / optional address | Различать addr_none, стандартный/переменный/anycast адрес, семантику LDSTDADDR и nullable-encoding; не угадывать address по одному имени | N04, N07 | Частично: standalone address/optional-address getters; все LDOPTSTDADDR tuple-loads; общая address propagation в очереди |
 | N09 | Getter ABI и entrypoints | CRC16 + точная сигнатура + отсутствие коллизий и внутренних ссылок; имена явно помечены как предположенные | N01 | Частично: registry из 17 кандидатов, entrypoints; расширение по независимым ABI |
 | N10 | Lazy prefix / union `match` | Quiet-проверки, точные битовые ширины, prefix-free-набор, тот же хвост/refs/fallback, безопасный контекст return | N01 | Частично: terminal top-level dispatch, 4..48 бит, nibble alignment |
-| N11 | Расширение match: вложенность / joins / enums / type tests | Анализ CFG и доминирования, живые значения и phi, enum throw=5; не превращать неполный enum в исчерпывающий и не придумывать утраченный union type | N02, N07, N10, P01 | Очередь |
-| N12 | Фиксированные/переменные int и bits, bool, coins | Точная ширина/знак/rounding, диапазоны, zero-width, underflow, остаток; bool не путать с uint1 или произвольным int | N04 | Очередь: примитивы эмитятся, высокоуровневые типы не восстанавливаются |
-| N13 | Cell, string, slice, builder, RemainingBitsAndRefs | Ref против inline, признак presence, хвосты битов/refs, BOC/hash; не считать произвольный slice текстом | N04, N05, N07 | Частично: opaque RemainingBitsAndRefs у prefix match |
-| N14 | Maybe / Either / constructor unions | Различать битовый tag и runtime union tag; порядок полей, null representation, произвольные opcode-width и default throw | N07, N10, N12, N13 | Очередь |
-| N15 | Struct/storage/message schemas, pack/unpack/skip | Восстанавливать только доказанный layout с нейтральными именами; c4 load/save, lazy-поля, пропуски/endParse и пользовательские сериализаторы нельзя объединять по сходству | N04, N05, N12..N14 | Очередь |
-| N16 | Tensor / shaped tuple / arrays | Различать многозначный стек и один TVM tuple; ширина, null-заполнение, индекс, мутация, лимиты и типы в joins | N07, P01 | Очередь |
-| N17 | Dict / map и итерация | Key width, signed/unsigned/slice key, value slice/ref, quiet-флаг, пустой/null словарь, порядок min/next/delete и ошибочные ключи | N04, N07, N16, P01 | Очередь |
+| N11 | Расширение match: вложенность / joins / enums / type tests | Анализ CFG и доминирования, живые значения и phi, enum throw=5; не превращать неполный enum в исчерпывающий и не придумывать утраченный union type | N02, N07, N10, P01 | Частично: nested terminal if/else match; joins/loop/try/lambda сохраняются; enum validation проверена, member names доказанно стёрты |
+| N12 | Фиксированные/переменные int и bits, bool, coins | Точная ширина/знак/rounding, диапазоны, zero-width, underflow, остаток; bool не путать с uint1 или произвольным int | N04 | Частично: raw/exact cursor/store формы проверены; bool/int1 и semantic aliases доказанно неоднозначны |
+| N13 | Cell, string, slice, builder, RemainingBitsAndRefs | Ref против inline, признак presence, хвосты битов/refs, BOC/hash; не считать произвольный slice текстом | N04, N05, N07 | Частично: opaque tail и ref/inline raw формы проверены; cell/string дают одинаковый BOC |
+| N14 | Maybe / Either / constructor unions | Различать битовый tag и runtime union tag; порядок полей, null representation, произвольные opcode-width и default throw | N07, N10, N12, N13 | Частично: scalar/tensor Maybe, Either и constructor union raw round trips; общая high-level union типизация не доказана |
+| N15 | Struct/storage/message schemas, pack/unpack/skip | Восстанавливать только доказанный layout с нейтральными именами; c4 load/save, lazy-поля, пропуски/endParse и пользовательские сериализаторы нельзя объединять по сходству | N04, N05, N12..N14 | Частично: nested/eager/lazy/custom serializer проверены; nested/flat grouping доказанно стёрта; общий layout normalizer открыт |
+| N16 | Tensor / shaped tuple / arrays | Различать многозначный стек и один TVM tuple; ширина, null-заполнение, индекс, мутация, лимиты и типы в joins | N07, P01 | Частично: tensor/tuple, snake array serialization и push/pop snapshots проверены; общий element type propagation открыт |
+| N17 | Dict / map и итерация | Key width, signed/unsigned/slice key, value slice/ref, quiet-флаг, пустой/null словарь, порядок min/next/delete и ошибочные ключи | N04, N07, N16, P01 | Частично: 6 lookup+THROWIFNOT forms с fixed result; typed map set/get/iteration проверены; unguarded quiet width и value schema открыты |
 | N18 | Нативные сообщения и send modes | Доказанный TL-B-layout, адреса/coins, inline/ref body/stateInit, c5 actions, bounce, flags и режим; проверять фактические исходящие значения | N05, N08, N12..N15 | Частично: native SENDRAWMSG и exact send-mode constants; createMessage/layout recovery требует отдельного доказательства |
-| N19 | Арифметика / сравнения / casts | Div/mod floor/ceil/round, muldiv overflow, shifts, -1/0 и unsigned bounds; не менять округление или последовательность эффектов ради красоты | N01, N06 | Частично: нативные raw-операторы; дополнительные нормализации в очереди |
-| N20 | Вызовы, методы, generics, lambda/inlining | Stack ABI, порядок вычисления и результирующие слоты; стёртые generics и авторские границы inline обычно не восстановимы однозначно | N16, P01, P04 | Очередь / недоказуемые имена и границы отмечать явно |
+| N19 | Арифметика / сравнения / casts | Div/mod floor/ceil/round, muldiv overflow, shifts, -1/0 и unsigned bounds; не менять округление или последовательность эффектов ради красоты | N01, N06 | Частично: terminal native arithmetic, exact rounding, discarded MIN/MAX/MINMAX/ABS checks; constants/repeated/nonterminal/effects сохраняются |
+| N20 | Вызовы, методы, generics, lambda/inlining | Stack ABI, порядок вычисления и результирующие слоты; стёртые generics и авторские границы inline обычно не восстановимы однозначно | N16, P01, P04 | Частично: single-CALLDICT lambda continuation, NOP и fixed CALLXARGS; erased generic boundary доказана одинаковым BOC, captures открыты |
 | P01 | CFG: stack joins, WHILE / UNTIL / REPEAT | Стек до/после каждой дуги, эффектные условия, сохранённые значения и exits; сначала исправить неполный raw IR | N01 | Частично: исправлен WHILE condition/pop/body и false edge; NftCollection complete на обоих языках; продолжение CFG анализа |
 | P02 | AGAINEND и другие continuation-формы | Не терять хвост continuation или выход; явная диагностика до реализации | P01 | Частично: AGAIN/AGAINEND, loop-carried stack и RETALT; WalletV5 complete на обоих языках. AGAINBRK/AGAINENDBRK и динамические exits остаются открытыми |
 | P03 | TRY / catch / THROWARG | Catch stack, exception value/code, c0/c1/c2, успешный и аварийный путь; нормализатор не маскирует unsupported parser | P01 | Частично: canonical FunC/Tolk register envelopes, captured stack до 255, nested joins/returns и THROWARG; arbitrary handlers/TRYARGS остаются с диагностикой |
@@ -272,6 +274,10 @@ mutating-метод возвращает `slice?`; legacy consumers получа
 | 2026-10-08 | P03 | Native try/catch из доказанных envelopes: FunC PUSHCTR/SETCONTCTR c1/c3/c4/c5/c7 и compact Tolk SETCONTCTRMANY 186. Catch stack содержит captured slots, exception value/code, без живого try stack. Сохранены lexical joins, nested rethrow, early returns и THROWARGANY divergence. Десять compiler-derived сценариев / 75 проб проверяют captured snapshots, cell/null exception values, c4/c5/c7 restoration; raw/normalized BOC + gas и original behavior совпадают, 1/10 original/raw code-cell идентичен. Noncanonical TRY не считается complete. |
 | 2026-10-08 | P04 | Fixed CALLXARGS сохраняет encoded p/r, порядок входов/выходов и impure low-level вызов; Tolk использует unknown для opaque continuation, FunC — cont и однослотовый asm ABI. Static JMPX удаляет недостижимый хвост. Шесть сценариев / 132 пробы на обоих языках; original behavior и raw/normalized BOC + gas совпадают, 5/6 original/raw code-cell и gas идентичны. Три пары исходников с разными return signatures дают одинаковый BOC, но runtime callback возвращает 0/1/2 слота: EXECUTE, CALLXARGS_VAR и dynamic JMPX не имеют однозначно восстанавливаемой ширины. |
 | 2026-10-08 | N18 | SENDRAWMSG → нативный sendRawMessage, constant flags 0/1/2/16/32/64/128 без изменения числа или валидности режима. Неизвестные/отрицательные/dynamic modes сохраняют выражение. 16 → 0 wrapper-вызовов в пяти шаблонах. 11 compiler-derived сценариев / 197 messages проверяют inline/ref body, StateInit, bounce, исчерпание баланса, invalid modes/cells, truncated body и c4 effects; raw/normalized BOC + gas + outgoing values совпадают, original state/actions — 197/197, full values — 166/197. Прежняя разница original/raw gas меняет carried values и не скрывается. |
+| 2026-10-08 | N11–N16/N20 | Полная compiler matrix: 40 сценариев / 1593 пробы, включая обязательные успешные prefix/enum/nullable/array/variable-int пути. Nested terminal if/else match — отдельное правило; joins/loop/try/lambda/match-arm контексты исключены. 14/40 original/raw code-cell идентичны, поведение original/normalized совпадает на всех пробах. Raw lambda исправлен: single-CALLDICT continuation, NOP, fixed CALLXARGS; 14 проб также на FunC. |
+| 2026-10-08 | N17 | Lookup+THROWIFNOT доказывает fixed surviving width для DICTGET/DICTIGET/DICTUGET и REF-вариантов. 13 сценариев / 351 пробы на обоих языках: короткий/длинный throw code, null/malformed/missing dict, sign/key/width boundaries, discarded result. Все original/raw и raw/normalized code-cell идентичны, gas и наблюдаемое поведение совпадают. Typed map set/get/iteration дополнительно проверены в compiler matrix. |
+| 2026-10-08 | N19 | terminal-native-arithmetic: distinct proven local int operands, direct return либо binding + ordered return. 18 сценариев / 1400 проб, все original/raw и raw/normalized code-cell идентичны, gas и поведение совпадают. Discarded MIN/MAX/MINMAX/ABS checks сохраняются в IR и FunC stdlib; null/NaN/cell/overflow проверены также на FunC. Constants/repeated/nonterminal/effectful forms не переписываются. |
+| 2026-10-08 | Границы N11–N20 | Шесть пар разных source facts дают одинаковый serialized BOC: cell/string, nested/flat layout, generic/inline, semantic alias, enum member names, bool/int1. 238 проб с идентичным gas. Все 24 семейства имеют реализованные формы/воспроизводимые примеры и явно перечисленные открытые границы; это завершение первого каталога, не заявление о полном schema/CFG recovery. |
 
 Приёмка первого прохода: 45 Kotlin-тестов; 19 compiler-derived сценариев,
 501 входная проба с равенством raw/normalized code-cell, serialized BOC и
@@ -283,9 +289,9 @@ gas. Original/normalized поведение совпадает на этих п�
 проверены; шесть complete сохраняют raw/normalized BOC, два partial —
 файлы/диагностики. HTML обновлён и проверен для обоих языков.
 
-Следующий проход — оставшиеся семейства восстановления. N11/N15
-требуют анализа типов/CFG; их статус остаётся в очереди. Nullable/address
-propagation за пределами указанных локальных форм также остаётся открытой.
+Следующие порции первого прохода перечислены ниже. Полный текущий статус —
+в таблице и [каталоге](compiler-recovery-catalog.md); nullable/address
+propagation за пределами локальных форм остаётся открытой.
 
 Порция N05 также прошла 50 Kotlin-тестов и проверки всех восьми шаблонов
 на обоих языках. HTML и raw/normalized каталог обновлены; шесть complete
@@ -340,3 +346,14 @@ original code-cell identities. Все восемь шаблонов, катал�
 повторно; их raw/normalized BOC идентичность и прежние original differences
 сохранены. Нормализатор меняет только вызов отправки и spelling режима,
 восстановление createMessage остаётся отдельным пунктом.
+
+Заключительная порция первого каталога: 77 Kotlin-тестов, пять тестов стенда,
+151 compiler-derived getter-сценарий / 4504 входные пробы, 197 message-проб,
+dispatch/schema ambiguity (9/238), prefix/normalization/edges (348/26/13).
+Все применённые новые правила сохраняют raw/normalized code-cell, serialized
+BOC и gas. На текущих восьми шаблонах nested/terminal-arithmetic формы не
+встречаются; compiler coverage не считается улучшением их статистики.
+Оба corpus, все восемь шаблонов на обоих языках и HTML проверены повторно.
+Прежние original/recompiled различия сохранены. Текущий полный каталог —
+[compiler-recovery-catalog.md](compiler-recovery-catalog.md); открытые границы
+даны по каждому семейству, без угадывания стёртых типов и author schemas.
