@@ -64,3 +64,26 @@ for (const entry of negativeReport) {
     }
 }
 console.log('dispatch-ambiguity: current JAR, 3 identical source pairs / 9 runtime-width probes, partial outputs preserved');
+
+const messageDirectory = path.join(root, 'artifacts/tolk-messages');
+const messageReport = await readJson(path.join(messageDirectory, 'report.json'));
+assert.equal(messageReport.length, 11);
+assert.equal(messageReport.reduce((n, e) => n + e.messages.length, 0), 197);
+for (const entry of messageReport) {
+    for (const stage of ['', 'raw']) {
+        const request = await readJson(path.join(messageDirectory, entry.id, stage, 'request.json'));
+        assert.ok(request.endpoint.startsWith(`local:${hash}:`), 'stale messages JAR');
+        const response = await readJson(path.join(messageDirectory, entry.id, stage, 'response.json'));
+        assert.equal(response.complete, true);
+        assert.deepEqual(response.diagnostics, []);
+    }
+    assert.equal(entry.comparison.sameSerializedBoc, true);
+    assert.equal(entry.comparison.sameCodeCell, true);
+    assert.ok(entry.changes.some(c => c.rule === 'native-message-send'));
+    for (const message of entry.messages) {
+        assert.equal(message.sameObservedBehavior, true);
+        assert.equal(message.before.gasUsed, message.after.gasUsed);
+    }
+    for (const message of entry.originalMessages) assert.equal(message.sameEffectsAndActions, true);
+}
+console.log('tolk-messages: current JAR, 11 cases / 197 messages, raw/normalized BOC+gas+outgoing values, original state/actions verified');

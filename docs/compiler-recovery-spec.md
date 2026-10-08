@@ -104,7 +104,7 @@ BOC → инструкции TVM → стековый IR → raw main.tolk + std
 | N15 | Struct/storage/message schemas, pack/unpack/skip | Восстанавливать только доказанный layout с нейтральными именами; c4 load/save, lazy-поля, пропуски/endParse и пользовательские сериализаторы нельзя объединять по сходству | N04, N05, N12..N14 | Очередь |
 | N16 | Tensor / shaped tuple / arrays | Различать многозначный стек и один TVM tuple; ширина, null-заполнение, индекс, мутация, лимиты и типы в joins | N07, P01 | Очередь |
 | N17 | Dict / map и итерация | Key width, signed/unsigned/slice key, value slice/ref, quiet-флаг, пустой/null словарь, порядок min/next/delete и ошибочные ключи | N04, N07, N16, P01 | Очередь |
-| N18 | Нативные сообщения и send modes | Доказанный TL-B-layout, адреса/coins, inline/ref body/stateInit, c5 actions, bounce, flags и режим; проверять фактические исходящие значения | N05, N08, N12..N15 | Очередь |
+| N18 | Нативные сообщения и send modes | Доказанный TL-B-layout, адреса/coins, inline/ref body/stateInit, c5 actions, bounce, flags и режим; проверять фактические исходящие значения | N05, N08, N12..N15 | Частично: native SENDRAWMSG и exact send-mode constants; createMessage/layout recovery требует отдельного доказательства |
 | N19 | Арифметика / сравнения / casts | Div/mod floor/ceil/round, muldiv overflow, shifts, -1/0 и unsigned bounds; не менять округление или последовательность эффектов ради красоты | N01, N06 | Частично: нативные raw-операторы; дополнительные нормализации в очереди |
 | N20 | Вызовы, методы, generics, lambda/inlining | Stack ABI, порядок вычисления и результирующие слоты; стёртые generics и авторские границы inline обычно не восстановимы однозначно | N16, P01, P04 | Очередь / недоказуемые имена и границы отмечать явно |
 | P01 | CFG: stack joins, WHILE / UNTIL / REPEAT | Стек до/после каждой дуги, эффектные условия, сохранённые значения и exits; сначала исправить неполный raw IR | N01 | Частично: исправлен WHILE condition/pop/body и false edge; NftCollection complete на обоих языках; продолжение CFG анализа |
@@ -271,6 +271,7 @@ mutating-метод возвращает `slice?`; legacy consumers получа
 | 2026-10-08 | P02 | AGAIN/AGAINEND сохраняют бесконечный back edge и явные RETALT, вложенные возвраты задают тип функции. Embedded control register печатается как c5, purity asm переносится в FunC, forward declarations inline_ref сохраняют impure. WalletV5 complete на обоих языках: 5/5 getters, 10/10 messages, 10/10 state/actions. Шесть compiler-derived сценариев / 36 проб, raw/normalized BOC + gas и original behavior совпадают, 5/6 original/raw code-cell идентичны. AGAINBRK/AGAINENDBRK и динамические exits остаются открытыми. |
 | 2026-10-08 | P03 | Native try/catch из доказанных envelopes: FunC PUSHCTR/SETCONTCTR c1/c3/c4/c5/c7 и compact Tolk SETCONTCTRMANY 186. Catch stack содержит captured slots, exception value/code, без живого try stack. Сохранены lexical joins, nested rethrow, early returns и THROWARGANY divergence. Десять compiler-derived сценариев / 75 проб проверяют captured snapshots, cell/null exception values, c4/c5/c7 restoration; raw/normalized BOC + gas и original behavior совпадают, 1/10 original/raw code-cell идентичен. Noncanonical TRY не считается complete. |
 | 2026-10-08 | P04 | Fixed CALLXARGS сохраняет encoded p/r, порядок входов/выходов и impure low-level вызов; Tolk использует unknown для opaque continuation, FunC — cont и однослотовый asm ABI. Static JMPX удаляет недостижимый хвост. Шесть сценариев / 132 пробы на обоих языках; original behavior и raw/normalized BOC + gas совпадают, 5/6 original/raw code-cell и gas идентичны. Три пары исходников с разными return signatures дают одинаковый BOC, но runtime callback возвращает 0/1/2 слота: EXECUTE, CALLXARGS_VAR и dynamic JMPX не имеют однозначно восстанавливаемой ширины. |
+| 2026-10-08 | N18 | SENDRAWMSG → нативный sendRawMessage, constant flags 0/1/2/16/32/64/128 без изменения числа или валидности режима. Неизвестные/отрицательные/dynamic modes сохраняют выражение. 16 → 0 wrapper-вызовов в пяти шаблонах. 11 compiler-derived сценариев / 197 messages проверяют inline/ref body, StateInit, bounce, исчерпание баланса, invalid modes/cells, truncated body и c4 effects; raw/normalized BOC + gas + outgoing values совпадают, original state/actions — 197/197, full values — 166/197. Прежняя разница original/raw gas меняет carried values и не скрывается. |
 
 Приёмка первого прохода: 45 Kotlin-тестов; 19 compiler-derived сценариев,
 501 входная проба с равенством raw/normalized code-cell, serialized BOC и
@@ -331,3 +332,11 @@ recovery suites / 1160 проб и три доказательства ambiguous
 raw/normalized BOC идентичность и прежние original/recompiled различия
 сохранены. HTML прошёл проверки точного текста, downloads, keyboard/mobile,
 отсутствия сетевых запросов и ошибок JavaScript.
+
+Порция N18: 68 Kotlin-тестов, пять тестов стенда, 1160 основных getter-проб
+и 197 новых транзакционных проб, dispatch ambiguity и prefix/normalization/edges.
+Оба corpus сохраняют 19 passing / 1 partial, 75 getter-проб, 8 Tolk / 15 FunC
+original code-cell identities. Все восемь шаблонов, каталог и HTML проверены
+повторно; их raw/normalized BOC идентичность и прежние original differences
+сохранены. Нормализатор меняет только вызов отправки и spelling режима,
+восстановление createMessage остаётся отдельным пунктом.

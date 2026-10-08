@@ -16,7 +16,7 @@ const patterns = [
   {id:'null-predicate',status:'implemented',regex:/\btvmNull_x3f_\(/g},
   {id:'optional-address-load',status:'implemented',regex:/\btvmLoadOptStdAddr\(/g},
   {id:'typed-null-value',status:'candidate',regex:/\btvmNull\(\) as (?:slice|cell|int)/g},
-  {id:'raw-message-send',status:'candidate',regex:/\btvmSendRawMessage\(/g},
+  {id:'raw-message-send',status:'implemented',regex:/\btvmSendRawMessage\(/g},
 ];
 const report = {contracts:[],patterns:patterns.map(({id,status}) => ({id,status,contracts:[],occurrences:0,normalizedOccurrences:0}))};
 for (const fixture of fixtures()) {

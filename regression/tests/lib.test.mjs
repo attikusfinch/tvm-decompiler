@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { beginCell } from '@ton/core';
-import { compile, compareBoc, compareGetters, recompile } from '../scripts/lib.mjs';
+import { Address, beginCell, internal, storeMessageRelaxed } from '@ton/core';
+import { compile, compareBoc, compareGetters, compareMessages, recompile } from '../scripts/lib.mjs';
 
 test('BOC serialization flags do not change code cell identity', () => {
   const cell = beginCell().storeUint(42,8).endCell();
@@ -22,6 +22,28 @@ test('semantic check detects changed getter results', async () => {
   assert.equal(results[0].sameObservedBehavior, false);
   assert.equal(results[0].before.stack[0].value, '42');
   assert.equal(results[0].after.stack[0].value, '43');
+});
+
+test('accurate synthetic storage stats allow carry-all-balance with unchanged refs', async () => {
+  const source = `cell first_ref(slice s) asm "PLDREF";
+() send(cell c,int mode) impure asm "SENDRAWMSG";
+() recv_internal(slice body) impure { send(first_ref(body),130); }`;
+  const compiled = await compile({ targets: ['main.fc'], sources: { 'main.fc': source } });
+  assert.equal(compiled.status, 'ok');
+  const boc = Buffer.from(compiled.codeBoc, 'base64');
+  const address = new Address(0, Buffer.alloc(32, 11));
+  const dest = new Address(0, Buffer.alloc(32, 13));
+  const outgoing = beginCell().store(storeMessageRelaxed(internal({ to: dest, value: 1n }))).endCell();
+  const probes = [{ from: dest, body: beginCell().storeRef(outgoing).endCell() }];
+  const config = { address, data: beginCell().storeUint(7, 8).endCell() };
+  await assert.rejects(compareMessages(boc, boc, probes, config), /cannot serialize new transaction/);
+  const [probe] = await compareMessages(boc, boc, probes, { ...config, accurateStorageStats: true });
+  assert.equal(probe.sameObservedBehavior, true);
+  assert.equal(probe.before.exitCode, 0);
+  assert.equal(probe.before.actionResultCode, 0);
+  assert.equal(probe.before.outMessages.length, 1);
+  assert.ok(BigInt(probe.before.outMessages[0].value) > 10000000000n);
+  assert.equal(probe.before.outMessages[0].destination, dest.toRawString());
 });
 
 test('remote response cannot write paths outside its source directory', async () => {

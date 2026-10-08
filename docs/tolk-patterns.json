@@ -238,6 +238,16 @@
           "functionName": "onInternalMessage"
         },
         {
+          "rule": "send-mode-flags",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "native-message-send",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
           "rule": "abi-getter-name",
           "methodId": "85719",
           "functionName": "royalty_params"
@@ -386,6 +396,16 @@
         },
         {
           "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "send-mode-flags",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "native-message-send",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -563,6 +583,16 @@
         },
         {
           "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "send-mode-flags",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "native-message-send",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -763,6 +793,16 @@
         },
         {
           "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "send-mode-flags",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "native-message-send",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -986,6 +1026,26 @@
         },
         {
           "rule": "builder-store-chain",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "send-mode-flags",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "native-message-send",
+          "methodId": "-1",
+          "functionName": "onExternalMessage"
+        },
+        {
+          "rule": "send-mode-flags",
+          "methodId": "0",
+          "functionName": "onInternalMessage"
+        },
+        {
+          "rule": "native-message-send",
           "methodId": "0",
           "functionName": "onInternalMessage"
         },
@@ -1479,7 +1539,7 @@
     },
     {
       "id": "raw-message-send",
-      "status": "candidate",
+      "status": "implemented",
       "contracts": [
         "NftCollection",
         "NftItem",
@@ -1488,7 +1548,7 @@
         "SimpleExtension"
       ],
       "occurrences": 16,
-      "normalizedOccurrences": 16
+      "normalizedOccurrences": 0
     }
   ]
 }

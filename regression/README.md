@@ -42,6 +42,7 @@ npm run tolk:loops
 npm run tolk:again
 npm run tolk:exceptions
 npm run tolk:dispatch
+npm run tolk:messages
 npm run dispatch:ambiguity
 npm run tolk:audit
 npm run tolk:patterns
@@ -75,6 +76,15 @@ behavior but changing original code/gas. Raw/normalized BOC and gas are equal.
 cannot recover a unique return width: three scalar/tensor source pairs compile
 to identical code, while runtime callbacks return 0/1/2 slots. Both languages
 retain the same partial files/diagnostics with normalization skipped.
+
+`tolk:messages` covers native SENDRAWMSG and exact send-mode constants with
+11 fixtures / 197 internal messages. Inline/ref bodies, state-init, bounce,
+balance draining, invalid cells/modes, underflow and c4 effects exercise actual
+outgoing values. Raw/normalized BOC plus gas and full behavior match; original
+state/actions match 197/197, full outcomes 166/197. Original/raw code and gas
+differences remain separately recorded. This suite initializes accurate storage
+stats for synthetic accounts; Sandbox's default zeros can underflow when the
+balance shrinks with unchanged refs. Existing template initialization is preserved.
 
 Optional --acton writes TASM disassembly with cell hashes and bit offsets. On Windows it uses WSL Ubuntu (WSL_DISTRO and ACTON_WSL_PATH override this); on Linux it uses acton from PATH. The emulator tests themselves do not require Acton to be installed.
 

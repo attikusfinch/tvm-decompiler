@@ -165,9 +165,36 @@ Cursor loads retain separate slice snapshots and mutable results. `loadUintExact
 | ISNULL compatibility predicate | 21 → 0 | NftItem, JettonWallet, JettonMinter, SimpleExtension, WalletV5 | Native comparisons implemented. Retain unknown escapes and -1/0 integer semantics. |
 | Optional-address compatibility loads | 21 → 0 | NftItem, JettonWallet, JettonMinter | Exact nullable cursor methods with reversed tuple order and legacy unknown escapes. Native address? getter recovery is additionally covered by synthetic fixtures; broad type propagation stays open. |
 | `tvmNull() as slice/cell/int` | 9 → 9 | NftItem, JettonMinter, SimpleExtension | Recover nullable values across all branches and tuple return slots; test uninitialized NFT state. |
-| Raw message sends | 16 → 16 | NftCollection, NftItem, JettonWallet, JettonMinter, SimpleExtension | Recognize builder/message layouts before using native message structures. Preserve refs, flags, modes, c5 actions and gas-sensitive values. |
+| Raw message sends | 16 → 0 | NftCollection, NftItem, JettonWallet, JettonMinter, SimpleExtension | Native sendRawMessage and exact named mode constants. Message/createMessage schemas remain a separate layout proof. |
 
 The counts search emitted code before and after normalization; families overlap. Added integer casts for native null predicates are included in the normalized `as int` count. P01 fixes WHILE's condition/pop/body and false exit stack; P02 recovers AGAIN/AGAINEND and effectful FunC procedures. All eight outputs now compile and pass raw/normalized BOC identity. NftCollection's new batch-mint body exposes one additional primitive load/store/send that was hidden by the old WHILE failure. WalletV5 passes all five getter and ten message/state/action probes.
+
+### Native message sends and modes (N18)
+
+`native-message-send` replaces `tvmSendRawMessage(msg, mode)` with the stdlib's
+`sendRawMessage(msg, mode)`: both have cell/int inputs, no outputs and exactly
+SENDRAWMSG effects. Argument expressions and their order remain untouched.
+`send-mode-flags` names constant bits 1/2/16/32/64/128 and zero, preserving the
+integer even for invalid combinations. Unknown/reserved bits, negative and
+dynamic modes retain their original spelling. A SENDRAWMSG mode of 1024 stays
+numeric; the SENDMSG fee-estimation API is a separate form. Helper/native/flag
+shadows and comments block the relevant rewrite. No TL-B schema is guessed.
+
+```tolk
+// Before
+tvmSendRawMessage(msg, 130);
+// After
+sendRawMessage(msg, (SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE));
+```
+
+All 16 template calls now use this form. Eleven compiler-derived fixtures /
+197 transactions preserve raw/normalized code-cell, serialized BOC, gas, c4,
+c5 actions and actual outgoing values/destinations/bounce/state-init. Original
+state/actions match all 197; full values match 166, with original/raw gas and
+carry-value differences recorded separately. No original/raw code-cell identity
+is claimed for these fixtures. Synthetic accounts use actual unique-cell/bit
+AccountStorage stats: Sandbox's default zero counters underflow when balance
+shrinks with unchanged refs. A harness regression reproduces and fixes this.
 
 ## Adding the next rule
 
