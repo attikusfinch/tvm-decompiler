@@ -45,13 +45,13 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **14/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **15/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
 ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault,
-ClassicFactory and UranusMemeWalletV2/V3.
+ClassicFactory, UranusFactoryV3 and UranusMemeWalletV2/V3.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **120 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **125 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -136,7 +136,14 @@ strict std-address/end-of-message checks. V2 peer authentication masks the first
 eight hash bits; V3 compares the complete sharded address. Independent network
 config calculations check inclusive TON-budget boundaries and exact gas.
 
-Next: the rest of Classic and the related protocols; **7 families remain**.
+UranusFactoryV3 passes complete 1605-byte BOC identity, 84 independent message
+probes and five native Acton tests. Named Tolk recovers preset/custom deployment,
+curve initialization, attribution, fee selection, liquidity owner and sharded
+StateInit. Explicit nonzero block seed makes RNG probes reproducible; a separate
+SHA256/SHA512/LT calculation checks the full expected initial data hash. Tests cover
+inclusive deployment funding, strict parameter limits and all affiliate combinations.
+
+Next: the rest of Classic and the related protocols; **6 families remain**.
 
 ## Recovery history
 

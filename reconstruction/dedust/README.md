@@ -1,9 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **14 of 21 archived code
+Readable, byte-identical recovery is verified for **15 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
 and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory,
-plus UranusMemeWalletV2/V3. The seven CPMM/Uranus contracts use Tolk; the seven Classic
+plus UranusFactoryV3 and UranusMemeWalletV2/V3. The eight CPMM/Uranus contracts use Tolk; the seven Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -23,16 +23,31 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicFactory | 3733 bytes | 34 | 73 |
 | UranusMemeWalletV2 | 1219 bytes | 15 | 60 |
 | UranusMemeWalletV3 | 1156 bytes | 15 | 60 |
+| UranusFactoryV3 | 1605 bytes | 0 | 84 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **120 native tests**. See `verification.json` for per-family results.
+project passes **125 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **7 families** have not passed readable-source acceptance. Their
+The remaining **6 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
+
+## Uranus Factory V3
+
+The readable Tolk factory recovers preset/custom deployment, curve coefficients,
+fee selection, partner/referrer attribution, liquidity owner and sharded StateInit.
+Its full 1605-byte BOC matches the frozen mainnet oracle. The Meme code is an exotic
+library reference, never an embedded executable oracle.
+`npm run dedust:uranus-factory` runs 84 independent message probes with exact gas,
+budget equality/underflow, parameter limits, malformed payloads and strict tails.
+The expected initial data includes an independently calculated SHA256/SHA512 seed
+at fixed transaction LT and explicit nonzero block seed; zero seed requests fresh
+entropy from the transaction emulator. Five Acton tests additionally inspect the
+actual deployment message, StateInit address, curve and migration configuration.
+Delivery into the Meme library is covered by the next recovery portion.
 
 ## Uranus Meme Wallet V2/V3
 

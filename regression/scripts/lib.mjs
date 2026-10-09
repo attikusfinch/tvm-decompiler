@@ -191,7 +191,7 @@ export async function actonDisasm(bocPath, outputPath) {
   return run('wsl.exe', ['-d', distro, '--exec', located, ...args], opts);
 }
 
-export async function compareMessages(original, recompiled, probes, { data, address, libraries, accurateStorageStats = false, balance = 10000000000n }) {
+export async function compareMessages(original, recompiled, probes, { data, address, libraries, accurateStorageStats = false, balance = 10000000000n, randomSeed = Buffer.alloc(32, 1) }) {
   const blockchain = await Blockchain.create();
   if (libraries !== undefined) blockchain.libs = libraries;
   blockchain.now = 1700000000;
@@ -206,7 +206,9 @@ export async function compareMessages(original, recompiled, probes, { data, addr
       message.info.src = probe.from;
       message.info.bounced = probe.bounced ?? false;
       if (probe.forwardFee !== undefined) message.info.forwardFee = probe.forwardFee;
-      const transaction = await contract.receiveMessage(message, { now: 1700000000, randomSeed: Buffer.alloc(32) });
+      // A zero block seed asks the transaction emulator to generate fresh entropy.
+      // Use one explicit nonzero seed on both comparison sides, including RANDU256.
+      const transaction = await contract.receiveMessage(message, { now: 1700000000, randomSeed });
       const description = transaction.description;
       if (description.type !== 'generic' || description.computePhase.type !== 'vm') throw new Error('Expected VM transaction');
       const state = contract.accountState;

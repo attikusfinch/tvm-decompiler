@@ -16,6 +16,7 @@
     "dedust:oracles": "node scripts/export-dedust-oracles.mjs",
     "dedust:recovery": "node scripts/check-dedust-recovery.mjs",
     "dedust:uranus-wallet": "node scripts/check-dedust-uranus-wallet.mjs",
+    "dedust:uranus-factory": "node scripts/check-dedust-uranus-factory.mjs",
     "dedust:pool-decompile": "node scripts/check-dedust-pool-decompile.mjs",
     "dedust:pool-rewards": "node scripts/check-dedust-pool-rewards.mjs",
     "dedust:pool-addresses": "node scripts/check-dedust-pool-addresses.mjs",

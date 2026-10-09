@@ -66,6 +66,10 @@ depends = []
 src = "UranusMemeWalletV3/main.tolk"
 depends = []
 
+[contracts.UranusFactoryV3]
+src = "UranusFactoryV3/main.tolk"
+depends = []
+
 [fmt]
 width = 100
 
