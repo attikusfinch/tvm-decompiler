@@ -15,6 +15,14 @@ Uranus migration uses DeDust CPMM/affiliate contracts, and integration tests
 deliver X1000 transfers into source-built Uranus wallets. Shared tests exercise
 these dependencies without copying contract sources into multiple projects.
 
+All 21 code families are available in the official TON Verifier registry as of
+2026-10-09. We published 20 recovered source bundles; the service returned
+`match` for every compiled code hash, and an independent registry read-back
+matched every uploaded source checksum. ClassicLpWallet already had a third-party
+publication. [publication.json](publication.json) records the public links,
+compiler receipts, source checksums and payment transaction hashes. Payments
+used testnet TON; the archived contract code comes from mainnet.
+
 Readable, byte-identical recovery is verified for **all 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
 and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory/ClassicVolatilePool/ClassicPoolInstalledV8/V9,

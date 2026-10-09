@@ -32,6 +32,14 @@ The observed tickets asked for 5 testnet TON per new hash. ClassicLpWallet was
 already verified; the remaining 20 tickets totaled 100 testnet TON plus gas.
 Fresh tickets are requested immediately before wallet approval.
 
+Publication completed on 2026-10-09: ClassicBlank was paid separately, and the
+other 19 recovered bundles were paid in one W5 request for 95 testnet TON plus
+gas. All 20 uploads returned `match`; independent reads of the registry matched
+every prepared source checksum. Together with the existing ClassicLpWallet
+publication, all 21 archived families are verified. The public
+[publication receipt](../../reconstruction/publication.json) includes each
+registry link, compiled code hash, source checksum and payment transaction hash.
+
 Batch preparation checks all source checksums and fresh tickets before recording
 any pending wallet request, and excludes hashes that became verified meanwhile.
 The single signed external message is recorded atomically for every batch member.
