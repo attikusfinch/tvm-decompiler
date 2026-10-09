@@ -198,11 +198,11 @@ of deployed instances or historical revisions. The separately documented
 peripheral Classic FeeCollector has no authenticated address in this dataset.
 API snapshots span multiple retrieval times, rather than a single pinned block.
 
-The separate [source reconstruction](../reconstruction/dedust/README.md) now
+The separate [source reconstruction](../reconstruction/README.md) now
 recovers all 21 frozen families in readable Tolk/FunC and recompiles them to
 identical BOC bytes. From this directory, `npm run dedust:recovery` builds every
 source, checks frozen hashes, independent getter/message expectations and exact
 gas, then runs all 162 native Acton tests. `npm run dedust:x1000` runs the final
 wallet's dedicated 93 getter/helper/hook and 105 message probes. The reconstruction
-result is recorded in `reconstruction/dedust/verification.json`; it is distinct
+result is recorded in `reconstruction/verification.json`; it is distinct
 from the automatic decompiler measurements above.

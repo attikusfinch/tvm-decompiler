@@ -7,7 +7,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-calculations');
 await fs.mkdir(directory,{recursive:true});
 const pins={sqrt:'2aae715d7fb79da8c6846b61872cfb250808942886d5c321a93758c8a00ea900',
@@ -38,7 +38,7 @@ import "payout-config"
 @method_id(90047) fun normalize(p:PoolExtendedPayout,f:any_address):PoolExtendedPayout {return normalizePoolPayout(p,f);}
 `};
 for(const file of ['math','reward-config','storage','wallets','rewards','payout-config'])
-    sources[file+'.tolk']=await fs.readFile(path.join(project,'CpmmPoolV2',file+'.tolk'),'utf8');
+    sources[file+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',file+'.tolk'),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 const candidateCells=graph(Cell.fromBoc(candidate)[0]);
@@ -123,6 +123,6 @@ const proof={scope:'Exact integer root, payout normalization and reward-configur
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],implementationHashes:pins,wrapperComparison,sqrtCases,payoutCases,rewardCases};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/calculations-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/calculations-verification.json'),proof);
 console.log('Both Pool revisions: three exact implementation cells and byte-identical isolated BOC; '+
     (sqrtCases.length+payoutCases.length+rewardCases.length)+' independent differential probes including gas passed');

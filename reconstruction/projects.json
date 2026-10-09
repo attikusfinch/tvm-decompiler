@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "id": "dedust",
+      "name": "DeDust DEX",
+      "directory": "dedust",
+      "contracts": [
+        {
+          "name": "ClassicBlank",
+          "directory": "dedust/classic/ClassicBlank"
+        },
+        {
+          "name": "ClassicPoolInstalledV9",
+          "directory": "dedust/classic/ClassicPoolInstalledV9"
+        },
+        {
+          "name": "ClassicLiquidityDeposit",
+          "directory": "dedust/classic/ClassicLiquidityDeposit"
+        },
+        {
+          "name": "ClassicLpWallet",
+          "directory": "dedust/classic/ClassicLpWallet"
+        },
+        {
+          "name": "ClassicOperator",
+          "directory": "dedust/classic/ClassicOperator"
+        },
+        {
+          "name": "ClassicNativeVault",
+          "directory": "dedust/classic/ClassicNativeVault"
+        },
+        {
+          "name": "ClassicJettonVault",
+          "directory": "dedust/classic/ClassicJettonVault"
+        },
+        {
+          "name": "ClassicFactory",
+          "directory": "dedust/classic/ClassicFactory"
+        },
+        {
+          "name": "ClassicVolatilePool",
+          "directory": "dedust/classic/ClassicVolatilePool"
+        },
+        {
+          "name": "CpmmPoolV1",
+          "directory": "dedust/cpmm/CpmmPoolV1"
+        },
+        {
+          "name": "CpmmPoolV2",
+          "directory": "dedust/cpmm/CpmmPoolV2"
+        },
+        {
+          "name": "ClassicPoolInstalledV8",
+          "directory": "dedust/classic/ClassicPoolInstalledV8"
+        },
+        {
+          "name": "CpmmPosition",
+          "directory": "dedust/cpmm/CpmmPosition"
+        },
+        {
+          "name": "CpmmDeposit",
+          "directory": "dedust/cpmm/CpmmDeposit"
+        },
+        {
+          "name": "CpmmAffiliateAccount",
+          "directory": "dedust/cpmm/CpmmAffiliateAccount"
+        }
+      ]
+    },
+    {
+      "id": "uranus",
+      "name": "Uranus",
+      "directory": "uranus",
+      "contracts": [
+        {
+          "name": "UranusFactoryV3",
+          "directory": "uranus/UranusFactoryV3"
+        },
+        {
+          "name": "UranusMemeV2",
+          "directory": "uranus/UranusMemeV2"
+        },
+        {
+          "name": "UranusMemeV3",
+          "directory": "uranus/UranusMemeV3"
+        },
+        {
+          "name": "UranusMemeWalletV3",
+          "directory": "uranus/UranusMemeWalletV3"
+        },
+        {
+          "name": "UranusMemeWalletV2",
+          "directory": "uranus/UranusMemeWalletV2"
+        }
+      ]
+    },
+    {
+      "id": "x1000",
+      "name": "X1000",
+      "directory": "x1000",
+      "contracts": [
+        {
+          "name": "X1000WalletV2",
+          "directory": "x1000/X1000WalletV2"
+        }
+      ]
+    }
+  ]
+}

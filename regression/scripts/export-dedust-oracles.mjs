@@ -1,3 +1,4 @@
+import {familyDirectory} from './reconstruction-projects.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -7,7 +8,7 @@ import { root, writeJson } from './lib.mjs';
 import { disassembleExact, assembleExact } from './exact-assembly.mjs';
 
 const archive = path.resolve(process.argv[2] ?? path.join(root,'../../dedust-mainnet'));
-const target = path.resolve(root,'../reconstruction/dedust');
+const target = path.resolve(root,'../reconstruction');
 const manifest = JSON.parse(await fs.readFile(path.join(archive,'manifest.json'),'utf8'));
 let frozen;
 try { frozen = JSON.parse(await fs.readFile(path.join(target,'oracles.json'),'utf8')); }
@@ -23,9 +24,9 @@ for (const entry of manifest.contracts.filter(c => !c.sameCodeAs)) {
     const assembly = disassembleExact(boc);
     assert.deepEqual(assembleExact(assembly),boc,`${entry.name}: instruction reference is not exact`);
     await fs.mkdir(path.join(target,'oracles'),{recursive:true});
-    await fs.mkdir(path.join(target,entry.name),{recursive:true});
+    await fs.mkdir(path.join(target,familyDirectory(entry.name)),{recursive:true});
     await fs.writeFile(path.join(target,'oracles',entry.name+'.boc'),boc);
-    await fs.writeFile(path.join(target,entry.name,'reference.tasm'),
+    await fs.writeFile(path.join(target,familyDirectory(entry.name),'reference.tasm'),
         `// Independent TVM instruction reference; not recovered high-level source.\n// Mainnet executable code hash: ${hash}\n`+assembly);
     entries.push({name:entry.name,codeHash:hash,bocSha256:sha256,codeBytes:boc.length,
         evidence:entry.evidence ?? entry.source ?? null});

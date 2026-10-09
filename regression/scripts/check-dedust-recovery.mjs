@@ -1,3 +1,4 @@
+import {familyDirectory, familyProject, projectCatalog} from './reconstruction-projects.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -24,7 +25,7 @@ import { checkClassicVolatilePool, checkClassicPoolV8, checkClassicPoolV9 } from
 import { checkX1000 } from './dedust-x1000-fixtures.mjs';
 import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
 const fixtures={UranusMemeV3:checkUranusMemeV3,UranusFactoryV3:checkUranusFactory,UranusMemeWalletV2:checkUranusWalletV2,UranusMemeWalletV3:checkUranusWalletV3,ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,ClassicLiquidityDeposit:checkClassicDeposit,ClassicNativeVault:checkNativeVault,ClassicJettonVault:checkJettonVault,ClassicFactory:checkFactory,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
 const results=[];
@@ -37,17 +38,17 @@ for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));
     assert.equal(createHash('sha256').update(original).digest('hex'),entry.bocSha256,entry.name+': frozen BOC');
     assert.equal(Cell.fromBoc(original)[0].hash().toString('hex'),entry.codeHash,entry.name+': frozen code');
-    const reference=await fs.readFile(path.join(project,entry.name,'reference.tasm'),'utf8');
+    const reference=await fs.readFile(path.join(project,familyDirectory(entry.name),'reference.tasm'),'utf8');
     const assembly=compareBoc(original,assembleExact(reference,entry.name+'.tasm'));
     assert.equal(assembly.sameSerializedBoc,true,entry.name+': assembly');
-    const result={name:entry.name,assembly,status:'instruction-reference-only'};
+    const result={name:entry.name,project:familyProject(entry.name),sourceDirectory:familyDirectory(entry.name),assembly,status:'instruction-reference-only'};
     let source,language;
     for(const extension of ['tolk','fc']) {
-        try { source=await fs.readFile(path.join(project,entry.name,'main.'+extension),'utf8');language=extension;break; }
+        try { source=await fs.readFile(path.join(project,familyDirectory(entry.name),'main.'+extension),'utf8');language=extension;break; }
         catch(error) { if(error.code!=='ENOENT') throw error; }
     }
     if(source) {
-        const filename=entry.name+'/main.'+language;
+        const filename=familyDirectory(entry.name)+'/main.'+language;
         const sources=language==='tolk'?await loadTolkSources(project,filename):await loadFuncSources(project,filename);
         const compiled=language==='tolk'?await compileTolk({sources}):await compileLegacyFunc({sources,targets:[filename]});
         assert.equal(compiled.status,'ok',entry.name+': '+compiled.message);
@@ -72,7 +73,7 @@ for(const entry of manifest.contracts) {
     }
     assert.equal(result.status,'exact-readable',entry.name+': missing accepted readable source');
     results.push(result);
-    console.log(`${entry.name}: ${result.status}${result.tests?`; ${result.tests.getters.length} getter + ${result.tests.messages.length} message probes`:''}`);
+    console.log(`${result.project}/${entry.name}: ${result.status}${result.tests?`; ${result.tests.getters.length} getter + ${result.tests.messages.length} message probes`:''}`);
 }
 const version=await tolkVersion();
 const toWsl=value=>`/mnt/${value[0].toLowerCase()}/${value.slice(3).replaceAll('\\','/')}`;
@@ -82,5 +83,8 @@ const acton=await run(command,args,{timeout:120000,maxBuffer:8*1024*1024,windows
 console.log(acton.stdout);
 await writeJson(path.join(project,'verification.json'),{schemaVersion:1,toolchain:version,
     serialization:{idx:false,crc32:true},actonTests:{status:'passed',output:acton.stdout.trim()},
+    projects:projectCatalog.projects.map(({id,name,directory})=>({id,name,directory,
+        families:results.filter(r=>r.project===id).length,
+        exactReadable:results.filter(r=>r.project===id&&r.status==='exact-readable').length})),
     counts:{families:results.length,exactInstructionReferences:results.filter(r=>r.assembly.sameSerializedBoc).length,
         exactReadable:results.filter(r=>r.status==='exact-readable').length},contracts:results});

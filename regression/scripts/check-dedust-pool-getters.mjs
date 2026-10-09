@@ -7,7 +7,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-getters');
 await fs.mkdir(directory,{recursive:true});
 const pins={72157:'1c35563f6b5c01ca1df9f63c3d898c32347a5b1bbc2c2c0fdaaccc4713d256c4',
@@ -23,7 +23,7 @@ for(const revision of ['CpmmPoolV1','CpmmPoolV2']) {
 }
 const sourceFiles=['addresses','compat-address','stdlib-legacy-stateinit','messages','storage','wallets','rewards','getters'];
 const sources={'main.tolk':'import "getters"'};
-for(const name of sourceFiles)sources[name+'.tolk']=await fs.readFile(path.join(project,'CpmmPoolV2',name+'.tolk'),'utf8');
+for(const name of sourceFiles)sources[name+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',name+'.tolk'),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 const candidateMethods=methods(Cell.fromBoc(candidate)[0]);
@@ -114,5 +114,5 @@ const proof={scope:'All three exact public getters in both Pool revisions; full 
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],methodHashes:pins,wrapperComparison,cases};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/getters-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/getters-verification.json'),proof);
 console.log('Both Pool revisions: three exact public getters and byte-identical isolated BOC; '+cases.length+' independent differential probes including gas passed');

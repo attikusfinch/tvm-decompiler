@@ -108,7 +108,7 @@ export async function checkX1000(oracle,candidate){
   data:state({programs}),expected:state({programs:dict([[Q,tradeProgram],[Q+1n,tradeLeg]]),amounts:dict([[Q+1n,coin(77n)]])}),
   sends:[{mode:3,to:tokenWallet,coins:250000000n,body:transfer}]});
 
- const hookSource=await fs.readFile('../reconstruction/dedust/tests/fixtures/x1000-amount-hook.tolk','utf8');
+ const hookSource=await fs.readFile('../reconstruction/tests/fixtures/x1000-amount-hook.tolk','utf8');
  const compiled=await compileTolk({sources:{'main.tolk':hookSource}});assert.equal(compiled.status,'ok',compiled.message);const hook=Cell.fromBoc(Buffer.from(compiled.codeBoc,'base64'))[0];
  async function signed(label,options={},checks={}){
   const body=request(options),data=checks.data??state({hook}),results=[];

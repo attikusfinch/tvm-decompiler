@@ -5,7 +5,7 @@ import { root, compareBoc, run } from './lib.mjs';
 import { disassembleExact, firstCellDifference } from './exact-assembly.mjs';
 const [name,input]=process.argv.slice(2);
 if(!/^[A-Za-z][A-Za-z0-9]+$/.test(name??'')||!input) throw new Error('Usage: diff-dedust-candidate.mjs ContractName candidate.boc');
-const original=await fs.readFile(path.resolve(root,'../reconstruction/dedust/oracles',name+'.boc'));
+const original=await fs.readFile(path.resolve(root,'../reconstruction/oracles',name+'.boc'));
 const candidate=Cell.fromBoc(await fs.readFile(input))[0].toBoc({idx:false,crc32:true});
 const folder=path.join(root,'artifacts/dedust-diff',name);
 await fs.mkdir(folder,{recursive:true});

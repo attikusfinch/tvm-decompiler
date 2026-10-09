@@ -7,7 +7,7 @@ import { root, decompile, recompile, compareBoc, compareGetters, writeJson } fro
 
 // This checks complete raw decoding and selected getter semantics, not readable
 // source recovery or exact Pool bytecode. The archived executable is independent.
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
 const output=path.join(root,'artifacts/dedust-pool-decompile');
 const address=new Address(0,Buffer.alloc(32,37));

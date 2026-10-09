@@ -8,7 +8,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-payment');
 await fs.mkdir(directory,{recursive:true});
 const helperHash='6c6ac69613082d653edca6da9a4121af14c37c8855f38cac713059cfd1de6fe5';
@@ -31,7 +31,7 @@ fun paymentActions():cell asm "c5 PUSH"
     val (principal,fee)=sendPoolPayment(a,w,n,p,e,q,x);return(principal,fee,paymentActions());
 }
 `};
-for(const f of ['payment','payout-config'])sources[f+'.tolk']=await fs.readFile(path.join(project,'CpmmPoolV2',f+'.tolk'),'utf8');
+for(const f of ['payment','payout-config'])sources[f+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',f+'.tolk'),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 assert.ok(graph(Cell.fromBoc(candidate)[0]).has(helperHash),'compiled exact payment helper');
@@ -123,5 +123,5 @@ const proof={scope:'Exact shared TON/jetton payout helper; complete Pool is stil
     sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],helperHash,wrapperComparison,cases};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/payment-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/payment-verification.json'),proof);
 console.log('Both Pool revisions: exact payment helper and byte-identical isolated BOC; '+cases.length+' probes include gas, actions, independent TON/jetton bodies and fees');

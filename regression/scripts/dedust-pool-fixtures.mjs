@@ -1,3 +1,4 @@
+import {familyDirectory} from './reconstruction-projects.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -5,7 +6,7 @@ import {Address, ExternalAddress, Cell, Dictionary, beginCell, contractAddress} 
 import {root, compareMessages, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk} from './tolk.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 
 export const checkPoolV1=(oracle,candidate)=>checkPool(oracle,candidate,{protocolPercent:30});
 
@@ -25,8 +26,8 @@ assert.equal(unwrap(candidateMethods.get(20)).bits.toString(),unwrap(originalMet
 
 const libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell());
 for(const role of ['CpmmDeposit','CpmmPosition','CpmmAffiliateAccount']) {
-    const libSources={};for(const name of await fs.readdir(path.join(project,role)))if(name.endsWith('.tolk'))
-        libSources[name]=await fs.readFile(path.join(project,role,name),'utf8');
+    const libSources={};for(const name of await fs.readdir(path.join(project,familyDirectory(role))))if(name.endsWith('.tolk'))
+        libSources[name]=await fs.readFile(path.join(project,familyDirectory(role),name),'utf8');
     const result=await compileTolk({sources:libSources});assert.equal(result.status,'ok',result.message);
     const code=Cell.fromBoc(Buffer.from(result.codeBoc,'base64'))[0];
     assert.ok(code.equals(Cell.fromBoc(await fs.readFile(path.join(project,'oracles',role+'.boc')))[0]));libs.set(code.hash(),code);

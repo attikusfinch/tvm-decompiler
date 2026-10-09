@@ -5,7 +5,7 @@ import {Address,Cell,beginCell} from '@ton/core';
 import {root,compareMessages,compareGetters} from './lib.mjs';
 import {loadFuncSources,compileLegacyFunc} from './func-legacy.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 
 export async function checkBlank(oracle,candidate) {
     const entry='tests/fixtures/classic-install.fc';

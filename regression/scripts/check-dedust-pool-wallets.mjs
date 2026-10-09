@@ -7,7 +7,7 @@ import { root, compareBoc, compareGetters, writeJson } from './lib.mjs';
 import { compileTolk, tolkVersion } from './tolk.mjs';
 import { assembleExact, disassembleExact } from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const folder=path.join(root,'artifacts/dedust-pool-wallets');
 await fs.mkdir(folder,{recursive:true});
 const pins={schedule:'1e116ad471dd6fe396ee8e453e4f6386a540c26ebf4b44183e91088501900e99',
@@ -28,7 +28,7 @@ for(const revision of ['CpmmPoolV1','CpmmPoolV2']) {
 const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0 => {}\n'+Object.values(pins)
     .map((hash,i)=>`${90046+i} => {CALLREF {\n${disassembleExact(original.get(hash).toBoc())}\n}}`).join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','wallet-oracle.tasm');
-const source=await fs.readFile(path.join(project,'CpmmPoolV2/wallets.tolk'),'utf8');
+const source=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2/wallets.tolk'),'utf8');
 const compiled=await compileTolk({sources:{'wallets.tolk':source,'main.tolk':`import "wallets"
 @method_id(90046) fun schedule(r:AddressLookup,a:any_address,c:AddressLookup):(AddressLookup,bool,any_address){return scheduleWalletResolution(r,a,c);}
 @method_id(90047) fun register(x:AddressLookup,y:AddressLookup,r:AddressLookup,a:any_address,w:any_address):PoolWallets{return registerPoolWallet(x,y,r,a,w);}
@@ -122,5 +122,5 @@ const proof={scope:'Four exact wallet modules only; whole Pool recovery remains 
     sourceSha256:createHash('sha256').update(source).digest('hex'),revisions:['CpmmPoolV1','CpmmPoolV2'],moduleHashes:pins,comparison,
     results:results.map((r,i)=>({label:examples[i].label,...r}))};
 await writeJson(path.join(folder,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/wallets-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/wallets-verification.json'),proof);
 console.log('Both Pool revisions: four exact wallet modules; '+results.length+' independent differential probes including gas passed');

@@ -43,7 +43,7 @@ Full BOC → decompile → FunC/Fift or Tolk/Acton → emulator checks are in [r
 
 The [standalone HTML report](reports/acton-contracts.html) shows original Tolk, compiled TVM/BOC, generated FunC or Tolk and comparison results for all eight template contracts. Use the language selector to switch the generated code, recompiled artifacts and test results together. Tolk also exposes the raw pre-normalization files, applied rules and code-identity comparison in a separate disclosure. Download it and open it in a browser; it works offline and includes exact artifact downloads. Regeneration instructions are in the regression README.
 
-The [DeDust source reconstruction](reconstruction/dedust/README.md) contains readable
+The [DeDust source reconstruction](reconstruction/README.md) contains readable
 Tolk/FunC for all 21 archived code families. Each source build matches the complete
 frozen BOC byte-for-byte, with independent behavioral probes and 162 native Acton
 tests. This semantic reconstruction is separate from the automatic decompiler;

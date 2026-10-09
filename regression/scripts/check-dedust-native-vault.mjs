@@ -6,7 +6,7 @@ import {Cell} from '@ton/core';
 import {root,compareBoc,writeJson} from './lib.mjs';
 import {loadFuncSources,compileLegacyFunc,legacyFuncVersion} from './func-legacy.mjs';
 import {checkNativeVault} from './dedust-native-vault-fixtures.mjs';
-const project=path.resolve(root,'../reconstruction/dedust'),entry='ClassicNativeVault/main.fc';
+const project=path.resolve(root,'../reconstruction'),entry='dedust/classic/ClassicNativeVault/main.fc';
 const sources=await loadFuncSources(project,entry),compiled=await compileLegacyFunc({sources,targets:[entry]});
 assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Cell.fromBoc(Buffer.from(compiled.codeBoc,'base64'))[0].toBoc({idx:false,crc32:true});
@@ -15,7 +15,7 @@ assert.equal(comparison.sameSerializedBoc,true,'whole native-vault serialized BO
 await fs.mkdir(path.join(project,'build/ClassicNativeVault'),{recursive:true});
 await fs.writeFile(path.join(project,'build/ClassicNativeVault/code.boc'),candidate);
 const tests=await checkNativeVault(original,candidate);
-await writeJson(path.join(project,'ClassicNativeVault/recovery-verification.json'),{
+await writeJson(path.join(project,'dedust/classic/ClassicNativeVault/recovery-verification.json'),{
     scope:'Byte-identical readable native vault: swap, liquidity funding, authenticated payouts, refund, upgrade, initialization and fee getters',
     compiler:await legacyFuncVersion(),comparison,
     sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,source])=>[name,createHash('sha256').update(source).digest('hex')])),tests});

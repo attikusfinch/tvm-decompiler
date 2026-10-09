@@ -8,12 +8,12 @@ import {loadFuncSources,compileLegacyFunc} from './func-legacy.mjs';
 
 // Independent protocol serialization and fee formulas; no decompiled expectations.
 export async function checkJettonVault(oracle,candidate) {
-    const project=path.resolve(root,'../reconstruction/dedust');
+    const project=path.resolve(root,'../reconstruction');
     async function compile(entry) {
         const r=await compileLegacyFunc({sources:await loadFuncSources(project,entry),targets:[entry]});
         assert.equal(r.status,'ok',r.message);return Cell.fromBoc(Buffer.from(r.codeBoc,'base64'))[0];
     }
-    const blank=await compile('ClassicBlank/main.fc'),installed=await compile('tests/fixtures/jetton-vault-upgrade.fc'),code=Cell.fromBoc(candidate)[0];
+    const blank=await compile('dedust/classic/ClassicBlank/main.fc'),installed=await compile('tests/fixtures/jetton-vault-upgrade.fc'),code=Cell.fromBoc(candidate)[0];
     await fs.mkdir(path.join(project,'build/fixtures'),{recursive:true});
     await fs.writeFile(path.join(project,'build/fixtures/jetton-vault-upgrade.boc'),installed.toBoc({idx:false,crc32:true}));
     const addr=n=>new Address(0,Buffer.alloc(32,n)),address=addr(81),factory=addr(82),owner=addr(83),master=addr(84),wallet=addr(85),stranger=addr(86),recipient=addr(87);

@@ -46,7 +46,7 @@ regression/node_modules/
 regression/artifacts/
 
 ### DeDust reconstruction ###
-reconstruction/dedust/.acton/
-reconstruction/dedust/gen/
-reconstruction/dedust/test-results/
-reconstruction/dedust/lcov.info
+reconstruction/.acton/
+reconstruction/gen/
+reconstruction/test-results/
+reconstruction/lcov.info

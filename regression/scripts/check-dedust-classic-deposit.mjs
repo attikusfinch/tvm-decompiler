@@ -6,7 +6,7 @@ import {Cell} from '@ton/core';
 import {root,compareBoc,writeJson} from './lib.mjs';
 import {loadFuncSources,compileLegacyFunc,legacyFuncVersion} from './func-legacy.mjs';
 import {checkClassicDeposit} from './dedust-classic-deposit-fixtures.mjs';
-const project=path.resolve(root,'../reconstruction/dedust'),entry='ClassicLiquidityDeposit/main.fc';
+const project=path.resolve(root,'../reconstruction'),entry='dedust/classic/ClassicLiquidityDeposit/main.fc';
 const sources=await loadFuncSources(project,entry),compiled=await compileLegacyFunc({sources,targets:[entry]});
 assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Cell.fromBoc(Buffer.from(compiled.codeBoc,'base64'))[0].toBoc({idx:false,crc32:true});
@@ -15,7 +15,7 @@ assert.equal(comparison.sameSerializedBoc,true,'whole liquidity-deposit serializ
 await fs.mkdir(path.join(project,'build/ClassicLiquidityDeposit'),{recursive:true});
 await fs.writeFile(path.join(project,'build/ClassicLiquidityDeposit/code.boc'),candidate);
 const tests=await checkClassicDeposit(original,candidate);
-await writeJson(path.join(project,'ClassicLiquidityDeposit/recovery-verification.json'),{
+await writeJson(path.join(project,'dedust/classic/ClassicLiquidityDeposit/recovery-verification.json'),{
     scope:'Byte-identical readable liquidity deposit: collection, thresholds, cancellation, responses, bounce, initialization and getters',
     compiler:await legacyFuncVersion(),comparison,
     sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,source])=>[name,createHash('sha256').update(source).digest('hex')])),tests});

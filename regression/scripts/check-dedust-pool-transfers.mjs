@@ -8,7 +8,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-transfers');
 await fs.mkdir(directory,{recursive:true});
 const pins={90046:'be6ced9674109ea1ade56ab60ff079ae2fa788b51d95d846388d0fa5393dcb1c',
@@ -44,8 +44,8 @@ fun actions():cell asm "c5 PUSH"
 @method_id(90049) fun reward(r:map<uint2,PoolReward>,k:uint2):PoolReward {return poolRewardOrEmpty(r,k);}
 @method_id(90050) fun requestV1(r:any_address,q:uint64):cell {requestPoolWalletAddressV1(r,q);return actions();}
 `};
-for(const file of ['transfers','wallets','rewards'])sources[file+'.tolk']=await fs.readFile(path.join(project,'CpmmPoolV2',file+'.tolk'),'utf8');
-sources['transfers-v1.tolk']=await fs.readFile(path.join(project,'CpmmPoolV1/transfers-v1.tolk'),'utf8');
+for(const file of ['transfers','wallets','rewards'])sources[file+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',file+'.tolk'),'utf8');
+sources['transfers-v1.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV1/transfers-v1.tolk'),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 const candidateCells=graph(Cell.fromBoc(candidate)[0]);
@@ -137,6 +137,6 @@ const proof={scope:'Exact excesses sender, wallet selection, resolver request an
     revisions:['CpmmPoolV1','CpmmPoolV2'],helperHashes:pins,wrapperComparison,
     independentRequestAmounts:{V1:String(requestAmountV1),V2:String(requestAmount)},sends,lookups,rewards};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/transfers-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/transfers-verification.json'),proof);
 console.log('Both Pool revisions: five exact helper cells (including distinct resolver versions) and byte-identical isolated BOC; '+
     (sends.length+lookups.length+rewards.length)+' probes include gas, action lists, independent resolver amount and dictionary/error expectations');

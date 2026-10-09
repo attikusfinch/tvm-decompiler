@@ -8,7 +8,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-events');
 await fs.mkdir(directory,{recursive:true});
 const pins={22:'641ca563cb60368b62bd72620d6fbe7579da1c39b41c1e2d75cc113805637035',
@@ -27,7 +27,7 @@ const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0=>{}\n'+Object.keys(pi
     id+'=>{ref{\n'+disassembleExact(implementation(original[0].get(Number(id))).toBoc())+'\n}}').join('\n')+'\n'+
     [22,23,24].map((id,i)=>(90046+i)+'=>{CALLDICT '+id+'\nPUSHCTR c5\n}').join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','pool-events-oracle.tasm');
-const source=await fs.readFile(path.join(project,'CpmmPoolV2/events.tolk'),'utf8');
+const source=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2/events.tolk'),'utf8');
 const sources={'events.tolk':source,'main.tolk':`
 import "events"
 fun eventActions():cell asm "c5 PUSH"
@@ -99,5 +99,5 @@ const proof={scope:'Exact Pool event implementations and raw SENDMSG action list
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],implementationHashes:pins,wrapperComparison,cases};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/events-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/events-verification.json'),proof);
 console.log('Both Pool revisions: three exact event implementations and byte-identical isolated BOC; '+cases.length+' probes include gas, raw action list and independent forwarding fees');

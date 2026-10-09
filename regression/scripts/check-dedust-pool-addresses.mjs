@@ -7,7 +7,7 @@ import { root, compareGetters, compareBoc, writeJson } from './lib.mjs';
 import { compileTolk, tolkVersion } from './tolk.mjs';
 import { assembleExact, disassembleExact } from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-addresses');
 await fs.mkdir(directory,{recursive:true});
 const pins={position:'07794cb753547d7a3087db90aa3f6eb53fca322e3571c7e84758f3d9d8130cf3',
@@ -33,9 +33,9 @@ const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0 => {}\n'+[
     [90046,pins.position],[90047,pins.deposit],
 ].map(([id,hash])=>`${id} => {CALLREF {\n${disassembleExact(original[0].get(hash).toBoc())}\n}}`).join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','deployment-oracle.tasm');
-const module=await fs.readFile(path.join(project,'CpmmPoolV2/addresses.tolk'),'utf8');
-const compatibility=await fs.readFile(path.join(project,'CpmmPoolV2/compat-address.tolk'),'utf8');
-const legacyStdlib=await fs.readFile(path.join(project,'CpmmPoolV2/stdlib-legacy-stateinit.tolk'),'utf8');
+const module=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2/addresses.tolk'),'utf8');
+const compatibility=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2/compat-address.tolk'),'utf8');
+const legacyStdlib=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2/stdlib-legacy-stateinit.tolk'),'utf8');
 const compiled=await compileTolk({sources:{'addresses.tolk':module,'main.tolk':`
 import "addresses"
 @method_id(90046) fun position(owner:any_address):AutoDeployAddress {return positionDeployment(owner);}
@@ -123,6 +123,6 @@ const proof={scope:'Exact Position/Deposit deployment modules and get_position_a
     }).map(([name,source])=>[name,createHash('sha256').update(source).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],moduleHashes:pins,getterHash,wrapperComparison,getterComparison,positions,deposits,addresses,errors};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/addresses-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/addresses-verification.json'),proof);
 console.log('Both Pool revisions: two exact deployment modules and exact get_position_address; '+
     (positions.length+deposits.length+addresses.length+errors.length)+' differential probes including gas and independent expectations passed');

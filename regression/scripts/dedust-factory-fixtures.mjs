@@ -8,14 +8,14 @@ import {loadFuncSources,compileLegacyFunc} from './func-legacy.mjs';
 
 // Storage and message expectations are authored from the protocol schema.
 export async function checkFactory(oracle,candidate) {
-    const project=path.resolve(root,'../reconstruction/dedust');
+    const project=path.resolve(root,'../reconstruction');
     async function compile(entry) {
         const r=await compileLegacyFunc({sources:await loadFuncSources(project,entry),targets:[entry]});
         assert.equal(r.status,'ok',r.message);return Cell.fromBoc(Buffer.from(r.codeBoc,'base64'))[0];
     }
-    const blank=await compile('ClassicBlank/main.fc'),native=await compile('ClassicNativeVault/main.fc'),
-        jettonVault=await compile('ClassicJettonVault/main.fc'),deposit=await compile('ClassicLiquidityDeposit/main.fc'),
-        operatorCode=await compile('ClassicOperator/main.fc'),lp=await compile('ClassicLpWallet/main.fc'),
+    const blank=await compile('dedust/classic/ClassicBlank/main.fc'),native=await compile('dedust/classic/ClassicNativeVault/main.fc'),
+        jettonVault=await compile('dedust/classic/ClassicJettonVault/main.fc'),deposit=await compile('dedust/classic/ClassicLiquidityDeposit/main.fc'),
+        operatorCode=await compile('dedust/classic/ClassicOperator/main.fc'),lp=await compile('dedust/classic/ClassicLpWallet/main.fc'),
         replacement=await compile('tests/fixtures/factory-upgrade.fc');
     await fs.mkdir(path.join(project,'build/fixtures'),{recursive:true});
     await fs.writeFile(path.join(project,'build/fixtures/factory-upgrade.boc'),replacement.toBoc({idx:false,crc32:true}));

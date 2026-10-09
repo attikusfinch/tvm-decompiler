@@ -1,3 +1,4 @@
+import {familyDirectory} from './reconstruction-projects.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -10,8 +11,8 @@ import {compileLegacyFunc,loadFuncSources} from './func-legacy.mjs';
 // Independent wire/state builders and integer economic expectations. Executed
 // peers are compiled from recovered source, never substituted with oracle BOCs.
 export async function checkClassicVolatilePool(oracle,candidate,{revision=0}={}) {
- const project=path.resolve(root,'../reconstruction/dedust');
- const compile=async name=>{const entry=name+'/main.fc',r=await compileLegacyFunc({targets:[entry],sources:await loadFuncSources(project,entry)});assert.equal(r.status,'ok',r.message);return Cell.fromBoc(Buffer.from(r.codeBoc,'base64'))[0];};
+ const project=path.resolve(root,'../reconstruction');
+ const compile=async name=>{const entry=familyDirectory(name)+'/main.fc',r=await compileLegacyFunc({targets:[entry],sources:await loadFuncSources(project,entry)});assert.equal(r.status,'ok',r.message);return Cell.fromBoc(Buffer.from(r.codeBoc,'base64'))[0];};
  const blank=await compile('ClassicBlank'),wallet=await compile('ClassicLpWallet');
  const addr=n=>new Address(0,Buffer.alloc(32,n)),address=addr(81),factory=addr(82),owner=addr(83),recipient=addr(84),stranger=addr(85),collector0=addr(86),collector1=addr(87);
  const empty=beginCell().endCell(),payload=beginCell().storeUint(0xcafe,16).endCell(),native=beginCell().storeUint(0,4).endCell();

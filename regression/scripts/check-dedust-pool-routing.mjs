@@ -7,7 +7,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust'),directory=path.join(root,'artifacts/dedust-pool-routing');
+const project=path.resolve(root,'../reconstruction'),directory=path.join(root,'artifacts/dedust-pool-routing');
 await fs.mkdir(directory,{recursive:true});
 const pins={90046:'2e42ab82b0b9f6808936c22b848d55c7923e6b81112165a5fe843e53eb0c51c7',
     90047:'222fbc0735a27641c95bed5033c953cb02e4746351c3f38d988511fcf785d215',
@@ -36,7 +36,7 @@ fun routeActions():cell asm "c5 PUSH"
 @method_id(90048) fun affiliate(k:int,i:uint256,f:uint16):AutoDeployAddress {return affiliateDeployment(k,i,f);}
 `};
 for(const f of ['affiliate-deployment','addresses','routing','payment','payout-config','payout-basic'])
-    sources[f+'.tolk']=await fs.readFile(path.join(project,'CpmmPoolV2',f+'.tolk'),'utf8');
+    sources[f+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',f+'.tolk'),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64'),candidateCells=graph(Cell.fromBoc(candidate)[0]);
 for(const hash of Object.values(pins))assert.ok(candidateCells.has(hash),'candidate exact helper '+hash);
@@ -46,7 +46,7 @@ await fs.writeFile(path.join(directory,'candidate.boc'),candidate);await fs.writ
 // Register a source-built library in the emulator; it is never embedded into
 // the candidate's code or substituted into any compiled candidate cell.
 const affiliateSources={};
-for(const f of ['main','types'])affiliateSources[f+'.tolk']=await fs.readFile(path.join(project,'CpmmAffiliateAccount',f+'.tolk'),'utf8');
+for(const f of ['main','types'])affiliateSources[f+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmAffiliateAccount',f+'.tolk'),'utf8');
 const affiliateBuild=await compileTolk({sources:affiliateSources});assert.equal(affiliateBuild.status,'ok',affiliateBuild.message);
 const affiliateCode=Cell.fromBoc(Buffer.from(affiliateBuild.codeBoc,'base64'))[0];
 assert.equal(affiliateCode.hash().toString('hex'),'4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6');
@@ -131,5 +131,5 @@ const proof={scope:'Exact shared swap continuation, basic payout normalization a
     librarySourceSha256:Object.fromEntries(Object.entries(affiliateSources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],helperHashes:pins,wrapperComparison,affiliateLibraryHash:affiliateCode.hash().toString('hex'),
     affiliateAuthority:authority.toRawString(),routing,payouts,deployments};
-await writeJson(path.join(directory,'report.json'),proof);await writeJson(path.join(project,'CpmmPoolV2/routing-verification.json'),proof);
+await writeJson(path.join(directory,'report.json'),proof);await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/routing-verification.json'),proof);
 console.log('Both Pool revisions: three exact helpers and byte-identical isolated BOC; '+(routing.length+payouts.length+deployments.length)+' probes include gas, action/ABI bodies, address normalization and source-built library deployment');

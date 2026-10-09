@@ -1,3 +1,4 @@
+import {familyDirectory} from './reconstruction-projects.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -14,9 +15,9 @@ export const checkUranusMemeV2=(o,c)=>checkUranusMeme(o,c,2);
 // compiled editable sources; frozen library BOCs only verify their identities.
 export async function checkUranusMeme(oracle,candidate,version=3) {
     assert.ok(version===2||version===3);
-    const project=path.resolve(root,'../reconstruction/dedust'),libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell()),codes={};
+    const project=path.resolve(root,'../reconstruction'),libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell()),codes={};
     for(const family of ['UranusMemeWalletV'+version,'CpmmAffiliateAccount','CpmmPoolV'+(version===3?2:1)]) {
-        const compiled=await compileTolk({sources:await loadTolkSources(project,family+'/main.tolk')});assert.equal(compiled.status,'ok',compiled.message);
+        const compiled=await compileTolk({sources:await loadTolkSources(project,familyDirectory(family)+'/main.tolk')});assert.equal(compiled.status,'ok',compiled.message);
         const code=Cell.fromBoc(Buffer.from(compiled.codeBoc,'base64'))[0];assert.ok(code.equals(Cell.fromBoc(await fs.readFile(path.join(project,'oracles',family+'.boc')))[0]));
         codes[family]=code;libs.set(code.hash(),code);
     }

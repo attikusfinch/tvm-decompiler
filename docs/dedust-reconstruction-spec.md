@@ -30,6 +30,12 @@ individual operation may be used when documented and independently tested.
 
 ## Work order
 
+Sources are organized under `reconstruction/dedust` (Classic/CPMM DEX),
+`reconstruction/uranus` and `reconstruction/x1000`. `reconstruction/projects.json`
+is the explicit family-to-project catalog. The shared Acton project, tests,
+frozen oracles and standard library live at `reconstruction/`; the verification
+report records each family's owning project and current source directory.
+
 | Portion | Contracts / work | Required proof |
 | --- | --- | --- |
 | 1 | CPMM Deposit and AffiliateAccount; independent build/comparison tools | ABI, adversarial local tests, byte differences |
@@ -83,7 +89,7 @@ UranusMemeWalletV3 and conserves 77 tokens across source/recipient balances.
 Typed codecs and bounded stack-lifetime primitives preserve the compiler ABI;
 no whole method is replaced by assembly.
 
-Pool V2's production entrypoint is `CpmmPoolV2/main.tolk`; `candidate.tolk` is a
+Pool V2's production entrypoint is `dedust/cpmm/CpmmPoolV2/main.tolk`; `candidate.tolk` is a
 compatibility import. The exact dispatcher fixture adds 113 isolated probes.
 Wallet scheduling retains the full map record's original stack width; handler
 branches, lazy transaction reads, liquidity updates, optional state fields,
@@ -199,7 +205,7 @@ Pool V2 differences were superseded by the accepted result above.
 - Installed toolchain: Acton 1.0.0, Tolk 1.4.0; reference assembler `@ton/tasm` 0.6.1.
 - Assembler round-trip: all 21 identical. The local encoder adapter preserves
   explicit exotic declarations instead of guessing library cells from their bytes.
-- CPMM Deposit: named, typed source in `reconstruction/dedust/CpmmDeposit` passes
+- CPMM Deposit: named, typed source in `reconstruction/cpmm/CpmmDeposit` passes
   both byte comparisons, 9 getter probes, 21 message probes (including gas), and
   7 native Acton tests. Union-ID allocation and one referenced storage helper are
   explicit compatibility details. No original executable code bytes are embedded.

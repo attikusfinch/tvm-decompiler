@@ -7,7 +7,7 @@ import { root, compareGetters, writeJson } from './lib.mjs';
 import { compileTolk, tolkVersion } from './tolk.mjs';
 import { assembleExact, disassembleExact } from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const folder=path.join(root,'artifacts/dedust-pool-rewards');
 await fs.mkdir(folder,{recursive:true});
 const pins={accrue:'91b8179608f2d2eae5e7bbd931e8c77438aa07a086bfa241c506ee036338fdc3',
@@ -29,7 +29,7 @@ const oracle=assembleExact('SETCP 0\nDICTPUSHCONST 19 [\n0 => {}\n'+[
     [90046,pins.accrue],[90047,pins.synchronize],
 ].map(([method,hash])=>`${method} => { CALLREF {\n${disassembleExact(oracleGraphs[0].get(hash).toBoc())}\n} }`).join('\n')+
     '\n]\nDICTIGETJMPZ\nTHROWARG 11\n','reward-oracle.tasm');
-const module=await fs.readFile(path.join(project,'CpmmPoolV2/rewards.tolk'),'utf8');
+const module=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2/rewards.tolk'),'utf8');
 const compiled=await compileTolk({sources:{'rewards.tolk':module,'main.tolk':`
 import "rewards"
 @method_id(90046) fun check(reward:PoolReward,liquidity:coins):PoolReward {
@@ -110,5 +110,5 @@ const proof={scope:'Exact shared reward modules only; complete readable Pool rec
     toolchain:await tolkVersion(),sourceSha256:createHash('sha256').update(module).digest('hex'),
     revisions:['CpmmPoolV1','CpmmPoolV2'],moduleHashes:pins,single,dicts,errors};
 await writeJson(path.join(folder,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/rewards-verification.json'),proof);
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/rewards-verification.json'),proof);
 console.log('Both Pool revisions: two byte-identical reward modules; '+(single.length+dicts.length+errors.length)+' independent probes including gas passed');

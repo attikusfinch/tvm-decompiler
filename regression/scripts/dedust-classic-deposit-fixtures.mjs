@@ -7,14 +7,14 @@ import {loadFuncSources,compileLegacyFunc} from './func-legacy.mjs';
 
 // Expectations come from independently serialized messages/state, not decompiler output.
 export async function checkClassicDeposit(oracle,candidate) {
-    const project=path.resolve(root,'../reconstruction/dedust');
+    const project=path.resolve(root,'../reconstruction');
     const addr=n=>new Address(0,Buffer.alloc(32,n));
     const address=addr(61),factory=addr(62),owner=addr(63),stranger=addr(64);
     const empty=beginCell().endCell(),payload=beginCell().storeUint(0xcafe,16).endCell();
     const native=beginCell().storeUint(0,4).endCell();
     const jetton=n=>beginCell().storeUint(1,4).storeInt(0,8).storeBuffer(Buffer.alloc(32,n)).endCell();
     const asset0=native,asset1=jetton(65),otherAsset=jetton(66);
-    const blankEntry='ClassicBlank/main.fc';
+    const blankEntry='dedust/classic/ClassicBlank/main.fc';
     const blankBuild=await compileLegacyFunc({sources:await loadFuncSources(project,blankEntry),targets:[blankEntry]});
     assert.equal(blankBuild.status,'ok',blankBuild.message);
     const blank=Cell.fromBoc(Buffer.from(blankBuild.codeBoc,'base64'))[0];

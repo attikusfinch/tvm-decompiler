@@ -1,0 +1,102 @@
+[package]
+name = "reconstructed-contracts"
+version = "0.1.0"
+description = "Shared checks for DeDust DEX, Uranus and X1000"
+
+[toolchain]
+acton = "1.0.0"
+
+[contracts.CpmmDeposit]
+src = "dedust/cpmm/CpmmDeposit/main.tolk"
+depends = []
+
+[contracts.CpmmAffiliateAccount]
+src = "dedust/cpmm/CpmmAffiliateAccount/main.tolk"
+depends = []
+
+[contracts.CpmmPosition]
+src = "dedust/cpmm/CpmmPosition/main.tolk"
+depends = []
+
+[contracts.CpmmPoolV2]
+src = "dedust/cpmm/CpmmPoolV2/main.tolk"
+depends = ["CpmmDeposit", "CpmmPosition", "CpmmAffiliateAccount"]
+
+[contracts.CpmmPoolV1]
+src = "dedust/cpmm/CpmmPoolV1/main.tolk"
+depends = ["CpmmDeposit", "CpmmPosition", "CpmmAffiliateAccount"]
+
+# Generated from dedust/classic/ClassicBlank/main.fc by pinned FunC 0.4.4.
+# Acton consumes this source-built artifact after compiler/BOC comparison.
+[contracts.ClassicBlank]
+src = "build/ClassicBlank/code.boc"
+depends = []
+
+[contracts.ClassicOperator]
+src = "build/ClassicOperator/code.boc"
+depends = ["ClassicBlank"]
+
+[contracts.ClassicLpWallet]
+src = "build/ClassicLpWallet/code.boc"
+depends = []
+
+[contracts.ClassicLiquidityDeposit]
+src = "build/ClassicLiquidityDeposit/code.boc"
+depends = ["ClassicBlank"]
+
+[contracts.ClassicNativeVault]
+src = "build/ClassicNativeVault/code.boc"
+depends = ["ClassicBlank"]
+
+[contracts.ClassicJettonVault]
+src = "build/ClassicJettonVault/code.boc"
+depends = ["ClassicBlank"]
+
+[contracts.ClassicFactory]
+src = "build/ClassicFactory/code.boc"
+depends = ["ClassicBlank", "ClassicNativeVault", "ClassicJettonVault", "ClassicLiquidityDeposit", "ClassicOperator", "ClassicLpWallet"]
+
+[contracts.ClassicVolatilePool]
+src = "build/ClassicVolatilePool/code.boc"
+depends = ["ClassicBlank", "ClassicLpWallet", "ClassicLiquidityDeposit", "ClassicNativeVault", "ClassicJettonVault"]
+
+[contracts.ClassicPoolInstalledV8]
+src = "build/ClassicPoolInstalledV8/code.boc"
+depends = ["ClassicBlank", "ClassicLpWallet"]
+
+[contracts.ClassicPoolInstalledV9]
+src = "build/ClassicPoolInstalledV9/code.boc"
+depends = ["ClassicBlank", "ClassicLpWallet"]
+
+[test]
+
+[contracts.UranusMemeWalletV2]
+src = "uranus/UranusMemeWalletV2/main.tolk"
+depends = []
+
+[contracts.UranusMemeWalletV3]
+src = "uranus/UranusMemeWalletV3/main.tolk"
+depends = []
+
+[contracts.UranusFactoryV3]
+src = "uranus/UranusFactoryV3/main.tolk"
+depends = ["UranusMemeV3"]
+
+[contracts.UranusMemeV3]
+src = "uranus/UranusMemeV3/main.tolk"
+depends = ["UranusMemeWalletV3", "CpmmAffiliateAccount", "CpmmPoolV2"]
+
+[contracts.UranusMemeV2]
+src = "uranus/UranusMemeV2/main.tolk"
+depends = ["UranusMemeWalletV2", "CpmmAffiliateAccount", "CpmmPoolV1"]
+
+[contracts.X1000WalletV2]
+src = "x1000/X1000WalletV2/main.tolk"
+depends = []
+
+[fmt]
+width = 100
+
+[import-mappings]
+acton = ".acton"
+tests = "tests"

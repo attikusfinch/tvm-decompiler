@@ -8,7 +8,7 @@ import {root, compareGetters, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust'),directory=path.join(root,'artifacts/dedust-pool-settlement');
+const project=path.resolve(root,'../reconstruction'),directory=path.join(root,'artifacts/dedust-pool-settlement');
 await fs.mkdir(directory,{recursive:true});
 const hash='c36d44dbe543d3dc6890e484f1827cb15798f2c2f149b429f8c963fe1bf102fd';
 const dictionaryHash='b1867598da3ab19adde6cefea2cf5b842b05b91ca851d593822cb566b879e66b';
@@ -31,7 +31,7 @@ fun settlementActions():cell asm "c5 PUSH"
     settlePoolAssets(q,c,w,x,y,p,e,s);return settlementActions();
 }
 `};
-for(const f of ['settlement','transfers','wallets','payment','payout-config'])sources[f+'.tolk']=await fs.readFile(path.join(project,'CpmmPoolV2',f+'.tolk'),'utf8');
+for(const f of ['settlement','transfers','wallets','payment','payout-config'])sources[f+'.tolk']=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',f+'.tolk'),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 assert.equal(implementation(methods(Cell.fromBoc(candidate)[0]).get(19)).hash().toString('hex'),hash);
@@ -117,5 +117,5 @@ const proof={scope:'Exact shared method 19 dictionary value and implementation, 
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([name,s])=>[name,createHash('sha256').update(s).digest('hex')])),
     revisions:['CpmmPoolV1','CpmmPoolV2'],implementationHash:hash,originalDictionaryValueHash:dictionaryHash,wrapperComparison,
     getterContext:{balance:'10000000000',incomingValue:'0',storagePaid:'0'},cases};
-await writeJson(path.join(directory,'report.json'),proof);await writeJson(path.join(project,'CpmmPoolV2/settlement-verification.json'),proof);
+await writeJson(path.join(directory,'report.json'),proof);await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/settlement-verification.json'),proof);
 console.log('Both Pool revisions: exact method 19 implementation and byte-identical isolated BOC; '+cases.length+' probes include gas, full action chains and independent reserve amounts');

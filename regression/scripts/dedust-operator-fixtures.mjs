@@ -6,7 +6,7 @@ import {Blockchain} from '@ton/sandbox';
 import {root,compareMessages,compareGetters} from './lib.mjs';
 import {loadFuncSources,compileLegacyFunc} from './func-legacy.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust'),NOW=1700000000;
+const project=path.resolve(root,'../reconstruction'),NOW=1700000000;
 export async function checkOperator(oracle,candidate) {
     const fixture='tests/fixtures/classic-upgrade.fc';
     const build=await compileLegacyFunc({sources:await loadFuncSources(project,fixture),targets:[fixture]});
@@ -102,7 +102,7 @@ export async function checkOperator(oracle,candidate) {
         for(const test of tests){assert.equal(test.sameObservedBehavior,true);assert.equal(test.before.gasUsed,test.after.gasUsed);assert.equal(test.before.exitCode,9);}getters.push(...tests);
     }
     // Exercise the real constructor through the separately source-built Blank.
-    const blankEntry='ClassicBlank/main.fc';
+    const blankEntry='dedust/classic/ClassicBlank/main.fc';
     const blankBuild=await compileLegacyFunc({sources:await loadFuncSources(project,blankEntry),targets:[blankEntry]});
     assert.equal(blankBuild.status,'ok',blankBuild.message);
     const blank=Buffer.from(blankBuild.codeBoc,'base64'),originalBlank=await fs.readFile(path.join(project,'oracles/ClassicBlank.boc'));

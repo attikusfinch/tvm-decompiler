@@ -1,3 +1,4 @@
+import {familyDirectory} from './reconstruction-projects.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -7,14 +8,14 @@ import {root, compareMessages, compareBoc, writeJson} from './lib.mjs';
 import {compileTolk, tolkVersion} from './tolk.mjs';
 import {assembleExact, disassembleExact} from './exact-assembly.mjs';
 
-const project=path.resolve(root,'../reconstruction/dedust');
+const project=path.resolve(root,'../reconstruction');
 const directory=path.join(root,'artifacts/dedust-pool-processing');
 await fs.mkdir(directory,{recursive:true});
 const sources={'main.tolk':(await fs.readFile(path.join(project,'tests/fixtures/pool-processing.tolk'),'utf8'))
-    .replaceAll('../../CpmmPoolV2/','')};
-for(const name of await fs.readdir(path.join(project,'CpmmPoolV2')))
+    .replaceAll('../../dedust/cpmm/CpmmPoolV2/','')};
+for(const name of await fs.readdir(path.join(project,'dedust/cpmm/CpmmPoolV2')))
     if(name.endsWith('.tolk') && name !== 'main.tolk')
-        sources[name]=await fs.readFile(path.join(project,'CpmmPoolV2',name),'utf8');
+        sources[name]=await fs.readFile(path.join(project,'dedust/cpmm/CpmmPoolV2',name),'utf8');
 const compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
 const candidate=Buffer.from(compiled.codeBoc,'base64');
 const methods=c=>Dictionary.loadDirect(Dictionary.Keys.Int(19),{serialize(){},parse:s=>s.asCell()},c.refs[0]);
@@ -39,8 +40,8 @@ await fs.writeFile(path.join(directory,'candidate20.tasm'),disassembleExact(cand
 const libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell());
 for(const role of ['CpmmDeposit','CpmmPosition','CpmmAffiliateAccount']) {
     const libSources={};
-    for(const name of await fs.readdir(path.join(project,role)))if(name.endsWith('.tolk'))
-        libSources[name]=await fs.readFile(path.join(project,role,name),'utf8');
+    for(const name of await fs.readdir(path.join(project,familyDirectory(role))))if(name.endsWith('.tolk'))
+        libSources[name]=await fs.readFile(path.join(project,familyDirectory(role),name),'utf8');
     const result=await compileTolk({sources:libSources});assert.equal(result.status,'ok',result.message);
     const code=Cell.fromBoc(Buffer.from(result.codeBoc,'base64'))[0];
     assert.ok(code.equals(Cell.fromBoc(await fs.readFile(path.join(project,'oracles',role+'.boc')))[0]));
@@ -207,7 +208,7 @@ const comparison={originalMethodHash:originalMethods.get(20).hash().toString('he
 const proof={scope:'Byte-identical readable V2 method 20, including dictionary placement; isolated state/actions/outgoing amounts/gas and independent expectations. Whole Pool recovery pending',
     toolchain:await tolkVersion(),sourceSha256:Object.fromEntries(Object.entries(sources).map(([n,s])=>[n,createHash('sha256').update(s).digest('hex')])),comparison,isolatedComparison,cases};
 await writeJson(path.join(directory,'report.json'),proof);
-await writeJson(path.join(project,'CpmmPoolV2/processing-progress.json'),{
+await writeJson(path.join(project,'dedust/cpmm/CpmmPoolV2/processing-progress.json'),{
     ...proof,cases:cases.map(({before,after,...test})=>({...test,before:{exitCode:before.exitCode,dataHash:before.dataHash,gasUsed:before.gasUsed},
         after:{exitCode:after.exitCode,dataHash:after.dataHash,gasUsed:after.gasUsed}}))});
 console.log('Pool payment dispatcher: '+cases.length+' message probes pass; exact method code='+comparison.sameMethodCode);
