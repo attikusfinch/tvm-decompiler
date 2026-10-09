@@ -9,7 +9,7 @@ import {compileLegacyFunc,loadFuncSources} from './func-legacy.mjs';
 
 // Independent wire/state builders and integer economic expectations. Executed
 // peers are compiled from recovered source, never substituted with oracle BOCs.
-export async function checkClassicVolatilePool(oracle,candidate) {
+export async function checkClassicVolatilePool(oracle,candidate,{revision=0}={}) {
  const project=path.resolve(root,'../reconstruction/dedust');
  const compile=async name=>{const entry=name+'/main.fc',r=await compileLegacyFunc({targets:[entry],sources:await loadFuncSources(project,entry)});assert.equal(r.status,'ok',r.message);return Cell.fromBoc(Buffer.from(r.codeBoc,'base64'))[0];};
  const blank=await compile('ClassicBlank'),wallet=await compile('ClassicLpWallet');
@@ -27,12 +27,14 @@ export async function checkClassicVolatilePool(oracle,candidate) {
  const vault0=template(vaultDescriptor()),vault1=template(vaultDescriptor(asset1));
  const operator=kind=>template(beginCell().storeAddress(factory).storeUint(4,8).storeUint(kind,8).endCell());
  const descriptor=(stable=0,f=factory,k=2)=>beginCell().storeAddress(f).storeUint(k,8).storeBit(stable).storeSlice(native.beginParse()).storeSlice(asset1.beginParse()).endCell();
- const defaults={r0:1000000000n,r1:2000000000n,supply:1000000000n,fee0:700n,fee1:900n,fee:30,version:9,stable:0,p0:9,p1:9,c0:null,c1:null,scale0:UNIT*10n**9n,scale1:UNIT*10n**9n};
+ const defaults={r0:1000000000n,r1:2000000000n,supply:1000000000n,fee0:700n,fee1:900n,fee:30,version:9,stable:0,p0:9,p1:9,c0:null,c1:null,scale0:UNIT*10n**9n,scale1:UNIT*10n**9n,startTime:0,legacyTail:false};
  const state=(patch={})=>{
   const o={...defaults,...patch},collectors=o.c0?beginCell().storeAddress(o.c0).storeAddress(o.c1).endCell():null;
   const config=beginCell().storeUint(o.p0,8).storeUint(o.p1,8).storeAddress(vault0).storeAddress(vault1).storeAddress(null).storeMaybeRef(collectors).endCell();
-  return beginCell().storeRef(descriptor(o.stable)).storeRef(blank).storeRef(wallet).storeRef(config).storeUint(o.version,16).storeUint(o.fee,16)
-   .storeCoins(o.supply).storeCoins(o.r0).storeCoins(o.r1).storeCoins(o.fee0).storeCoins(o.fee1).storeUint(o.scale0,128).storeUint(o.scale1,128).endCell();
+  const b=beginCell().storeRef(descriptor(o.stable)).storeRef(blank).storeRef(wallet).storeRef(config).storeUint(o.version,16).storeUint(o.fee,16)
+   .storeCoins(o.supply).storeCoins(o.r0).storeCoins(o.r1).storeCoins(o.fee0).storeCoins(o.fee1).storeUint(o.scale0,128).storeUint(o.scale1,128);
+  if(revision&&!o.legacyTail)b.storeUint(o.startTime,32);
+  return b.endCell();
  };
  const addressCell=a=>beginCell().storeAddress(a).endCell(),int=n=>({type:'int',value:String(n)}),slice=c=>({type:'slice',cellHash:c.hash().toString('hex')}),cell=c=>({type:'cell',cellHash:c.hash().toString('hex')});
  const messages=[],getters=[];
@@ -167,5 +169,25 @@ export async function checkClassicVolatilePool(oracle,candidate) {
  const installation=beginCell().storeUint(2604311546,32).storeUint(Q,64).storeRef(blank).storeUint(9,16).storeRef(Cell.fromBoc(candidate)[0]).storeUint(30,16).storeRef(wallet).storeUint(9,8).storeUint(9,8).endCell();
  const [ctor]=await compareMessages(await fs.readFile(path.join(project,'oracles/ClassicBlank.boc')),blank.toBoc(),[{label:'Blank installs Pool with canonical state',body:installation,from:factory}],{data:descriptor(),address,accurateStorageStats:true});
  assert.equal(ctor.sameObservedBehavior,true);assert.equal(ctor.before.exitCode,0);assert.equal(ctor.before.dataHash,state({r0:0n,r1:0n,supply:0n,fee0:0n,fee1:0n}).hash().toString('hex'));assert.equal(ctor.before.newCodeHash,Cell.fromBoc(candidate)[0].hash().toString('hex'));messages.push(ctor);
+ if(revision) {
+  const pause=(timestamp,tail=false)=>{const b=beginCell().storeUint(2128082638,32).storeUint(Q,64).storeUint(timestamp,32);if(tail)b.storeBit(1);return b.endCell();};
+  for(const startTime of [0,1699999999,1700000000,1700000001,0xffffffff])await getter(112861,[],{patch:{startTime},expected:[int(startTime)]});
+  await getter(112861,[],{patch:{legacyTail:true},expected:[int(0)]});
+  await getter(70754,[{type:'slice',cell:native},10000000n],{patch:{startTime:0xffffffff},expected:[slice(asset1),int(out),int(fee)]});
+  for(const startTime of [1700000001,0xffffffff])await message('time gate refunds full principal '+startTime,swap(),{patch:{startTime},from:vault0,exit:306,sends:1,inspect:a=>expectSend(a,0,vault0,payout(10000000n,owner,payload))});
+  for(const startTime of [1699999999,1700000000])await message('swap begins at timestamp boundary '+startTime,swap(),{patch:{startTime},from:vault0,expectedPatch:{startTime,r0:defaults.r0+10000000n-fee/5n,r1:defaults.r1-out,fee0:defaults.fee0+fee/5n},sends:2});
+  for(const startTime of [0,1700000001,0xffffffff])await message('operator sets start time '+startTime,pause(startTime),{from:operator(10),expectedPatch:{startTime},sends:0});
+  await message('time setter authority before parsing',beginCell().storeUint(2128082638,32).endCell(),{exit:296,sends:0});
+  await message('time setter uint32 underflow',beginCell().storeUint(2128082638,32).storeUint(Q,64).storeUint(0,31).endCell(),{from:operator(10),exit:9,sends:0});
+  await message('time setter preserves permissive tail',pause(5,true),{from:operator(10),expectedPatch:{startTime:5},sends:0});
+  await message('repeated time setter revision '+revision,pause(0),{patch:{startTime:1700000001},from:operator(10),exit:revision===8?307:0,expectedPatch:{startTime:revision===8?1700000001:0},sends:0});
+  await message('legacy data gains timestamp on first save',pause(7),{patch:{legacyTail:true},from:operator(10),expectedPatch:{startTime:7},sends:0});
+  const timedInstall=beginCell().storeSlice(installation.beginParse()).storeUint(1700000001,32).endCell();
+  const [timed]=await compareMessages(await fs.readFile(path.join(project,'oracles/ClassicBlank.boc')),blank.toBoc(),[{label:'Blank installs Pool with explicit swap start time',body:timedInstall,from:factory}],{data:descriptor(),address,accurateStorageStats:true});
+  assert.equal(timed.sameObservedBehavior,true);assert.equal(timed.before.exitCode,0);assert.equal(timed.before.dataHash,state({r0:0n,r1:0n,supply:0n,fee0:0n,fee1:0n,startTime:1700000001}).hash().toString('hex'));messages.push(timed);
+ }
  return {getters,messages};
 }
+
+export const checkClassicPoolV8=(oracle,candidate)=>checkClassicVolatilePool(oracle,candidate,{revision:8});
+export const checkClassicPoolV9=(oracle,candidate)=>checkClassicVolatilePool(oracle,candidate,{revision:9});

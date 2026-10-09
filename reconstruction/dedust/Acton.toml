@@ -60,6 +60,14 @@ depends = ["ClassicBlank", "ClassicNativeVault", "ClassicJettonVault", "ClassicL
 src = "build/ClassicVolatilePool/code.boc"
 depends = ["ClassicBlank", "ClassicLpWallet", "ClassicLiquidityDeposit", "ClassicNativeVault", "ClassicJettonVault"]
 
+[contracts.ClassicPoolInstalledV8]
+src = "build/ClassicPoolInstalledV8/code.boc"
+depends = ["ClassicBlank", "ClassicLpWallet"]
+
+[contracts.ClassicPoolInstalledV9]
+src = "build/ClassicPoolInstalledV9/code.boc"
+depends = ["ClassicBlank", "ClassicLpWallet"]
+
 [test]
 
 [contracts.UranusMemeWalletV2]

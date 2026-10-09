@@ -20,7 +20,7 @@ import { checkFactory } from './dedust-factory-fixtures.mjs';
 import { checkUranusWalletV2, checkUranusWalletV3 } from './dedust-uranus-wallet-fixtures.mjs';
 import { checkUranusFactory } from './dedust-uranus-factory-fixtures.mjs';
 import { checkUranusMemeV2, checkUranusMemeV3 } from './dedust-uranus-meme-fixtures.mjs';
-import { checkClassicVolatilePool } from './dedust-classic-pool-fixtures.mjs';
+import { checkClassicVolatilePool, checkClassicPoolV8, checkClassicPoolV9 } from './dedust-classic-pool-fixtures.mjs';
 import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
@@ -29,6 +29,8 @@ const fixtures={UranusMemeV3:checkUranusMemeV3,UranusFactoryV3:checkUranusFactor
 const results=[];
 fixtures.UranusMemeV2=checkUranusMemeV2;
 fixtures.ClassicVolatilePool=checkClassicVolatilePool;
+fixtures.ClassicPoolInstalledV8=checkClassicPoolV8;
+fixtures.ClassicPoolInstalledV9=checkClassicPoolV9;
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));
     assert.equal(createHash('sha256').update(original).digest('hex'),entry.bocSha256,entry.name+': frozen BOC');

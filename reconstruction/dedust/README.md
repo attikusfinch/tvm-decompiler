@@ -1,9 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **18 of 21 archived code
+Readable, byte-identical recovery is verified for **20 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory/ClassicVolatilePool,
-plus UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3. The ten CPMM/Uranus contracts use Tolk; the eight Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory/ClassicVolatilePool/ClassicPoolInstalledV8/V9,
+plus UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3. The ten CPMM/Uranus contracts use Tolk; the ten Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -22,6 +22,8 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicJettonVault | 3811 bytes | 30 | 74 |
 | ClassicFactory | 3733 bytes | 34 | 73 |
 | ClassicVolatilePool | 5691 bytes | 65 | 71 |
+| ClassicPoolInstalledV8 | 5846 bytes | 72 | 84 |
+| ClassicPoolInstalledV9 | 5839 bytes | 72 | 84 |
 | UranusMemeWalletV2 | 1219 bytes | 15 | 60 |
 | UranusMemeWalletV3 | 1156 bytes | 15 | 60 |
 | UranusFactoryV3 | 1605 bytes | 0 | 84 |
@@ -32,11 +34,11 @@ Each source-built contract equals its frozen mainnet oracle, including the compl
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **147 native tests**. See `verification.json` for per-family results.
+project passes **153 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **3 families** have not passed readable-source acceptance. Their
-instruction references do not establish readable recovery.
+The remaining **X1000WalletV2** has not passed readable-source acceptance. Its
+instruction reference does not establish readable recovery.
 
 ## Classic Pool
 
@@ -60,6 +62,17 @@ and verify swaps, rollback, collectors and stable-curve rounding. Bounded field,
 type-test and operand-staging primitives retain historical compiler layout; all
 economic and authorization logic is ordinary FunC. See
 `ClassicVolatilePool/recovery-verification.json`.
+
+`ClassicPoolInstalledV8/main.fc` and `ClassicPoolInstalledV9/main.fc` additionally
+recover the optional uint32 swap start timestamp. Legacy storage without the field
+loads zero; a save writes the extended layout. Operator 10 sets it with opcode
+2128082638. Swaps before that timestamp commit full-principal refunds and rethrow
+306; equality permits execution. V8 allows setting the time only while it is zero
+(otherwise 307); V9 permits repeated changes. Getter 112861 exposes it. Quotes and
+liquidity remain available during the time gate. Each revision matches all 27
+method cells and all serialized bytes. Per revision, 72 getter and 84 message probes
+check the common economics and these differences. Six additional Acton tests cover
+both installations, authority, time boundaries, real LP credit/burn and stable swaps.
 
 ## Uranus Factory V3
 
