@@ -1,8 +1,8 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **8 of 21 archived code
+Readable, byte-identical recovery is verified for **9 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet. The five CPMM contracts use Tolk; the three Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit. The five CPMM contracts use Tolk; the four Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -16,15 +16,16 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicBlank | 165 bytes | 2 | 33 |
 | ClassicOperator | 455 bytes | 40 | 36 |
 | ClassicLpWallet | 836 bytes | 17 | 52 |
+| ClassicLiquidityDeposit | 2104 bytes | 40 | 57 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **82 native tests**. See `verification.json` for per-family results.
+project passes **89 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **13 families** have not passed readable-source acceptance. Their
+The remaining **12 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -157,6 +158,33 @@ independent amounts, state and wire payload expectations, and exact gas. Five
 native Acton tests also deliver an actual transfer body/amount between two
 canonical wallets and check token conservation, authorization, burn and bounce.
 See `ClassicLpWallet/recovery-verification.json`.
+
+## ClassicLiquidityDeposit
+
+`ClassicLiquidityDeposit/main.fc` recovers the factory-authorized collection of two
+assets, threshold-triggered pool requests, pending-deposit refunds, owner cancellation,
+authenticated pool success/failure responses, bounce compensation and all eight getters.
+Its complete 2104-byte BOC and all 18 dictionary methods equal the frozen mainnet
+code, hash `80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc`.
+
+`npm run dedust:classic-deposit` verifies 57 message and 40 getter probes. Independent
+expectations cover asset tags, threshold boundaries, original fee rounding, full-balance
+refund/deletion, message bodies, authorization, overflow, strict storage parsing and real
+initialization through source-built Blank. Seven Acton tests execute this complete
+initialization/collection/request/refund flow and inspect actual outgoing wire messages.
+
+Compatibility primitives preserve fixed-width field order and old builder/tuple ABI.
+Asset parsing uses ordinary control flow with local alternative returns; the decoder is
+shared and inlined. An opaque throw preserves unreachable null slots from the archived
+compiler. No original executable cells, assembly method bodies or BOC substitutions are
+included in the readable source build.
+
+Observed details are preserved: successful responses refund at most one surplus asset
+(asset0 takes priority); response authentication binds the sender to the supplied pool
+config and validates factory/template kind without comparing its assets to stored assets;
+unknown collected assets leave balances unchanged; bounce prefixes are skipped without
+validation. Tests establish these behaviors, without asserting original source names.
+See `ClassicLiquidityDeposit/recovery-verification.json`.
 
 Typed field/equality primitives preserve the archived evaluation and stack order;
 inline message codecs retain query values until strict end-of-slice validation.

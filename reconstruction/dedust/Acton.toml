@@ -40,6 +40,10 @@ depends = ["ClassicBlank"]
 src = "build/ClassicLpWallet/code.boc"
 depends = []
 
+[contracts.ClassicLiquidityDeposit]
+src = "build/ClassicLiquidityDeposit/code.boc"
+depends = ["ClassicBlank"]
+
 [test]
 
 [fmt]

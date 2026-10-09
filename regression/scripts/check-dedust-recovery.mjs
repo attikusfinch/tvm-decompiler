@@ -13,11 +13,12 @@ import { checkPool, checkPoolV1 } from './dedust-pool-fixtures.mjs';
 import { checkBlank } from './dedust-blank-fixtures.mjs';
 import { checkOperator } from './dedust-operator-fixtures.mjs';
 import { checkLpWallet } from './dedust-lp-wallet-fixtures.mjs';
+import { checkClassicDeposit } from './dedust-classic-deposit-fixtures.mjs';
 import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
+const fixtures={ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,ClassicLiquidityDeposit:checkClassicDeposit,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));

@@ -45,11 +45,12 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **8/21 families**: CPMM Deposit,
-AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator and ClassicLpWallet.
+Readable byte-identical recovery is **9/21 families**: CPMM Deposit,
+AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
+ClassicLpWallet and ClassicLiquidityDeposit.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **82 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **89 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -93,7 +94,17 @@ bounce restoration. Budget boundaries, forward-fee rounding, overflow, malformed
 input, authorization and ignored suffixes have independent expectations. Five
 native tests deliver the actual outgoing transfer body and amount to a canonical
 recipient wallet and verify token conservation, plus burn/bounce and rejection.
-Next: the rest of Classic; **13 families remain**.
+ClassicLiquidityDeposit passes complete 2104-byte BOC identity and all 18 method
+dictionary values. Named FunC recovers constructor/storage, both asset codecs,
+factory collection, thresholds, pool/vault derivation, pending refunds, cancellation,
+success/failure/bounce and eight getters. 57 message and 40 getter probes check exact
+gas/actions/amounts with independent state and serialization expectations. Seven Acton
+tests install it through source-built Blank and execute the collection/request/refund
+flow. Local alternative returns preserve the native/jetton decoder's original scope;
+opaque throw/tuple/field/builder primitives retain the old code generator's ABI and
+unreachable null slots. All candidate executable code is generated from readable source.
+Tests also preserve first-asset surplus priority and supplied-config authentication.
+Next: the rest of Classic and the related protocols; **12 families remain**.
 
 ## Recovery history
 
