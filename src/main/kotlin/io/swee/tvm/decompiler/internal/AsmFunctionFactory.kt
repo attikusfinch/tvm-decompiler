@@ -153,12 +153,15 @@ object AsmFunctionFactory {
                 fnName to null
             }
 
+            // CTOS is often intentionally discarded inside TRY to test whether an
+            // opaque exception value really is a cell. Retain its type exception.
+            val validation = ctx.preserveCellValidation && mnemonic == "CTOS"
             val callNode = IRNode.FunctionCall(
-                effectiveName,
+                if (validation) "asm_checked_CTOS" else effectiveName,
                 finalArgs.map { IRNode.VariableUsage(it, true) },
-                if (asmSuffix.isEmpty()) asmBody else
+                if (validation) "\"CTOS\"" else if (asmSuffix.isEmpty()) asmBody else
                     (listOf(asmBody ?: "\"$mnemonic\"") + asmSuffix.map { "\"$it\"" }).joinToString(" "),
-                pure
+                pure && !validation
             )
 
             val outputDescs = overrideOutputs ?: (instData.instDescriptionRaw.valueFlow.outputs.stack ?: emptyList())

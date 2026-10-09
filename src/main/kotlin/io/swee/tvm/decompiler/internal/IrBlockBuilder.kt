@@ -17,6 +17,7 @@ class IrBlockBuilder(
     var isReturnContext: Boolean = true
     var hasAltReturn: Boolean = false
     var hasDiverged: Boolean = false
+    var preserveCellValidation: Boolean = false
     var remainingInstructions: MutableList<TvmInst>? = null
     var options: DecompilerOptions = DecompilerOptions()
     var registry: ParserRegistry? = null
@@ -118,6 +119,7 @@ class IrBlockBuilder(
         childBuilder.callRefMapping = this.callRefMapping
         childBuilder.isReturnContext = this.isReturnContext
         childBuilder.hasAltReturn = this.hasAltReturn
+        childBuilder.preserveCellValidation = this.preserveCellValidation
         childBuilder.options = this.options
         childBuilder.registry = this.registry
         childBuilder.typeRefinements.putAll(this.typeRefinements)

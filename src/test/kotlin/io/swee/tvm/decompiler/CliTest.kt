@@ -36,7 +36,7 @@ class CliTest {
 
     @Test
     fun `strict CLI rejects partial BOC and returns clean diagnostic JSON`() {
-        val (exitCode, stdout) = runBoc("raw-try", strict = true)
+        val (exitCode, stdout) = runBoc("variable-call", strict = true)
         assertEquals(2, exitCode)
         val tree = ObjectMapper().readTree(stdout)
         assertFalse(tree["complete"].asBoolean())
@@ -75,7 +75,7 @@ class CliTest {
 
     @Test
     fun `Tolk strict mode rejects unsupported code and no stdlib applies to both languages`() {
-        val (partialExit, partialOutput) = runBoc("raw-try", strict = true, language = "tolk")
+        val (partialExit, partialOutput) = runBoc("variable-call", strict = true, language = "tolk")
         assertEquals(2, partialExit)
         val partial = ObjectMapper().readTree(partialOutput)
         assertFalse(partial["complete"].asBoolean())

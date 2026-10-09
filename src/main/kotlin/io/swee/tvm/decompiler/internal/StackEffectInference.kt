@@ -33,6 +33,11 @@ fun staticVariableCallBody(instructions: List<TvmInst>, index: Int): List<TvmIns
         is TvmConstIntPushint16Inst -> instruction.x
         else -> null
     }
+    // CALLXARGS p,-1 still has a provable ABI when its literal target is
+    // extracted and independently analysed. The opcode alone proves no width.
+    if (instructions.getOrNull(index + 1) is TvmContBasicCallxargsVarInst) return body
+    if (instructions.getOrNull(index + 1) is TvmContBasicCallxargsInst &&
+        body.singleOrNull() !is TvmContDictCalldictInst) return body
     if (integerAt(index + 1) !in 0..254 || integerAt(index + 2) !in -1..254 ||
         instructions.getOrNull(index + 3) !is TvmContBasicCallxvarargsInst) return null
     return body

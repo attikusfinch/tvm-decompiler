@@ -12,19 +12,19 @@ class DiagnosticsTest {
     )
 
     @Test
-    fun `noncanonical TRY produces an incomplete result with instruction and method`() {
-        val result = decompile("raw-try")
+    fun `dynamic variable-width call produces an incomplete result with instruction and method`() {
+        val result = decompile("variable-call")
         assertFalse(result.complete)
-        val diagnostic = result.diagnostics.single { it.mnemonic == "TRY" }
-        assertEquals(Kind.UNSUPPORTED_INSTRUCTION, diagnostic.kind)
-        assertEquals("115448", diagnostic.methodId)
+        val diagnostic = result.diagnostics.single { it.mnemonic == "CALLXARGS_VAR" }
+        assertEquals(Kind.PARSER_ERROR, diagnostic.kind)
+        assertEquals("90048", diagnostic.methodId)
         assertFalse(diagnostic.location.isNullOrBlank())
-        assertTrue(result.files.single { it.name == "main.fc" }.content.contains("unparsed: TRY"))
+        assertTrue(result.files.single { it.name == "main.fc" }.content.contains("exception: CALLXARGS_VAR"))
     }
 
     @Test
     fun `strict JSON keeps diagnostic evidence and excludes partial files`() {
-        val tree = ObjectMapper().readTree(OutputWriter.json(decompile("raw-try"), includeFiles = false))
+        val tree = ObjectMapper().readTree(OutputWriter.json(decompile("variable-call"), includeFiles = false))
         assertFalse(tree["complete"].asBoolean())
         assertTrue(tree["diagnostics"].size() > 0)
         assertEquals(0, tree["files"].size())
@@ -43,7 +43,7 @@ class DiagnosticsTest {
 
     @Test
     fun `diagnostics do not leak between independent requests`() {
-        assertFalse(decompile("raw-try").complete)
+        assertFalse(decompile("variable-call").complete)
         val result = decompile("acton-counter")
         assertTrue(result.complete, result.diagnostics.toString())
         assertTrue(result.diagnostics.isEmpty())

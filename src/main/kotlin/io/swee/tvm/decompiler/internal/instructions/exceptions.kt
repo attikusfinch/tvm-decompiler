@@ -4,7 +4,7 @@ import io.swee.tvm.decompiler.internal.*
 import io.swee.tvm.decompiler.internal.ir.IRNode
 import org.ton.bytecode.*
 
-/** Recognizes the compiler's register-saving TRY envelope, never an arbitrary c2 handler. */
+/** Recognizes literal TRY arms and compiler register-saving envelopes, never an arbitrary c2 handler. */
 fun tryParseCompilerTry(registry: ParserRegistry, ctx: IrBlockBuilder, inst: TvmInst, tail: MutableList<TvmInst>): Boolean {
     if (inst.mnemonic != "PUSHCTR" && inst !is TvmConstDataPushcontShortInst &&
         inst !is TvmConstDataPushcontInst && inst !is TvmConstDataPushrefcontInst) return false
@@ -22,15 +22,30 @@ fun tryParseCompilerTry(registry: ParserRegistry, ctx: IrBlockBuilder, inst: Tvm
         it.mnemonic == "SETCONTCTRMANY" && InstValueAccessor.getValue(it, "mask").toString().toInt() == 186
     } == true
     val handler: List<TvmInst>
+    // A source TRY saves registers whereas a bare VM TRY does not. Only accept
+    // this small stack-only form; a handler observing register writes needs its
+    // actual register envelope, not an invented restoration policy.
+    val bareOperations = setOf("PUSH", "POP", "XCHG", "DUP", "DROP", "DROP2", "2DROP", "NIP", "SWAP", "CTOS",
+        "PUSHINT", "EQINT", "THROWIF", "THROWIFNOT", "ADD", "SUB", "DIV", "DIVMOD")
+    val bareBody = continuationAt(0)?.takeIf { body ->
+        val catch = continuationAt(1)
+        catch != null && input.getOrNull(2)?.mnemonic == "TRY" &&
+            (body + catch).all { it.mnemonic.substringBefore('_') in bareOperations }
+    }
     var cursor: Int
-    if (compact) {
+    if (bareBody != null) {
+        handler = continuationAt(1)!!
+        cursor = 3
+    } else if (compact) {
         handler = continuationAt(0) ?: return false
         cursor = 2
     } else {
-        if (!listOf(1, 3, 4, 5, 7).withIndex().all { (i, r) -> registerAt(i, "PUSHCTR", r) }) return false
-        handler = continuationAt(5) ?: return false
-        if (!listOf(7, 5, 4, 3, 1).withIndex().all { (i, r) -> registerAt(i + 6, "SETCONTCTR", r) }) return false
-        cursor = 11
+        val saved = listOf(listOf(1, 3, 4, 5, 7), listOf(4, 5, 7)).firstOrNull { registers ->
+            registers.withIndex().all { (i, r) -> registerAt(i, "PUSHCTR", r) }
+        } ?: return false
+        handler = continuationAt(saved.size) ?: return false
+        if (!saved.reversed().withIndex().all { (i, r) -> registerAt(i + saved.size + 1, "SETCONTCTR", r) }) return false
+        cursor = saved.size * 2 + 1
     }
     fun integerAt(index: Int): Int? = when (val value = input.getOrNull(index)) {
         is TvmConstIntPushint4Inst -> ((value.i + 5) and 15) - 5
@@ -39,25 +54,28 @@ fun tryParseCompilerTry(registry: ParserRegistry, ctx: IrBlockBuilder, inst: Tvm
         else -> null
     }
     var captures = 0
-    if (input.getOrNull(cursor + 2)?.mnemonic == "SETCONTVARARGS") {
+    if (bareBody == null && input.getOrNull(cursor + 2)?.mnemonic == "SETCONTVARARGS") {
         captures = integerAt(cursor) ?: return false
         if (captures !in 0..255 || integerAt(cursor + 1) != -1) return false
         cursor += 3
     }
-    val body = continuationAt(cursor++) ?: return false
+    val body = bareBody ?: (continuationAt(cursor++) ?: return false)
     fun swapAt(index: Int) = when (val value = input.getOrNull(index)) {
         is TvmStackBasicXchg0iInst -> value.i == 1
         is TvmStackBasicXchg0iLongInst -> value.i == 1
         else -> false
     }
-    if (!registerAt(cursor++, "PUSHCTR", 1) || input.getOrNull(cursor++)?.mnemonic != "COMPOSALT" ||
-        !swapAt(cursor++) || input.getOrNull(cursor++)?.mnemonic != "TRY") return false
+    if (bareBody == null && (!registerAt(cursor++, "PUSHCTR", 1) || input.getOrNull(cursor++)?.mnemonic != "COMPOSALT" ||
+        !swapAt(cursor++) || input.getOrNull(cursor++)?.mnemonic != "TRY")) return false
 
     val captured = (0 until captures).map { ctx.stackPop() }
     val argument = StackEntry.Simple(TvmStackEntryType.UNKNOWN, name("exception_value"))
     val code = StackEntry.Simple(TvmStackEntryType.INT, name("exception_code"))
     fun branches(): Pair<IrBlockBuilder, IrBlockBuilder> {
-        val (_, tried) = parseContinuation(registry, ctx, body)
+        val tried = ctx.fork()
+        tried.preserveCellValidation = true
+        tried.isReturnContext = false
+        TvmDecompilerImpl.parseCodeBlock(registry, tried, body, false)
         val caught = ctx.fork()
         // On an exception the VM discards the live operand stack. Only the handler's
         // captured stack followed by the exception value and code is available.

@@ -37,8 +37,8 @@ original/raw учитываются отдельно. Ни авторские т
 | N20 | Literal single-CALLDICT continuation + NOP + fixed CALLXARGS, generic inlining | `tolk:catalog`: 2 / 28, lambda также FunC | Generic граница может быть стёрта; captures/другие literal bodies требуют ABI и register proof |
 | P01 | WHILE condition/pop/body, false edge и carried stack; UNTIL/REPEAT пробы | `tolk:loops`: 8 / 70; NftCollection complete | Общий CFG для произвольного bytecode не реализован |
 | P02 | AGAIN/AGAINEND, RETALT и effectful procedures | `tolk:again`: 6 / 36; WalletV5 complete | AGAINBRK/AGAINENDBRK и dynamic exits |
-| P03 | Canonical FunC/Tolk TRY register envelopes, captures, THROWARG, nested joins/returns | `tolk:exceptions`: 10 / 75 | Arbitrary handlers, multiple capture chunks, TRYARGS сохраняют diagnostics |
-| P04 | Fixed CALLXARGS p/r и static JMPX | `tolk:dispatch`: 6 / 132, оба языка; `dispatch:ambiguity`: 3 / 9 | EXECUTE/CALLXARGS_VAR/dynamic JMPX не задают уникальную runtime return width |
+| P03 | FunC/Tolk TRY register envelopes, включая legacy c4/c5/c7; простой stack-only bare TRY; captures, THROWARG, nested joins/returns | `tolk:exceptions`: 10 / 75; `tolk:static-calls`: legacy TRY и cell/null/int validation | Bare TRY с записью регистров, arbitrary handlers, multiple capture chunks, TRYARGS сохраняют diagnostics |
+| P04 | Fixed CALLXARGS p/r, uncaptured literal CALLXARGS p/-1 с доказанной сигнатурой, static JMPX | `tolk:dispatch`: 6 / 132; `dispatch:ambiguity`: 3 / 9; `tolk:static-calls`: 8 / 39 | Runtime targets с неизвестной шириной и literal targets с несовместимой isolated ABI сохраняют diagnostics |
 
 Числа после `/` — входные пробы, не число доказанных программ.
 `tolk:catalog` содержит 40 compiler-derived примеров / 1593 пробы.

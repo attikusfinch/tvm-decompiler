@@ -8,6 +8,16 @@ class TryRecoveryTest {
     private fun boc(name: String) = javaClass.getResourceAsStream("/$name.boc")!!.use { it.readAllBytes() }
 
     @Test
+    fun `literal bare TRY recovers both arms without a register envelope`() {
+        for (language in OutputLanguage.entries) {
+            val result = TvmDecompilerLib.facade().decompileBoc(boc("raw-try"), false, language, false)
+            assertTrue(result.complete, result.diagnostics.toString())
+            assertTrue(result.files.first().content.contains("try {"))
+            assertTrue(result.files.first().content.contains("catch ("))
+        }
+    }
+
+    @Test
     fun `FunC register envelope recovers a typed TRY join in both languages`() {
         for (language in OutputLanguage.entries) {
             val result = TvmDecompilerLib.facade().decompileBoc(boc("try-catch"), false, language, false)
