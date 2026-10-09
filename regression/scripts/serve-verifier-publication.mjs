@@ -4,7 +4,8 @@ import http from 'node:http';
 import {createHash, randomBytes} from 'node:crypto';
 import {Address} from '@ton/core';
 import {publicationDirectory, verifierRequest} from './verifier-publication.mjs';
-import {validateQuote, paymentNetwork, paymentTransaction, normalizedExternalHash, expectedPayment} from './verifier-payment.mjs';
+import {validateQuote, paymentNetwork, paymentTransaction, normalizedExternalHash, expectedPayment, sharedPaymentTrace} from './verifier-payment.mjs';
+import {publicationBatches} from './verifier-batch.mjs';
 import {publicationWebConfig, pageToken} from './verifier-web.mjs';
 
 const port = Number(process.env.VERIFIER_LOCAL_PORT ?? 8099);
@@ -49,6 +50,20 @@ const save = () => {
 };
 await save();
 const active = new Set();
+let operatorBusy = false;
+const batches = publicationBatches({manifest, state, requiredNetwork, checkedSources, request: verifierRequest, save});
+const loadTrace = sharedPaymentTrace(async hash => {
+    const response = await fetch(paymentNetwork(requiredNetwork).toncenter + '/api/v3/traces?msg_hash=' + hash + '&limit=1',
+        {signal: AbortSignal.timeout(15000)});
+    if (!response.ok) throw new Error('TON Center HTTP ' + response.status);
+    return response.json();
+});
+let uploadQueue = Promise.resolve();
+const queueUpload = (item, entry) => {
+    const result = uploadQueue.then(() => upload(item, entry));
+    uploadQueue = result.catch(() => {});
+    return result;
+};
 const findItem = name => {
     const item = manifest.contracts.find(c => c.name === name);
     if (!item) throw new Error('Unknown contract');
@@ -136,18 +151,20 @@ async function advance(item) {
             return;
         }
         if (['payment-sent', 'payment-finalized'].includes(entry.stage)) validateQuote(entry.ticket, item.codeHash, requiredNetwork);
-        if (entry.stage === 'payment-finalized') { await upload(item, entry); return; }
+        if (entry.stage === 'payment-finalized') { await queueUpload(item, entry); return; }
         if (entry.stage !== 'payment-sent') return;
-        const response = await fetch(paymentNetwork(requiredNetwork).toncenter + '/api/v3/traces?msg_hash=' + entry.externalHash + '&limit=1', {signal: AbortSignal.timeout(15000)});
-        if (!response.ok) throw new Error('TON Center HTTP ' + response.status);
-        const data = await response.json();
+        const data = await loadTrace(entry.externalHash);
         for (const trace of data.traces ?? []) {
             if (trace.is_incomplete !== false) continue;
             const transaction = Object.values(trace.transactions ?? {}).find(tx => expectedPayment(tx, entry.ticket, entry.wallet));
             if (transaction) {
                 entry.txHash = transaction.hash; entry.stage = 'payment-finalized'; delete entry.error;
-                await save(); await upload(item, entry); return;
+                await save(); await queueUpload(item, entry); return;
             }
+            const transactions = Object.values(trace.transactions ?? {});
+            if (transactions.length && transactions.every(tx => tx.emulated === false &&
+                tx.finality === 'finalized' && tx.mc_block_seqno > 0))
+                throw new Error('Finalized trace has no matching successful payment; inspect it before retrying');
         }
     } catch (error) {
         if (entry.stage === 'uploading') entry.stage = 'upload-uncertain';
@@ -156,6 +173,13 @@ async function advance(item) {
 }
 
 async function action(body) {
+    if (body.action === 'prepare-batch') return batches.prepare(body);
+    if (body.action === 'batch-signed') {
+        const result = await batches.signed(body);
+        for (const name of result.names) void advance(findItem(name));
+        return result;
+    }
+    if (body.action === 'batch-wallet-rejected') return batches.rejected(body);
     if (body.action === 'refresh-tickets') {
         for (const item of manifest.contracts) {
             const entry = state.contracts[item.name];
@@ -177,7 +201,9 @@ async function action(body) {
     }
     const item = findItem(body.name), entry = state.contracts[item.name];
     if (body.action === 'prepare') {
-        if (entry.stage !== 'ready') throw new Error('A previous attempt exists; use its current status');
+        if (entry.stage !== 'ready' || Object.values(state.contracts).some(entry =>
+            !['ready', 'published', 'already-verified'].includes(entry.stage)))
+            throw new Error('A previous attempt exists; use its current status');
         await checkedSources(item);
         if (await remoteVerified(item)) { entry.stage = 'already-verified'; await save(); return {alreadyVerified: true}; }
         if (body.chain !== paymentNetwork(requiredNetwork).chain) throw new Error('Connect a ' + requiredNetwork + ' wallet');
@@ -195,6 +221,7 @@ async function action(body) {
         return {quote, transaction};
     }
     if (body.action === 'signed') {
+        if (entry.batchId) throw new Error('Use the batch wallet response');
         if (entry.stage !== 'awaiting-wallet') throw new Error('No pending wallet request');
         validateQuote(entry.ticket, item.codeHash, requiredNetwork);
         entry.externalHash = normalizedExternalHash(body.boc, entry.wallet);
@@ -203,6 +230,7 @@ async function action(body) {
         return {accepted: true};
     }
     if (body.action === 'wallet-rejected') {
+        if (entry.batchId) throw new Error('Use the batch wallet response');
         if (entry.stage !== 'awaiting-wallet') throw new Error('No pending wallet request');
         entry.stage = 'ready'; delete entry.wallet; await save(); return {cancelled: true};
     }
@@ -242,10 +270,12 @@ const server = http.createServer(async (request, response) => {
             let raw = '';
             for await (const chunk of request) { raw += chunk; if (raw.length > 65536) throw new Error('Request too large'); }
             const body = JSON.parse(raw);
+            if (operatorBusy) throw new Error('Publication operation already running');
             if (active.has(body.name)) throw new Error('Contract operation already running');
+            operatorBusy = true;
             active.add(body.name);
             try { return send(response, 200, await action(body)); }
-            finally { active.delete(body.name); }
+            finally { active.delete(body.name); operatorBusy = false; }
         }
         send(response, 404, {error: 'Not found'});
     } catch (error) { send(response, 400, {error: error.message}); }

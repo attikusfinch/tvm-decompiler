@@ -10,10 +10,11 @@ body{font:16px/1.5 system-ui;background:#111820;color:#e6edf4;margin:0}main{max-
 <p>21 семейство из mainnet: DeDust DEX, Uranus и X1000. Каждый пакет проверен компилятором verifier и совпадает с сохранённым code hash.</p>
 <div class="notice"><strong id="payment-title">Оплата проверки в testnet</strong><br>Исходники контрактов из mainnet публикуются по хешу кода. <span id="payment-description">Проверка оплачивается тестовыми TON по билету официального API verifier.</span><br><span id="service-network">Проверяем сеть билетов…</span><br><span id="cost">Загрузка билетов…</span></div>
 <p id="wallet-network" role="status" aria-live="polite">Кошелёк не подключён.</p>
-<div class="bar"><button id="next" disabled>Подключи кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
+<div class="bar"><button id="batch" disabled>Оплатить все одним пакетом</button><button id="next" disabled>Подключи кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
+<p id="batch-support" role="status" aria-live="polite">Один пакет — одно подтверждение в кошельке, отдельный перевод для каждого контракта.</p>
 <div id="log" role="status" aria-live="polite"></div>
 <div style="overflow:auto"><table><thead><tr><th>Контракт</th><th>Компилятор</th><th>Файлы</th><th>Статус</th></tr></thead><tbody id="rows"></tbody></table></div>
-<footer>Локальная очередь передаёт исходники официальному API verifier.ton.org. Кошелёк подтверждает каждый платёж через TON Connect. Существующая публикация ClassicLpWallet остаётся в реестре.</footer>
+<footer>Локальная очередь передаёт исходники официальному API verifier.ton.org. Оплата подтверждается в кошельке через TON Connect. Существующая публикация ClassicLpWallet остаётся в реестре.</footer>
 </main>
 <script src="/tonconnect-ui.js"></script>
 <script>
@@ -29,6 +30,7 @@ const el=id=>document.getElementById(id);
 const amount=n=>Number(BigInt(n))/1e9;
 const currency=network=>network==='testnet'?'тестовых TON':'mainnet TON';
 const walletNetwork=chain=>chain==='-3'?'testnet':chain==='-239'?'mainnet':'сети '+chain;
+function walletMessageLimit(){const feature=ui?.wallet?.device?.features?.find(f=>f&&typeof f==='object'&&f.name==='SendTransaction');return Number.isSafeInteger(feature?.maxMessages)&&feature.maxMessages>0?Math.min(feature.maxMessages,255):0}
 async function api(route,body){const r=await fetch(route,{method:body?'POST':'GET',headers:{'x-session-token':token,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});const result=await r.json();if(!r.ok)throw Error(result.error);return result}
 function log(text){el('log').textContent=text}
 function paint(){
@@ -51,9 +53,41 @@ function paint(){
  el('wallet-network').className=wallet?(chain===paymentChain?'good':'bad'):'';
  el('next').disabled=busy||pending||!next||!wallet||chain!==paymentChain;
  el('next').textContent=pending?'Завершаем текущую публикацию':!next&&blocked?'Ожидаем '+network+'-билет от verifier':!wallet?'Подключи '+network+'-кошелёк':chain!==paymentChain?'Для оплаты нужен '+network:next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' '+currency(network):'Все контракты опубликованы';
+ const limit=walletMessageLimit();
+ el('batch').disabled=busy||pending||blocked>0||!payable.length||!wallet||chain!==paymentChain||limit<payable.length;
+ el('batch').textContent=busy?'Готовим запрос к кошельку…':pending?'Завершаем публикации':blocked?'Ожидаем билеты verifier':payable.length?'Оплатить все '+payable.length+' · '+payable.reduce((sum,c)=>sum+amount(c.ticket.amount_nano),0)+' '+currency(network):'Все контракты опубликованы';
+ el('batch-support').textContent=!wallet?'Для пакетной оплаты подключи W5-кошелёк.':!limit?'Кошелёк не сообщил лимит пакетных переводов. Переподключи или обнови приложение кошелька.':limit<payable.length?'Кошелёк разрешает '+limit+' переводов за раз; для всех контрактов нужно '+payable.length+'. Переподключи W5-кошелёк.':'Кошелёк разрешает до '+limit+' переводов за раз. Все оставшиеся контракты оплачиваются одним подтверждением; загрузка исходников начнётся автоматически.';
 }
 async function refresh(){data=await api('/api/state');paint()}
 el('refresh').onclick=async()=>{el('refresh').disabled=true;try{log('Запрашиваем свежие билеты verifier…');await api('/api/action',{action:'refresh-tickets'});await refresh();log('Билеты обновлены.')}catch(e){log(e.message)}finally{el('refresh').disabled=false}};
+el('batch').onclick=async()=>{
+ const items=data.contracts.filter(c=>c.stage==='ready');
+ if(!items.length||!ui?.wallet||busy||el('batch').disabled)return;
+ const original=new Map(items.map(item=>[item.name,item.ticket]));
+ busy=true;paint();let prepared,signed;
+ try{
+  log('Проверяем исходники и свежие билеты для '+items.length+' контрактов…');
+  prepared=await api('/api/action',{action:'prepare-batch',names:items.map(item=>item.name),
+   wallet:ui.wallet.account.address,chain:ui.wallet.account.chain,maxMessages:walletMessageLimit()});
+  if(prepared.alreadyVerified){log('Все выбранные контракты уже опубликованы.');return}
+  const total=amount(prepared.totalNano),network=data.paymentNetwork;
+  log('Пакет: '+prepared.payments.length+' переводов · '+total+' '+currency(network)+' + комиссия. Подтверди один запрос в кошельке.');
+  if(prepared.payments.some(p=>p.quote.amount_nano!==original.get(p.name)?.amount_nano||p.quote.payment_address!==original.get(p.name)?.payment_address)){
+   if(!confirm('Билеты изменились. Оплатить '+prepared.payments.length+' контрактов одним пакетом на '+total+' '+currency(network)+'?')){
+    await api('/api/action',{action:'batch-wallet-rejected',batchId:prepared.batchId});return;
+   }
+  }
+  signed=await ui.sendTransaction(prepared.transaction);
+  localStorage.setItem('fiscaldev-publication-pending',JSON.stringify({batchId:prepared.batchId,boc:signed.boc}));
+  await api('/api/action',{action:'batch-signed',batchId:prepared.batchId,boc:signed.boc});
+  localStorage.removeItem('fiscaldev-publication-pending');
+  log('Кошелёк подтвердил пакет для '+prepared.payments.length+' контрактов. Ожидаем финализацию переводов; исходники загрузятся автоматически.');
+ }catch(e){
+  if(prepared?.batchId&&!signed&&e instanceof TON_CONNECT_UI.UserRejectsError)
+   await api('/api/action',{action:'batch-wallet-rejected',batchId:prepared.batchId});
+  log(e.message+(signed?'\nПодтверждение сохранено. Обнови страницу, чтобы передать его повторно без нового платежа.':prepared?.batchId?'\nПри неизвестном результате проверяем платежи перед повторным подтверждением.':''));
+ }finally{busy=false;await refresh()}
+};
 el('next').onclick=async()=>{
  const item=data.contracts.find(c=>c.stage==='ready'&&c.ticket?.network===data.paymentNetwork);if(!item||!ui?.wallet||busy)return;
  busy=true;paint();let prepared, signed;
@@ -82,7 +116,7 @@ el('next').onclick=async()=>{
  if(!ui.connected)ui.setConnectionNetwork(data.paymentChain);
  ui.onStatusChange(()=>paint(),error=>log('Не удалось подключить кошелёк: '+error.message));paint();
  const pending=localStorage.getItem('fiscaldev-publication-pending');
- if(pending){const saved=JSON.parse(pending);const item=data.contracts.find(c=>c.name===saved.name);if(item?.stage==='awaiting-wallet'){await api('/api/action',{action:'signed',name:saved.name,boc:saved.boc});localStorage.removeItem('fiscaldev-publication-pending')}}
+ if(pending){const saved=JSON.parse(pending);if(saved.batchId){await api('/api/action',{action:'batch-signed',batchId:saved.batchId,boc:saved.boc});localStorage.removeItem('fiscaldev-publication-pending');await refresh()}else{const item=data.contracts.find(c=>c.name===saved.name);if(item?.stage==='awaiting-wallet'){await api('/api/action',{action:'signed',name:saved.name,boc:saved.boc});localStorage.removeItem('fiscaldev-publication-pending')}}}
  setInterval(()=>refresh().catch(e=>log(e.message)),3000);
 })().catch(e=>log(e.message));
 </script>

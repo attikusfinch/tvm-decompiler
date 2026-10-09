@@ -30,6 +30,33 @@ export function paymentTransaction(quote, codeHash, wallet, chain, requiredNetwo
     };
 }
 
+export function paymentBatchTransaction(payments, wallet, chain, maxMessages, requiredNetwork = 'testnet') {
+    if (!Array.isArray(payments) || payments.length === 0) throw new Error('Empty payment batch');
+    if (!Number.isSafeInteger(maxMessages) || maxMessages < 1 ||
+        payments.length > Math.min(maxMessages, 255)) throw new Error('Wallet message limit is too small for this batch');
+    if (new Set(payments.map(payment => payment.codeHash)).size !== payments.length)
+        throw new Error('Duplicate contract in payment batch');
+    const transactions = payments.map(payment => paymentTransaction(
+        payment.quote, payment.codeHash, wallet, chain, requiredNetwork));
+    return {...transactions[0], messages: transactions.flatMap(transaction => transaction.messages)};
+}
+
+// One W5 external message can produce many payment transactions in the same trace.
+export function sharedPaymentTrace(load, ttlMs = 5000, now = Date.now) {
+    const cache = new Map();
+    return hash => {
+        const cached = cache.get(hash);
+        if (cached && (!cached.settled || cached.expires > now())) return cached.promise;
+        for (const [key, entry] of cache) if (entry.settled && entry.expires <= now()) cache.delete(key);
+        const entry = {settled: false};
+        entry.promise = Promise.resolve().then(() => load(hash)).then(result => {
+            entry.settled = true; entry.expires = now() + ttlMs; return result;
+        }, error => { if (cache.get(hash) === entry) cache.delete(hash); throw error; });
+        cache.set(hash, entry);
+        return entry.promise;
+    };
+}
+
 export function normalizedExternalHash(boc, wallet) {
     const roots = Cell.fromBoc(Buffer.from(boc, 'base64'));
     if (roots.length !== 1) throw new Error('Expected one external message');

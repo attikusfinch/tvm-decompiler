@@ -15,7 +15,11 @@ node scripts/serve-verifier-publication.mjs
 ```
 
 Open `http://127.0.0.1:8099`. Connect a **testnet** wallet and click the next
-publication button. Each payment requires the wallet owner's confirmation.
+publication button, or use **Pay all** with a wallet that advertises enough
+`SendTransaction.maxMessages`. W5 supports up to 255 messages; the connected
+wallet app's advertised limit is enforced before preparing the request.
+The batch asks for one wallet confirmation and contains a separate payment
+message for each new code hash, with its own verifier comment and fresh quote.
 After finalization, the queue uploads the frozen, checksum-checked source files.
 It reads back the public source bundle and checks every source checksum before
 marking a contract published. The admission check sends the source files without
@@ -27,6 +31,17 @@ The compiler preflight uses the server's JS compiler versions:
 The observed tickets asked for 5 testnet TON per new hash. ClassicLpWallet was
 already verified; the remaining 20 tickets totaled 100 testnet TON plus gas.
 Fresh tickets are requested immediately before wallet approval.
+
+Batch preparation checks all source checksums and fresh tickets before recording
+any pending wallet request, and excludes hashes that became verified meanwhile.
+The single signed external message is recorded atomically for every batch member.
+Each member is matched to its own finalized recipient transaction; that distinct
+transaction hash is submitted to the verifier's one-payment ledger. Trace lookups
+are shared across the batch, and source uploads run sequentially.
+The browser saves the signed response before acknowledging it to the backend.
+Reloading retries that acknowledgement without asking the wallet to pay again.
+Only an explicit wallet rejection resets an unsigned batch. Missing or failed
+individual transfers remain blocked for inspection rather than being paid again.
 
 The recovered contracts come from **mainnet**. With the user's approval,
 verification is paid in **testnet**, as required by the current official service.
@@ -83,3 +98,5 @@ Protocol references:
 - [Current central backend configuration](https://github.com/ton-community/contract-verifier-config/blob/main/config.json)
 - [TEP-467](https://github.com/ton-blockchain/TEPs/blob/master/text/0467-normalized-message-hash.md)
 - [TON Connect integration](https://docs.ton.org/applications/ton-connect/get-started)
+- [Wallet V5 batch limit](https://docs.ton.org/contracts/standard/wallets/v5)
+- [TON Connect runtime wallet features](https://github.com/ton-blockchain/ton-connect/blob/main/spec/connect.md)
