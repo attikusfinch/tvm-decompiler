@@ -28,6 +28,14 @@ The observed tickets asked for 5 testnet TON per new hash. ClassicLpWallet was
 already verified; the remaining 20 tickets totaled 100 testnet TON plus gas.
 Fresh tickets are requested immediately before wallet approval.
 
+The recovered contracts are from **mainnet**. This is independent of the
+payment network: the public registry stores sources by code hash, and the live
+`/api/v1/take_ticket` endpoint currently quotes **testnet**. Its request schema
+has no network selector. Connecting a mainnet wallet is allowed; the queue
+shows its network and keeps payment disabled until a testnet wallet connects.
+Both the server and the transaction request enforce the ticket's testnet chain.
+Changing TON Connect alone cannot turn a testnet ticket into a mainnet payment.
+
 Prepared files, payment progress and server logs live in the Git-ignored
 `regression/artifacts/verifier-publication/`. TON Connect session material stays
 in browser local storage. The backend never receives a seed phrase or private key.

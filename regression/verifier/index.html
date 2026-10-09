@@ -7,9 +7,10 @@ body{font:16px/1.5 system-ui;background:#111820;color:#e6edf4;margin:0}main{max-
 </style>
 <main>
 <header><div><small>@fiscaldev · восстановленные исходники</small><h1>Публикация в TON Verifier</h1></div><div id="wallet-button"></div></header>
-<p>21 семейство: DeDust DEX, Uranus и X1000. Каждый пакет проверен компилятором verifier и совпадает с сохранённым code hash.</p>
-<div class="notice"><strong>Оплата в testnet</strong><br><span id="cost">Загрузка билетов…</span><br>Подключи кошелёк в тестовой сети. Для каждого нового контракта подтверди платёж; после его финализации исходники загрузятся автоматически.</div>
-<div class="bar"><button id="next" disabled>Подключи тестовый кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
+<p>21 семейство из mainnet: DeDust DEX, Uranus и X1000. Каждый пакет проверен компилятором verifier и совпадает с сохранённым code hash.</p>
+<div class="notice"><strong>Контракты: mainnet · оплата verifier: testnet</strong><br>Сеть оплаты указана в билете официального API verifier. Исходники публикуются по хешу кода без развёртывания контракта в тестовой сети.<br><span id="cost">Загрузка билетов…</span><br>Для каждого нового контракта подтверди платёж в тестовой сети; после его финализации исходники загрузятся автоматически.</div>
+<p id="wallet-network" role="status" aria-live="polite">Кошелёк не подключён.</p>
+<div class="bar"><button id="next" disabled>Подключи кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
 <div id="log" role="status" aria-live="polite"></div>
 <div style="overflow:auto"><table><thead><tr><th>Контракт</th><th>Компилятор</th><th>Файлы</th><th>Статус</th></tr></thead><tbody id="rows"></tbody></table></div>
 <footer>Локальная очередь передаёт исходники официальному API verifier.ton.org. Кошелёк подтверждает каждый платёж через TON Connect. Существующая публикация ClassicLpWallet остаётся в реестре.</footer>
@@ -36,8 +37,11 @@ function paint(){
  el('rows').replaceChildren(...data.contracts.map(c=>{const tr=document.createElement('tr');const td=document.createElement('td');const a=document.createElement('a');a.href=c.verifierLink;a.target='_blank';a.rel='noreferrer';a.textContent=c.name;td.append(a);tr.append(td);for(const text of [c.language+' '+c.compilerVersion,c.fileCount+' · '+Math.ceil(c.bytes/1024)+' КБ',labels[c.stage]??c.stage]){const cell=document.createElement('td');cell.textContent=text;tr.append(cell)}if(c.error){tr.lastChild.title=c.error;tr.lastChild.className='bad'}else if(['published','already-verified'].includes(c.stage))tr.lastChild.className='good';return tr}));
  const pending=data.contracts.some(c=>!['ready','published','already-verified'].includes(c.stage));
  const next=ready[0]; const wallet=ui?.wallet;
+ const chain=wallet?.account.chain;
+ el('wallet-network').textContent=!wallet?'Кошелёк не подключён.':chain==='-3'?'Кошелёк подключён к testnet. Сеть совпадает с билетом verifier.':(chain==='-239'?'Кошелёк подключён к mainnet.':'Кошелёк подключён к сети '+chain+'.')+' Для оплаты verifier переключи кошелёк на testnet и подключи заново.';
+ el('wallet-network').className=wallet?(chain==='-3'?'good':'bad'):'';
  el('next').disabled=busy||pending||!next||!wallet||wallet.account.chain!=='-3';
- el('next').textContent=!wallet?'Подключи тестовый кошелёк':wallet.account.chain!=='-3'?'Переключи кошелёк на testnet':pending?'Завершаем текущую публикацию':next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' testnet TON':'Все контракты опубликованы';
+ el('next').textContent=!wallet?'Подключи кошелёк':wallet.account.chain!=='-3'?'Для оплаты нужен testnet':pending?'Завершаем текущую публикацию':next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' testnet TON':'Все контракты опубликованы';
 }
 async function refresh(){data=await api('/api/state');paint()}
 el('refresh').onclick=()=>refresh().catch(e=>log(e.message));
@@ -66,7 +70,8 @@ el('next').onclick=async()=>{
  if(!token){log('Открой персональную ссылку очереди из сообщения, чтобы подключить кошелёк.');return}
  await refresh();
  ui=new TON_CONNECT_UI.TonConnectUI({manifestUrl:data.manifestUrl,buttonRootId:'wallet-button',language:'ru',analytics:{mode:'off'}});
- ui.setConnectionNetwork('-3');ui.onStatusChange(()=>paint());paint();
+ // Connection accepts either network; payment remains bound to the verifier ticket.
+ ui.onStatusChange(()=>paint(),error=>log('Не удалось подключить кошелёк: '+error.message));paint();
  const pending=localStorage.getItem('fiscaldev-publication-pending');
  if(pending){const saved=JSON.parse(pending);const item=data.contracts.find(c=>c.name===saved.name);if(item?.stage==='awaiting-wallet'){await api('/api/action',{action:'signed',name:saved.name,boc:saved.boc});localStorage.removeItem('fiscaldev-publication-pending')}}
  setInterval(()=>refresh().catch(e=>log(e.message)),3000);
