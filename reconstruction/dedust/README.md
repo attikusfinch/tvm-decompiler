@@ -1,8 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **12 of 21 archived code
+Readable, byte-identical recovery is verified for **14 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory. The five CPMM contracts use Tolk; the seven Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory,
+plus UranusMemeWalletV2/V3. The seven CPMM/Uranus contracts use Tolk; the seven Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -20,16 +21,38 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicNativeVault | 2302 bytes | 28 | 70 |
 | ClassicJettonVault | 3811 bytes | 30 | 74 |
 | ClassicFactory | 3733 bytes | 34 | 73 |
+| UranusMemeWalletV2 | 1219 bytes | 15 | 60 |
+| UranusMemeWalletV3 | 1156 bytes | 15 | 60 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **114 native tests**. See `verification.json` for per-family results.
+project passes **120 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **9 families** have not passed readable-source acceptance. Their
+The remaining **7 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
+
+## Uranus Meme Wallet V2/V3
+
+Both named Tolk sources recover sharded wallet deployment, master/peer credit,
+owner transfers, notifications, burn, bonding-curve sell, bounce compensation and
+the wallet-data getter. Each complete BOC equals its archived mainnet oracle.
+`npm run dedust:uranus-wallet` checks 60 messages and 15 getter probes per revision,
+including exact gas and independent serialization, balances and TON budgets.
+
+V2 preserves arbitrary message-address codecs, tolerated body suffixes and peer
+authentication by the last 248 address bits. V3 uses strict std-address codecs,
+checks the end of each decoded message, and requires the full sharded peer address.
+Both preserve storage suffixes and the original transfer-budget debug instruction.
+Small StateInit/hash, cursor and basechain primitives preserve the archived
+compiler's instructions; no executable oracle cells are embedded in either build.
+
+Six native Acton tests execute both revisions, deliver a real transfer and its
+StateInit to a newly deployed peer, verify token conservation and authorization,
+and restore burned/sold balances using actual outgoing bodies as bounced messages.
+See each family's `recovery-verification.json`.
 
 ## Pool V2
 

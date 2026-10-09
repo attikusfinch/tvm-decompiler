@@ -45,12 +45,13 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **12/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **14/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
-ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault and ClassicFactory.
+ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault,
+ClassicFactory and UranusMemeWalletV2/V3.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **114 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **120 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -126,7 +127,16 @@ codecs. 73 independent message probes and 34 getters validate the schema and pro
 behavior. Eight native Acton tests execute Factory-to-Blank-to-Vault/Operator/Deposit
 lifecycles, including two-step funding and failed migration rollback.
 
-Next: the rest of Classic and the related protocols; **9 families remain**.
+UranusMemeWalletV2/V3 pass complete 1219/1156-byte serialized BOC identity.
+Each revision has 60 independent message probes and 15 getter probes; six native
+Acton tests execute both revisions, deploy a peer using a real transfer, verify
+token conservation, and restore burned/sold tokens through real bounced bodies.
+The recovered schemas preserve V2's permissive address/body policies and V3's
+strict std-address/end-of-message checks. V2 peer authentication masks the first
+eight hash bits; V3 compares the complete sharded address. Independent network
+config calculations check inclusive TON-budget boundaries and exact gas.
+
+Next: the rest of Classic and the related protocols; **7 families remain**.
 
 ## Recovery history
 
