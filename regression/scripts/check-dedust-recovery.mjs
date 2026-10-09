@@ -21,6 +21,7 @@ import { checkUranusWalletV2, checkUranusWalletV3 } from './dedust-uranus-wallet
 import { checkUranusFactory } from './dedust-uranus-factory-fixtures.mjs';
 import { checkUranusMemeV2, checkUranusMemeV3 } from './dedust-uranus-meme-fixtures.mjs';
 import { checkClassicVolatilePool, checkClassicPoolV8, checkClassicPoolV9 } from './dedust-classic-pool-fixtures.mjs';
+import { checkX1000 } from './dedust-x1000-fixtures.mjs';
 import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
@@ -31,6 +32,7 @@ fixtures.UranusMemeV2=checkUranusMemeV2;
 fixtures.ClassicVolatilePool=checkClassicVolatilePool;
 fixtures.ClassicPoolInstalledV8=checkClassicPoolV8;
 fixtures.ClassicPoolInstalledV9=checkClassicPoolV9;
+fixtures.X1000WalletV2=checkX1000;
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));
     assert.equal(createHash('sha256').update(original).digest('hex'),entry.bocSha256,entry.name+': frozen BOC');
@@ -68,6 +70,7 @@ for(const entry of manifest.contracts) {
         assert.equal(result.comparison.sameSerializedBoc,true,entry.name+': readable source must match bytes');
         assert.ok(result.tests,entry.name+': missing independent behavior fixtures');
     }
+    assert.equal(result.status,'exact-readable',entry.name+': missing accepted readable source');
     results.push(result);
     console.log(`${entry.name}: ${result.status}${result.tests?`; ${result.tests.getters.length} getter + ${result.tests.messages.length} message probes`:''}`);
 }

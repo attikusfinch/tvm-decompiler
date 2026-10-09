@@ -42,3 +42,9 @@ The local improvements cover typed embedded INMSGPARAM/GETPARAM selectors, typed
 Full BOC → decompile → FunC/Fift or Tolk/Acton → emulator checks are in [regression](regression/README.md). The corpus includes minimal examples of generation bugs and transaction probes for all eight contracts from Acton's empty, counter, nft, jetton and w5-extension templates. Use a TVM 11 capable Fift for FunC recompilation of these modern contracts. The legacy Gradle roundTripTest only runs source files supplied under func_sources. See the [measured results and limitations](docs/regression-results.md).
 
 The [standalone HTML report](reports/acton-contracts.html) shows original Tolk, compiled TVM/BOC, generated FunC or Tolk and comparison results for all eight template contracts. Use the language selector to switch the generated code, recompiled artifacts and test results together. Tolk also exposes the raw pre-normalization files, applied rules and code-identity comparison in a separate disclosure. Download it and open it in a browser; it works offline and includes exact artifact downloads. Regeneration instructions are in the regression README.
+
+The [DeDust source reconstruction](reconstruction/dedust/README.md) contains readable
+Tolk/FunC for all 21 archived code families. Each source build matches the complete
+frozen BOC byte-for-byte, with independent behavioral probes and 162 native Acton
+tests. This semantic reconstruction is separate from the automatic decompiler;
+original author symbols and compiler provenance remain unknown.

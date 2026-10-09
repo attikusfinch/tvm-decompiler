@@ -70,7 +70,8 @@
     "dedust:jetton-vault": "node scripts/check-dedust-jetton-vault.mjs",
     "dedust:classic-factory": "node scripts/check-dedust-factory.mjs",
     "dedust:uranus-meme": "node scripts/check-dedust-uranus-meme.mjs",
-    "dedust:classic-pool": "node scripts/check-dedust-classic-pool.mjs"
+    "dedust:classic-pool": "node scripts/check-dedust-classic-pool.mjs",
+    "dedust:x1000": "node scripts/check-dedust-x1000.mjs"
   },
   "dependencies": {
     "@ton-community/func-js": "0.11.0",

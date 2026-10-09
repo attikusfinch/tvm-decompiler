@@ -45,13 +45,13 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **20/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **21/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
 ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault,
-ClassicFactory, ClassicVolatilePool, ClassicPoolInstalledV8/V9, UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3.
+ClassicFactory, ClassicVolatilePool, ClassicPoolInstalledV8/V9, UranusFactoryV3, UranusMemeV2/V3, UranusMemeWalletV2/V3 and X1000WalletV2.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **153 tests**. Each whole-CPMM-Pool fixture compares
+The shared Acton project passes **162 tests**. Each whole-CPMM-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -69,7 +69,19 @@ economics plus optional timestamp migration, operator-10 authorization, failure
 refunds before the timestamp and successful swaps at equality. V8 rejects a
 repeated nonzero time setting with 307; V9 removes that guard. Six additional Acton
 tests execute both source builds through Blank installation, swaps and real LP
-wallet mint/burn. X1000WalletV2 remains outside readable acceptance.
+wallet mint/burn.
+
+X1000WalletV2 matches its complete 10964-byte BOC and all 34 method dictionary
+values. Named Tolk modules recover signed requests, replay protection, batching,
+four dictionaries, receipts/retries, fourteen trade dispatch kinds and a dynamic
+amount hook with c3 restoration. 93 getter/helper/hook and 105 message probes
+check independent wire/state expectations, signatures, authorization, malformed
+payloads, branch behavior and exact gas, including a source-built seven-argument
+hook. Nine native Acton tests verify signatures, replay rejection, batching and
+receipt cleanup. A real outgoing trade is delivered into the reconstructed
+UranusMemeWalletV3 and conserves 77 tokens across source/recipient balances.
+Typed codecs and bounded stack-lifetime primitives preserve the compiler ABI;
+no whole method is replaced by assembly.
 
 Pool V2's production entrypoint is `CpmmPoolV2/main.tolk`; `candidate.tolk` is a
 compatibility import. The exact dispatcher fixture adds 113 isolated probes.
@@ -173,7 +185,9 @@ Five native Acton tests deliver real wallet messages and complete both migration
 deposits and liquidity joining. A dedicated codec preserves legacy union padding;
 protocol logic remains ordinary Tolk and dependencies are built from source.
 
-Next: X1000WalletV2 and three Classic pool revisions; **4 families remain**.
+All 21 archived families now satisfy the readable-source and byte-identity gates.
+This completes the frozen archive's scope; it does not claim coverage of every
+deployment, future protocol revision or an automatic recovery of original symbols.
 
 ## Recovery history
 

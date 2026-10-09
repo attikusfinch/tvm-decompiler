@@ -1,9 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **20 of 21 archived code
+Readable, byte-identical recovery is verified for **all 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
 and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory/ClassicVolatilePool/ClassicPoolInstalledV8/V9,
-plus UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3. The ten CPMM/Uranus contracts use Tolk; the ten Classic
+plus UranusFactoryV3, UranusMemeV2/V3, UranusMemeWalletV2/V3 and X1000WalletV2. The eleven CPMM/Uranus/X1000 contracts use Tolk; the ten Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -29,16 +29,39 @@ The sources describe executable behavior; original names and comments are unknow
 | UranusFactoryV3 | 1605 bytes | 0 | 84 |
 | UranusMemeV3 | 4719 bytes | 15 | 142 |
 | UranusMemeV2 | 4600 bytes | 11 | 132 |
+| X1000WalletV2 | 10964 bytes | 93 | 105 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **153 native tests**. See `verification.json` for per-family results.
+project passes **162 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **X1000WalletV2** has not passed readable-source acceptance. Its
-instruction reference does not establish readable recovery.
+Readable acceptance is established separately by source compilation, byte comparison
+and behavioral checks; the instruction references are supplementary.
+
+## X1000 Wallet V2
+
+The readable Tolk source recovers signed external requests, replay protection,
+batch sends, four query dictionaries, receipts, authenticated retries, all fourteen
+trading dispatch kinds and the dynamic amount hook. All 34 method dictionary
+values and the complete 10964-byte BOC equal the frozen oracle.
+
+`main.tolk` handles incoming messages; `protocols.tolk` handles each dispatch kind;
+`messages.tolk` constructs trade messages and invokes the hook; `queues.tolk`
+maintains query/receipt/retry state; `getters.tolk` preserves the eleven public IDs.
+`compat.tolk` contains typed wire and stack-lifetime primitives. Trade conditions,
+authorization and state changes remain ordinary Tolk. The [module and ABI guide](X1000WalletV2/README.md)
+documents storage, signed requests, method IDs and compiler compatibility details.
+
+`npm run dedust:x1000` checks 93 getter/helper/hook and 105 message probes with
+independent storage, wire and authorization expectations and exact gas. Its
+source-built amount hook validates all seven argument slots. Nine native Acton
+tests verify real signatures, replay rejection, receipts, batching and callback
+cleanup. They also deliver an actual trade into a source-built UranusMemeWalletV3:
+77 tokens move from the source wallet to a canonical peer, leaving balances 923 and
+77. See `X1000WalletV2/recovery-verification.json`.
 
 ## Classic Pool
 
@@ -378,10 +401,15 @@ Install pinned Node dependencies with `npm ci` in `regression/`. Install Acton
 ```powershell
 cd F:\dedust\tvm-decompiler\regression
 $env:ACTON_WSL_PATH='/home/fiscaldev/.acton/bin/acton'
-npm run dedust:recovery
-npm run dedust:pool-handlers
-npm run dedust:pool-processing
+npm --script-shell=cmd.exe run dedust:recovery
+npm --script-shell=cmd.exe run dedust:x1000
+npm --script-shell=cmd.exe run dedust:pool-handlers
+npm --script-shell=cmd.exe run dedust:pool-processing
 ```
+
+The explicit Windows script shell avoids Git Bash converting the Unix Acton
+path into a Windows path. On Linux, use ordinary `npm run` commands and Acton
+from `PATH` (or `ACTON_EXE`).
 
 Builds read editable Tolk and serialize the compiler output. Frozen BOCs in
 `oracles/` serve only as independent comparisons and local emulator oracles.
@@ -421,7 +449,7 @@ source/compiler were not obtained. The related X1000 wallet is labelled separate
 The scoped `@ton/tasm` 0.6.1 encoder adapter preserves explicit exotic library
 cells. Legacy Tolk stdlib StateInit primitives retain attribution and LGPL licensing.
 
-See `../../docs/dedust-reconstruction-spec.md` for acceptance and remaining work.
+See `../../docs/dedust-reconstruction-spec.md` for acceptance and recovery history.
 
 Deposit ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/deposit
 Position ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/position
