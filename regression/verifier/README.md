@@ -44,6 +44,15 @@ Public TON Connect metadata is hosted in this repository as
 **Fiscaldev Contract Recovery**. It is our local uploader, which sends the reviewed
 bundles to the official API at `https://verifier.ton.org`.
 
+For a public HTTPS tunnel, run `ngrok http http://127.0.0.1:8099 --inspect=false`,
+set `VERIFIER_PUBLIC_ORIGIN` to its assigned HTTPS origin and restart the local
+server. Update the public TON Connect manifest's `url` to the same origin. Open
+the operator URL from the Git-ignored `artifacts/verifier-publication/access.json`.
+The fragment credential stays in the browser session and is omitted from the
+public HTML; source publication and payment progress require this credential.
+The manifest and PNG icon remain publicly readable for wallets. A new manifest
+revision changes its URL query to avoid stale wallet metadata.
+
 Protocol references:
 
 - [Acton verifier command](https://ton-blockchain.github.io/acton/docs/commands/verify)

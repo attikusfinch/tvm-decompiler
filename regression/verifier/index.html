@@ -16,7 +16,12 @@ body{font:16px/1.5 system-ui;background:#111820;color:#e6edf4;margin:0}main{max-
 </main>
 <script src="/tonconnect-ui.js"></script>
 <script>
-const token='__SESSION_TOKEN__';
+const accessFragment=new URLSearchParams(location.hash.slice(1)).get('access');
+if(accessFragment&&/^[a-f0-9]{64}$/.test(accessFragment)){
+ sessionStorage.setItem('fiscaldev-publication-access',accessFragment);
+ history.replaceState(null,'',location.pathname+location.search);
+}
+const token=accessFragment??sessionStorage.getItem('fiscaldev-publication-access')??'__SESSION_TOKEN__';
 let data, ui, busy=false;
 const labels={'ready':'Готов к публикации','already-verified':'Уже есть в реестре','awaiting-wallet':'Ожидание кошелька','payment-sent':'Платёж отправлен','payment-finalized':'Платёж финализирован','uploading':'Загрузка исходников','checking-registry':'Проверка реестра','published':'Опубликован','upload-uncertain':'Проверка результата загрузки','rejected':'Ошибка сервиса'};
 const el=id=>document.getElementById(id);
@@ -58,6 +63,7 @@ el('next').onclick=async()=>{
  }finally{busy=false;await refresh()}
 };
 (async()=>{
+ if(!token){log('Открой персональную ссылку очереди из сообщения, чтобы подключить кошелёк.');return}
  await refresh();
  ui=new TON_CONNECT_UI.TonConnectUI({manifestUrl:data.manifestUrl,buttonRootId:'wallet-button',language:'ru',analytics:{mode:'off'}});
  ui.setConnectionNetwork('-3');ui.onStatusChange(()=>paint());paint();

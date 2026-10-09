@@ -5,11 +5,20 @@ import {createHash, randomBytes} from 'node:crypto';
 import {Address, beginCell} from '@ton/core';
 import {publicationDirectory, verifierRequest} from './verifier-publication.mjs';
 import {validateQuote, normalizedExternalHash, expectedPayment} from './verifier-payment.mjs';
+import {publicationWebConfig, pageToken} from './verifier-web.mjs';
 
 const port = Number(process.env.VERIFIER_LOCAL_PORT ?? 8099);
-const origin = 'http://127.0.0.1:' + port;
+const web = publicationWebConfig(port, process.env.VERIFIER_PUBLIC_ORIGIN);
+const origin = web.localOrigin;
 const token = randomBytes(32).toString('hex');
 const assets = path.resolve(import.meta.dirname, '../verifier');
+const walletManifest = JSON.parse(await fs.readFile(path.join(assets, 'tonconnect-manifest.json'), 'utf8'));
+if (web.publicOrigin) walletManifest.url = web.publicOrigin;
+const manifestRevision = createHash('sha256').update(JSON.stringify(walletManifest)).digest('hex').slice(0, 16);
+await fs.writeFile(path.join(publicationDirectory, 'access.json'), JSON.stringify({
+    localUrl: origin + '/#access=' + token,
+    publicUrl: web.publicOrigin ? web.publicOrigin + '/#access=' + token : null,
+}, null, 2) + '\n');
 const manifest = JSON.parse(await fs.readFile(path.join(publicationDirectory, 'manifest.json'), 'utf8'));
 const statePath = path.join(publicationDirectory, 'progress.json');
 let state;
@@ -42,7 +51,7 @@ const publicState = () => ({contracts: manifest.contracts.map(item => ({
     compilerVersion: item.compileParams.compiler_version, fileCount: item.sources.length,
     bytes: item.bytes, verifierLink: item.verifierLink, ticket: state.contracts[item.name].ticket ?? item.ticket.data,
     ...state.contracts[item.name],
-})), manifestUrl: 'https://raw.githubusercontent.com/attikusfinch/tvm-decompiler/main/regression/verifier/tonconnect-manifest.json'});
+})), manifestUrl: 'https://raw.githubusercontent.com/attikusfinch/tvm-decompiler/main/regression/verifier/tonconnect-manifest.json?v=' + manifestRevision});
 
 async function remoteVerified(item) {
     const reply = await verifierRequest('/api/v1/verification/status?code_hash=' + item.codeHash);
@@ -181,11 +190,20 @@ function send(response, status, data, type = 'application/json') {
 
 const server = http.createServer(async (request, response) => {
     try {
-        if (request.headers.host !== '127.0.0.1:' + port) return send(response, 403, {error: 'Unexpected host'});
+        if (!web.hosts.has(request.headers.host)) return send(response, 403, {error: 'Unexpected host'});
         const url = new URL(request.url, origin);
         if (request.method === 'GET' && url.pathname === '/') {
-            const html = (await fs.readFile(path.join(assets, 'index.html'), 'utf8')).replace('__SESSION_TOKEN__', token);
+            const html = (await fs.readFile(path.join(assets, 'index.html'), 'utf8')).replace('__SESSION_TOKEN__', pageToken(web, token));
             return send(response, 200, html, 'text/html');
+        }
+        if (url.pathname === '/tonconnect-manifest.json' && ['GET', 'OPTIONS'].includes(request.method)) {
+            response.setHeader('Access-Control-Allow-Origin', '*');
+            response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+            return send(response, 200, request.method === 'GET' ? walletManifest : {});
+        }
+        if (request.method === 'GET' && url.pathname === '/icon.png') {
+            response.writeHead(200, {'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*'});
+            return response.end(await fs.readFile(path.join(assets, 'icon.png')));
         }
         if (request.method === 'GET' && url.pathname === '/tonconnect-ui.js') {
             return send(response, 200, await fs.readFile(path.resolve(assets, '../node_modules/@tonconnect/ui/dist/tonconnect-ui.min.js'), 'utf8'), 'application/javascript');
@@ -193,7 +211,7 @@ const server = http.createServer(async (request, response) => {
         if (request.headers['x-session-token'] !== token) return send(response, 403, {error: 'Missing local session'});
         if (request.method === 'GET' && url.pathname === '/api/state') return send(response, 200, publicState());
         if (request.method === 'POST' && url.pathname === '/api/action') {
-            if (request.headers.origin !== origin || request.headers['content-type'] !== 'application/json') return send(response, 403, {error: 'Unexpected origin'});
+            if (!web.origins.has(request.headers.origin) || request.headers['content-type'] !== 'application/json') return send(response, 403, {error: 'Unexpected origin'});
             let raw = '';
             for await (const chunk of request) { raw += chunk; if (raw.length > 65536) throw new Error('Request too large'); }
             const body = JSON.parse(raw);
