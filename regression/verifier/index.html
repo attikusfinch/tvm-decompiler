@@ -8,7 +8,7 @@ body{font:16px/1.5 system-ui;background:#111820;color:#e6edf4;margin:0}main{max-
 <main>
 <header><div><small>@fiscaldev · восстановленные исходники</small><h1>Публикация в TON Verifier</h1></div><div id="wallet-button"></div></header>
 <p>21 семейство из mainnet: DeDust DEX, Uranus и X1000. Каждый пакет проверен компилятором verifier и совпадает с сохранённым code hash.</p>
-<div class="notice"><strong>Контракты: mainnet · оплата verifier: testnet</strong><br>Сеть оплаты указана в билете официального API verifier. Исходники публикуются по хешу кода без развёртывания контракта в тестовой сети.<br><span id="cost">Загрузка билетов…</span><br>Для каждого нового контракта подтверди платёж в тестовой сети; после его финализации исходники загрузятся автоматически.</div>
+<div class="notice"><strong>Запрошена верификация и оплата в mainnet</strong><br>Исходники публикуются по хешу кода. Для оплаты необходим mainnet-билет официального API verifier.<br><span id="service-network">Проверяем сеть билетов…</span><br><span id="cost">Загрузка билетов…</span></div>
 <p id="wallet-network" role="status" aria-live="polite">Кошелёк не подключён.</p>
 <div class="bar"><button id="next" disabled>Подключи кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
 <div id="log" role="status" aria-live="polite"></div>
@@ -32,28 +32,33 @@ function log(text){el('log').textContent=text}
 function paint(){
  const done=data.contracts.filter(c=>['published','already-verified'].includes(c.stage)).length;
  const ready=data.contracts.filter(c=>c.stage==='ready');
+ const network=data.paymentNetwork??'mainnet'; const paymentChain=data.paymentChain??'-239';
+ const payable=ready.filter(c=>c.ticket?.status==='payment_required'&&c.ticket.network===network);
+ const blocked=ready.length-payable.length;
  el('count').textContent=done+' / '+data.contracts.length+' в реестре';
- el('cost').textContent=ready.length+' новых контрактов · '+ready.reduce((n,c)=>n+amount(c.ticket.amount_nano??'0'),0)+' тестовых TON + комиссии.';
- el('rows').replaceChildren(...data.contracts.map(c=>{const tr=document.createElement('tr');const td=document.createElement('td');const a=document.createElement('a');a.href=c.verifierLink;a.target='_blank';a.rel='noreferrer';a.textContent=c.name;td.append(a);tr.append(td);for(const text of [c.language+' '+c.compilerVersion,c.fileCount+' · '+Math.ceil(c.bytes/1024)+' КБ',labels[c.stage]??c.stage]){const cell=document.createElement('td');cell.textContent=text;tr.append(cell)}if(c.error){tr.lastChild.title=c.error;tr.lastChild.className='bad'}else if(['published','already-verified'].includes(c.stage))tr.lastChild.className='good';return tr}));
+ el('service-network').textContent=blocked?blocked+' контрактов ожидают '+network+'-билет. Сервис сообщает сеть: '+[...new Set(ready.filter(c=>!payable.includes(c)).map(c=>c.ticket?.network??'неизвестна'))].join(', ')+'. Оплата недоступна до получения подходящего билета.':'Сеть билетов соответствует mainnet.';
+ el('service-network').className=blocked?'bad':'good';
+ el('cost').textContent=payable.length?payable.length+' контрактов · '+payable.reduce((n,c)=>n+amount(c.ticket.amount_nano),0)+' mainnet TON + комиссии.':blocked?'Стоимость mainnet пока неизвестна.':'Новых платежей нет.';
+ el('rows').replaceChildren(...data.contracts.map(c=>{const tr=document.createElement('tr');const td=document.createElement('td');const a=document.createElement('a');a.href=c.verifierLink;a.target='_blank';a.rel='noreferrer';a.textContent=c.name;td.append(a);tr.append(td);const wrongNetwork=c.stage==='ready'&&!payable.includes(c);for(const text of [c.language+' '+c.compilerVersion,c.fileCount+' · '+Math.ceil(c.bytes/1024)+' КБ',wrongNetwork?'Нет mainnet-билета ('+(c.ticket?.network??'неизвестно')+')':labels[c.stage]??c.stage]){const cell=document.createElement('td');cell.textContent=text;tr.append(cell)}if(c.error||wrongNetwork){tr.lastChild.title=c.error??'Билет не соответствует запрошенной сети оплаты';tr.lastChild.className='bad'}else if(['published','already-verified'].includes(c.stage))tr.lastChild.className='good';return tr}));
  const pending=data.contracts.some(c=>!['ready','published','already-verified'].includes(c.stage));
- const next=ready[0]; const wallet=ui?.wallet;
+ const next=payable[0]; const wallet=ui?.wallet;
  const chain=wallet?.account.chain;
- el('wallet-network').textContent=!wallet?'Кошелёк не подключён.':chain==='-3'?'Кошелёк подключён к testnet. Сеть совпадает с билетом verifier.':(chain==='-239'?'Кошелёк подключён к mainnet.':'Кошелёк подключён к сети '+chain+'.')+' Для оплаты verifier переключи кошелёк на testnet и подключи заново.';
- el('wallet-network').className=wallet?(chain==='-3'?'good':'bad'):'';
- el('next').disabled=busy||pending||!next||!wallet||wallet.account.chain!=='-3';
- el('next').textContent=!wallet?'Подключи кошелёк':wallet.account.chain!=='-3'?'Для оплаты нужен testnet':pending?'Завершаем текущую публикацию':next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' testnet TON':'Все контракты опубликованы';
+ el('wallet-network').textContent=!wallet?'Подключи кошелёк в mainnet.':chain===paymentChain?'Кошелёк подключён к mainnet.':(chain==='-3'?'Кошелёк подключён к testnet.':'Кошелёк подключён к сети '+chain+'.')+' Для оплаты переключи кошелёк на mainnet и подключи заново.';
+ el('wallet-network').className=wallet?(chain===paymentChain?'good':'bad'):'';
+ el('next').disabled=busy||pending||!next||!wallet||chain!==paymentChain;
+ el('next').textContent=pending?'Завершаем текущую публикацию':!next&&blocked?'Ожидаем mainnet-билет от verifier':!wallet?'Подключи mainnet-кошелёк':chain!==paymentChain?'Для оплаты нужен mainnet':next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' mainnet TON':'Все контракты опубликованы';
 }
 async function refresh(){data=await api('/api/state');paint()}
-el('refresh').onclick=()=>refresh().catch(e=>log(e.message));
+el('refresh').onclick=async()=>{el('refresh').disabled=true;try{log('Запрашиваем свежие билеты verifier…');await api('/api/action',{action:'refresh-tickets'});await refresh();log('Билеты обновлены.')}catch(e){log(e.message)}finally{el('refresh').disabled=false}};
 el('next').onclick=async()=>{
- const item=data.contracts.find(c=>c.stage==='ready');if(!item||!ui?.wallet||busy)return;
+ const item=data.contracts.find(c=>c.stage==='ready'&&c.ticket?.network===data.paymentNetwork);if(!item||!ui?.wallet||busy)return;
  busy=true;paint();let prepared, signed;
  try{
   prepared=await api('/api/action',{action:'prepare',name:item.name,wallet:ui.wallet.account.address,chain:ui.wallet.account.chain});
   if(prepared.alreadyVerified){log(item.name+': уже опубликован');return}
-  const q=prepared.quote;log(item.name+': подтвердить '+amount(q.amount_nano)+' тестовых TON → '+q.payment_address+'\nКомментарий: '+q.comment);
+  const q=prepared.quote;log(item.name+': подтвердить '+amount(q.amount_nano)+' mainnet TON → '+q.payment_address+'\nКомментарий: '+q.comment);
   if(q.amount_nano!==item.ticket.amount_nano||q.payment_address!==item.ticket.payment_address){
-   if(!confirm('Билет изменился. Оплатить '+amount(q.amount_nano)+' тестовых TON на '+q.payment_address+'?')){await api('/api/action',{action:'wallet-rejected',name:item.name});return}
+   if(!confirm('Билет изменился. Оплатить '+amount(q.amount_nano)+' mainnet TON на '+q.payment_address+'?')){await api('/api/action',{action:'wallet-rejected',name:item.name});return}
   }
   signed=await ui.sendTransaction(prepared.transaction);
   localStorage.setItem('fiscaldev-publication-pending',JSON.stringify({name:item.name,boc:signed.boc}));
@@ -63,14 +68,14 @@ el('next').onclick=async()=>{
  }catch(e){
   // Only an explicit user rejection proves that no payment was sent.
   if(prepared&&!signed&&e instanceof TON_CONNECT_UI.UserRejectsError)await api('/api/action',{action:'wallet-rejected',name:item.name});
-  log(e.message+'\nПри неизвестном результате проверяем платёж перед повторным подтверждением.');
+  log(e.message+(prepared?'\nПри неизвестном результате проверяем платёж перед повторным подтверждением.':''));
  }finally{busy=false;await refresh()}
 };
 (async()=>{
  if(!token){log('Открой персональную ссылку очереди из сообщения, чтобы подключить кошелёк.');return}
  await refresh();
  ui=new TON_CONNECT_UI.TonConnectUI({manifestUrl:data.manifestUrl,buttonRootId:'wallet-button',language:'ru',analytics:{mode:'off'}});
- // Connection accepts either network; payment remains bound to the verifier ticket.
+ if(!ui.connected)ui.setConnectionNetwork(data.paymentChain);
  ui.onStatusChange(()=>paint(),error=>log('Не удалось подключить кошелёк: '+error.message));paint();
  const pending=localStorage.getItem('fiscaldev-publication-pending');
  if(pending){const saved=JSON.parse(pending);const item=data.contracts.find(c=>c.name===saved.name);if(item?.stage==='awaiting-wallet'){await api('/api/action',{action:'signed',name:saved.name,boc:saved.boc});localStorage.removeItem('fiscaldev-publication-pending')}}

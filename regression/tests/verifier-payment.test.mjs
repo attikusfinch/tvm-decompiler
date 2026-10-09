@@ -1,20 +1,38 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Address, beginCell, external, storeMessage} from '@ton/core';
-import {expectedPayment, normalizedExternalHash, validateQuote} from '../scripts/verifier-payment.mjs';
+import {Address, beginCell, Cell, external, storeMessage} from '@ton/core';
+import {expectedPayment, normalizedExternalHash, paymentNetwork, paymentTransaction, validateQuote} from '../scripts/verifier-payment.mjs';
 
 const recipient = '0:' + 'aa'.repeat(32), wallet = '0:' + 'bb'.repeat(32), hash = 'cc'.repeat(32);
-const quote = {status: 'payment_required', code_hash: hash, network: 'testnet',
+const quote = {status: 'payment_required', code_hash: hash, network: 'mainnet',
     payment_address: recipient, amount_nano: '5000000000', comment: 'acton-verify:v1:' + hash};
 const payment = () => ({account: recipient, emulated: false, finality: 'finalized', mc_block_seqno: 123,
     description: {aborted: false}, in_msg: {source: wallet, destination: recipient, bounced: false,
         value: '5000000000', message_content: {decoded: {comment: quote.comment}}}});
 
-test('tickets must target the requested code hash in testnet with a positive amount', () => {
+test('tickets must target the requested code hash in mainnet with a positive amount', () => {
     assert.equal(validateQuote(quote, hash), quote);
-    for (const change of [{network: 'mainnet'}, {code_hash: '00'.repeat(32)}, {comment: 'other'},
+    for (const change of [{network: 'testnet'}, {code_hash: '00'.repeat(32)}, {comment: 'other'},
         {amount_nano: '-1'}, {amount_nano: '0'}, {payment_address: 'bad'}])
         assert.throws(() => validateQuote({...quote, ...change}, hash));
+});
+
+test('mainnet payment preserves the quote and refuses a testnet ticket or wallet', () => {
+    const tx = paymentTransaction(quote, hash, wallet, '-239');
+    assert.equal(tx.network, '-239');
+    assert.equal(tx.from, wallet);
+    assert.equal(tx.messages.length, 1);
+    assert.equal(tx.messages[0].amount, quote.amount_nano);
+    const address = Address.parseFriendly(tx.messages[0].address);
+    assert.equal(address.isTestOnly, false);
+    assert.equal(address.address.toRawString(), recipient);
+    const payload = Cell.fromBase64(tx.messages[0].payload).beginParse();
+    assert.equal(payload.loadUint(32), 0);
+    assert.equal(payload.loadStringTail(), quote.comment);
+    assert.throws(() => paymentTransaction({...quote, network: 'testnet'}, hash, wallet, '-239'), /testnet ticket/);
+    assert.throws(() => paymentTransaction(quote, hash, wallet, '-3'), /mainnet wallet/);
+    assert.equal(paymentNetwork(quote.network).toncenter, 'https://toncenter.com');
+    assert.throws(() => paymentNetwork('other'));
 });
 
 test('only the finalized recipient transaction with correct payer, value and comment is accepted', () => {

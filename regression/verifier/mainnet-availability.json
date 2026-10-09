@@ -1,0 +1,37 @@
+{
+  "checkedDate": "2026-10-09",
+  "requestedPaymentNetwork": "mainnet",
+  "mainnetPublicationReady": false,
+  "ticketApi": "https://verifier.ton.org/api/v1/take_ticket",
+  "outstandingContracts": 20,
+  "ticketNetworks": {
+    "testnet": 20
+  },
+  "alreadyVerified": 1,
+  "newPaymentsSent": 0,
+  "newPublications": 0,
+  "legacyMainnetBackend": "https://verifier-mainnet.tonstudio.io/source",
+  "legacyCompilerChecks": [
+    {
+      "contract": "ClassicBlank",
+      "httpStatus": 200,
+      "result": "unknown_error",
+      "error": "Error: Unsupported func version:0.4.4-newops.1",
+      "compilerSettings": {
+        "funcVersion": "0.4.4-newops.1",
+        "commandLine": ""
+      }
+    },
+    {
+      "contract": "CpmmPosition",
+      "httpStatus": 200,
+      "result": "unknown_error",
+      "error": "Error: Unsupported tolk version:1.4.0",
+      "compilerSettings": {
+        "tolkVersion": "1.4.0"
+      }
+    }
+  ],
+  "centralConfig": "https://raw.githubusercontent.com/ton-community/contract-verifier-config/main/config.json",
+  "blocker": "The live ticket API supplies testnet tickets without a client network selector. The retired mainnet backend rejects the required compilers. A working official mainnet payment route is required."
+}

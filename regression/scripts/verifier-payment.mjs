@@ -1,12 +1,33 @@
 import {Address, beginCell, Cell, loadMessage, storeMessage} from '@ton/core';
 
-export function validateQuote(quote, codeHash) {
+export function paymentNetwork(network) {
+    if (network === 'mainnet') return {chain: '-239', toncenter: 'https://toncenter.com'};
+    if (network === 'testnet') return {chain: '-3', toncenter: 'https://testnet.toncenter.com'};
+    throw new Error('Unsupported payment network: ' + network);
+}
+
+export function validateQuote(quote, codeHash, requiredNetwork = 'mainnet') {
+    paymentNetwork(requiredNetwork);
+    if (quote.network !== requiredNetwork)
+        throw new Error('Verifier issued a ' + quote.network + ' ticket; ' + requiredNetwork + ' payment is required');
     if (quote.status !== 'payment_required' || quote.code_hash !== codeHash ||
-        quote.network !== 'testnet' || quote.comment !== 'acton-verify:v1:' + codeHash ||
+        quote.comment !== 'acton-verify:v1:' + codeHash ||
         !/^\d+$/.test(quote.amount_nano) || BigInt(quote.amount_nano) <= 0n)
-        throw new Error('Invalid testnet verification ticket');
+        throw new Error('Invalid ' + requiredNetwork + ' verification ticket');
     Address.parse(quote.payment_address);
     return quote;
+}
+
+export function paymentTransaction(quote, codeHash, wallet, chain, requiredNetwork = 'mainnet') {
+    const network = paymentNetwork(requiredNetwork);
+    if (chain !== network.chain) throw new Error('Connect a ' + requiredNetwork + ' wallet');
+    validateQuote(quote, codeHash, requiredNetwork);
+    return {
+        validUntil: Math.floor(Date.now() / 1000) + 300, network: network.chain,
+        from: Address.parse(wallet).toRawString(),
+        messages: [{address: Address.parse(quote.payment_address).toString({testOnly: requiredNetwork === 'testnet', bounceable: true}),
+            amount: quote.amount_nano, payload: beginCell().storeUint(0, 32).storeStringTail(quote.comment).endCell().toBoc().toString('base64')}],
+    };
 }
 
 export function normalizedExternalHash(boc, wallet) {

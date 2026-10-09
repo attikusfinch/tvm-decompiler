@@ -2,15 +2,23 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import http from 'node:http';
 import {createHash, randomBytes} from 'node:crypto';
-import {Address, beginCell} from '@ton/core';
+import {Address} from '@ton/core';
 import {publicationDirectory, verifierRequest} from './verifier-publication.mjs';
-import {validateQuote, normalizedExternalHash, expectedPayment} from './verifier-payment.mjs';
+import {validateQuote, paymentNetwork, paymentTransaction, normalizedExternalHash, expectedPayment} from './verifier-payment.mjs';
 import {publicationWebConfig, pageToken} from './verifier-web.mjs';
 
 const port = Number(process.env.VERIFIER_LOCAL_PORT ?? 8099);
 const web = publicationWebConfig(port, process.env.VERIFIER_PUBLIC_ORIGIN);
 const origin = web.localOrigin;
-const token = randomBytes(32).toString('hex');
+const requiredNetwork = 'mainnet';
+let previousAccess;
+try { previousAccess = JSON.parse(await fs.readFile(path.join(publicationDirectory, 'access.json'), 'utf8')); }
+catch (error) { if (error.code !== 'ENOENT') throw error; }
+const existingUrl = previousAccess && new URL(previousAccess.localUrl);
+const existingToken = existingUrl && new URLSearchParams(existingUrl.hash.slice(1)).get('access');
+const sameOrigin = existingUrl?.origin === origin &&
+    (web.publicOrigin ? previousAccess.publicUrl?.startsWith(web.publicOrigin + '/#access=') : !previousAccess?.publicUrl);
+const token = sameOrigin && /^[a-f0-9]{64}$/.test(existingToken) ? existingToken : randomBytes(32).toString('hex');
 const assets = path.resolve(import.meta.dirname, '../verifier');
 const walletManifest = JSON.parse(await fs.readFile(path.join(assets, 'tonconnect-manifest.json'), 'utf8'));
 if (web.publicOrigin) walletManifest.url = web.publicOrigin;
@@ -51,7 +59,8 @@ const publicState = () => ({contracts: manifest.contracts.map(item => ({
     compilerVersion: item.compileParams.compiler_version, fileCount: item.sources.length,
     bytes: item.bytes, verifierLink: item.verifierLink, ticket: state.contracts[item.name].ticket ?? item.ticket.data,
     ...state.contracts[item.name],
-})), manifestUrl: 'https://raw.githubusercontent.com/attikusfinch/tvm-decompiler/main/regression/verifier/tonconnect-manifest.json?v=' + manifestRevision});
+})), paymentNetwork: requiredNetwork, paymentChain: paymentNetwork(requiredNetwork).chain,
+    manifestUrl: 'https://raw.githubusercontent.com/attikusfinch/tvm-decompiler/main/regression/verifier/tonconnect-manifest.json?v=' + manifestRevision});
 
 async function remoteVerified(item) {
     const reply = await verifierRequest('/api/v1/verification/status?code_hash=' + item.codeHash);
@@ -126,9 +135,10 @@ async function advance(item) {
             if (await ourSourcesPublished(item, entry)) { entry.stage = 'published'; delete entry.error; await save(); }
             return;
         }
+        if (['payment-sent', 'payment-finalized'].includes(entry.stage)) validateQuote(entry.ticket, item.codeHash, requiredNetwork);
         if (entry.stage === 'payment-finalized') { await upload(item, entry); return; }
         if (entry.stage !== 'payment-sent') return;
-        const response = await fetch('https://testnet.toncenter.com/api/v3/traces?msg_hash=' + entry.externalHash + '&limit=1', {signal: AbortSignal.timeout(15000)});
+        const response = await fetch(paymentNetwork(requiredNetwork).toncenter + '/api/v3/traces?msg_hash=' + entry.externalHash + '&limit=1', {signal: AbortSignal.timeout(15000)});
         if (!response.ok) throw new Error('TON Center HTTP ' + response.status);
         const data = await response.json();
         for (const trace of data.traces ?? []) {
@@ -146,12 +156,31 @@ async function advance(item) {
 }
 
 async function action(body) {
+    if (body.action === 'refresh-tickets') {
+        for (const item of manifest.contracts) {
+            const entry = state.contracts[item.name];
+            if (entry.stage !== 'ready' || active.has(item.name)) continue;
+            active.add(item.name);
+            try {
+                const reply = await verifierRequest('/api/v1/take_ticket', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({code_hash: item.codeHash, compiler: item.language, compiler_version: item.compileParams.compiler_version}),
+                });
+                if (reply.httpStatus !== 200 || reply.data.code_hash !== item.codeHash)
+                    throw new Error('Cannot refresh verifier ticket: ' + JSON.stringify(reply.data));
+                if (reply.data.status === 'already_verified') entry.stage = 'already-verified';
+                else entry.ticket = validateQuote(reply.data, item.codeHash, reply.data.network);
+                delete entry.error; await save();
+            } finally { active.delete(item.name); }
+        }
+        return {refreshed: true};
+    }
     const item = findItem(body.name), entry = state.contracts[item.name];
     if (body.action === 'prepare') {
         if (entry.stage !== 'ready') throw new Error('A previous attempt exists; use its current status');
         await checkedSources(item);
         if (await remoteVerified(item)) { entry.stage = 'already-verified'; await save(); return {alreadyVerified: true}; }
-        if (body.chain !== '-3') throw new Error('Connect a testnet wallet');
+        if (body.chain !== paymentNetwork(requiredNetwork).chain) throw new Error('Connect a mainnet wallet');
         const wallet = Address.parse(body.wallet).toRawString();
         const reply = await verifierRequest('/api/v1/take_ticket', {
             method: 'POST', headers: {'Content-Type': 'application/json'},
@@ -159,17 +188,15 @@ async function action(body) {
         });
         if (reply.httpStatus !== 200) throw new Error(JSON.stringify(reply.data));
         if (reply.data.status === 'already_verified') { entry.stage = 'already-verified'; await save(); return {alreadyVerified: true}; }
-        const quote = validateQuote(reply.data, item.codeHash);
+        const quote = validateQuote(reply.data, item.codeHash, requiredNetwork);
+        const transaction = paymentTransaction(quote, item.codeHash, wallet, body.chain, requiredNetwork);
         entry.ticket = quote; entry.wallet = wallet; entry.stage = 'awaiting-wallet';
         entry.preparedAt = new Date().toISOString(); delete entry.error; await save();
-        return {quote, transaction: {
-            validUntil: Math.floor(Date.now() / 1000) + 300, network: '-3', from: wallet,
-            messages: [{address: Address.parse(quote.payment_address).toString({testOnly: true, bounceable: true}),
-                amount: quote.amount_nano, payload: beginCell().storeUint(0, 32).storeStringTail(quote.comment).endCell().toBoc().toString('base64')}],
-        }};
+        return {quote, transaction};
     }
     if (body.action === 'signed') {
         if (entry.stage !== 'awaiting-wallet') throw new Error('No pending wallet request');
+        validateQuote(entry.ticket, item.codeHash, requiredNetwork);
         entry.externalHash = normalizedExternalHash(body.boc, entry.wallet);
         entry.stage = 'payment-sent'; entry.signedAt = new Date().toISOString(); await save();
         void advance(item);
