@@ -1,22 +1,23 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 import "@stdlib/gas-payments"
 import "compat-address"
 import "deployment-message"
 import "types"
 
 @inline_ref
-fun walletDeployment(code: cell, master: address, owner: address): AutoDeployAddress {
+fun walletDeployment(code: cell, jettonMaster: address, ownerAddress: address): AutoDeployAddress {
     return {
         workchain: 0,
         stateInit: {
             code,
             data: WalletStorage {
-                balance: 0,
-                owner,
-                master,
+                jettonBalance: 0,
+                ownerAddress,
+                jettonMaster,
             }.toCell(),
         },
-        toShard: { fixedPrefixLength: 8, closeTo: owner },
+        toShard: { fixedPrefixLength: 8, closeTo: ownerAddress },
     };
 }
 
@@ -26,63 +27,66 @@ fun registerAddressVariants(value: ContractState | AddressShardingOptions): int 
 }
 
 fun onInternalMessage(in: InMessage) {
-    val message = Incoming.fromSlice(in.body, { throwIfOpcodeDoesNotMatch: 65535 });
-    match (message) {
-        InternalTransfer => {
-            var data = contract.getData().beginParse();
-            val balance = data.loadCoins();
-            val savedTail = data;
-            val owner = data.loadAddress();
-            val master = data.loadAddress();
-            if (!(in.senderAddress == master)) {
-                val peer = walletDeployment(contract.getCode(), master, message.from!);
+    val msg = IncomingWalletMessage.fromSlice(in.body, { throwIfOpcodeDoesNotMatch: 65535 });
+    match (msg) {
+        JettonInternalTransfer => {
+            var storageCursor = contract.getData().beginParse();
+            val jettonBalance = storageCursor.loadCoins();
+            val ownerAndMasterTail = storageCursor;
+            val ownerAddress = storageCursor.loadAddress();
+            val jettonMaster = storageCursor.loadAddress();
+            if (!(in.senderAddress == jettonMaster)) {
+                val peer = walletDeployment(contract.getCode(), jettonMaster, msg.senderOwner!);
                 assert (peer.calculateArchivedAddress() == in.senderAddress) throw 25;
             }
-            val updatedBalance = balance + message.amount;
+            val updatedJettonBalance = jettonBalance + msg.jettonAmount;
             contract.setData(
-                beginCell().storeCoins(updatedBalance).storeSlice(savedTail).endCell(),
+                beginCell()
+                    .storeCoins(updatedJettonBalance)
+                    .storeSlice(ownerAndMasterTail)
+                    .endCell(),
             );
-            if (message.forwardTon > 0) {
-                val body = Notification {
-                    queryId: message.queryId,
-                    amount: message.amount,
-                    from: message.from,
-                    payload: message.payload,
+            if (msg.forwardTonAmount > 0) {
+                val body = JettonTransferNotification {
+                    queryId: msg.queryId,
+                    jettonAmount: msg.jettonAmount,
+                    senderOwner: msg.senderOwner,
+                    forwardPayload: msg.forwardPayload,
                 }.toCell();
                 sendRawMessage(
                     beginCell()
                         .storeUint(0x10, 6)
-                        .storeAddress(owner)
-                        .storeCoins(message.forwardTon)
+                        .storeAddress(ownerAddress)
+                        .storeCoins(msg.forwardTonAmount)
                         .storeUint(1, 107)
                         .storeRef(body)
                         .endCell(),
-                    17,
+                    SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_BOUNCE_ON_ACTION_FAIL,
                 );
             }
-            if (message.excessesTo != null) {
+            if (msg.responseAddress != null) {
                 reserveToncoinsOnBalance(
                     max(
                         contract.getOriginalBalance() + contract.getStoragePaidPayment() -
                             in.valueCoins,
                         calculateStorageFee(0, 157680000, 970, 3),
                     ),
-                    2,
+                    RESERVE_MODE_AT_MOST,
                 );
                 sendRawMessage(
                     beginCell()
                         .storeUint(0x10, 6)
-                        .storeAddress(message.excessesTo!)
-                        .storeUint(0xd53276db, 143)
-                        .storeUint(message.queryId, 64)
+                        .storeAddress(msg.responseAddress!)
+                        .storeUint(OP_JETTON_EXCESSES, 143)
+                        .storeUint(msg.queryId, 64)
                         .endCell(),
-                    130,
+                    SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE,
                 );
             }
         }
-        Transfer => {
-            val required = (message.forwardTon > 0 ? 2 : 1) * in.originalForwardFee +
-                message.forwardTon +
+        JettonTransfer => {
+            val required = (msg.forwardTonAmount > 0 ? 2 : 1) * in.originalForwardFee +
+                msg.forwardTonAmount +
                 calculateGasFee(0, 8526) +
                 calculateGasFee(0, 8862) +
                 calculateForwardFeeWithoutLumpPrice(0, 812, 3) +
@@ -90,66 +94,75 @@ fun onInternalMessage(in: InMessage) {
             // This diagnostic instruction is present in the archived executable.
             debug.print(required);
             assert (required <= in.valueCoins) throw 23;
-            var data = contract.getData().beginParse();
-            val balance = data.loadCoins();
-            val savedTail = data;
-            val owner = data.loadAddress();
-            val master = data.loadAddress();
-            assert (in.senderAddress == owner) throw 25;
-            assert (message.destination.getWorkchain() == 0) throw 30;
-            assert (message.amount <= balance) throw 27;
-            val updatedBalance = balance - message.amount;
+            var storageCursor = contract.getData().beginParse();
+            val jettonBalance = storageCursor.loadCoins();
+            val ownerAndMasterTail = storageCursor;
+            val ownerAddress = storageCursor.loadAddress();
+            val jettonMaster = storageCursor.loadAddress();
+            assert (in.senderAddress == ownerAddress) throw 25;
+            assert (msg.recipientOwner.getWorkchain() == 0) throw 30;
+            assert (msg.jettonAmount <= jettonBalance) throw 27;
+            val updatedJettonBalance = jettonBalance - msg.jettonAmount;
             contract.setData(
-                beginCell().storeCoins(updatedBalance).storeSlice(savedTail).endCell(),
+                beginCell()
+                    .storeCoins(updatedJettonBalance)
+                    .storeSlice(ownerAndMasterTail)
+                    .endCell(),
             );
-            val target = walletDeployment(contract.getCode(), master, message.destination);
-            val body = InternalTransfer {
-                queryId: message.queryId,
-                amount: message.amount,
-                from: owner,
-                excessesTo: message.excessesTo,
-                forwardTon: message.forwardTon,
-                payload: message.payload,
+            val target = walletDeployment(contract.getCode(), jettonMaster, msg.recipientOwner);
+            val body = JettonInternalTransfer {
+                queryId: msg.queryId,
+                jettonAmount: msg.jettonAmount,
+                senderOwner: ownerAddress,
+                responseAddress: msg.responseAddress,
+                forwardTonAmount: msg.forwardTonAmount,
+                forwardPayload: msg.forwardPayload,
             }.toCell();
             var outgoing = archivedPoolRefDeploymentHeader(target);
             outgoing.storeRef(body);
-            sendRawMessage(outgoing.endCell(), 80);
+            sendRawMessage(
+                outgoing.endCell(),
+                SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
+            );
         }
-        Burn => {
+        JettonBurn => {
             assert (
                 contract.getStoragePaidPayment() + calculateGasFee(0, 5253) +
                 calculateGasFee(0, 7518) +
                 in.originalForwardFee <=
                 in.valueCoins
             ) throw 23;
-            var data = contract.getData().beginParse();
-            val balance = data.loadCoins();
-            val savedTail = data;
-            val owner = data.loadAddress();
-            val master = data.loadAddress();
-            assert (in.senderAddress == owner) throw 25;
-            assert (message.amount <= balance) throw 27;
-            val updatedBalance = balance - message.amount;
+            var storageCursor = contract.getData().beginParse();
+            val jettonBalance = storageCursor.loadCoins();
+            val ownerAndMasterTail = storageCursor;
+            val ownerAddress = storageCursor.loadAddress();
+            val jettonMaster = storageCursor.loadAddress();
+            assert (in.senderAddress == ownerAddress) throw 25;
+            assert (msg.jettonAmount <= jettonBalance) throw 27;
+            val updatedJettonBalance = jettonBalance - msg.jettonAmount;
             contract.setData(
-                beginCell().storeCoins(updatedBalance).storeSlice(savedTail).endCell(),
+                beginCell()
+                    .storeCoins(updatedJettonBalance)
+                    .storeSlice(ownerAndMasterTail)
+                    .endCell(),
             );
-            val body = BurnNotification {
-                queryId: message.queryId,
-                amount: message.amount,
-                from: owner,
-                excessesTo: message.excessesTo,
+            val body = JettonBurnNotification {
+                queryId: msg.queryId,
+                jettonAmount: msg.jettonAmount,
+                senderOwner: ownerAddress,
+                responseAddress: msg.responseAddress,
             }.toCell();
             sendRawMessage(
                 beginCell()
                     .storeUint(0x18, 6)
-                    .storeAddress(master)
+                    .storeAddress(jettonMaster)
                     .storeUint(1, 111)
                     .storeRef(body)
                     .endCell(),
-                80,
+                SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
         }
-        Sell => {
+        SellJettons => {
             assert (
                 contract.getStoragePaidPayment() + calculateGasFee(0, 5760) +
                 calculateGasFee(0, 22320) +
@@ -157,34 +170,37 @@ fun onInternalMessage(in: InMessage) {
                 (in.originalForwardFee << 1) <=
                 in.valueCoins
             ) throw 23;
-            var data = contract.getData().beginParse();
-            val balance = data.loadCoins();
-            val savedTail = data;
-            val owner = data.loadAddress();
-            val master = data.loadAddress();
-            assert (in.senderAddress == owner) throw 25;
-            assert (message.amount <= balance) throw 27;
-            val updatedBalance = balance - message.amount;
+            var storageCursor = contract.getData().beginParse();
+            val jettonBalance = storageCursor.loadCoins();
+            val ownerAndMasterTail = storageCursor;
+            val ownerAddress = storageCursor.loadAddress();
+            val jettonMaster = storageCursor.loadAddress();
+            assert (in.senderAddress == ownerAddress) throw 25;
+            assert (msg.jettonAmount <= jettonBalance) throw 27;
+            val updatedJettonBalance = jettonBalance - msg.jettonAmount;
             contract.setData(
-                beginCell().storeCoins(updatedBalance).storeSlice(savedTail).endCell(),
+                beginCell()
+                    .storeCoins(updatedJettonBalance)
+                    .storeSlice(ownerAndMasterTail)
+                    .endCell(),
             );
-            val body = SellNotification {
-                queryId: message.queryId,
-                amount: message.amount,
-                minTon: message.minTon,
-                from: owner,
-                excessesTo: message.excessesTo,
-                partner: message.partner,
-                referrer: message.referrer,
+            val body = JettonSellNotification {
+                queryId: msg.queryId,
+                jettonAmount: msg.jettonAmount,
+                minTon: msg.minTon,
+                senderOwner: ownerAddress,
+                responseAddress: msg.responseAddress,
+                partner: msg.partner,
+                referrer: msg.referrer,
             }.toCell();
             sendRawMessage(
                 beginCell()
                     .storeUint(0x18, 6)
-                    .storeAddress(master)
+                    .storeAddress(jettonMaster)
                     .storeUint(1, 111)
                     .storeRef(body)
                     .endCell(),
-                80,
+                SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
         }
     }
@@ -193,24 +209,26 @@ fun onInternalMessage(in: InMessage) {
 fun onBouncedMessage(in: InMessageBounced) {
     var body = in.bouncedBody;
     body.loadUint(32);
-    val message = lazy Bounced.fromSlice(
+    val msg = lazy BouncedWalletMessage.fromSlice(
         body,
         { throwIfOpcodeDoesNotMatch: 63, assertEndAfterReading: false },
     );
-    val amount = match (message) {
-        BouncedTransfer => message.amount,
-        BouncedBurn => message.amount,
-        BouncedSell => message.amount,
+    val jettonAmount = match (msg) {
+        BouncedJettonTransfer => msg.jettonAmount,
+        BouncedJettonBurn => msg.jettonAmount,
+        BouncedJettonSell => msg.jettonAmount,
     };
-    var data = contract.getData().beginParse();
-    val balance = data.loadCoins();
-    val updatedBalance = balance + amount;
-    contract.setData(beginCell().storeCoins(updatedBalance).storeSlice(data).endCell());
+    var storageCursor = contract.getData().beginParse();
+    val jettonBalance = storageCursor.loadCoins();
+    val updatedJettonBalance = jettonBalance + jettonAmount;
+    contract.setData(
+        beginCell().storeCoins(updatedJettonBalance).storeSlice(storageCursor).endCell(),
+    );
 }
 
 get fun get_wallet_data(): (int, address, address, cell) {
     val storage = WalletStorage.fromCell(contract.getData(), { assertEndAfterReading: false });
-    return (storage.balance, storage.owner, storage.master, contract.getCode());
+    return (storage.jettonBalance, storage.ownerAddress, storage.jettonMaster, contract.getCode());
 }
 // Recovered from mainnet 891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266.
 // Names describe behavior; original author identifiers are unknown.

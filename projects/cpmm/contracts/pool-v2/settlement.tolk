@@ -68,7 +68,7 @@ fun settlePoolAssetsEntry(
         );
         reserved += fee - principal;
     }
-    reserveToncoinsOnBalance(reserved, 2);
+    reserveToncoinsOnBalance(reserved, RESERVE_MODE_AT_MOST);
     if (skipExcesses) {
         return;
     }

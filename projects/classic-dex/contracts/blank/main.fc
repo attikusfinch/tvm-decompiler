@@ -1,6 +1,8 @@
 ;; decompiled by @fiscaldev
 #pragma version =0.4.4;
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 builder store_zeroes(builder b, int width) asm "STZEROES";
 ;; Fixed-width field codecs retain the legacy loader's physical output order.
 (slice, int) load_query_id(slice s) asm "64 LDU SWAP";
@@ -24,7 +26,7 @@ builder store_zeroes(builder b, int width) asm "STZEROES";
         slice owner = data~load_msg_addr();
         int template_kind = data~load_uint(8);
         throw_unless(259, equal_slice_bits(sender, owner));
-        throw_unless(65535, body~load_uint(32) == 2604311546);
+        throw_unless(65535, body~load_uint(32) == OP_CLASSIC_INSTALL);
         body~load_query_id();
         cell parameters = body~load_ref();
         int version = body~load_install_version();

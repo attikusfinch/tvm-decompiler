@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 import "payout-config"
 
 type PoolForwardPayload = cell | RemainingBitsAndRefs
@@ -65,7 +66,7 @@ fun sendPoolPayment(
             .storeUint(0x10, 6)
             .storeSlice(options.destination as slice)
             .storeCoins(value)
-            .storeUint(0x3216ca09, 139)
+            .storeUint(OP_CPMM_CALLBACK3216CA09, 139)
             .storeUint(queryId, 64)
             .storeCoins(amount)
             .storeInt(exitCode, 32)
@@ -82,7 +83,7 @@ fun sendPoolPayment(
         val value = 50000000 + options.extraGas;
         val customPayload: cell? = null;
         var transfer = beginCell()
-            .storeUint(0x0f8a7ea5, 32)
+            .storeUint(OP_JETTON_TRANSFER, 32)
             .storeUint(queryId, 64)
             .storeCoins(amount)
             .storeSlice(options.destination as slice)

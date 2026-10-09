@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 import "@stdlib/gas-payments"
 
 // V1 has no minimum processing fee; V2 adds max(gasFee, 10_000_000).
@@ -11,7 +12,7 @@ fun requestPoolWalletAddressV1(resolver: any_address, queryId: uint64) {
         .storeUint(0x10, 6)
         .storeSlice(resolver as slice)
         .storeCoins(amount)
-        .storeUint(0x2c76b973, 139)
+        .storeUint(OP_PROVIDE_WALLET_ADDRESS, 139)
         .storeUint(queryId, 64)
         .storeSlice(owner as slice)
         .storeBool(false)

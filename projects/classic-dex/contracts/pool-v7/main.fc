@@ -3,11 +3,9 @@
 ;; Storage and message codecs, fee rounding, authorization and failure rollback are independently checked.
 #pragma version =0.4.4;
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 int get_gas_fee(int gas_used, int is_masterchain) asm "GETGASFEE";
-cell tuple_cell1(tuple t) asm "1 INDEX";
-slice tuple_slice0(tuple t) asm "0 INDEX";
-slice tuple_slice1(tuple t) asm "1 INDEX";
-slice tuple_slice2(tuple t) asm "2 INDEX";
 () invoke_installed_hook(int method) impure asm "c3 PUSHCTR EXECUTE";
 global slice message_sender;
 global tuple template_base;
@@ -36,14 +34,12 @@ const slice lp_decimals = "9";
 const slice lp_symbol = "LP";
 (slice) checked_begin_parse(cell a) impure asm "CTOS";
 (int) storage_fees() impure asm "12 GETPARAM";
-(int) current_time() impure asm "3 GETPARAM";
 (builder) store_ones(builder a, int b) asm "STONES";
 (builder) store_zeroes(builder a, int b) asm "STZEROES";
 (int) send_event(cell a, int b) impure asm "SENDMSG";
 (int) gas_consumed() impure asm "GASCONSUMED";
 (cell) empty_actions() asm "<b x{} s, b> PUSHREF";
 () replace_actions(cell a) impure asm "c5 POPCTR";
-(slice) pool_address() impure asm "8 GETPARAM";
 (int) forward_fee(int a, int b, int c) impure asm "GETFORWARDFEE";
 int evaluated(int value) impure asm "nop";
 forall X -> (int, builder, X) template_builder(X value, int kind) asm "NEWC ROT";
@@ -69,7 +65,7 @@ slice state_address(cell state) impure inline {
 }
 
 () save_pool() impure inline {
-    set_data(begin_cell().store_ref(pool_descriptor).store_ref(tuple_cell1(template_base))
+    set_data(begin_cell().store_ref(pool_descriptor).store_ref(second(template_base))
         .store_ref(lp_wallet_code).store_ref(pool_config).store_version(contract_version)
         .store_version(fee_numerator).store_grams(total_supply).store_grams(at(reserves, 0))
         .store_grams(at(reserves, 1)).store_grams(at(protocol_fees, 0)).store_grams(at(protocol_fees,
@@ -145,7 +141,7 @@ builder collector_query_fields(int query, cell payload, builder b) asm "ROT SWAP
 }
 
 builder collector_request(int query, cell payload) inline {
-    return collector_query_fields(query, payload, begin_cell().store_opcode(2911080767));
+    return collector_query_fields(query, payload, begin_cell().store_opcode(OP_CLASSIC_COLLECTOR_REQUEST));
 }
 
 int decimal_scale(int precision) inline {
@@ -182,8 +178,9 @@ cell pool_response(int query, int reserve0, int reserve1, int liquidity, tuple a
         (slice asset0, slice asset1) = unpack_pair(assets);
         payload = begin_cell().store_slice(asset0).store_slice(asset1).end_cell();
     }
-    return begin_cell().store_opcode(3185396052).store_query(query).store_grams(reserve0)
-        .store_grams(reserve1).store_grams(liquidity).store_maybe_ref(payload).end_cell();
+    return begin_cell().store_opcode(OP_CLASSIC_POOL_TAKE_POOL_STATE).store_query(query)
+        .store_grams(reserve0).store_grams(reserve1).store_grams(liquidity).store_maybe_ref(payload)
+        .end_cell();
 }
 
 cell metadata_empty() impure asm "PUSHNULL";
@@ -228,8 +225,8 @@ slice vault_address(slice asset) impure inline {
 }
 
 builder payout_body(int query, cell descriptor, int amount, slice recipient, cell callback) inline {
-    return begin_cell().store_opcode(2907617013).store_query(query).store_ref(descriptor)
-        .store_grams(amount).store_slice(recipient).store_dict(callback);
+    return begin_cell().store_opcode(OP_CLASSIC_POOL_PAY_OUT_FROM_POOL).store_query(query)
+        .store_ref(descriptor).store_grams(amount).store_slice(recipient).store_dict(callback);
 }
 
 (int, cell, slice, int, slice, int, slice, int, cell, cell) deposit_record(int query, cell proof,
@@ -243,33 +240,34 @@ builder payout_body(int query, cell descriptor, int amount, slice recipient, cel
 }
 
 cell deposit_failure(int query, cell descriptor, cell callback) inline {
-    return begin_cell().store_opcode(3785583828).store_query(query).store_ref(descriptor)
-        .store_dict(callback).end_cell();
+    return begin_cell().store_opcode(OP_CLASSIC_REJECT_DEPOSIT).store_query(query)
+        .store_ref(descriptor).store_dict(callback).end_cell();
 }
 
 cell deposit_success(int query, cell descriptor, int amount0, int amount1) inline {
-    return begin_cell().store_opcode(2867302998).store_query(query).store_ref(descriptor)
-        .store_grams(amount0).store_grams(amount1).end_cell();
+    return begin_cell().store_opcode(OP_CLASSIC_FULFILL_DEPOSIT).store_query(query)
+        .store_ref(descriptor).store_grams(amount0).store_grams(amount1).end_cell();
 }
 
 int liquidity_event(slice owner, int used0, int used1, int reserve0, int reserve1, int minted) impure inline {
-    builder body = begin_cell().store_opcode(3041195172).store_slice(owner).store_grams(used0)
-        .store_grams(used1).store_grams(reserve0).store_grams(reserve1).store_grams(minted);
+    builder body = begin_cell().store_opcode(OP_CLASSIC_POOL_DEPOSIT_EVENT).store_slice(owner)
+        .store_grams(used0).store_grams(used1).store_grams(reserve0).store_grams(reserve1)
+        .store_grams(minted);
     return send_event(store_zeroes(store_ones(begin_cell(), 2), 102).store_builder(body)
         .end_cell(), 1);
 }
 
 cell lp_state(slice owner) impure inline {
     (owner, cell code, cell data_code) = wallet_codes(owner);
-    cell data = begin_cell().store_grams(0).store_slice(owner).store_slice(pool_address())
+    cell data = begin_cell().store_grams(0).store_slice(owner).store_slice(my_address())
         .store_ref(data_code).end_cell();
     return begin_cell().store_uint(6, 5).store_ref(code).store_ref(data).end_cell();
 }
 
 cell lp_credit(int query, int minted, slice pool, slice owner, int forwarded, cell callback) inline {
-    return begin_cell().store_opcode(395134233).store_query(query).store_grams(minted)
-        .store_slice(pool).store_slice(owner).store_grams(forwarded).store_dict(callback)
-        .end_cell();
+    return begin_cell().store_opcode(OP_JETTON_INTERNAL_TRANSFER).store_query(query)
+        .store_grams(minted).store_slice(pool).store_slice(owner).store_grams(forwarded)
+        .store_dict(callback).end_cell();
 }
 
 () send_deployed(int mode, cell body, cell state, int amount, slice destination) impure inline {
@@ -299,23 +297,24 @@ int swap_event(slice owner, slice excess, slice input, slice output, int amount,
     int reserve0, int reserve1) impure inline {
     cell details = begin_cell().store_slice(owner).store_slice(excess).store_grams(reserve0)
         .store_grams(reserve1).end_cell();
-    builder body = begin_cell().store_opcode(2623606243).store_slice(input).store_slice(output)
-        .store_grams(amount).store_grams(received).store_ref(details);
+    builder body = begin_cell().store_opcode(OP_CLASSIC_POOL_SWAP_EVENT).store_slice(input)
+        .store_slice(output).store_grams(amount).store_grams(received).store_ref(details);
     return send_event(store_zeroes(store_ones(begin_cell(), 2), 102).store_builder(body)
         .end_cell(), 1);
 }
 
 cell routed_swap(int query, cell descriptor, slice asset, int amount, slice owner, int direction,
     int minimum, cell route, cell parameters) inline {
-    builder b = begin_cell().store_opcode(1923917994).store_query(query).store_ref(descriptor)
-        .store_slice(asset).store_grams(amount).store_slice(owner);
+    builder b = begin_cell().store_opcode(OP_CLASSIC_POOL_SWAP_PEER).store_query(query)
+        .store_ref(descriptor).store_slice(asset).store_grams(amount).store_slice(owner);
     (parameters, route, minimum, b) = route_flag(parameters, route, minimum, direction, b);
     return b.store_grams(minimum).store_dict(route).store_ref(parameters).end_cell();
 }
 
 int burn_event(slice owner, int amount0, int amount1, int reserve0, int reserve1, int burned) impure inline {
-    builder body = begin_cell().store_opcode(984117414).store_slice(owner).store_grams(burned)
-        .store_grams(amount0).store_grams(amount1).store_grams(reserve0).store_grams(reserve1);
+    builder body = begin_cell().store_opcode(OP_CLASSIC_POOL_WITHDRAWAL_EVENT).store_slice(owner)
+        .store_grams(burned).store_grams(amount0).store_grams(amount1).store_grams(reserve0)
+        .store_grams(reserve1);
     return send_event(store_zeroes(store_ones(begin_cell(), 2), 102).store_builder(body)
         .end_cell(), 1);
 }
@@ -561,7 +560,7 @@ slice verify_vault_descriptor(cell proof) impure inline_ref {
     int kind = body~read_kind();
     (body, slice asset) = read_asset(body);
     body.end_parse();
-    throw_unless(264, equal_slice_bits(message_sender, expected) & equal_slice_bits(tuple_slice0(template_base),
+    throw_unless(264, equal_slice_bits(message_sender, expected) & equal_slice_bits(first(template_base),
         factory) & (kind == 1));
     return asset;
 }
@@ -609,7 +608,7 @@ tuple verify_pool_descriptor(cell proof) impure inline_ref {
     (body, slice asset1) = read_asset(body);
     (body, tuple assets) = asset_record(stable, asset0, body, asset1);
     body.end_parse();
-    throw_unless(265, equal_slice_bits(message_sender, expected) & equal_slice_bits(tuple_slice0(template_base),
+    throw_unless(265, equal_slice_bits(message_sender, expected) & equal_slice_bits(first(template_base),
         factory) & (kind == 2));
     return assets;
 }
@@ -625,7 +624,7 @@ tuple verify_pool_descriptor(cell proof) impure inline_ref {
     slice owner = config~load_msg_addr();
     tuple assets = pool_assets(config);
     body.end_parse();
-    throw_unless(272, equal_slice_bits(message_sender, expected) & equal_slice_bits(tuple_slice0(template_base),
+    throw_unless(272, equal_slice_bits(message_sender, expected) & equal_slice_bits(first(template_base),
         factory) & (kind == 3));
     return (owner, assets);
 }
@@ -662,7 +661,7 @@ tuple verify_pool_descriptor(cell proof) impure inline_ref {
 
 () upgrade_pool(slice body) impure method_id(136) {
     load_pool();
-    throw_unless(259, equal_slice_bits(message_sender, tuple_slice0(template_base)));
+    throw_unless(259, equal_slice_bits(message_sender, first(template_base)));
     (cell new_code, int new_version) = upgrade_fields(body);
     if (contract_version >= new_version) {
         return ();
@@ -733,7 +732,7 @@ tuple verify_pool_descriptor(cell proof) impure inline_ref {
     }
     int wallet_value = remaining - get_gas_fee(gas_consumed() + 3403, 0);
     int mode = evaluated(0);
-    cell credit = lp_credit(query, minted, pool_address(), owner, forwarded, success);
+    cell credit = lp_credit(query, minted, my_address(), owner, forwarded, success);
     send_deployed(mode, credit, state, wallet_value, state_address_wc(state, mode));
 }
 
@@ -788,7 +787,7 @@ int is_stable() impure method_id(103723) {
 slice get_wallet_address(slice owner) impure method_id(103289) {
     load_pool();
     (owner, cell code, cell data_code) = wallet_codes(owner);
-    cell data = begin_cell().store_grams(0).store_slice(owner).store_slice(pool_address())
+    cell data = begin_cell().store_grams(0).store_slice(owner).store_slice(my_address())
         .store_ref(data_code).end_cell();
     return state_address(begin_cell().store_uint(6, 5).store_ref(code).store_ref(data)
         .end_cell());
@@ -820,13 +819,13 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
     vaults = opaque_tuple(pair(vault_address(parsed_asset0), vault_address(parsed_asset1)));
     collector_config = null();
     pool_config = begin_cell().store_uint(at(precisions, 0), 8).store_uint(at(precisions, 1),
-        8).store_slice(tuple_slice0(vaults)).store_slice(tuple_slice1(vaults)).store_slice(none_address)
+        8).store_slice(first(vaults)).store_slice(second(vaults)).store_slice(none_address)
         .store_maybe_ref(collector_config).end_cell();
     total_supply = 0;
     reserves = opaque_tuple(pair(0, 0));
     protocol_fees = opaque_tuple(pair(0, 0));
     save_pool();
-    raw_reserve(100000000, 0);
+    raw_reserve(100000000, RESERVE_MODE_EXACT_AMOUNT);
     send_empty(128, 0, factory);
     return ();
 }
@@ -837,7 +836,7 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
     flags = remember_sender(flags, sender);
     throw_if(0, (flags & 1));
     int opcode = body.preload_uint(32);
-    if (opcode == 1643009069) {
+    if (opcode == OP_CLASSIC_POOL_SWAP_EXTERNAL) {
         load_pool();
         (int vault_query, slice vault_query_tail) = staged_query(body.skip_bits(32));
         (slice vault_proof_tail, cell vault_proof) = vault_query_tail.load_ref();
@@ -852,7 +851,7 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
             vault_amount, vault_direction, vault_minimum, vault_route, vault_parameters);
         return ();
     }
-    if (opcode == 1923917994) {
+    if (opcode == OP_CLASSIC_POOL_SWAP_PEER) {
         load_pool();
         (int pool_query, slice pool_query_tail) = staged_query(body.skip_bits(32));
         (slice pool_proof_tail, cell pool_proof) = pool_query_tail.load_ref();
@@ -869,43 +868,43 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
             pool_minimum, pool_route, pool_parameters);
         return ();
     }
-    if (opcode == 3043726744) {
+    if (opcode == OP_CLASSIC_DEPOSIT_LIQUIDITY_ALL) {
         deposit_liquidity(message_value, body);
         return ();
     }
-    if (opcode == 2078119902) {
+    if (opcode == OP_JETTON_BURN_NOTIFICATION) {
         burn_liquidity(message_value, body);
         return ();
     }
-    if (opcode == 1847882381) {
+    if (opcode == OP_CLASSIC_POOL_PROVIDE_POOL_STATE) {
         respond_pool_state(message_value, body);
         return ();
     }
-    if (opcode == 188915538) {
+    if (opcode == OP_CLASSIC_WITHDRAW_PROTOCOL_FEES) {
         withdraw_protocol_fees(message_value, body);
         return ();
     }
-    if (opcode == 1752418572) {
+    if (opcode == OP_CLASSIC_POOL_SYNC_ASSET_QUOTE) {
         request_price(body);
         return ();
     }
-    if (opcode == 172098648) {
+    if (opcode == OP_CLASSIC_RECEIVE_PRICE) {
         receive_price(body);
         return ();
     }
-    if (opcode == 444) {
+    if (opcode == OP_CLASSIC_UPGRADE) {
         upgrade_pool(body);
         return ();
     }
-    if (opcode == 3222612351) {
+    if (opcode == OP_CLASSIC_POOL_CONFIGURE_TRADE_FEE) {
         update_fee(body);
         return ();
     }
-    if (opcode == 2880727869) {
+    if (opcode == OP_CLASSIC_POOL_CONFIGURE_QUOTE_PROVIDER) {
         set_collector(body);
         return ();
     }
-    if (opcode == 650525367) {
+    if (opcode == OP_CLASSIC_POOL_RESET_GAS) {
         withdraw_ton(body);
         return ();
     }
@@ -968,7 +967,7 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
     collectors = opaque_tuple(pair(collector0, collector1));
     save_collectors();
     pool_config = begin_cell().store_uint(at(precisions, 0), 8).store_uint(at(precisions, 1),
-        8).store_slice(tuple_slice0(vaults)).store_slice(tuple_slice1(vaults)).store_slice(none_address)
+        8).store_slice(first(vaults)).store_slice(second(vaults)).store_slice(none_address)
         .store_maybe_ref(collector_config).end_cell();
     save_pool();
     return ();
@@ -1047,7 +1046,7 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
     load_pool();
     require_operator(9);
     slice destination = refund_fields(body);
-    raw_reserve(100000000, 0);
+    raw_reserve(100000000, RESERVE_MODE_EXACT_AMOUNT);
     send_empty(128, 0, destination);
 }
 
@@ -1081,7 +1080,7 @@ slice get_wallet_address(slice owner) impure method_id(103289) {
     load_pool();
     cell metadata = metadata_empty();
     builder uri = evaluated_builder(begin_cell().store_uint(0, 8).store_slice(metadata_url));
-    (_, int hash) = pool_address().parse_std_addr();
+    (_, int hash) = my_address().parse_std_addr();
     tuple digits = address_hex_digits(hash);
     uri = uri.store_slice(metadata_workchain);
     uri = append_address_hex(digits, uri);

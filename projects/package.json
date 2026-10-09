@@ -12,7 +12,9 @@
     "fmt:check": "node tools/cli.mjs fmt-check",
     "doctor": "node tools/cli.mjs doctor",
     "chain:refresh": "node tools/collect-chain.mjs --refresh && node tools/render-evidence.mjs",
-    "verify": "npm run fmt:check && npm run chain:check && npm test",
+    "opcodes:check": "node tools/opcodes.mjs",
+    "opcodes:generate": "node tools/opcodes.mjs --write",
+    "verify": "npm run opcodes:check && npm run fmt:check && npm run chain:check && npm test",
     "chain:check": "node --test tools/chain-evidence.test.mjs"
   },
   "dependencies": {

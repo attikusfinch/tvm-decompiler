@@ -20,93 +20,93 @@ fun ForwardPayload.packToBuilder(self, mutate b: builder) {
 }
 
 @overflow1023_policy("suppress")
-struct (0x178d4519) InternalTransfer {
+struct (0x178d4519) JettonInternalTransfer {
     queryId: uint64
-    amount: coins
-    from: any_address
-    excessesTo: any_address
-    forwardTon: coins
-    payload: ForwardPayload
+    jettonAmount: coins
+    senderOwner: any_address
+    responseAddress: any_address
+    forwardTonAmount: coins
+    forwardPayload: ForwardPayload
 }
 
 @overflow1023_policy("suppress")
-struct (0x0f8a7ea5) Transfer {
+struct (0x0f8a7ea5) JettonTransfer {
     queryId: uint64
-    amount: coins
-    destination: any_address
-    excessesTo: any_address
+    jettonAmount: coins
+    recipientOwner: any_address
+    responseAddress: any_address
     customPayload: cell?
-    forwardTon: coins
-    payload: ForwardPayload
+    forwardTonAmount: coins
+    forwardPayload: ForwardPayload
 }
 
-struct (0x595f07bc) Burn {
+struct (0x595f07bc) JettonBurn {
     queryId: uint64
-    amount: coins
-    excessesTo: any_address
+    jettonAmount: coins
+    responseAddress: any_address
     customPayload: cell?
 }
 
-struct (0xb7459e2c) Sell {
+struct (0xb7459e2c) SellJettons {
     queryId: uint64
-    amount: coins
+    jettonAmount: coins
     minTon: coins
-    excessesTo: any_address
+    responseAddress: any_address
     partner: cell?
     referrer: cell?
 }
 
-type Incoming = InternalTransfer | Transfer | Burn | Sell
+type IncomingWalletMessage = JettonInternalTransfer | JettonTransfer | JettonBurn | SellJettons
 
-struct (0x178d4519) BouncedTransfer {
+struct (0x178d4519) BouncedJettonTransfer {
     queryId: uint64
-    amount: coins
+    jettonAmount: coins
     tail: RemainingBitsAndRefs
 }
 
-struct (0x7bdd97de) BouncedBurn {
+struct (0x7bdd97de) BouncedJettonBurn {
     queryId: uint64
-    amount: coins
+    jettonAmount: coins
     tail: RemainingBitsAndRefs
 }
 
-struct (0x646ad424) BouncedSell {
+struct (0x646ad424) BouncedJettonSell {
     queryId: uint64
-    amount: coins
+    jettonAmount: coins
     tail: RemainingBitsAndRefs
 }
 
-type Bounced = BouncedTransfer | BouncedBurn | BouncedSell
+type BouncedWalletMessage = BouncedJettonTransfer | BouncedJettonBurn | BouncedJettonSell
 
-struct (0x7362d09c) Notification {
+struct (0x7362d09c) JettonTransferNotification {
     queryId: uint64
-    amount: coins
-    from: any_address
-    payload: ForwardPayload
+    jettonAmount: coins
+    senderOwner: any_address
+    forwardPayload: ForwardPayload
 }
 
 @overflow1023_policy("suppress")
-struct (0x7bdd97de) BurnNotification {
+struct (0x7bdd97de) JettonBurnNotification {
     queryId: uint64
-    amount: coins
-    from: any_address
-    excessesTo: any_address
+    jettonAmount: coins
+    senderOwner: any_address
+    responseAddress: any_address
 }
 
 @overflow1023_policy("suppress")
-struct (0x646ad424) SellNotification {
+struct (0x646ad424) JettonSellNotification {
     queryId: uint64
-    amount: coins
+    jettonAmount: coins
     minTon: coins
-    from: any_address
-    excessesTo: any_address
+    senderOwner: any_address
+    responseAddress: any_address
     partner: cell?
     referrer: cell?
 }
 
 @overflow1023_policy("suppress")
 struct WalletStorage {
-    balance: coins
-    owner: any_address
-    master: any_address
+    jettonBalance: coins
+    ownerAddress: any_address
+    jettonMaster: any_address
 }

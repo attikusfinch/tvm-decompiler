@@ -1,4 +1,25 @@
-# Validation — 2026-10-09
+# Validation
+
+## Readability pass — 2026-10-10 (Asia/Tashkent)
+
+Baseline: `da0347b`. See [the change log](READABILITY.md) and
+[source inventory](READABILITY-AUDIT.md).
+
+`npm run verify` passed after the final readability edits:
+
+- 96 reviewed opcode entries produce consistent FunC and Tolk constants.
+- 21 / 21 source-built code hashes and complete serialized BOCs match the frozen oracles.
+- 166 Acton tests passed: Classic 60, CPMM 72, Uranus 25, X1000 9.
+- 4 offline chain-evidence checks passed; formatting preserves import order.
+- `reconstruction/` has no changes.
+
+The accepted changes remove 125 local ASM declarations. In X1000, explicit
+`as unknown` null checks and the constant two-zero-bit compatibility writer remain:
+removing them changes the BOC. Two typed-map substitutions in CPMM also changed
+the BOC and were restored. These were checked as isolated source transformations,
+not accepted solely because an emulation test happened to pass.
+
+## Workspace baseline — 2026-10-09
 
 Source/tooling revision: `ccda200`.
 

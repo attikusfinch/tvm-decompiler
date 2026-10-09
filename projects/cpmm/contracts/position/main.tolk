@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 // Reconstructed from mainnet code dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6.
 // Names describe recovered behavior; the original author's identifiers are unknown.
 import "@stdlib/gas-payments"
@@ -31,7 +32,7 @@ fun sendExcesses(recipient: any_address, queryId: uint64, mode: int) {
     val outgoing = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(recipient as slice)
-        .storeUint(0xd53276db, 143)
+        .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
     sendRawMessage(outgoing, mode | SEND_MODE_IGNORE_ERRORS);
@@ -112,7 +113,10 @@ fun onInternalMessage(in: InMessage) {
             val locked = mulDivFloor(message.liquidity, min(message.lockedShare, 10000), 10000);
             storage.lockedLiquidity += locked;
             storage.save();
-            reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
+            reserveToncoinsOnBalance(
+                contract.getStoragePaidPayment(),
+                RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+            );
             if (message.notifyGas > 0) {
                 val outgoing = beginCell()
                     .storeUint(0x10, 6)
@@ -143,7 +147,7 @@ fun onInternalMessage(in: InMessage) {
             storage.fees = fees.toCell();
             storage.save();
             val body = beginCell()
-                .storeUint(0x29ff1bcf, 32)
+                .storeUint(OP_CPMM_PAYOUT_POSITION_FEES, 32)
                 .storeUint(message.queryId, 64)
                 .storeCoins(x)
                 .storeCoins(y)
@@ -196,7 +200,7 @@ fun onInternalMessage(in: InMessage) {
                 storage.liquidity -= message.liquidity;
                 storage.save();
                 val body = beginCell()
-                    .storeUint(0xf6f6a3aa, 32)
+                    .storeUint(OP_CPMM_EXIT_LIQUIDITY, 32)
                     .storeUint(message.queryId, 64)
                     .storeCoins(message.liquidity)
                     .storeCoins(x)
@@ -228,7 +232,7 @@ fun onInternalMessage(in: InMessage) {
         ProvidePositionState => {
             reserveToncoinsOnBalance(
                 contract.getOriginalBalance() + contract.getStoragePaidPayment() - in.valueCoins,
-                2,
+                RESERVE_MODE_AT_MOST,
             );
             val recipient = in.senderAddress;
             val pool = message.includePool ? storage.pool : null;
@@ -258,7 +262,10 @@ fun onInternalMessage(in: InMessage) {
         }
         ClaimPositionReward => {
             assert ((in.senderAddress as slice).bitsEqual(storage.pool as slice)) throw 23;
-            reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
+            reserveToncoinsOnBalance(
+                contract.getStoragePaidPayment(),
+                RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+            );
             val previous = storage.rewards.get(message.rewardId);
             var reward = previous.isFound ? previous.loadValue() : emptyReward();
             reward = accrueReward(
@@ -282,7 +289,7 @@ fun onInternalMessage(in: InMessage) {
                 return;
             }
             val body = beginCell()
-                .storeUint(0x9e17fbbe, 32)
+                .storeUint(OP_CPMM_PAYOUT_REWARD, 32)
                 .storeUint(message.queryId, 64)
                 .storeCoins(reward.pending)
                 .storeUint(message.rewardId, 2)

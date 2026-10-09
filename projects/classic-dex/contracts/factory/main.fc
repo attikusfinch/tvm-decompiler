@@ -5,6 +5,8 @@
 ;; Deposit code/version, LP wallet code, Factory version, Operator version/code.
 ;; Typed asm helpers retain the legacy codec/stack ABI; protocol logic is FunC.
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 int get_gas_fee(int units, int masterchain) asm "GETGASFEE";
 builder evaluated_builder(builder b) impure asm "nop";
 builder store_version(builder b, int value) asm "SWAP 16 STU";
@@ -37,13 +39,11 @@ forall TupleItem0, TupleItem1 -> (TupleItem0, TupleItem1) unpack_pair(tuple valu
 forall TupleItem0, TupleItem1, TupleItem2 -> (TupleItem0, TupleItem1, TupleItem2) unpack_triple(tuple value) impure asm "3 UNTUPLE";
 const slice NONE_ADDRESS = "2_"s;
 const slice EMPTY_SLICE = ""s;
-(slice) self_address() impure asm "8 GETPARAM";
 (builder) store_zeroes(builder a, int b) asm "STZEROES";
 (int) compare_assets(slice a, slice b) asm "SDLEXCMP";
 (int) send_message_fee(cell a, int b) impure asm "SENDMSG";
 (int) storage_fees() impure asm "12 GETPARAM";
 (int) gas_consumed() impure asm "GASCONSUMED";
-(int) timestamp() impure asm "3 GETPARAM";
 forall P -> (int, builder, P) template_builder(P data, int kind) asm "NEWC ROT";
 builder store_kind(builder b, int kind) asm "SWAP 8 STU";
 cell template_state(int kind, builder parameters) impure inline {
@@ -136,12 +136,12 @@ builder store_opcode(builder b, int value) asm "SWAP 32 STU";
 builder store_query_id(builder b, int value) asm "SWAP 64 STU";
 (slice, int) read_kind(slice s) asm "8 LDU SWAP";
 cell upgrade_body(int query, int version, cell code) inline {
-    return begin_cell().store_opcode(444).store_query_id(query).store_version(version)
-        .store_ref(code).end_cell();
+    return begin_cell().store_opcode(OP_CLASSIC_UPGRADE).store_query_id(query)
+        .store_version(version).store_ref(code).end_cell();
 }
 
 cell install_body(int query, cell blank, int version, cell code, builder parameters) inline {
-    return begin_cell().store_opcode(2604311546).store_query_id(query).store_ref(blank)
+    return begin_cell().store_opcode(OP_CLASSIC_INSTALL).store_query_id(query).store_ref(blank)
         .store_version(version).store_ref(code).store_builder(parameters).end_cell();
 }
 
@@ -172,7 +172,7 @@ slice address_in_workchain(cell state, int workchain) inline {
 }
 
 builder drain_body(int query) inline {
-    return begin_cell().store_opcode(2640660523).store_query_id(query);
+    return begin_cell().store_opcode(OP_CLASSIC_CHECK_VAULT_READY).store_query_id(query);
 }
 
 () send_vault_ref(int mode, int amount, cell body, slice asset) impure inline {
@@ -195,7 +195,8 @@ cell operator_state(int kind) impure inline {
 }
 
 builder beneficiary_body(int query, slice recipient) inline {
-    return begin_cell().store_opcode(1223010653).store_query_id(query).store_slice(recipient);
+    return begin_cell().store_opcode(OP_CLASSIC_SET_OPERATOR_BENEFICIARY).store_query_id(query)
+        .store_slice(recipient);
 }
 
 (slice, int, int, int) beneficiary_send_fields(slice beneficiary, int query, int kind, int amount) asm "s2 XCHG0";
@@ -225,8 +226,8 @@ int send_install_fee(int mode, cell body, cell state, int amount, slice destinat
 }
 
 cell funding_body(int query, slice asset, int amount) inline {
-    return begin_cell().store_opcode(1411649509).store_query_id(query).store_slice(asset)
-        .store_grams(amount).end_cell();
+    return begin_cell().store_opcode(OP_FACTORY_DEPOSIT_ASSET).store_query_id(query)
+        .store_slice(asset).store_grams(amount).end_cell();
 }
 
 (int, int, cell, tuple) pool_send_args(tuple assets, int mode, cell body, int amount) asm "s3 XCHG0";
@@ -315,7 +316,7 @@ cell deposit_state(slice owner, tuple assets) impure inline_ref {
     ownership = saved_ownership;
     contract_version = data~read_version();
     blank_code = data~load_ref();
-    template_base = opaque_tuple(pair(self_address(), blank_code));
+    template_base = opaque_tuple(pair(my_address(), blank_code));
     cell configuration = data~load_ref();
     slice config = configuration.begin_parse();
     int pool_version = config~read_version();
@@ -584,7 +585,7 @@ cell install_vault_code(cell codes, int tag, int version, cell code) impure inli
     load_factory();
     throw_unless(256, equal_slice_bits(message_sender, at(ownership, 0)));
     (int query, slice new_owner) = owner_fields(body);
-    ownership = opaque_tuple(triple(at(ownership, 0), new_owner, (timestamp() + 172800)));
+    ownership = opaque_tuple(triple(at(ownership, 0), new_owner, (now() + 172800)));
     save_factory();
     return ();
 }
@@ -592,7 +593,7 @@ cell install_vault_code(cell codes, int tag, int version, cell code) impure inli
 () handle_accept_ownership() impure method_id(139) {
     load_factory();
     throw_unless(257, addresses_equal(message_sender, at(ownership, 1)));
-    throw_unless(258, (timestamp() >= at(ownership, 2)));
+    throw_unless(258, (now() >= at(ownership, 2)));
     ownership = opaque_tuple(triple(at(ownership, 1), NONE_ADDRESS, 0));
     save_factory();
     return ();
@@ -661,88 +662,88 @@ slice get_operator_address(int kind) impure method_id(126188) {
 }
 
 () recv_internal(int message_value, cell message_full, slice message_body) impure method_id(0) {
-    (slice after_x_00, int x_00) = message_full.begin_parse().load_uint(4);
-    (_, slice s2_01) = after_x_00.load_msg_addr();
-    x_00 = remember_sender(x_00, s2_01);
-    throw_if(0, ((x_00 & 1) | message_body.slice_empty?()));
-    int x_01 = message_body.preload_uint(32);
-    if (x_01 == 3395376462) {
+    (slice messageHeader, int message_flags) = message_full.begin_parse().load_uint(4);
+    (_, slice sender_address) = messageHeader.load_msg_addr();
+    message_flags = remember_sender(message_flags, sender_address);
+    throw_if(0, ((message_flags & 1) | message_body.slice_empty?()));
+    int opcode = message_body.preload_uint(32);
+    if (opcode == OP_FACTORY_TRANSFER_OWNERSHIP) {
         handle_transfer_ownership(message_body);
         return ();
     }
-    if (x_01 == 3739616260) {
+    if (opcode == OP_FACTORY_ACCEPT_OWNERSHIP) {
         handle_accept_ownership();
         return ();
     }
-    if (x_01 == 382435266) {
+    if (opcode == OP_FACTORY_CANCEL_OWNERSHIP_TRANSFER) {
         handle_cancel_ownership();
         return ();
     }
-    if (x_01 == 3158255350) {
+    if (opcode == OP_FACTORY_INSTALL_VAULT_CODE) {
         handle_install_vault_code(message_body);
         return ();
     }
-    if (x_01 == 567271467) {
+    if (opcode == OP_FACTORY_CREATE_VAULT) {
         handle_create_vault(message_value, message_body);
         return ();
     }
-    if (x_01 == 3383063853) {
+    if (opcode == OP_FACTORY_CREATE_LEGACY_JETTON_VAULT) {
         handle_create_legacy_jetton_vault(message_value, message_body);
         return ();
     }
-    if (x_01 == 634808593) {
+    if (opcode == OP_FACTORY_UPGRADE_VAULT) {
         handle_upgrade_vault(message_body);
         return ();
     }
-    if (x_01 == 2320600333) {
+    if (opcode == OP_FACTORY_DESTROY_NON_READY_VAULT) {
         handle_reset_vault_gas(message_body);
         return ();
     }
-    if (x_01 == 3746178986) {
+    if (opcode == OP_FACTORY_UPGRADE) {
         handle_upgrade_factory(message_body);
         return ();
     }
-    if (x_01 == 2671708471) {
+    if (opcode == OP_FACTORY_RESET_GAS) {
         handle_reset_factory_gas();
         return ();
     }
-    if (x_01 == 3117586839) {
+    if (opcode == OP_FACTORY_DEPLOY_OPERATOR) {
         handle_deploy_operator(message_value, message_body);
         return ();
     }
-    if (x_01 == 468115347) {
+    if (opcode == OP_FACTORY_CHANGE_OPERATOR_USER_ADDRESS) {
         handle_change_operator_user(message_value, message_body);
         return ();
     }
-    if (x_01 == 3842363930) {
+    if (opcode == OP_FACTORY_INSTALL_OPERATOR_CODE) {
         handle_install_operator_code(message_body);
         return ();
     }
-    if (x_01 == 8779171) {
+    if (opcode == OP_FACTORY_UPGRADE_OPERATOR) {
         handle_upgrade_operator(message_value, message_body);
         return ();
     }
-    if (x_01 == 2749652465) {
+    if (opcode == OP_FACTORY_INSTALL_POOL_CODE) {
         handle_install_pool_code(message_body);
         return ();
     }
-    if (x_01 == 2547326767) {
+    if (opcode == OP_FACTORY_CREATE_VOLATILE_POOL) {
         handle_create_volatile_pool(message_value, message_body);
         return ();
     }
-    if (x_01 == 2084613255) {
+    if (opcode == OP_FACTORY_CREATE_STABLE_POOL) {
         handle_create_stable_pool(message_value, message_body);
         return ();
     }
-    if (x_01 == 1407341230) {
+    if (opcode == OP_FACTORY_UPGRADE_POOL) {
         handle_upgrade_pool(message_value, message_body);
         return ();
     }
-    if (x_01 == 2577941265) {
+    if (opcode == OP_FACTORY_INSTALL_LIQUIDITY_DEPOSIT_CODE) {
         handle_install_deposit_code(message_body);
         return ();
     }
-    if (x_01 == 4031694118) {
+    if (opcode == OP_FACTORY_CREATE_LIQUIDITY_DEPOSIT) {
         handle_fund_deposit(message_value, message_body);
         return ();
     }
@@ -810,7 +811,7 @@ slice get_vault_address(slice asset) impure method_id(76695) {
 () handle_reset_factory_gas() impure method_id(147) {
     load_factory();
     throw_unless(256, equal_slice_bits(message_sender, at(ownership, 0)));
-    raw_reserve(1000000000, 0);
+    raw_reserve(1000000000, RESERVE_MODE_EXACT_AMOUNT);
     send_empty(128, 0, at(ownership, 0));
     return ();
 }

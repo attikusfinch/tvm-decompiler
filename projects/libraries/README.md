@@ -8,6 +8,8 @@
 | TON core / crypto | **0.63.1 / 3.3.0**, npm integrity pinned | Cell, BOC, address and proof tooling |
 | Legacy StateInit hashing | `uranus/contracts/common/state-init-v2.tolk`, `cpmm/contracts/pool-v2/stdlib-legacy-stateinit.tolk` | Adapted Tolk 1.1 primitives; source URL and LGPL notices remain in each file |
 | Testing utilities | `testing/chain.tolk` | Authored archived-message decoding and VM assertions |
+| Message operation catalog | `messages/opcodes.json`, generated `.fc` and `.tolk` | Reviewed wire names with a source for every entry; `npm run opcodes:check` |
+| FunC message modes | `func/message-modes.fc` | Named TVM send/reserve bit flags, matching the pinned Tolk stdlib |
 
 The FunC stdlib declares **LGPL v2 or later** in its original header. The legacy Tolk
 module identifies its upstream commit and license. These notices are retained;

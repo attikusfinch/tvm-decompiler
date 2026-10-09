@@ -1,6 +1,8 @@
 ;; decompiled by @fiscaldev
 #pragma version =0.4.4;
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 global slice sender;
 global slice owner;
 global int version;
@@ -139,16 +141,16 @@ int operator_version() impure method_id(82320) {
     (int flags, slice source) = message_header(message);
     sender = source;
     throw_if(0, flags & 1);
-    int op = body.preload_uint(32);
-    if (op == 444) {
+    int opcode = body.preload_uint(32);
+    if (opcode == OP_CLASSIC_UPGRADE) {
         upgrade(body);
         return ();
     }
-    if (op == 1223010653) {
+    if (opcode == OP_CLASSIC_SET_OPERATOR_BENEFICIARY) {
         set_beneficiary(value, body);
         return ();
     }
-    if (op == 4053307989) {
+    if (opcode == OP_CLASSIC_WITHDRAW) {
         withdraw(value, body);
         return ();
     }

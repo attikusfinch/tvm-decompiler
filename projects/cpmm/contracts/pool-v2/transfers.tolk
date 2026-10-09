@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 import "@stdlib/gas-payments"
 import "wallets"
 
@@ -10,7 +11,7 @@ fun sendPoolExcesses(recipient: any_address, queryId: uint64, mode: int) {
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(recipient as slice)
-        .storeUint(0xd53276db, 143)
+        .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
     sendRawMessage(message, mode | SEND_MODE_IGNORE_ERRORS);
@@ -40,7 +41,7 @@ fun requestPoolWalletAddress(resolver: any_address, queryId: uint64) {
         .storeUint(0x10, 6)
         .storeSlice(resolver as slice)
         .storeCoins(amount)
-        .storeUint(0x2c76b973, 139)
+        .storeUint(OP_PROVIDE_WALLET_ADDRESS, 139)
         .storeUint(queryId, 64)
         .storeSlice(owner as slice)
         .storeBool(false)

@@ -4,10 +4,13 @@
 import "../common/state-init-v2"
 
 @inline
-fun archivedPoolInlineDeploymentHeader(destination: AutoDeployAddress): builder {
-    val state = destination.stateInit;
-    val shard = destination.toShard;
-    var message = beginCell().storeUint(0x18, 6).storeUint(4, 3).storeInt(destination.workchain, 8);
+fun archivedPoolInlineDeploymentHeader(recipientOwner: AutoDeployAddress): builder {
+    val state = recipientOwner.stateInit;
+    val shard = recipientOwner.toShard;
+    var message = beginCell()
+        .storeUint(0x18, 6)
+        .storeUint(4, 3)
+        .storeInt(recipientOwner.workchain, 8);
     var stateHash: uint256;
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
@@ -43,10 +46,13 @@ fun archivedPoolInlineDeploymentHeader(destination: AutoDeployAddress): builder 
 
 // Reference-body variant keeps its literal selector in each StateInit arm.
 @inline
-fun archivedPoolRefDeploymentHeader(destination: AutoDeployAddress): builder {
-    val state = destination.stateInit;
-    val shard = destination.toShard;
-    var message = beginCell().storeUint(0x18, 6).storeUint(4, 3).storeInt(destination.workchain, 8);
+fun archivedPoolRefDeploymentHeader(recipientOwner: AutoDeployAddress): builder {
+    val state = recipientOwner.stateInit;
+    val shard = recipientOwner.toShard;
+    var message = beginCell()
+        .storeUint(0x18, 6)
+        .storeUint(4, 3)
+        .storeInt(recipientOwner.workchain, 8);
     var stateHash: uint256;
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {

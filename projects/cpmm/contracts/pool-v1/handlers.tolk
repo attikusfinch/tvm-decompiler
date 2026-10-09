@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 // Byte-identical Pool V1 incoming handlers; shared handlers are imported from V2.
 import "@stdlib/gas-payments"
 import "../pool-v2/storage"
@@ -40,7 +41,7 @@ fun buildPoolInitializationResult(to: any_address, queryId: uint64, exitCode: in
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(to as slice)
-        .storeUint(3457702871, 143)
+        .storeUint(OP_CPMM_INIT_POOL_RESULT, 143)
         .storeUint(queryId, 64)
         .storeInt(exitCode, 32)
         .storeDict(payload)
@@ -105,7 +106,7 @@ fun initializePool(storage: PoolStorage, message: InitPool, in: PoolInboundConte
             initialCost + (resolverCost + calculateGasFee(0, 14500)) * requested <= in.valueCoins()
         ) throw 25;
         storage.extra = extra.toCell();
-        reserveToncoinsOnBalance(50000000, 2);
+        reserveToncoinsOnBalance(50000000, RESERVE_MODE_AT_MOST);
         if (requested > 0) {
             storage.status = PoolInitializing { initiator: in.senderAddress() as any_address };
             sendPoolExcesses(in.senderAddress() as any_address, message.queryId, 128);
@@ -113,7 +114,7 @@ fun initializePool(storage: PoolStorage, message: InitPool, in: PoolInboundConte
             storage.status = PoolInitialized {};
             sendRawMessage(
                 buildPoolInitializationResult(in.senderAddress(), message.queryId, 0),
-                128,
+                SEND_MODE_CARRY_ALL_BALANCE,
             );
         }
         storage.depositActive = depositActive;
@@ -122,7 +123,7 @@ fun initializePool(storage: PoolStorage, message: InitPool, in: PoolInboundConte
     } catch (code, value) {
         sendRawMessage(
             buildPoolInitializationResult(in.senderAddress(), message.queryId, code),
-            64,
+            SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
         );
         commitContractDataAndActions();
         throw code;
@@ -145,7 +146,7 @@ fun receivePoolWallet(storage: PoolStorage, message: TakeWalletAddress, in: Pool
     } else {
         sendRawMessage(
             buildPoolInitializationResult(storage.status.initiator, message.queryId, 0),
-            64,
+            SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
         );
         storage.status = PoolInitialized {};
     }
@@ -171,14 +172,17 @@ fun receivePoolNativePayment(storage: PoolStorage, message: PayNative, in: PoolI
         val (excessesTo, reject) = poolExceptionHasContext(value)
             ? poolExceptionContext(value)
             : defaultPoolPaymentReject(in.senderAddress());
-        reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
+        reserveToncoinsOnBalance(
+            contract.getStoragePaidPayment(),
+            RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+        );
         val insufficientValue = code == 25;
         val valueToSend = insufficientValue ? 0 as coins : message.amount + reject.extraGas;
         val callback = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(reject.destination as slice)
             .storeCoins(valueToSend)
-            .storeUint(0x3216ca09, 139)
+            .storeUint(OP_CPMM_CALLBACK3216CA09, 139)
             .storeUint(message.queryId, 64)
             .storeCoins(message.amount)
             .storeInt(code, 32)
@@ -232,13 +236,16 @@ fun receivePoolJettonPayment(
             : (reject.payload != null
                 ? reject.payload! as PoolForwardPayload
                 : emptyPoolForwardPayload());
-        reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
+        reserveToncoinsOnBalance(
+            contract.getStoragePaidPayment(),
+            RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+        );
         val insufficientValue = code == 25;
         val valueToSend = insufficientValue ? 0 : 50000000 + reject.extraGas;
         val wallet = in.senderAddress();
         val customPayload: cell? = null;
         var transfer = beginCell()
-            .storeUint(0x0f8a7ea5, 32)
+            .storeUint(OP_JETTON_TRANSFER, 32)
             .storeUint(message.queryId, 64)
             .storeCoins(message.amount)
             .storeSlice(reject.destination as slice)

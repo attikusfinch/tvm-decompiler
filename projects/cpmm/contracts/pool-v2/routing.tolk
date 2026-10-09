@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 import "payment"
 
 struct PoolSwapPartner {
@@ -53,7 +54,7 @@ struct (0xc442500f) PoolSwapPayload {
 
 fun PoolSwapPayload.packToBuilder(self, mutate b: builder) {
     b
-        .storeUint(0xc442500f, 32)
+        .storeUint(OP_CPMM_SWAP_PAYLOAD, 32)
         .storeCoins(self.minimalAmountOut)
         .storeUint(self.deadline, 40)
         .storeDict(self.next);
@@ -105,7 +106,7 @@ fun routePoolSwap(
         val payment = payload.toCell();
         val notification = PoolRoutedJettonPayment { payment, payout }.toCell();
         var transfer = beginCell()
-            .storeUint(0x0f8a7ea5, 32)
+            .storeUint(OP_JETTON_TRANSFER, 32)
             .storeUint(queryId, 64)
             .storeCoins(amount)
             .storeSlice(nextPool as slice)

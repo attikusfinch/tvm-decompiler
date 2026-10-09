@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 // Reconstructed from mainnet code 4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6.
 // Names describe observed behavior; the original identifiers are unknown.
 import "types"
@@ -10,7 +11,7 @@ fun sendExcesses(recipient: any_address, queryId: uint64, mode: int) {
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(recipient as slice)
-        .storeUint(0xd53276db, 143)
+        .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
     sendRawMessage(message, mode | SEND_MODE_IGNORE_ERRORS);
@@ -41,13 +42,13 @@ fun onInternalMessage(in: InMessage) {
             // These slices have just been decoded with fixed widths. The original
             // stores them directly, without adding bitsN serialization checks.
             contract.setData(storage.toCell({ skipBitsNValidation: true }));
-            reserveToncoinsOnBalance(RETAINED_BALANCE, 2);
+            reserveToncoinsOnBalance(RETAINED_BALANCE, RESERVE_MODE_AT_MOST);
             sendExcesses(activation.excesses, activation.queryId, SEND_MODE_CARRY_ALL_BALANCE);
         }
         WithdrawAffiliate => {
             assert (storage.isActivated) throw 17;
             assert ((in.senderAddress as slice).bitsEqual(storage.owner as slice)) throw 18;
-            reserveToncoinsOnBalance(RETAINED_BALANCE, 2);
+            reserveToncoinsOnBalance(RETAINED_BALANCE, RESERVE_MODE_AT_MOST);
             val available = max(
                 contract.getOriginalBalance() - RETAINED_BALANCE - in.valueCoins,
                 0,

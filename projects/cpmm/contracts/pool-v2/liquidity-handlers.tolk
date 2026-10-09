@@ -152,7 +152,7 @@ fun joinPoolLiquidity(storage: PoolStorage, message: JoinLiquidity, in: PoolInbo
             rewards,
         }.toCell();
         val output = archivedPoolRefDeploymentHeader(position).storeRef(credit).endCell();
-        sendRawMessage(output, 128);
+        sendRawMessage(output, SEND_MODE_CARRY_ALL_BALANCE);
     } catch (code, value) {
         val rejected = InitialDepositConfig.fromCell(message.config);
         val payout = PoolExtendedPayout.fromCell(rejected.payout);
@@ -246,7 +246,7 @@ fun requestPoolWithdrawal(storage: PoolStorage, message: Withdraw, in: PoolInbou
         .storeUint(1, 111)
         .storeRef(body)
         .endCell();
-    sendRawMessage(output, 64);
+    sendRawMessage(output, SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE);
 }
 
 @inline

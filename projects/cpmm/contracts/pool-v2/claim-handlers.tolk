@@ -84,7 +84,7 @@ fun claimPoolPositionFees(
         .storeUint(1, 111)
         .storeRef(body)
         .endCell();
-    sendRawMessage(output, 64);
+    sendRawMessage(output, SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE);
 }
 
 @inline
@@ -209,7 +209,10 @@ fun claimPoolReward(storage: PoolStorage, message: ClaimReward, in: PoolInboundC
     val reward = accruePoolReward(storage.rewards.mustGet(message.rewardId, 46), storage.liquidity);
     storage.rewards.set(message.rewardId, reward);
     contract.setData(storage.toCell());
-    reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
+    reserveToncoinsOnBalance(
+        contract.getStoragePaidPayment(),
+        RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+    );
     val destination = positionDeployment(in.senderAddress()).calculateArchivedAddressBuilder();
     val excessesTo = poolStandardAddressOrFallback(message.excessesTo, in);
     val body = PoolClaimPositionReward {
@@ -227,7 +230,7 @@ fun claimPoolReward(storage: PoolStorage, message: ClaimReward, in: PoolInboundC
         .storeUint(1, 111)
         .storeRef(body)
         .endCell();
-    sendRawMessage(output, 128);
+    sendRawMessage(output, SEND_MODE_CARRY_ALL_BALANCE);
 }
 
 @inline
@@ -260,13 +263,16 @@ fun payoutPoolReward(storage: PoolStorage, message: PayoutReward, in: PoolInboun
         callbackQuery,
         callbackExit,
     );
-    reserveToncoinsOnBalance(previousBalance + (fee - principal), 2);
+    reserveToncoinsOnBalance(previousBalance + (fee - principal), RESERVE_MODE_AT_MOST);
     sendPoolExcesses(message.excessesTo, message.queryId, 128);
 }
 
 @inline
 fun providePoolState(storage: PoolStorage, message: ProvidePoolState, in: PoolInboundContext) {
-    reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
+    reserveToncoinsOnBalance(
+        contract.getStoragePaidPayment(),
+        RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+    );
     val recipient = in.senderAddress();
     val config = message.includeConfig ? storage.config : null;
     val fees = message.includeFees ? storage.fees : null;
@@ -293,7 +299,7 @@ fun providePoolState(storage: PoolStorage, message: ProvidePoolState, in: PoolIn
         .storeUint(1, 111)
         .storeRef(body)
         .endCell();
-    sendRawMessage(output, 128);
+    sendRawMessage(output, SEND_MODE_CARRY_ALL_BALANCE);
 }
 
 @overflow1023_policy("suppress")

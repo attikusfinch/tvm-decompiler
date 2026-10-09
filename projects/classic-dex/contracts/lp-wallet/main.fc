@@ -1,17 +1,10 @@
 ;; decompiled by @fiscaldev
 const int MIN_STORAGE_RESERVE = 10000000;
 const int GAS_RESERVE = 15000000;
-const int OP_TRANSFER = 260734629;
-const int OP_INTERNAL_TRANSFER = 395134233;
-const int OP_BURN = 1499400124;
-const int OP_TRANSFER_NOTIFICATION = 1935855772;
-const int OP_BURN_NOTIFICATION = 2078119902;
-const int OP_EXCESSES = 3576854235;
-const int SEND_MODE_CARRY_REMAINING_MESSAGE_VALUE = 64;
-const int SEND_MODE_PAY_FEES_SEPARATELY = 1;
-const int SEND_MODE_IGNORE_ERRORS = 2;
 #pragma version =0.4.4;
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 () require_basechain(slice address) impure;
 ;; Evaluation barrier: emits no TVM instruction. The archived comparison evaluates
 ;; its constant before duplicating the opcode; ordinary equality changes that order.
@@ -68,15 +61,15 @@ cell wallet_state_init(slice owner, slice pool, cell code) inline {
     int encoded_forward_fee = fee_header~load_grams();
     int forward_fee = muldiv(encoded_forward_fee, 3, 2);
     int opcode = body~load_uint(32);
-    if ((opcode == evaluate_opcode(OP_TRANSFER))) {
+    if ((opcode == evaluate_opcode(OP_JETTON_TRANSFER))) {
         handle_transfer(body, sender, message_value, forward_fee);
         return ();
     }
-    if ((opcode == evaluate_opcode(OP_INTERNAL_TRANSFER))) {
+    if ((opcode == evaluate_opcode(OP_JETTON_INTERNAL_TRANSFER))) {
         handle_internal_transfer(body, sender, contract_ton_balance, forward_fee, message_value);
         return ();
     }
-    if ((opcode == evaluate_opcode(OP_BURN))) {
+    if ((opcode == evaluate_opcode(OP_JETTON_BURN))) {
         handle_burn(body, sender, message_value, forward_fee);
         return ();
     }
@@ -88,7 +81,7 @@ cell wallet_state_init(slice owner, slice pool, cell code) inline {
     slice bounced_body = body.skip_bits(32);
     (int wallet_balance, slice owner, slice pool, cell wallet_code) = load_wallet_data();
     int opcode = bounced_body~load_uint(32);
-    throw_unless(709, (((opcode == evaluate_opcode(OP_INTERNAL_TRANSFER))) | ((opcode == evaluate_opcode(OP_BURN_NOTIFICATION)))));
+    throw_unless(709, (((opcode == evaluate_opcode(OP_JETTON_INTERNAL_TRANSFER))) | ((opcode == evaluate_opcode(OP_JETTON_BURN_NOTIFICATION)))));
     bounced_body~load_uint(64);
     int amount = bounced_body~load_grams();
     set_data(pack_wallet_data((wallet_balance + amount), owner, pool, wallet_code));
@@ -121,7 +114,7 @@ cell wallet_state_init(slice owner, slice pool, cell code) inline {
     ;; Assemble the message before the budget check, preserving error priority.
     builder outgoing = begin_cell().store_uint(24, 6).store_slice(recipient_wallet)
         .store_grams(0).store_uint(7, 108).store_ref(state_init).store_body_ref(begin_cell()
-        .store_uint(OP_INTERNAL_TRANSFER, 32).store_uint(query_id, 64).store_grams(amount)
+        .store_uint(OP_JETTON_INTERNAL_TRANSFER, 32).store_uint(query_id, 64).store_grams(amount)
         .store_slice(owner).store_slice(response_address).store_grams(forward_ton).store_slice(body)
         .end_cell());
     int forward_message_count = 0;
@@ -131,7 +124,7 @@ cell wallet_state_init(slice owner, slice pool, cell code) inline {
         forward_message_count = 1;
     }
     throw_unless(709, (message_value > ((forward_ton + (forward_message_count * forward_fee)) + (double_gas_reserve(GAS_RESERVE) + MIN_STORAGE_RESERVE))));
-    send_raw_message(outgoing.end_cell(), SEND_MODE_CARRY_REMAINING_MESSAGE_VALUE);
+    send_raw_message(outgoing.end_cell(), SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE);
     set_data(pack_wallet_data(remaining_balance, owner, pool, wallet_code));
     return ();
 }
@@ -154,13 +147,13 @@ cell wallet_state_init(slice owner, slice pool, cell code) inline {
     if (forward_ton) {
         remaining_ton -= (forward_ton + forward_fee);
         send_raw_message(begin_cell().store_uint(16, 6).store_slice(owner).store_grams(forward_ton)
-            .store_uint(1, 107).store_ref(begin_cell().store_uint(OP_TRANSFER_NOTIFICATION, 32)
-            .store_uint(query_id, 64).store_grams(amount).store_slice(sender_owner)
+            .store_uint(1, 107).store_ref(begin_cell().store_uint(OP_JETTON_TRANSFER_NOTIFICATION,
+            32).store_uint(query_id, 64).store_grams(amount).store_slice(sender_owner)
             .store_slice(body).end_cell()).end_cell(), SEND_MODE_PAY_FEES_SEPARATELY);
     }
     if ((response_address.preload_uint(2) != 0) & (remaining_ton > 0)) {
         send_raw_message(begin_cell().store_uint(16, 6).store_slice(response_address)
-            .store_grams(remaining_ton).store_uint(0, 107).store_uint(OP_EXCESSES, 32)
+            .store_grams(remaining_ton).store_uint(0, 107).store_uint(OP_JETTON_EXCESSES, 32)
             .store_uint(query_id, 64).end_cell(), SEND_MODE_IGNORE_ERRORS);
     }
     set_data(pack_wallet_data(wallet_balance, owner, pool, wallet_code));
@@ -182,9 +175,9 @@ cell wallet_state_init(slice owner, slice pool, cell code) inline {
     throw_unless(706, (remaining_balance > -1));
     throw_unless(707, (message_value > (forward_fee + double_gas_reserve(GAS_RESERVE))));
     send_raw_message(begin_cell().store_uint(24, 6).store_slice(pool).store_grams(0)
-        .store_uint(1, 107).store_ref(begin_cell().store_uint(OP_BURN_NOTIFICATION, 32)
+        .store_uint(1, 107).store_ref(begin_cell().store_uint(OP_JETTON_BURN_NOTIFICATION, 32)
         .store_uint(query_id, 64).store_grams(amount).store_slice(owner).store_slice(response_address)
-        .end_cell()).end_cell(), SEND_MODE_CARRY_REMAINING_MESSAGE_VALUE);
+        .end_cell()).end_cell(), SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE);
     set_data(pack_wallet_data(remaining_balance, owner, pool, wallet_code));
     return ();
 }

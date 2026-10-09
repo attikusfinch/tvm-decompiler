@@ -195,7 +195,7 @@ fun sendPoolAffiliateFee(
         .storeUint(0x773faf30, 139)
         .storeUint(queryId, 64)
         .endCell();
-    sendRawMessage(message, 2);
+    sendRawMessage(message, SEND_MODE_IGNORE_ERRORS);
 }
 
 @method_id(20)
@@ -360,7 +360,7 @@ fun processPoolPaymentEntry(
                 reserveToncoinsOnBalance(
                     previousBalance + eventFee + forwardFee - principal + nativeInput - partnerFee -
                         referrerFee,
-                    2,
+                    RESERVE_MODE_AT_MOST,
                 );
                 sendPoolExcesses(payout.excessesTo, queryId, 128);
             } else {
@@ -370,7 +370,7 @@ fun processPoolPaymentEntry(
                 reserveToncoinsOnBalance(
                     previousBalance + eventFee - nativeOutput + nativeInput - partnerFee -
                         referrerFee,
-                    2,
+                    RESERVE_MODE_AT_MOST,
                 );
                 val step = PoolSwapStep.fromCell(request.next!);
                 val wallet = poolWalletForAsset(wallets, outputAsset);
@@ -417,7 +417,10 @@ fun processPoolPaymentEntry(
             if (!storage.depositActive && config.depositActivation != null) {
                 assert (poolActivationAllows(config.depositActivation!, initiator)) throw 38;
             }
-            reserveToncoinsOnBalance(contract.getStoragePaidPayment() + nativeInput, 4);
+            reserveToncoinsOnBalance(
+                contract.getStoragePaidPayment() + nativeInput,
+                RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+            );
             val destination = depositDeployment(
                 initiator,
                 request.targetX,
@@ -429,7 +432,10 @@ fun processPoolPaymentEntry(
             val credit = PoolCreditDeposit { queryId, isX, amount };
             var deployment = archivedPoolInlineDeploymentHeader(destination);
             deployment.storeAny(credit);
-            sendRawMessage(deployment.endCell(), 144);
+            sendRawMessage(
+                deployment.endCell(),
+                SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_BALANCE,
+            );
         } else {
             val nativeInput = selectPoolPrincipal(asset.isNone(), amount, 0);
             assert (
@@ -456,7 +462,10 @@ fun processPoolPaymentEntry(
             reward.remainingTime += extension;
             storage.rewards.set(slot, reward);
             contract.setData(storage.toCell());
-            reserveToncoinsOnBalance(contract.getStoragePaidPayment() + nativeInput, 4);
+            reserveToncoinsOnBalance(
+                contract.getStoragePaidPayment() + nativeInput,
+                RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+            );
             sendPoolExcesses(initiator, queryId, 130);
         }
     } catch (code, ignored) {

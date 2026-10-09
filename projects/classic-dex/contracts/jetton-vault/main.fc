@@ -3,6 +3,8 @@
 ;; Recovered names describe behavior; original names are unknown.
 ;; c7: sender, (factory,blank_code), version, ready, asset, master, wallet, descriptor.
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 global slice message_sender;
 global tuple template_base;
 global int contract_version;
@@ -19,7 +21,6 @@ const slice NONE_ADDRESS = "2_"s;
 const slice EMPTY_SLICE = ""s;
 (int) storage_fees() impure asm "12 GETPARAM";
 (builder) store_zeroes(builder a, int b) asm "STZEROES";
-(slice) self_address() impure asm "8 GETPARAM";
 (int) forward_fee(int a, int b, int c) impure asm "GETFORWARDFEE";
 int get_gas_fee(int gas_used, int is_masterchain) asm "GETGASFEE";
 int get_original_fwd_fee(int fee, int is_masterchain) asm "GETORIGINALFWDFEE";
@@ -36,8 +37,6 @@ builder store_opcode(builder b, int value) asm "SWAP 32 STU";
 builder store_query_id(builder b, int value) asm "SWAP 64 STU";
 forall A, B, C -> (A, B, C) unpack_triple(tuple t) impure asm "3 UNTUPLE";
 int gas_consumed() impure asm "GASCONSUMED";
-const int SEND_MODE_CARRY_REMAINING_MESSAGE_VALUE = 64;
-const int SEND_MODE_REGULAR = 0;
 int evaluated(int x) impure asm "nop";
 int zero_bit() impure asm "0 PUSHINT";
 (int, slice, int) message_fields(cell full) inline {
@@ -102,8 +101,8 @@ slice skip_template_kind(slice cursor) asm "8 LDU SWAP SWAP NIP";
 }
 
 builder status_body(int query, int ready) inline {
-    return begin_cell().store_opcode(2836651021).store_query_id(query).store_uint(ready & 1,
-        1);
+    return begin_cell().store_opcode(OP_CLASSIC_VAULT_NATIVE_V2_TAKE_VAULT_STATE)
+        .store_query_id(query).store_uint(ready & 1, 1);
 }
 
 (int, slice) withdrawal_fields(slice body) inline {
@@ -157,13 +156,13 @@ slice address_from_parts(int workchain, int hash) inline {
 
 cell wallet_request(int query, slice owner) impure inline {
     int include_owner = zero_bit();
-    return begin_cell().store_opcode(745978227).store_query_id(query).store_slice(owner)
-        .store_uint(include_owner & 1, 1).end_cell();
+    return begin_cell().store_opcode(OP_PROVIDE_WALLET_ADDRESS).store_query_id(query)
+        .store_slice(owner).store_uint(include_owner & 1, 1).end_cell();
 }
 
 cell transfer_body(int query, int amount, slice recipient, slice response, int forwarded, cell payload) impure inline {
     int custom = zero_bit();
-    return begin_cell().store_opcode(260734629).store_query_id(query).store_grams(amount)
+    return begin_cell().store_opcode(OP_JETTON_TRANSFER).store_query_id(query).store_grams(amount)
         .store_slice(recipient).store_slice(response).store_uint(custom, 1).store_grams(forwarded)
         .store_maybe_ref(payload).end_cell();
 }
@@ -185,8 +184,8 @@ cell empty_actions() asm "<b b> PUSHREF";
 () set_actions(cell actions) impure asm "c5 POPCTR";
 builder swap_body(int query, cell descriptor, int amount, slice sender, int kind, int minimum,
     cell next, cell payload) inline {
-    builder body = begin_cell().store_opcode(1643009069).store_query_id(query).store_ref(descriptor)
-        .store_grams(amount).store_slice(sender);
+    builder body = begin_cell().store_opcode(OP_CLASSIC_POOL_SWAP_EXTERNAL).store_query_id(query)
+        .store_ref(descriptor).store_grams(amount).store_slice(sender);
     (payload, next, minimum, body) = store_swap_flag(payload, next, minimum, kind, body);
     return body.store_grams(minimum).store_maybe_ref(next).store_ref(payload);
 }
@@ -195,8 +194,8 @@ cell join_body(int query, cell descriptor, slice sender, tuple assets, int minim
     int target1, slice funded_asset, int amount, cell success, cell failure) impure inline {
     cell parameters = begin_cell().store_grams(target0).store_grams(target1).store_slice(funded_asset)
         .store_grams(amount).store_grams(minimum).end_cell();
-    builder body = begin_cell().store_opcode(4031694118).store_query_id(query).store_ref(descriptor)
-        .store_slice(sender);
+    builder body = begin_cell().store_opcode(OP_FACTORY_CREATE_LIQUIDITY_DEPOSIT)
+        .store_query_id(query).store_ref(descriptor).store_slice(sender);
     (int kind, slice asset0, slice asset1) = unpack_triple(assets);
     return body.store_uint(kind & 1, 1).store_slice(asset0).store_slice(asset1).store_ref(parameters)
         .store_maybe_ref(success).store_maybe_ref(failure).end_cell();
@@ -442,7 +441,7 @@ slice get_jetton_wallet() impure method_id(69014) {
     template_base = opaque_tuple(pair(factory, blank_code));
     contract_version = version;
     save_vault();
-    send_ref(64, wallet_request(0, self_address()), 0, jetton_master);
+    send_ref(64, wallet_request(0, my_address()), 0, jetton_master);
     return ();
 }
 
@@ -473,35 +472,35 @@ slice get_jetton_wallet() impure method_id(69014) {
         return ();
     }
     int opcode = body.preload_uint(32);
-    if (opcode == 1935855772) {
+    if (opcode == OP_JETTON_TRANSFER_NOTIFICATION) {
         call_notification(encoded_fee, message_value, body);
         return ();
     }
-    if (opcode == 2907617013) {
+    if (opcode == OP_CLASSIC_POOL_PAY_OUT_FROM_POOL) {
         handle_pool_payout(message_value, body);
         return ();
     }
-    if (opcode == 1795913855) {
+    if (opcode == OP_CLASSIC_PAY_OUT_FROM_DEPOSIT) {
         handle_deposit_refund(message_value, body);
         return ();
     }
-    if (opcode == 3912500665) {
+    if (opcode == OP_CLASSIC_VAULT_NATIVE_V2_PROVIDE_VAULT_STATE) {
         handle_readiness_request(message_value, body);
         return ();
     }
-    if (opcode == 444) {
+    if (opcode == OP_CLASSIC_UPGRADE) {
         handle_upgrade(body);
         return ();
     }
-    if (opcode == 650525367) {
+    if (opcode == OP_CLASSIC_POOL_RESET_GAS) {
         handle_excess_withdrawal(body);
         return ();
     }
-    if (opcode == 3513996288) {
+    if (opcode == OP_TAKE_WALLET_ADDRESS) {
         handle_wallet_resolution(body);
         return ();
     }
-    if (opcode == 2640660523) {
+    if (opcode == OP_CLASSIC_CHECK_VAULT_READY) {
         handle_cancel_resolution();
         return ();
     }
@@ -510,7 +509,7 @@ slice get_jetton_wallet() impure method_id(69014) {
 
 () handle_bounce(slice body) impure method_id(133) {
     int opcode = bounced_opcode(body.skip_bits(32));
-    if (opcode != 745978227) {
+    if (opcode != OP_PROVIDE_WALLET_ADDRESS) {
         return ();
     }
     load_vault();
@@ -537,7 +536,7 @@ slice get_jetton_wallet() impure method_id(69014) {
     load_vault();
     verify_operator(9);
     (_, slice recipient) = withdrawal_fields(body.skip_bits(32));
-    raw_reserve(10000000, 0);
+    raw_reserve(10000000, RESERVE_MODE_EXACT_AMOUNT);
     send_empty(128, 0, recipient);
     return ();
 }
@@ -574,7 +573,7 @@ int get_swap_budget(int message_value, int body) impure method_id(117300) {
     }
     try {
         int opcode = payload.preload_uint(32);
-        if (opcode == 3818968194) {
+        if (opcode == OP_CLASSIC_JETTON_SWAP) {
             (slice pool, int kind, int minimum, cell next, cell callback) = swap_payload_fields(payload);
             int depth = cell_depth(next) + 1;
             ifnot((message_value >= swap_budget(encoded_fee, depth)) & (depth < 5)) {
@@ -586,7 +585,7 @@ int get_swap_budget(int message_value, int body) impure method_id(117300) {
                 next, callback), remaining, pool);
             return ();
         }
-        if (opcode == 1088489686) {
+        if (opcode == OP_CLASSIC_JETTON_DEPOSIT) {
             (tuple assets, int minimum, int target0, int target1, cell success, cell failure) = join_payload_fields(payload);
             throw_unless(263, message_value >= join_budget(encoded_fee));
             throw_unless(276, (target0 > 0) & (target1 > 0));

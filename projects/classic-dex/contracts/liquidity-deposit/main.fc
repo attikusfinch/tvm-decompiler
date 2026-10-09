@@ -1,12 +1,8 @@
 ;; decompiled by @fiscaldev
-const int SEND_MODE_REGULAR = 0;
-const int SEND_MODE_IGNORE_ERRORS = 2;
-const int SEND_MODE_DESTROY_IF_ZERO = 32;
-const int SEND_MODE_CARRY_ALL_BALANCE = 128;
-const int SEND_MODE_CARRY_REMAINING_MESSAGE_VALUE = 64;
-const int SEND_MODE_PAY_FEES_SEPARATELY = 1;
 #pragma version =0.4.4;
 #include "../../../libraries/func/stdlib.fc";
+#include "../../../libraries/func/message-modes.fc";
+#include "../../../libraries/messages/opcodes.fc";
 ;; Reconstructed names describe observed behavior; original source names are unknown.
 ;; Globals retain the archived c7 layout. All numeric method IDs are explicit.
 ;; tuple slots: context=(flags,sender,value,original_fee); base=(factory,blank_code).
@@ -37,7 +33,7 @@ int evaluated(int value) impure asm "nop";
 tuple evaluated_tuple(tuple value) impure asm "nop";
 (slice, int) read_query_id(slice s) asm "64 LDU SWAP";
 forall Param -> (int, builder, Param) template_builder(Param descriptor, int kind) asm "NEWC ROT";
-builder store_opcode(builder b, int op) asm "SWAP 32 STU";
+builder store_opcode(builder b, int opcode) asm "SWAP 32 STU";
 builder store_query_id(builder b, int query) asm "SWAP 64 STU";
 tuple descriptor_after_tail(slice tail, tuple value) asm "NIP";
 int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SDEQ";
@@ -154,17 +150,17 @@ slice vault_address(slice asset) impure inline {
 }
 
 cell refund_body(int query, cell descriptor, int amount, cell payload) inline {
-    return begin_cell().store_opcode(1795913855).store_query_id(query).store_ref(descriptor)
-        .store_grams(amount).store_maybe_ref(payload).end_cell();
+    return begin_cell().store_opcode(OP_CLASSIC_PAY_OUT_FROM_DEPOSIT).store_query_id(query)
+        .store_ref(descriptor).store_grams(amount).store_maybe_ref(payload).end_cell();
 }
 
 builder deposit_body(int query, cell descriptor, slice owner, int minimum, slice asset0, int amount0,
     slice asset1, int amount1, cell success, cell failure) inline {
     cell deposited = begin_cell().store_slice(asset0).store_grams(amount0).store_slice(asset1)
         .store_grams(amount1).end_cell();
-    return begin_cell().store_opcode(3043726744).store_query_id(query).store_ref(descriptor)
-        .store_slice(owner).store_grams(minimum).store_ref(deposited).store_maybe_ref(success)
-        .store_maybe_ref(failure);
+    return begin_cell().store_opcode(OP_CLASSIC_DEPOSIT_LIQUIDITY_ALL).store_query_id(query)
+        .store_ref(descriptor).store_slice(owner).store_grams(minimum).store_ref(deposited)
+        .store_maybe_ref(success).store_maybe_ref(failure);
 }
 
 () send_ref(int mode, cell payload, int amount, slice destination) impure inline {
@@ -238,22 +234,22 @@ slice get_depositor() impure method_id(95132) {
         return ();
     }
     int opcode = body.preload_uint(32);
-    if (opcode == 2604311546) {
+    if (opcode == OP_CLASSIC_INSTALL) {
         return ();
     }
-    if (opcode == 1411649509) {
+    if (opcode == OP_FACTORY_DEPOSIT_ASSET) {
         handle_asset_deposit(body);
         return ();
     }
-    if (opcode == 2867302998) {
+    if (opcode == OP_CLASSIC_FULFILL_DEPOSIT) {
         handle_deposit_success(body);
         return ();
     }
-    if (opcode == 3785583828) {
+    if (opcode == OP_CLASSIC_REJECT_DEPOSIT) {
         handle_deposit_failure(body);
         return ();
     }
-    if (opcode == 376237550) {
+    if (opcode == OP_CLASSIC_CANCEL_DEPOSIT) {
         handle_cancel(body);
         return ();
     }
@@ -326,8 +322,8 @@ slice get_depositor() impure method_id(95132) {
         return ();
     }
     body = body.skip_bits(32);
-    int op = body~load_uint(32);
-    ifnot((op == 3043726744) & deposit_pending) {
+    int opcode = body~load_uint(32);
+    ifnot((opcode == OP_CLASSIC_DEPOSIT_LIQUIDITY_ALL) & deposit_pending) {
         return ();
     }
     int query_id = body~read_query_id();

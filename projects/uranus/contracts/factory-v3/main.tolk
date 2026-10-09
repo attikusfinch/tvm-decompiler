@@ -129,8 +129,11 @@ fun sendDeployment(code: cell, data: cell, depth: int, near: address, body: cell
         .storeRef(data)
         .storeRef(body);
     val wire = outgoing.endCell();
-    reserveToncoinsOnBalance(contract.getStoragePaidPayment(), 4);
-    sendRawMessage(wire, 128);
+    reserveToncoinsOnBalance(
+        contract.getStoragePaidPayment(),
+        RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
+    );
+    sendRawMessage(wire, SEND_MODE_CARRY_ALL_BALANCE);
 }
 
 fun onInternalMessage(in: InMessage) {

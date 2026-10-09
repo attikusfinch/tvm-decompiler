@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 // Reconstructed from mainnet code 2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825.
 // Names are inferred from the public DeDust ABI; this is not the author's source.
 import "@stdlib/gas-payments"
@@ -11,7 +12,7 @@ fun sendExcesses(recipient: any_address, queryId: uint64, mode: int) {
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(recipient as slice)
-        .storeUint(0xd53276db, 143)
+        .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
     sendRawMessage(message, mode | SEND_MODE_IGNORE_ERRORS);

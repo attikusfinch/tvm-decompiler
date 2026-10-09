@@ -38,6 +38,13 @@ missing, a compiler version differs, the oracle was altered, or the new BOC diff
 No automatic deployment, wallet access, on-chain library publication or verification
 upload is part of this workflow.
 
+## Readability pass
+
+The follow-up [readability specification and log](READABILITY.md) covers semantic
+message names, opcode provenance, Jetton fields, standard-library substitutions,
+and rejected substitutions that alter the bytecode. Its opcode consistency check
+is part of `npm run verify`.
+
 ## Deliberate compatibility boundaries
 
 Do not reorder function discovery, replace opcode/evaluation barriers blindly,

@@ -1,0 +1,535 @@
+[
+  {
+    "opcode": "0xfa45056b",
+    "name": "OP_ADAPTER_8_SWAP",
+    "evidence": "X1000 protocol selector 8; external project unconfirmed"
+  },
+  {
+    "opcode": "0xc09da84e",
+    "name": "OP_BIDASK_CLMM_SWAP",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/x1000_wallet_v2/types/dedust_x1000_wallet_v2.types.tolk; payload layout matched to the X1000 constructor"
+  },
+  {
+    "opcode": "0xdd79732c",
+    "name": "OP_BIDASK_DAMM_SWAP",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0x6edd65f0",
+    "name": "OP_BIDASK_NATIVE_TRANSFER_NOTIFICATION",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0x166cedee",
+    "name": "OP_CLASSIC_CANCEL_DEPOSIT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/liquidity_deposit/types/dedust_liquidity_deposit_v2.types.tolk",
+    "symbol": "DedustCancelDeposit"
+  },
+  {
+    "opcode": "0x9d65482b",
+    "name": "OP_CLASSIC_CHECK_VAULT_READY",
+    "evidence": "Factory vault readiness request / JettonVault handler"
+  },
+  {
+    "opcode": "0xad83913f",
+    "name": "OP_CLASSIC_COLLECTOR_REQUEST",
+    "evidence": "Classic pool collector_request"
+  },
+  {
+    "opcode": "0xb56b9598",
+    "name": "OP_CLASSIC_DEPOSIT_LIQUIDITY_ALL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/liquidity_deposit/types/dedust_liquidity_deposit_v2.types.tolk",
+    "symbol": "DedustDepositLiquidityAll"
+  },
+  {
+    "opcode": "0xaae79256",
+    "name": "OP_CLASSIC_FULFILL_DEPOSIT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/liquidity_deposit/types/dedust_liquidity_deposit_v2.types.tolk",
+    "symbol": "DedustFulfillDeposit"
+  },
+  {
+    "opcode": "0x9b3aa3fa",
+    "name": "OP_CLASSIC_INSTALL",
+    "evidence": "Factory install body and Blank handler"
+  },
+  {
+    "opcode": "0x40e108d6",
+    "name": "OP_CLASSIC_JETTON_DEPOSIT",
+    "evidence": "DeDust VaultJetton SDK"
+  },
+  {
+    "opcode": "0xe3a0d482",
+    "name": "OP_CLASSIC_JETTON_SWAP",
+    "evidence": "DeDust VaultJetton SDK"
+  },
+  {
+    "opcode": "0xd55e4686",
+    "name": "OP_CLASSIC_NATIVE_DEPOSIT",
+    "evidence": "DeDust VaultNative SDK"
+  },
+  {
+    "opcode": "0xea06185d",
+    "name": "OP_CLASSIC_NATIVE_SWAP",
+    "evidence": "DeDust VaultNative SDK"
+  },
+  {
+    "opcode": "0x6b0b787f",
+    "name": "OP_CLASSIC_PAY_OUT_FROM_DEPOSIT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/liquidity_deposit/types/dedust_liquidity_deposit_v2.types.tolk",
+    "symbol": "DedustPayOutFromDeposit"
+  },
+  {
+    "opcode": "0x474f86cf",
+    "name": "OP_CLASSIC_PAYOUT",
+    "evidence": "Native vault payout_body"
+  },
+  {
+    "opcode": "0xabb46b3d",
+    "name": "OP_CLASSIC_POOL_CONFIGURE_QUOTE_PROVIDER",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2ConfigureQuoteProvider"
+  },
+  {
+    "opcode": "0xc015297f",
+    "name": "OP_CLASSIC_POOL_CONFIGURE_TRADE_FEE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2ConfigureTradeFee"
+  },
+  {
+    "opcode": "0xb544f4a4",
+    "name": "OP_CLASSIC_POOL_DEPOSIT_EVENT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2DepositEvent"
+  },
+  {
+    "opcode": "0xad4eb6f5",
+    "name": "OP_CLASSIC_POOL_PAY_OUT_FROM_POOL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2PayOutFromPool"
+  },
+  {
+    "opcode": "0x6e24728d",
+    "name": "OP_CLASSIC_POOL_PROVIDE_POOL_STATE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2ProvidePoolState"
+  },
+  {
+    "opcode": "0x26c63ab7",
+    "name": "OP_CLASSIC_POOL_RESET_GAS",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2ResetGas"
+  },
+  {
+    "opcode": "0x9c610de3",
+    "name": "OP_CLASSIC_POOL_SWAP_EVENT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2SwapEvent"
+  },
+  {
+    "opcode": "0x61ee542d",
+    "name": "OP_CLASSIC_POOL_SWAP_EXTERNAL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2SwapExternal"
+  },
+  {
+    "opcode": "0x72aca8aa",
+    "name": "OP_CLASSIC_POOL_SWAP_PEER",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2SwapPeer"
+  },
+  {
+    "opcode": "0x6873c90c",
+    "name": "OP_CLASSIC_POOL_SYNC_ASSET_QUOTE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2SyncAssetQuote"
+  },
+  {
+    "opcode": "0xbddd4954",
+    "name": "OP_CLASSIC_POOL_TAKE_POOL_STATE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2TakePoolState"
+  },
+  {
+    "opcode": "0x3aa870a6",
+    "name": "OP_CLASSIC_POOL_WITHDRAWAL_EVENT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/pool_v2/types/dedust_pool_v2.types.tolk",
+    "symbol": "DedustPoolV2WithdrawalEvent"
+  },
+  {
+    "opcode": "0x0a420458",
+    "name": "OP_CLASSIC_RECEIVE_PRICE",
+    "evidence": "classic-dex/contracts/pool-v7/main.fc -> receive_price"
+  },
+  {
+    "opcode": "0xe1a36cd4",
+    "name": "OP_CLASSIC_REJECT_DEPOSIT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/liquidity_deposit/types/dedust_liquidity_deposit_v2.types.tolk",
+    "symbol": "DedustRejectDeposit"
+  },
+  {
+    "opcode": "0x48e5a95d",
+    "name": "OP_CLASSIC_SET_OPERATOR_BENEFICIARY",
+    "evidence": "Factory beneficiary body / Operator set_beneficiary"
+  },
+  {
+    "opcode": "0x7ed7f6ce",
+    "name": "OP_CLASSIC_SET_SWAP_START_TIME",
+    "evidence": "classic-dex/contracts/pool-v8/main.fc -> set_swap_start_time"
+  },
+  {
+    "opcode": "0x000001bc",
+    "name": "OP_CLASSIC_UPGRADE",
+    "evidence": "Classic upgrade handlers (444)"
+  },
+  {
+    "opcode": "0xe93405b9",
+    "name": "OP_CLASSIC_VAULT_NATIVE_V2_PROVIDE_VAULT_STATE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/vault_native/types/dedust_vault_native_v2.types.tolk",
+    "symbol": "DedustVaultNativeV2ProvideVaultState"
+  },
+  {
+    "opcode": "0xa913dc0d",
+    "name": "OP_CLASSIC_VAULT_NATIVE_V2_TAKE_VAULT_STATE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/vault_native/types/dedust_vault_native_v2.types.tolk",
+    "symbol": "DedustVaultNativeV2TakeVaultState"
+  },
+  {
+    "opcode": "0xf1989255",
+    "name": "OP_CLASSIC_WITHDRAW",
+    "evidence": "classic-dex/contracts/operator/main.fc -> withdraw"
+  },
+  {
+    "opcode": "0x0b429f52",
+    "name": "OP_CLASSIC_WITHDRAW_PROTOCOL_FEES",
+    "evidence": "classic-dex/contracts/pool-v7/main.fc -> withdraw_protocol_fees"
+  },
+  {
+    "opcode": "0xc0ffee32",
+    "name": "OP_COFFEE_PAYOUT",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0xc0ffee10",
+    "name": "OP_COFFEE_SWAP",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0x3216ca09",
+    "name": "OP_CPMM_CALLBACK3216CA09",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmCallback3216ca09"
+  },
+  {
+    "opcode": "0xc9a015da",
+    "name": "OP_CPMM_DEPOSIT_PAYLOAD",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmDepositPayload"
+  },
+  {
+    "opcode": "0xf6f6a3aa",
+    "name": "OP_CPMM_EXIT_LIQUIDITY",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmExitLiquidity"
+  },
+  {
+    "opcode": "0xde8402ce",
+    "name": "OP_CPMM_INIT_POOL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmInitPool"
+  },
+  {
+    "opcode": "0xce185bd7",
+    "name": "OP_CPMM_INIT_POOL_RESULT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmInitPoolResult"
+  },
+  {
+    "opcode": "0xcbc33949",
+    "name": "OP_CPMM_PAY_JETTON",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmPayJetton"
+  },
+  {
+    "opcode": "0xa5a7cbf8",
+    "name": "OP_CPMM_PAY_NATIVE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmPayNative"
+  },
+  {
+    "opcode": "0x29ff1bcf",
+    "name": "OP_CPMM_PAYOUT_POSITION_FEES",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmPayoutPositionFees"
+  },
+  {
+    "opcode": "0x9e17fbbe",
+    "name": "OP_CPMM_PAYOUT_REWARD",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmPayoutReward"
+  },
+  {
+    "opcode": "0xc442500f",
+    "name": "OP_CPMM_SWAP_PAYLOAD",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/cpmm_v2/types/dedust_v2_cpmm.types.tolk",
+    "symbol": "DedustV2CpmmSwapPayload"
+  },
+  {
+    "opcode": "0xdee60404",
+    "name": "OP_FACTORY_ACCEPT_OWNERSHIP",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2AcceptOwnership"
+  },
+  {
+    "opcode": "0x16cb7fc2",
+    "name": "OP_FACTORY_CANCEL_OWNERSHIP_TRANSFER",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2CancelOwnershipTransfer"
+  },
+  {
+    "opcode": "0x1be6df93",
+    "name": "OP_FACTORY_CHANGE_OPERATOR_USER_ADDRESS",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2ChangeOperatorUserAddress"
+  },
+  {
+    "opcode": "0xc9a5752d",
+    "name": "OP_FACTORY_CREATE_LEGACY_JETTON_VAULT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2CreateLegacyJettonVault"
+  },
+  {
+    "opcode": "0xf04ec526",
+    "name": "OP_FACTORY_CREATE_LIQUIDITY_DEPOSIT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2CreateLiquidityDeposit"
+  },
+  {
+    "opcode": "0x7c40ac87",
+    "name": "OP_FACTORY_CREATE_STABLE_POOL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2CreateStablePool"
+  },
+  {
+    "opcode": "0x21cfe02b",
+    "name": "OP_FACTORY_CREATE_VAULT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2CreateVault"
+  },
+  {
+    "opcode": "0x97d51f2f",
+    "name": "OP_FACTORY_CREATE_VOLATILE_POOL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2CreateVolatilePool"
+  },
+  {
+    "opcode": "0xb9d29997",
+    "name": "OP_FACTORY_DEPLOY_OPERATOR",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2DeployOperator"
+  },
+  {
+    "opcode": "0x54240fe5",
+    "name": "OP_FACTORY_DEPOSIT_ASSET",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2DepositAsset"
+  },
+  {
+    "opcode": "0x8a518d0d",
+    "name": "OP_FACTORY_DESTROY_NON_READY_VAULT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2DestroyNonReadyVault"
+  },
+  {
+    "opcode": "0x99a84311",
+    "name": "OP_FACTORY_INSTALL_LIQUIDITY_DEPOSIT_CODE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2InstallLiquidityDepositCode"
+  },
+  {
+    "opcode": "0xe505d21a",
+    "name": "OP_FACTORY_INSTALL_OPERATOR_CODE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2InstallOperatorCode"
+  },
+  {
+    "opcode": "0xa3e45df1",
+    "name": "OP_FACTORY_INSTALL_POOL_CODE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2InstallPoolCode"
+  },
+  {
+    "opcode": "0xbc3f26f6",
+    "name": "OP_FACTORY_INSTALL_VAULT_CODE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2InstallVaultCode"
+  },
+  {
+    "opcode": "0x9f3f0937",
+    "name": "OP_FACTORY_RESET_GAS",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2ResetGas"
+  },
+  {
+    "opcode": "0xca61554e",
+    "name": "OP_FACTORY_TRANSFER_OWNERSHIP",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2TransferOwnership"
+  },
+  {
+    "opcode": "0xdf4a27aa",
+    "name": "OP_FACTORY_UPGRADE",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2Upgrade"
+  },
+  {
+    "opcode": "0x0085f5a3",
+    "name": "OP_FACTORY_UPGRADE_OPERATOR",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2UpgradeOperator"
+  },
+  {
+    "opcode": "0x53e252ae",
+    "name": "OP_FACTORY_UPGRADE_POOL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2UpgradePool"
+  },
+  {
+    "opcode": "0x25d66911",
+    "name": "OP_FACTORY_UPGRADE_VAULT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/factory/types/dedust_factory_v2.types.tolk",
+    "symbol": "DedustFactoryV2UpgradeVault"
+  },
+  {
+    "opcode": "0x595f07bc",
+    "name": "OP_JETTON_BURN",
+    "evidence": "TEP-74"
+  },
+  {
+    "opcode": "0x7bdd97de",
+    "name": "OP_JETTON_BURN_NOTIFICATION",
+    "evidence": "TEP-74"
+  },
+  {
+    "opcode": "0xd53276db",
+    "name": "OP_JETTON_EXCESSES",
+    "evidence": "TEP-74"
+  },
+  {
+    "opcode": "0x178d4519",
+    "name": "OP_JETTON_INTERNAL_TRANSFER",
+    "evidence": "Jetton reference implementation"
+  },
+  {
+    "opcode": "0x0f8a7ea5",
+    "name": "OP_JETTON_TRANSFER",
+    "evidence": "TEP-74"
+  },
+  {
+    "opcode": "0x7362d09c",
+    "name": "OP_JETTON_TRANSFER_NOTIFICATION",
+    "evidence": "TEP-74"
+  },
+  {
+    "opcode": "0xd151210f",
+    "name": "OP_MOON_CLMM_SWAP",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/x1000_wallet_v2/types/dedust_x1000_wallet_v2.types.tolk; payload layout matched to the X1000 constructor"
+  },
+  {
+    "opcode": "0xb37a900b",
+    "name": "OP_MOON_SWAP",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0xc47c1f57",
+    "name": "OP_MOON_SWAP_FAILED",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0xcb7f38d6",
+    "name": "OP_MOON_SWAP_SUCCEEDED",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0x2c76b973",
+    "name": "OP_PROVIDE_WALLET_ADDRESS",
+    "evidence": "TEP-89"
+  },
+  {
+    "opcode": "0x01f3835d",
+    "name": "OP_PTON_TON_TRANSFER",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0xff32da99",
+    "name": "OP_ROUTE_CLOSE_FIRST_VARIANT",
+    "evidence": "X1000 adapters 8/9 delete program, amount and retry state; firstLegMode=0, secondLegMode=1. Original external ABI name unknown."
+  },
+  {
+    "opcode": "0x9d142643",
+    "name": "OP_ROUTE_CLOSE_SECOND_VARIANT",
+    "evidence": "X1000 adapters 8/9 delete program, amount and retry state; firstLegMode=1, secondLegMode=0. Original external ABI name unknown."
+  },
+  {
+    "opcode": "0x25938561",
+    "name": "OP_STONFI_V1_SWAP",
+    "evidence": "https://github.com/tonkeeper/tongo/blob/master/abi/messages.md"
+  },
+  {
+    "opcode": "0x6664de2a",
+    "name": "OP_STONFI_V2_SWAP",
+    "evidence": "https://docs.ston.fi/developer-section/dex/smart-contracts/v2/router"
+  },
+  {
+    "opcode": "0xcc1a97af",
+    "name": "OP_STONKS_PUMP_SELL",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/x1000_wallet_v2/types/dedust_x1000_wallet_v2.types.tolk; payload layout matched to the X1000 constructor"
+  },
+  {
+    "opcode": "0xd1735400",
+    "name": "OP_TAKE_WALLET_ADDRESS",
+    "evidence": "TEP-89"
+  },
+  {
+    "opcode": "0xa7fb58f8",
+    "name": "OP_TONCO_SWAP",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/x1000_wallet_v2/types/dedust_x1000_wallet_v2.types.tolk; payload layout matched to the X1000 constructor"
+  },
+  {
+    "opcode": "0xa0aa6bc2",
+    "name": "OP_URANUS_BUY_EVENT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/uranus/meme/types/dedust_uranus_meme_v3.types.tolk",
+    "symbol": "DedustUranusBuyEvent"
+  },
+  {
+    "opcode": "0x66c8ad72",
+    "name": "OP_URANUS_OPCODE66C8AD72",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/uranus/meme/types/dedust_uranus_meme_v3.types.tolk",
+    "symbol": "DedustUranusOpcode66c8ad72"
+  },
+  {
+    "opcode": "0xb7459e2c",
+    "name": "OP_URANUS_SELL",
+    "evidence": "Uranus wallet Sell schema"
+  },
+  {
+    "opcode": "0x3ab0fccc",
+    "name": "OP_URANUS_SELL_EVENT",
+    "evidence": "https://github.com/ton-blockchain/abis/blob/8d6f28ab49a7a08ca36f81a71c4e11bd2c062dc5/data/dedust/uranus/meme/types/dedust_uranus_meme_v3.types.tolk",
+    "symbol": "DedustUranusSellEvent"
+  },
+  {
+    "opcode": "0xbeaf9617",
+    "name": "OP_X1000_ACKNOWLEDGEMENT",
+    "evidence": "X1000 acknowledgeQuery / advanceAcknowledgement"
+  },
+  {
+    "opcode": "0x10937847",
+    "name": "OP_X1000_EXTERNAL_RECEIPT",
+    "evidence": "X1000 external execution receipt body"
+  },
+  {
+    "opcode": "0x01010202",
+    "name": "OP_X1000_RETRY",
+    "evidence": "X1000 authenticated retry branch"
+  }
+]

@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+import "../../../libraries/messages/opcodes"
 import "@stdlib/exotic-cells"
 import "@stdlib/gas-payments"
 import "@stdlib/tvm-dicts"
@@ -31,15 +32,6 @@ fun configBalance(): coins
 fun incomingSender(): address
     asm "2 INMSGPARAM"
 
-fun addressNone(): any_address
-    asm "x{2_} PUSHSLICE"
-
-fun zeroMintable(): int
-    asm "0 PUSHINT"
-
-fun emptyPayload(): slice
-    asm "x{} PUSHSLICE"
-
 fun any_address.isPlainStd(self): bool
     asm "x{A_} SDBEGINSQ NIP"
 
@@ -59,9 +51,6 @@ fun dict.setMigrationWallet(self, key: int, value: builder): dict
 fun migrationWalletRecord(wallet: any_address): builder {
     return beginCell().storeSlice(wallet as slice).storeUint(0x127500, 40);
 }
-
-fun builder.takeSlice(self): slice
-    asm "BTOS"
 
 fun builder.storeVarUint32(mutate self, value: int): self
     asm(value self) "STVARUINT32"
@@ -172,9 +161,9 @@ fun migrationPool(
         0,
         migrationWalletRecord(contract.getAddress() as any_address),
     );
-    wallets = wallets.setMigrationWallet(1, migrationWalletRecord(addressNone()));
+    wallets = wallets.setMigrationWallet(1, migrationWalletRecord(createAddressNone()));
     val code = poolLibrary();
-    val none = addressNone();
+    val none = createAddressNone();
     val token = beginCell().storeUint(2, 8).storeAddress(minter).endCell();
     val config = PoolConfig {
         assetX: none,
@@ -222,7 +211,7 @@ fun affiliatePayment(isPartner: uint1, id: uint256, share: uint16, amount: coins
             .storeUint(2000662320, 139)
             .storeUint(queryId, 64)
             .endCell(),
-        2,
+        SEND_MODE_IGNORE_ERRORS,
     );
 }
 
@@ -236,10 +225,13 @@ fun sendPoolInitialization(value: coins, payload: cell?, queryId: uint64, code: 
         .storeUint(140, 113)
         .storeRef(code)
         .storeRef(data)
-        .storeUint(0xde8402ce, 32)
+        .storeUint(OP_CPMM_INIT_POOL, 32)
         .storeUint(wireQuery, 64)
         .storeMaybeRef(payload);
-    sendRawMessage(outgoing.endCell(), 17);
+    sendRawMessage(
+        outgoing.endCell(),
+        SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_BOUNCE_ON_ACTION_FAIL,
+    );
 }
 
 @inline
@@ -248,7 +240,7 @@ fun sendMigrationTokens(value: coins, queryId: uint64, amount: coins, amounts: c
     val minter = contract.getAddress();
     val destination = walletDeployment(code, minter, incomingSender());
     val body = WalletCreditRef {
-        opcode: 0x178d4519,
+        opcode: OP_JETTON_INTERNAL_TRANSFER,
         queryId,
         amount,
         from: contract.getAddress(),
@@ -256,14 +248,14 @@ fun sendMigrationTokens(value: coins, queryId: uint64, amount: coins, amounts: c
         forwardTon: 150000000,
         referenced: true,
         payload: MigrationPair {
-            opcode: 0xcbc33949,
+            opcode: OP_CPMM_PAY_JETTON,
             amounts,
             payout,
         }.toCell(),
     }.toCell();
     sendRawMessage(
         archivedValuedRefDeploymentHeader(destination, value).storeRef(body).endCell(),
-        1,
+        SEND_MODE_PAY_FEES_SEPARATELY,
     );
 }
 
@@ -363,9 +355,9 @@ fun executeBuy(
         sendPoolInitialization(300000000, null, queryId, code, data);
         keep -= 300000000;
     }
-    val none = addressNone();
+    val none = createAddressNone();
     val event = beginCell()
-        .storeUint(0xa0aa6bc2, 32)
+        .storeUint(OP_URANUS_BUY_EVENT, 32)
         .storeAddress(buyer)
         .storeCoins(net)
         .storeCoins(tokens)
@@ -384,7 +376,7 @@ fun executeBuy(
             .storeUint(1, 98)
             .storeRef(event)
             .endCell(),
-        1,
+        SEND_MODE_PAY_FEES_SEPARATELY,
     );
     if (affiliateFee > 0) {
         affiliatePayment(1, partner!.id, partner!.share, affiliateFee, queryId);
@@ -392,20 +384,23 @@ fun executeBuy(
             affiliatePayment(0, referrer!.id, referrer!.share, referrerFee, queryId);
         }
     }
-    reserveToncoinsOnBalance(keep, 2);
+    reserveToncoinsOnBalance(keep, RESERVE_MODE_AT_MOST);
     val code = walletLibrary();
     val dest = walletDeployment(code, contract.getAddress(), buyer);
     val body = WalletCredit {
-        opcode: 0x178d4519,
+        opcode: OP_JETTON_INTERNAL_TRANSFER,
         queryId,
         amount: tokens,
         from: null,
         response: buyer,
         forwardTon: 0,
         referenced: false,
-        payload: emptyPayload(),
+        payload: createEmptySlice(),
     }.toCell();
-    sendRawMessage(archivedPoolRefDeploymentHeader(dest).storeRef(body).endCell(), 128);
+    sendRawMessage(
+        archivedPoolRefDeploymentHeader(dest).storeRef(body).endCell(),
+        SEND_MODE_CARRY_ALL_BALANCE,
+    );
 }
 
 @method_id(121862)
@@ -540,8 +535,8 @@ get fun get_jetton_data(): (int, int, any_address, cell, cell) {
     s.loadCoins();
     val total = s.loadCoins();
     val metadata = config.beginParse().preloadRef();
-    val mintable = zeroMintable();
-    val none = addressNone();
+    val mintable = 0;
+    val none = createAddressNone();
     val decimals = tokenDecimals();
     var fields: map<uint256, cell> = [];
     fields.set(
@@ -647,9 +642,9 @@ fun onInternalMessage(in: InMessage) {
                     .storeSlice(st.tail)
                     .endCell(),
             );
-            val none = addressNone();
+            val none = createAddressNone();
             val event = beginCell()
-                .storeUint(0x3ab0fccc, 32)
+                .storeUint(OP_URANUS_SELL_EVENT, 32)
                 .storeAddress(message.owner)
                 .storeCoins(message.amount)
                 .storeCoins(received)
@@ -667,7 +662,7 @@ fun onInternalMessage(in: InMessage) {
                     .storeUint(1, 98)
                     .storeRef(event)
                     .endCell(),
-                1,
+                SEND_MODE_PAY_FEES_SEPARATELY,
             );
             if (affiliateFee > 0) {
                 affiliatePayment(
@@ -689,16 +684,16 @@ fun onInternalMessage(in: InMessage) {
             }
             val keep = contract.getOriginalBalance() - in.valueCoins - received - affiliateFee -
                 referrerFee;
-            reserveToncoinsOnBalance(keep, 2);
+            reserveToncoinsOnBalance(keep, RESERVE_MODE_AT_MOST);
             sendRawMessage(
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(message.owner)
                     .storeCoins(received)
-                    .storeUint(0x66c8ad72, 139)
+                    .storeUint(OP_URANUS_OPCODE66C8AD72, 139)
                     .storeUint(message.queryId, 64)
                     .endCell(),
-                17,
+                SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_BOUNCE_ON_ACTION_FAIL,
             );
             val to = selectAddress(
                 message.receiver != null,
@@ -709,10 +704,10 @@ fun onInternalMessage(in: InMessage) {
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(to)
-                    .storeUint(0xd53276db, 143)
+                    .storeUint(OP_JETTON_EXCESSES, 143)
                     .storeUint(message.queryId, 64)
                     .endCell(),
-                130,
+                SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE,
             );
             return;
         }
@@ -723,7 +718,7 @@ fun onInternalMessage(in: InMessage) {
             assert (!initialized) throw 24;
             var c = config.beginParse();
             contract.setData(beginCell().storeBool(true).storeSlice(data).endCell());
-            reserveToncoinsOnBalance(10000000, 2);
+            reserveToncoinsOnBalance(10000000, RESERVE_MODE_AT_MOST);
             val creator = c.loadAddress();
             if (message.amount > 0) {
                 executeBuy(
@@ -739,10 +734,10 @@ fun onInternalMessage(in: InMessage) {
                     beginCell()
                         .storeUint(0x10, 6)
                         .storeAddress(creator)
-                        .storeUint(0xd53276db, 143)
+                        .storeUint(OP_JETTON_EXCESSES, 143)
                         .storeUint(message.queryId, 64)
                         .endCell(),
-                    130,
+                    SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE,
                 );
             }
             return;
@@ -770,12 +765,12 @@ fun onInternalMessage(in: InMessage) {
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(sender)
-                    .storeUint(0xd1735400, 143)
+                    .storeUint(OP_TAKE_WALLET_ADDRESS, 143)
                     .storeUint(message.queryId, 64)
                     .storeAddressOpt(wallet)
                     .storeMaybeRef(owner)
                     .endCell(),
-                80,
+                SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
             return;
         }
@@ -819,10 +814,10 @@ fun onInternalMessage(in: InMessage) {
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(to)
-                    .storeUint(0xd53276db, 143)
+                    .storeUint(OP_JETTON_EXCESSES, 143)
                     .storeUint(message.queryId, 64)
                     .endCell(),
-                66,
+                SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
             return;
         }
@@ -842,7 +837,7 @@ fun onInternalMessage(in: InMessage) {
             val creator = config.beginParse().loadAddress();
             assert (creator == in.senderAddress) throw 25;
             val keep = contract.getOriginalBalance() + contract.getStoragePaidPayment() - earned;
-            reserveToncoinsOnBalance(keep - in.valueCoins, 2);
+            reserveToncoinsOnBalance(keep - in.valueCoins, RESERVE_MODE_AT_MOST);
             if (earned > 0) {
                 val to = message.to != null ? message.to! : in.senderAddress;
                 sendRawMessage(
@@ -850,10 +845,10 @@ fun onInternalMessage(in: InMessage) {
                         .storeUint(0x10, 6)
                         .storeAddress(to)
                         .storeCoins(earned)
-                        .storeUint(0x66c8ad72, 139)
+                        .storeUint(OP_URANUS_OPCODE66C8AD72, 139)
                         .storeUint(message.queryId, 64)
                         .endCell(),
-                    17,
+                    SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_BOUNCE_ON_ACTION_FAIL,
                 );
                 contract.setData(
                     beginCell()
@@ -877,10 +872,10 @@ fun onInternalMessage(in: InMessage) {
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(receiver)
-                    .storeUint(0xd53276db, 143)
+                    .storeUint(OP_JETTON_EXCESSES, 143)
                     .storeUint(message.queryId, 64)
                     .endCell(),
-                130,
+                SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE,
             );
             return;
         }
@@ -903,7 +898,7 @@ fun onInternalMessage(in: InMessage) {
             val keep = contract.getOriginalBalance() + contract.getStoragePaidPayment() -
                 in.valueCoins -
                 earned;
-            reserveToncoinsOnBalance(keep, 2);
+            reserveToncoinsOnBalance(keep, RESERVE_MODE_AT_MOST);
             if (earned > 0) {
                 val to = message.to != null ? message.to! : in.senderAddress;
                 sendRawMessage(
@@ -911,10 +906,10 @@ fun onInternalMessage(in: InMessage) {
                         .storeUint(0x10, 6)
                         .storeAddress(to)
                         .storeCoins(earned)
-                        .storeUint(0x66c8ad72, 139)
+                        .storeUint(OP_URANUS_OPCODE66C8AD72, 139)
                         .storeUint(message.queryId, 64)
                         .endCell(),
-                    17,
+                    SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_BOUNCE_ON_ACTION_FAIL,
                 );
                 contract.setData(
                     beginCell()
@@ -939,10 +934,10 @@ fun onInternalMessage(in: InMessage) {
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(receiver)
-                    .storeUint(0xd53276db, 143)
+                    .storeUint(OP_JETTON_EXCESSES, 143)
                     .storeUint(message.queryId, 64)
                     .endCell(),
-                130,
+                SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE,
             );
             return;
         }
@@ -969,16 +964,16 @@ fun onInternalMessage(in: InMessage) {
             val keep = migrated
                 ? partnerFee + (10000000 + creatorFee)
                 : partnerFee + ((1010000000 + min(raised, raising)) + creatorFee);
-            reserveToncoinsOnBalance(keep, 2);
+            reserveToncoinsOnBalance(keep, RESERVE_MODE_AT_MOST);
             val to = message.to != null ? message.to! : in.senderAddress;
             sendRawMessage(
                 beginCell()
                     .storeUint(0x10, 6)
                     .storeAddress(to)
-                    .storeUint(0xd53276db, 143)
+                    .storeUint(OP_JETTON_EXCESSES, 143)
                     .storeUint(message.queryId, 64)
                     .endCell(),
-                130,
+                SEND_MODE_IGNORE_ERRORS | SEND_MODE_CARRY_ALL_BALANCE,
             );
             return;
         }
@@ -1005,10 +1000,10 @@ fun onInternalMessage(in: InMessage) {
                 .storeUint(4, 3)
                 .storeInt(0, 8)
                 .storeUint(hash, 256)
-                .takeSlice() as address);
+                .toSlice() as address);
             assert (pool == in.senderAddress) throw 25;
             val amounts = beginCell()
-                .storeUint(0xc9a015da, 32)
+                .storeUint(OP_CPMM_DEPOSIT_PAYLOAD, 32)
                 .storeCoins(raising)
                 .storeCoins(liquidity)
                 .storeUint(0x2710, 20)
@@ -1027,7 +1022,7 @@ fun onInternalMessage(in: InMessage) {
             val tonAmount = 150000000 + raising;
             val sender = in.senderAddress;
             val tonDeposit = beginCell()
-                .storeUint(0xa5a7cbf8, 32)
+                .storeUint(OP_CPMM_PAY_NATIVE, 32)
                 .storeUint(message.queryId, 64)
                 .storeCoins(raising)
                 .storeRef(amounts)
@@ -1041,7 +1036,7 @@ fun onInternalMessage(in: InMessage) {
                     .storeUint(1, 107)
                     .storeRef(tonDeposit)
                     .endCell(),
-                1,
+                SEND_MODE_PAY_FEES_SEPARATELY,
             );
             sendMigrationTokens(200000000, message.queryId, liquidity, amounts, payout);
             contract.setData(

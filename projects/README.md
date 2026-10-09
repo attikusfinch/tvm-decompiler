@@ -67,6 +67,10 @@ projects. Keep the workspace together when cloning it.
 
 ## Normalization and libraries
 
+- [Readability rules and experiment results](READABILITY.md) explain opcode names,
+  message fields, standard-library replacements and bytecode-sensitive exceptions.
+- The reviewed [opcode catalog](libraries/messages/opcodes.json) records naming evidence;
+  `npm run opcodes:generate` produces both FunC and Tolk constants and CI checks consistency.
 - Canonical four-space layout; a conservative FunC formatter checks token preservation.
 - FunC forward declarations use the names from their definitions. Getter signatures
   have concrete types; decoded slice cursors have field-based names where evidenced.

@@ -1,0 +1,19 @@
+// decompiled by @fiscaldev
+// Four-bit instruction selectors, not message opcodes. See READABILITY.md.
+const PROTOCOL_DEFAULT = 0
+const PROTOCOL_CLASSIC_DEDUST = 1
+const PROTOCOL_STONFI_V2 = 2
+const PROTOCOL_TONCO = 3
+const PROTOCOL_CPMM = 4
+const PROTOCOL_BIDASK_DAMM = 5
+const PROTOCOL_COFFEE = 6
+const PROTOCOL_MOON = 7
+const PROTOCOL_EXTERNAL_8 = 8
+const PROTOCOL_MOON_CLMM = 9
+const PROTOCOL_BIDASK_CLMM = 10
+const PROTOCOL_STONKS_PUMP_SELL = 11
+const PROTOCOL_URANUS_SELL = 12
+const PROTOCOL_JETTON_BURN = 13
+
+const ASSET_NATIVE = 0
+const ASSET_JETTON = 1

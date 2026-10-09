@@ -2,9 +2,6 @@
 // Preserve the old standard-library StateInit hashes and address representation.
 import "../common/state-init-v3"
 
-fun archivedAddressSlice(b: builder): address
-    asm "BTOS"
-
 @inline
 fun AutoDeployAddress.calculateArchivedAddressBuilder(self): builder {
     val state = self.stateInit;
@@ -38,5 +35,5 @@ fun AutoDeployAddress.calculateArchivedAddressBuilder(self): builder {
 
 @inline
 fun AutoDeployAddress.calculateArchivedAddress(self): address {
-    return archivedAddressSlice(self.calculateArchivedAddressBuilder());
+    return (self.calculateArchivedAddressBuilder().toSlice() as address);
 }
