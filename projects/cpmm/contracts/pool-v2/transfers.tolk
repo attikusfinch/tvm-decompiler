@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "@stdlib/gas-payments"
 import "wallets"
@@ -14,6 +15,7 @@ fun sendPoolExcesses(recipient: any_address, queryId: uint64, mode: int) {
         .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
+
     sendRawMessage(message, mode | SEND_MODE_IGNORE_ERRORS);
 }
 
@@ -22,10 +24,13 @@ fun poolWalletForAsset(wallets: PoolWallets, asset: any_address): any_address {
     if (!asset.isInternal()) {
         return poolNoneAddress();
     }
+
     val (workchain, hash) = asset.getWorkchainAndHash();
     assertWalletBasechain(workchain);
     val wallet = findWalletAddress(wallets.walletsByAssets, hash);
+
     assert (wallet.isFound) throw 40;
+
     return wallet.loadValue();
 }
 
@@ -37,6 +42,7 @@ fun requestPoolWalletAddress(resolver: any_address, queryId: uint64) {
     val requestForwardFee = calculateForwardFee(0, 364, 1);
     val secondForwardFee = calculateForwardFee(0, 1, 364);
     val amount = secondForwardFee + (requestForwardFee + processingFee);
+
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(resolver as slice)
@@ -46,5 +52,6 @@ fun requestPoolWalletAddress(resolver: any_address, queryId: uint64) {
         .storeSlice(owner as slice)
         .storeBool(false)
         .endCell();
+
     sendRawMessage(message, SEND_MODE_PAY_FEES_SEPARATELY);
 }

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {formatSpacing} from './format-spacing.mjs';
 
 // A conservative layout pass for recovered FunC. Non-whitespace tokens,
 // string suffixes, assembler strings and nested comments stay byte-identical.
@@ -74,7 +75,7 @@ export function formatFunc(source) {
   }
   flush();
   assert.equal(depth, 0);
-  const formatted = lines.join('\n').trimEnd() + '\n';
+  const formatted = formatSpacing(lines.join('\n').trimEnd() + '\n', 'func');
   assert.deepEqual(tokens(formatted), input, 'Formatting must not change FunC tokens');
   return formatted;
 }

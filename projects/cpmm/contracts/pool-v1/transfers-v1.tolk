@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "@stdlib/gas-payments"
 
@@ -8,6 +9,7 @@ fun requestPoolWalletAddressV1(resolver: any_address, queryId: uint64) {
     val owner = contract.getAddress();
     val amount = (calculateForwardFee(0, 364, 1) + calculateGasFee(0, 25000)) +
         calculateForwardFee(0, 1, 364);
+
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(resolver as slice)
@@ -17,5 +19,6 @@ fun requestPoolWalletAddressV1(resolver: any_address, queryId: uint64) {
         .storeSlice(owner as slice)
         .storeBool(false)
         .endCell();
+
     sendRawMessage(message, SEND_MODE_PAY_FEES_SEPARATELY);
 }

@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "payment"
 
@@ -91,6 +92,7 @@ fun routePoolSwap(
     if (asset.isNone()) {
         val payment = payload.toCell();
         val body = PoolRoutedNativePayment { queryId, amount, payment, payout }.toCell();
+
         val message = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(nextPool as slice)
@@ -98,13 +100,16 @@ fun routePoolSwap(
             .storeRef(body)
             .endCell();
         OutMessage { messageCell: message }.send(144);
+
         return;
     }
+
     if (asset.isInternal()) {
         val gas = forwardGas - 50000000;
         val customPayload: cell? = null;
         val payment = payload.toCell();
         val notification = PoolRoutedJettonPayment { payment, payout }.toCell();
+
         var transfer = beginCell()
             .storeUint(OP_JETTON_TRANSFER, 32)
             .storeUint(queryId, 64)
@@ -116,6 +121,7 @@ fun routePoolSwap(
             .storeBool(true)
             .storeRef(notification);
         val body = transfer.endCell();
+
         val message = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(poolWallet as slice)
@@ -123,7 +129,9 @@ fun routePoolSwap(
             .storeRef(body)
             .endCell();
         OutMessage { messageCell: message }.send(144);
+
         return;
     }
+
     throw 31;
 }

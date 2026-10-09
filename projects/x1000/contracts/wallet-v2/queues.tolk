@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "compat"
 
@@ -6,62 +7,81 @@ import "compat"
 fun capAcknowledgements(queue: cell): cell {
     var (key, _, found) = firstUnsignedEntry(queue, 64);
     var count = 0;
+
     while (found != 0 && count < 11) {
         count += 1;
+
         if (count < 11) {
             (key, _, found) = nextUnsignedEntry(queue, 64, key);
         }
     }
+
     if (count > 10) {
         return (null as unknown as cell);
     }
+
     return queue;
 }
 
 @method_id(4)
 fun acknowledgeQuery(acknowledgements: cell, queryId: int): (cell, int) {
     var (remaining, acknowledgement, status) = removeUnsignedEntry(acknowledgements, 64, queryId);
+
     if (!(status != 0)) {
         return (remaining, 0);
     }
+
     val originalQueryId = acknowledgement.preloadUint(64);
+
     var b = beginCell().storeUint(OP_X1000_ACKNOWLEDGEMENT, 32);
     val c = b.storeUint(originalQueryId, 64).endCell();
     val constslice = "2_".hexToSlice();
+
     var b2 = beginCell().storeUint(0xc, 4).storeSlice(constslice);
     val c2 = b2.storeUint(1, 98).storeRef(c).endCell();
+
     sendRawMessage(c2, SEND_MODE_REGULAR);
     val result = capAcknowledgements(remaining);
+
     return (result, 1);
 }
 
 @method_id(5)
 fun bouncedQuery(body: slice): (int, int) {
     val bodyBits = body.remainingBitsCount();
+
     if ((bodyBits < 128)) {
         return (0, 0);
     }
+
     var cursor2 = body;
     var bouncePrefix = cursor2.loadUint(32);
+
     if ((bouncePrefix != 0xffffffff)) {
         return (0, 0);
     }
+
     var (cursor22, _) = loadUint32(cursor2);
     val queryId = cursor22.preloadUint(64);
+
     return (queryId, 1);
 }
 
 @method_id(6)
 fun advanceAcknowledgement(acknowledgements: cell, programs: cell, queryId: int): cell {
     var (acknowledgement, status) = findUnsignedEntry(acknowledgements, 64, queryId);
+
     if (!(status != 0)) {
         return acknowledgements;
     }
+
     val originalQueryId = acknowledgement.preloadUint(64);
     val nextQueryId = (queryId + 1);
     var (_, status2) = findUnsignedEntry(programs, 64, nextQueryId);
+
     if (status2 != 0) {
         var (acknowledgementsAfterDelete, _) = deleteUnsignedEntry(acknowledgements, 64, queryId);
+
         return setUnsignedBuilder(
             acknowledgementsAfterDelete,
             64,
@@ -69,20 +89,25 @@ fun advanceAcknowledgement(acknowledgements: cell, programs: cell, queryId: int)
             beginCell().storeUint(originalQueryId, 64),
         );
     }
+
     var (_, status3) = findUnsignedEntry(programs, 64, queryId);
     var selectedValue0: cell;
+
     if (status3 != 0) {
         selectedValue0 = acknowledgements;
     } else {
         var b = beginCell().storeUint(OP_X1000_ACKNOWLEDGEMENT, 32);
         val c = b.storeUint(originalQueryId, 64).endCell();
         val constslice = "2_".hexToSlice();
+
         var b2 = beginCell().storeUint(0xc, 4).storeSlice(constslice);
         val c2 = b2.storeUint(1, 98).storeRef(c).endCell();
+
         sendRawMessage(c2, SEND_MODE_REGULAR);
         var (acknowledgementsAfterDelete1, _) = deleteUnsignedEntry(acknowledgements, 64, queryId);
         selectedValue0 = capAcknowledgements(acknowledgementsAfterDelete1);
     }
+
     return selectedValue0;
 }
 
@@ -94,18 +119,22 @@ fun sendOrQueueTrade(retries: cell, queryId: int, outgoingMessage: cell): cell {
         queryId,
         beginCell().storeRef(outgoingMessage),
     );
+
     if (status != 0) {
         var b = beginCell().storeUint(0x1010201, 32);
         val c = b.storeUint(queryId, 64).endCell();
+
         var b2 = beginCell().storeUint(0x18, 6);
         var b22 = b2.storeAddress(
             ("9FF1C20FAD211DB1A2CF8EB1F9ADFE00FDBAE1DA1D95045A3F286262FC347B25835_".hexToSlice() as address),
         );
         var b23 = b22.storeCoins(100000000);
         val c2 = b23.storeUint(1, 107).storeRef(c).endCell();
+
         sendRawMessage(c2, SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_IGNORE_ERRORS);
     } else {
         sendRawMessage(outgoingMessage, SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_IGNORE_ERRORS);
     }
+
     return D2;
 }

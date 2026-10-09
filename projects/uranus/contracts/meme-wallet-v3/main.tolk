@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "@stdlib/gas-payments"
 import "compat-address"
@@ -28,6 +29,7 @@ fun registerAddressVariants(value: ContractState | AddressShardingOptions): int 
 
 fun onInternalMessage(in: InMessage) {
     val msg = IncomingWalletMessage.fromSlice(in.body, { throwIfOpcodeDoesNotMatch: 65535 });
+
     match (msg) {
         JettonInternalTransfer => {
             var storageCursor = contract.getData().beginParse();
@@ -35,17 +37,22 @@ fun onInternalMessage(in: InMessage) {
             val ownerAndMasterTail = storageCursor;
             val ownerAddress = storageCursor.loadAddress();
             val jettonMaster = storageCursor.loadAddress();
+
             if (!(in.senderAddress == jettonMaster)) {
                 val peer = walletDeployment(contract.getCode(), jettonMaster, msg.senderOwner!);
+
                 assert (peer.calculateArchivedAddress() == in.senderAddress) throw 25;
             }
+
             val updatedJettonBalance = jettonBalance + msg.jettonAmount;
+
             contract.setData(
                 beginCell()
                     .storeCoins(updatedJettonBalance)
                     .storeSlice(ownerAndMasterTail)
                     .endCell(),
             );
+
             if (msg.forwardTonAmount > 0) {
                 val body = JettonTransferNotification {
                     queryId: msg.queryId,
@@ -53,6 +60,7 @@ fun onInternalMessage(in: InMessage) {
                     senderOwner: msg.senderOwner,
                     forwardPayload: msg.forwardPayload,
                 }.toCell();
+
                 sendRawMessage(
                     beginCell()
                         .storeUint(0x10, 6)
@@ -64,6 +72,7 @@ fun onInternalMessage(in: InMessage) {
                     SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_BOUNCE_ON_ACTION_FAIL,
                 );
             }
+
             if (msg.responseAddress != null) {
                 reserveToncoinsOnBalance(
                     max(
@@ -73,6 +82,7 @@ fun onInternalMessage(in: InMessage) {
                     ),
                     RESERVE_MODE_AT_MOST,
                 );
+
                 sendRawMessage(
                     beginCell()
                         .storeUint(0x10, 6)
@@ -84,6 +94,7 @@ fun onInternalMessage(in: InMessage) {
                 );
             }
         }
+
         JettonTransfer => {
             val required = (msg.forwardTonAmount > 0 ? 2 : 1) * in.originalForwardFee +
                 msg.forwardTonAmount +
@@ -93,16 +104,21 @@ fun onInternalMessage(in: InMessage) {
                 calculateStorageFee(0, 157680000, 970, 3);
             // This diagnostic instruction is present in the archived executable.
             debug.print(required);
+
             assert (required <= in.valueCoins) throw 23;
+
             var storageCursor = contract.getData().beginParse();
             val jettonBalance = storageCursor.loadCoins();
             val ownerAndMasterTail = storageCursor;
             val ownerAddress = storageCursor.loadAddress();
             val jettonMaster = storageCursor.loadAddress();
+
             assert (in.senderAddress == ownerAddress) throw 25;
             assert (msg.recipientOwner.getWorkchain() == 0) throw 30;
             assert (msg.jettonAmount <= jettonBalance) throw 27;
+
             val updatedJettonBalance = jettonBalance - msg.jettonAmount;
+
             contract.setData(
                 beginCell()
                     .storeCoins(updatedJettonBalance)
@@ -120,11 +136,13 @@ fun onInternalMessage(in: InMessage) {
             }.toCell();
             var outgoing = archivedPoolRefDeploymentHeader(target);
             outgoing.storeRef(body);
+
             sendRawMessage(
                 outgoing.endCell(),
                 SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
         }
+
         JettonBurn => {
             assert (
                 contract.getStoragePaidPayment() + calculateGasFee(0, 5253) +
@@ -132,14 +150,18 @@ fun onInternalMessage(in: InMessage) {
                 in.originalForwardFee <=
                 in.valueCoins
             ) throw 23;
+
             var storageCursor = contract.getData().beginParse();
             val jettonBalance = storageCursor.loadCoins();
             val ownerAndMasterTail = storageCursor;
             val ownerAddress = storageCursor.loadAddress();
             val jettonMaster = storageCursor.loadAddress();
+
             assert (in.senderAddress == ownerAddress) throw 25;
             assert (msg.jettonAmount <= jettonBalance) throw 27;
+
             val updatedJettonBalance = jettonBalance - msg.jettonAmount;
+
             contract.setData(
                 beginCell()
                     .storeCoins(updatedJettonBalance)
@@ -152,6 +174,7 @@ fun onInternalMessage(in: InMessage) {
                 senderOwner: ownerAddress,
                 responseAddress: msg.responseAddress,
             }.toCell();
+
             sendRawMessage(
                 beginCell()
                     .storeUint(0x18, 6)
@@ -162,6 +185,7 @@ fun onInternalMessage(in: InMessage) {
                 SEND_MODE_BOUNCE_ON_ACTION_FAIL | SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
         }
+
         SellJettons => {
             assert (
                 contract.getStoragePaidPayment() + calculateGasFee(0, 5760) +
@@ -170,14 +194,18 @@ fun onInternalMessage(in: InMessage) {
                 (in.originalForwardFee << 1) <=
                 in.valueCoins
             ) throw 23;
+
             var storageCursor = contract.getData().beginParse();
             val jettonBalance = storageCursor.loadCoins();
             val ownerAndMasterTail = storageCursor;
             val ownerAddress = storageCursor.loadAddress();
             val jettonMaster = storageCursor.loadAddress();
+
             assert (in.senderAddress == ownerAddress) throw 25;
             assert (msg.jettonAmount <= jettonBalance) throw 27;
+
             val updatedJettonBalance = jettonBalance - msg.jettonAmount;
+
             contract.setData(
                 beginCell()
                     .storeCoins(updatedJettonBalance)
@@ -193,6 +221,7 @@ fun onInternalMessage(in: InMessage) {
                 partner: msg.partner,
                 referrer: msg.referrer,
             }.toCell();
+
             sendRawMessage(
                 beginCell()
                     .storeUint(0x18, 6)
@@ -218,9 +247,11 @@ fun onBouncedMessage(in: InMessageBounced) {
         BouncedJettonBurn => msg.jettonAmount,
         BouncedJettonSell => msg.jettonAmount,
     };
+
     var storageCursor = contract.getData().beginParse();
     val jettonBalance = storageCursor.loadCoins();
     val updatedJettonBalance = jettonBalance + jettonAmount;
+
     contract.setData(
         beginCell().storeCoins(updatedJettonBalance).storeSlice(storageCursor).endCell(),
     );
@@ -228,6 +259,7 @@ fun onBouncedMessage(in: InMessageBounced) {
 
 get fun get_wallet_data(): (int, address, address, cell) {
     val storage = WalletStorage.fromCell(contract.getData(), { assertEndAfterReading: false });
+
     return (storage.jettonBalance, storage.ownerAddress, storage.jettonMaster, contract.getCode());
 }
 // Recovered from mainnet 891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266.

@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Archived external-out event format; the helper methods return the SENDMSG fee.
+
 @overflow1023_policy("suppress")
 struct (0x78e79ba4) PoolSwapEvent {
     xToY: bool
@@ -39,12 +40,14 @@ fun poolEventDestination(): any_address
 fun emitPoolSwapEntry(event: PoolSwapEvent): coins {
     val destination = poolEventDestination();
     val body = event.toCell();
+
     val message = beginCell()
         .storeUint(0xc, 4)
         .storeSlice(destination as slice)
         .storeUint(1, 98)
         .storeRef(body)
         .endCell();
+
     return OutMessage { messageCell: message }.sendAndEstimateFee(1);
 }
 
@@ -53,12 +56,14 @@ fun emitPoolSwapEntry(event: PoolSwapEvent): coins {
 fun emitPoolDepositEntry(event: PoolDepositEvent): coins {
     val destination = poolEventDestination();
     val body = event.toCell();
+
     val message = beginCell()
         .storeUint(0xc, 4)
         .storeSlice(destination as slice)
         .storeUint(1, 98)
         .storeRef(body)
         .endCell();
+
     return OutMessage { messageCell: message }.sendAndEstimateFee(1);
 }
 
@@ -67,12 +72,14 @@ fun emitPoolDepositEntry(event: PoolDepositEvent): coins {
 fun emitPoolWithdrawalEntry(event: PoolWithdrawalEvent): coins {
     val destination = poolEventDestination();
     val body = event.toCell();
+
     val message = beginCell()
         .storeUint(0xc, 4)
         .storeSlice(destination as slice)
         .storeUint(1, 98)
         .storeRef(body)
         .endCell();
+
     return OutMessage { messageCell: message }.sendAndEstimateFee(1);
 }
 

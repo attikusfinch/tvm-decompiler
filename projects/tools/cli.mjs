@@ -5,6 +5,7 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {build, root, workspace, selectProjects} from './build.mjs';
 import {formatFunc} from './format-func.mjs';
+import {formatSpacing} from './format-spacing.mjs';
 
 const run = promisify(execFile);
 const options = {maxBuffer: 16 * 1024 * 1024, timeout: 300000, windowsHide: true};
@@ -97,6 +98,12 @@ if (action === 'fmt' || action === 'fmt-check') {
       const relative = path.relative(path.join(root, id), full).replaceAll('\\', '/');
       await acton(['fmt', relative, '--range', range,
         ...(action === 'fmt-check' ? ['--check'] : []), '--color', 'never'], id);
+      if (relative.startsWith('contracts/')) {
+        const indented = await fs.readFile(full, 'utf8');
+        const spaced = formatSpacing(indented, 'tolk');
+        if (action === 'fmt-check') assert.equal(spaced, indented, full + ': block spacing');
+        else await fs.writeFile(full, spaced);
+      }
     }
     console.log(`${id}: ${files.length} Tolk files ${action === 'fmt-check' ? 'checked' : 'formatted'} (import order preserved)`);
   }

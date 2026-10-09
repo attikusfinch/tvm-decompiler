@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Wallet/asset registries and resolver scheduling shared by both Pool revisions.
+
 type AddressLookup = map<uint256, any_address>
 
 struct PoolWallets {
@@ -31,14 +32,17 @@ fun allocateWalletResolution(
     var resolver = asset;
     var resolverHash = assetHash;
     val custom = customResolvers.get(assetHash);
+
     if (custom.isFound) {
         resolver = custom.loadValue();
         val (resolverWorkchain, hash) = resolver.getWorkchainAndHash();
         assertWalletBasechain(resolverWorkchain);
         resolverHash = hash;
     }
+
     var updated = resolutions;
     val previous = updated.setAndGetPrevious(resolverHash, asset);
+
     return (updated, !previous.isFound, resolver);
 }
 
@@ -65,6 +69,7 @@ fun schedulePoolWallets(
         customResolvers,
     );
     wallets.resolutions = updated;
+
     return (isNew, resolver);
 }
 
@@ -79,11 +84,15 @@ fun registerPoolWallet(
     val (assetWorkchain, assetHash) = asset.getWorkchainAndHash();
     assertWalletBasechain(assetWorkchain);
     val previousWallet = walletsByAssets.setAndGetPrevious(assetHash, wallet);
+
     assert (!previousWallet.isFound) throw 39;
+
     val (walletWorkchain, walletHash) = wallet.getWorkchainAndHash();
     assertWalletBasechain(walletWorkchain);
     val previousAsset = assetsByWallets.setAndGetPrevious(walletHash, asset);
+
     assert (!previousAsset.isFound) throw 39;
+
     return {
         walletsByAssets,
         assetsByWallets,
@@ -96,7 +105,9 @@ fun assetForRegisteredWallet(wallets: PoolWallets, wallet: any_address): any_add
     val (workchain, walletHash) = wallet.getWorkchainAndHash();
     assertWalletBasechain(workchain);
     val asset = findWalletAddress(wallets.assetsByWallets, walletHash);
+
     assert (asset.isFound) throw 40;
+
     return asset.loadValue();
 }
 
@@ -109,8 +120,11 @@ fun finishWalletResolution(
     val (workchain, resolverHash) = resolver.getWorkchainAndHash();
     assertWalletBasechain(workchain);
     val pending = wallets.resolutions.takeResolution(resolverHash);
+
     assert (pending.isFound) throw 41;
+
     val asset = pending.loadValue();
+
     return registerPoolWallet(
         wallets.walletsByAssets,
         wallets.assetsByWallets,

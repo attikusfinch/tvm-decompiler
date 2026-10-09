@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Four-bit instruction selectors, not message opcodes. See READABILITY.md.
+
 const PROTOCOL_DEFAULT = 0
 const PROTOCOL_CLASSIC_DEDUST = 1
 const PROTOCOL_STONFI_V2 = 2

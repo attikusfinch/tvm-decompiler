@@ -1,30 +1,44 @@
 ;; decompiled by @fiscaldev
+
 #pragma version =0.4.4;
+
 #include "../../../libraries/func/stdlib.fc";
 #include "../../../libraries/func/message-modes.fc";
 #include "../../../libraries/messages/opcodes.fc";
+
 global slice sender;
 global slice owner;
 global int version;
 global int kind;
 global slice beneficiary;
 global int unlock_at;
+
 int storage_paid() impure asm "STORAGEFEES";
+
 int gas_fee(int gas, int workchain) asm "GETGASFEE";
+
 builder store_zeroes(builder b, int width) asm "STZEROES";
+
 (slice, int) read_query_id(slice s) asm "64 LDU SWAP";
+
 (slice, int) read_version(slice s) asm "16 LDU SWAP";
+
 ;; Field codecs preserve the archived primitive's evaluation/result order.
 builder store_version(builder b, int value) asm "SWAP 16 STU";
+
 builder store_kind(builder b, int value) asm "SWAP 8 STU";
+
 int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SDEQ";
+
 (int, slice) legacy_header_record(int flags, slice source) asm "SWAP SWAP";
+
 ;; Keep the query field alive until the full message has been strictly decoded.
 (int, int, cell) upgrade_fields(slice body) inline {
     int query_id = body~read_query_id();
     int next_version = body~read_version();
     cell code = body~load_ref();
     body.end_parse();
+
     return (query_id, next_version, code);
 }
 
@@ -32,6 +46,7 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
     int query_id = body~read_query_id();
     slice next = body~load_msg_addr();
     body.end_parse();
+
     return (query_id, next);
 }
 
@@ -40,6 +55,7 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
     slice recipient = body~load_msg_addr();
     cell payload = body~load_ref();
     body.end_parse();
+
     return (query_id, recipient, payload);
 }
 
@@ -47,6 +63,7 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
     slice header = message.begin_parse();
     int flags = header~load_uint(4);
     slice source = header~load_msg_addr();
+
     return legacy_header_record(flags, source);
 }
 
@@ -81,12 +98,17 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
 ;; c3 is replaced before this call, so the installed code's hook runs immediately.
 () upgrade(slice body) impure method_id(62) {
     load_operator();
+
     throw_unless(257, addresses_equal(sender, owner));
+
     body = body.skip_bits(32);
     (_, int next_version, cell code) = upgrade_fields(body);
+
     throw_unless(295, next_version > version);
+
     version = next_version;
     save_operator();
+
     set_code(code);
     set_c3(code.begin_parse().bless());
     after_upgrade();
@@ -94,7 +116,9 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
 
 () set_beneficiary(int value, slice body) impure method_id(63) {
     load_operator();
+
     throw_unless(257, addresses_equal(sender, owner));
+
     body = body.skip_bits(32);
     (_, slice next_beneficiary) = beneficiary_fields(body);
     beneficiary = next_beneficiary;
@@ -107,8 +131,10 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
 
 () withdraw(int value, slice body) impure method_id(64) {
     load_operator();
+
     throw_unless(257, addresses_equal(sender, beneficiary));
     throw_unless(297, now() >= unlock_at);
+
     body = body.skip_bits(32);
     (_, slice recipient, cell payload) = withdrawal_fields(body);
     int to_send = value - (storage_paid() + gas_fee(4133, 0));
@@ -123,36 +149,49 @@ int addresses_equal(slice actual, slice expected) asm (expected actual) "SWAP SD
     beneficiary = body_tail~load_msg_addr();
     unlock_at = 0;
     template_data.end_parse();
+
     body_tail.end_parse();
+
     save_operator();
 }
 
 (slice, int, slice, int) operator_data() impure method_id(79987) {
     load_operator();
+
     return (owner, kind, beneficiary, unlock_at);
 }
 
 int operator_version() impure method_id(82320) {
     load_operator();
+
     return version;
 }
 
 () recv_internal(int value, cell message, slice body) impure {
     (int flags, slice source) = message_header(message);
     sender = source;
+
     throw_if(0, flags & 1);
+
     int opcode = body.preload_uint(32);
+
     if (opcode == OP_CLASSIC_UPGRADE) {
         upgrade(body);
+
         return ();
     }
+
     if (opcode == OP_CLASSIC_SET_OPERATOR_BENEFICIARY) {
         set_beneficiary(value, body);
+
         return ();
     }
+
     if (opcode == OP_CLASSIC_WITHDRAW) {
         withdraw(value, body);
+
         return ();
     }
+
     throw(65535);
 }

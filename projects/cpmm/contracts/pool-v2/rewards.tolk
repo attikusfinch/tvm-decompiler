@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Recovered shared PoolV1/PoolV2 reward logic. This module is not a complete Pool.
+
 struct PoolReward {
     remainingTime: uint40
     remainingBudget: coins
@@ -14,6 +15,7 @@ fun emptyPoolReward(): PoolReward
 @inline_ref
 fun poolRewardOrEmpty(rewards: map<uint2, PoolReward>, key: uint2): PoolReward {
     val reward = rewards.get(key);
+
     return reward.isFound ? reward.loadValue() : emptyPoolReward();
 }
 
@@ -26,10 +28,13 @@ fun accruePoolReward(reward: PoolReward, liquidity: coins): PoolReward {
     if (blockchain.now() <= reward.lastUpdate) {
         return reward;
     }
+
     if (isZero(liquidity)) {
         reward.lastUpdate = blockchain.now();
+
         return reward;
     }
+
     val elapsed = min(blockchain.now() - reward.lastUpdate, reward.remainingTime);
     val distributed = reward.remainingTime > 0
         ? min(
@@ -41,6 +46,7 @@ fun accruePoolReward(reward: PoolReward, liquidity: coins): PoolReward {
     reward.remainingBudget -= distributed;
     reward.checkpoint += mulDivFloor(distributed, 1 << 120, liquidity);
     reward.lastUpdate = blockchain.now();
+
     return reward;
 }
 
@@ -51,11 +57,13 @@ fun synchronizePoolRewards(rewards: map<uint2, PoolReward>, liquidity: coins): m
 > {
     var updated = rewards;
     var entry = updated.findFirst();
+
     while (entry.isFound) {
         val key = entry.getKey();
         val reward = accruePoolReward(entry.loadValue(), liquidity);
         updated.set(key, reward);
         entry = updated.iterateNext(entry);
     }
+
     return updated;
 }

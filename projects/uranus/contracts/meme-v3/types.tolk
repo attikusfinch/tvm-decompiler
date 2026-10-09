@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 struct Partner {
     id: uint256
     share: uint16

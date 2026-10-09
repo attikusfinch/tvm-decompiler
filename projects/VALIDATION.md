@@ -1,5 +1,17 @@
 # Validation
 
+## Block spacing — 2026-10-10 (Asia/Tashkent)
+
+Baseline: `c535f6c`. The formatting pass changes only blank lines in 79 source
+files (contracts and existing FunC test fixtures). Nonempty lines and multiline
+ASM/comment contents match the baseline exactly; the layout pass is idempotent.
+The rules are recorded in [READABILITY.md](READABILITY.md).
+
+`npm run verify` passed: 21 / 21 code hashes and complete serialized BOCs match,
+166 Acton tests and 4 offline evidence checks passed. Acton formatting checks
+accept the added spacing without reordering imports. The published
+`reconstruction/` sources are unchanged.
+
 ## Readability pass — 2026-10-10 (Asia/Tashkent)
 
 Baseline: `da0347b`. See [the change log](READABILITY.md) and

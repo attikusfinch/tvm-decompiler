@@ -1,13 +1,16 @@
 // decompiled by @fiscaldev
+
 type ForwardPayload = cell | RemainingBitsAndRefs
 
 fun ForwardPayload.unpackFromSlice(mutate s: slice): ForwardPayload {
     var result: ForwardPayload;
+
     if (s.loadUint(1) != 0) {
         result = s.loadRef();
     } else {
         result = s as RemainingBitsAndRefs;
     }
+
     return result;
 }
 

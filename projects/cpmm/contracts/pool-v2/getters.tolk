@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Import order preserves the existing address and incoming-message union layout.
+
 import "addresses"
 import "messages"
 import "storage"
@@ -15,6 +16,7 @@ get fun get_pool_data(): PoolData {
     val config = PoolConfig.fromCell(storage.config);
     val fees = PoolFees.fromCell(storage.fees);
     val extra = PoolExtra.fromCell(storage.extra);
+
     return {
         status: match (storage.status) {
             PoolUninitialized => 0,
@@ -46,6 +48,7 @@ get fun get_pool_data(): PoolData {
 @method_id(112421)
 fun estimateWithdrawal(liquidity: int): (int, int) {
     val storage = lazy PoolStorage.fromCell(contract.getData(), { assertEndAfterReading: false });
+
     return storage.liquidity > 0
         ? (
             mulDivFloor(storage.reserveX, liquidity, storage.liquidity),

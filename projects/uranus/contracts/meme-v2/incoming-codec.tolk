@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "types"
 
 @pure
@@ -45,6 +46,7 @@ fun unpackLegacyPoolInitialized(mutate s: slice): Incoming
 
 fun Incoming.unpackFromSlice(mutate s: slice): Incoming {
     var result: Incoming;
+
     if (initPrefix(mutate s)) {
         result = Initialize {
             queryId: s.loadUint(64),
@@ -101,6 +103,7 @@ fun Incoming.unpackFromSlice(mutate s: slice): Incoming {
         if (!poolPrefix(mutate s)) {
             throw 65535;
         }
+
         // Register tag 141 after the eight preceding incoming variants.
         val layoutAnchor: Incoming = PoolInitialized {
             queryId: 0,
@@ -109,5 +112,6 @@ fun Incoming.unpackFromSlice(mutate s: slice): Incoming {
         };
         result = unpackLegacyPoolInitialized(mutate s);
     }
+
     return result;
 }

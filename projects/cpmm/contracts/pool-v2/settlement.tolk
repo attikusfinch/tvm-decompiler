@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "@stdlib/gas-payments"
 import "payment"
 import "payout-config"
@@ -37,9 +38,11 @@ fun settlePoolAssetsEntry(
 ) {
     var reserved = contract.getOriginalBalance() + contract.getStoragePaidPayment() -
         poolIncomingCoins();
+
     var assets = config.beginParse();
     val assetX = assets.loadAddressAny();
     val assetY = assets.loadAddressAny();
+
     if (amountX > 0) {
         val wallet = poolWalletForAsset(wallets, assetX);
         val (payout, excesses, query) = copyPoolPaymentContext(options, excessesTo, queryId);
@@ -54,6 +57,7 @@ fun settlePoolAssetsEntry(
         );
         reserved += fee - principal;
     }
+
     if (amountY > 0) {
         val wallet = poolWalletForAsset(wallets, assetY);
         val (excesses, query) = copyPoolExcessesContext(excessesTo, queryId);
@@ -68,10 +72,13 @@ fun settlePoolAssetsEntry(
         );
         reserved += fee - principal;
     }
+
     reserveToncoinsOnBalance(reserved, RESERVE_MODE_AT_MOST);
+
     if (skipExcesses) {
         return;
     }
+
     sendPoolExcesses(excessesTo, queryId, 130);
 }
 

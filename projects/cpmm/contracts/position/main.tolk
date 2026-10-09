@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 // Reconstructed from mainnet code dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6.
 // Names describe recovered behavior; the original author's identifiers are unknown.
@@ -35,6 +36,7 @@ fun sendExcesses(recipient: any_address, queryId: uint64, mode: int) {
         .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
+
     sendRawMessage(outgoing, mode | SEND_MODE_IGNORE_ERRORS);
 }
 
@@ -59,6 +61,7 @@ fun synchronizeRewards(
 ): map<uint2, PositionReward> {
     var updated = rewards;
     var entry = poolRewards.findFirst();
+
     while (entry.isFound) {
         val poolReward = entry.loadValue();
         val previous = updated.get(entry.getKey());
@@ -67,6 +70,7 @@ fun synchronizeRewards(
         updated.set(entry.getKey(), reward);
         entry = poolRewards.iterateNext(entry);
     }
+
     return updated;
 }
 
@@ -85,10 +89,13 @@ fun registerOutgoingUnionLayout(message: Excesses | DepositNotification | Positi
 fun onInternalMessage(in: InMessage) {
     val message = PositionMessage.fromSlice(in.body, { throwIfOpcodeDoesNotMatch: 65535 });
     var storage = PositionStorage.fromCell(contract.getData());
+
     match (message) {
         CreditLiquidity => {
             assert ((in.senderAddress as slice).bitsEqual(storage.pool as slice)) throw 23;
+
             var fees = storage.fees.load();
+
             if (storage.liquidity > 0) {
                 fees.xPending += mulDivFloor(
                     message.xCheckpoint - fees.xCheckpoint,
@@ -101,6 +108,7 @@ fun onInternalMessage(in: InMessage) {
                     1 << 120,
                 );
             }
+
             fees.xCheckpoint = message.xCheckpoint;
             fees.yCheckpoint = message.yCheckpoint;
             storage.fees = fees.toCell();
@@ -117,6 +125,7 @@ fun onInternalMessage(in: InMessage) {
                 contract.getStoragePaidPayment(),
                 RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
             );
+
             if (message.notifyGas > 0) {
                 val outgoing = beginCell()
                     .storeUint(0x10, 6)
@@ -128,13 +137,17 @@ fun onInternalMessage(in: InMessage) {
                     .storeCoins(locked)
                     .storeMaybeRef(message.payload)
                     .endCell();
+
                 sendRawMessage(outgoing, SEND_MODE_PAY_FEES_SEPARATELY);
             }
+
             // The receiver field is decoded but ignored by the original code.
             sendExcesses(storage.owner, message.queryId, SEND_MODE_CARRY_ALL_BALANCE);
         }
+
         ClaimAvailableFees => {
             assert ((in.senderAddress as slice).bitsEqual(storage.pool as slice)) throw 23;
+
             var fees = storage.fees.load();
             val x = fees.xPending +
                 mulDivFloor(message.xCheckpoint - fees.xCheckpoint, storage.liquidity, 1 << 120);
@@ -146,6 +159,7 @@ fun onInternalMessage(in: InMessage) {
             fees.yPending = 0;
             storage.fees = fees.toCell();
             storage.save();
+
             val body = beginCell()
                 .storeUint(OP_CPMM_PAYOUT_POSITION_FEES, 32)
                 .storeUint(message.queryId, 64)
@@ -154,6 +168,7 @@ fun onInternalMessage(in: InMessage) {
                 .storeSlice(storage.owner as slice)
                 .storeSlice(message.payout as slice)
                 .endCell();
+
             sendRawMessage(
                 beginCell()
                     .storeUint(0x18, 6)
@@ -164,16 +179,20 @@ fun onInternalMessage(in: InMessage) {
                 SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
             );
         }
+
         WithdrawLiquidity => {
             assert ((in.senderAddress as slice).bitsEqual(storage.pool as slice)) throw 23;
+
             try {
                 assert (storage.liquidity - storage.lockedLiquidity >= message.liquidity) throw 36;
+
                 storage.rewards = synchronizeRewards(
                     storage.rewards,
                     storage.liquidity,
                     message.rewards,
                 );
                 var fees = storage.fees.load();
+
                 if (storage.liquidity > 0) {
                     fees.xPending += mulDivFloor(
                         message.xCheckpoint - fees.xCheckpoint,
@@ -186,19 +205,23 @@ fun onInternalMessage(in: InMessage) {
                         1 << 120,
                     );
                 }
+
                 var x = 0;
                 var y = 0;
+
                 if (message.claimFees) {
                     x = fees.xPending;
                     y = fees.yPending;
                     fees.xPending = 0;
                     fees.yPending = 0;
                 }
+
                 fees.xCheckpoint = message.xCheckpoint;
                 fees.yCheckpoint = message.yCheckpoint;
                 storage.fees = fees.toCell();
                 storage.liquidity -= message.liquidity;
                 storage.save();
+
                 val body = beginCell()
                     .storeUint(OP_CPMM_EXIT_LIQUIDITY, 32)
                     .storeUint(message.queryId, 64)
@@ -210,6 +233,7 @@ fun onInternalMessage(in: InMessage) {
                     .storeCoins(message.minY)
                     .storeRef(message.config)
                     .endCell();
+
                 sendRawMessage(
                     beginCell()
                         .storeUint(0x18, 6)
@@ -226,9 +250,11 @@ fun onInternalMessage(in: InMessage) {
                     SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
                 );
                 commitContractDataAndActions();
+
                 throw code;
             }
         }
+
         ProvidePositionState => {
             reserveToncoinsOnBalance(
                 contract.getOriginalBalance() + contract.getStoragePaidPayment() - in.valueCoins,
@@ -250,6 +276,7 @@ fun onInternalMessage(in: InMessage) {
                 fees,
                 rewards,
             }.toCell();
+
             sendRawMessage(
                 beginCell()
                     .storeUint(0x10, 6)
@@ -260,8 +287,10 @@ fun onInternalMessage(in: InMessage) {
                 SEND_MODE_CARRY_ALL_BALANCE,
             );
         }
+
         ClaimPositionReward => {
             assert ((in.senderAddress as slice).bitsEqual(storage.pool as slice)) throw 23;
+
             reserveToncoinsOnBalance(
                 contract.getStoragePaidPayment(),
                 RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
@@ -284,10 +313,13 @@ fun onInternalMessage(in: InMessage) {
                     },
                 );
             storage.save();
+
             if (isZero(reward.pending)) {
                 sendExcesses(message.payout, message.queryId, SEND_MODE_CARRY_ALL_BALANCE);
+
                 return;
             }
+
             val body = beginCell()
                 .storeUint(OP_CPMM_PAYOUT_REWARD, 32)
                 .storeUint(message.queryId, 64)
@@ -296,6 +328,7 @@ fun onInternalMessage(in: InMessage) {
                 .storeSlice(storage.owner as slice)
                 .storeSlice(message.payout as slice)
                 .endCell();
+
             sendRawMessage(
                 beginCell()
                     .storeUint(0x18, 6)
@@ -314,6 +347,7 @@ fun onBouncedMessage(in: InMessageBounced) {
     body.loadUint(32); // Consume, but do not validate, the conventional bounce prefix.
     var storage = PositionStorage.fromCell(contract.getData());
     val message = lazy BouncedPositionMessage.fromSlice(body);
+
     match (message) {
         BouncedFeeClaim => {
             var fees = storage.fees.load();
@@ -325,6 +359,7 @@ fun onBouncedMessage(in: InMessageBounced) {
             storage.save();
             sendExcesses(storage.owner, queryId, SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE);
         }
+
         BouncedWithdrawal => {
             var fees = storage.fees.load();
             val queryId = message.queryId;
@@ -336,6 +371,7 @@ fun onBouncedMessage(in: InMessageBounced) {
             storage.save();
             sendExcesses(storage.owner, queryId, SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE);
         }
+
         BouncedRewardClaim => {
             val queryId = message.queryId;
             val amount = message.amount;
@@ -358,12 +394,14 @@ get fun get_available_fees(xCheckpoint: int, yCheckpoint: int): (int, int) {
     data.loadAddressAny();
     data.loadAddressAny();
     val liquidity = data.loadCoins();
+
     var fees = data.preloadRef().beginParse();
     val xOld = fees.loadAny<varuint32>();
     val xPending = fees.loadCoins();
     fees.loadCoins();
     val yOld = fees.loadAny<varuint32>();
     val yPending = fees.loadCoins();
+
     return (
         xPending + mulDivFloor(xCheckpoint - xOld, liquidity, 1 << 120),
         yPending + mulDivFloor(yCheckpoint - yOld, liquidity, 1 << 120),
@@ -388,12 +426,14 @@ get fun get_position_data(): (
     val locked = data.loadCoins();
     val feeCell = data.loadRef();
     val rewards = data.preloadDict();
+
     var fees = feeCell.beginParse();
     val xOld = fees.loadAny<varuint32>();
     val xPending = fees.loadCoins();
     fees.loadCoins();
     val yOld = fees.loadAny<varuint32>();
     val yPending = fees.loadCoins();
+
     return (
         pool,
         owner,

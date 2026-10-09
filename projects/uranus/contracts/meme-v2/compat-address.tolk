@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Preserve the old standard-library StateInit hashes and address representation.
+
 import "../common/state-init-v2"
 
 fun archivedAddressSlice(b: builder): address
@@ -10,6 +11,7 @@ fun AutoDeployAddress.calculateArchivedAddressBuilder(self): builder {
     val state = self.stateInit;
     val shard = self.toShard;
     var stateHash: uint256;
+
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
             stateHash = archivedStateHashPrefix(shard!.fixedPrefixLength, state.code, state.data);
@@ -19,7 +21,9 @@ fun AutoDeployAddress.calculateArchivedAddressBuilder(self): builder {
     } else {
         stateHash = state.hash();
     }
+
     var result: builder;
+
     if (shard is AddressShardingOptions) {
         val depth = shard!.fixedPrefixLength;
         val maskedHash = stateHash & ((1 << (256 - depth)) - 1);
@@ -33,6 +37,7 @@ fun AutoDeployAddress.calculateArchivedAddressBuilder(self): builder {
     } else {
         result = beginCell().storeUint(4, 3).storeInt(self.workchain, 8).storeUint(stateHash, 256);
     }
+
     return result;
 }
 

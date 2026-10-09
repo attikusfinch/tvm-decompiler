@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 @overflow1023_policy("suppress")
 struct Partner {
     id: uint256

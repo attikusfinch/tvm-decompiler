@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 type ForwardPayload = cell | RemainingBitsAndRefs
 
 // Consume all inline payload while leaving an empty cursor for the ENDS check.
@@ -7,11 +8,13 @@ fun slice.takeRemainder(mutate self): RemainingBitsAndRefs
 
 fun ForwardPayload.unpackFromSlice(mutate s: slice): ForwardPayload {
     var result: ForwardPayload;
+
     if (s.loadUint(1) != 0) {
         result = s.loadRef();
     } else {
         result = s.takeRemainder();
     }
+
     return result;
 }
 

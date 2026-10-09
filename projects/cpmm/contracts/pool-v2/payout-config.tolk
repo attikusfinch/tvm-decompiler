@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 struct PoolPayoutOptions {
     destination: any_address
     extraGas: coins
@@ -18,11 +19,14 @@ fun normalizePoolPayout(payout: PoolExtendedPayout, fallback: any_address): Pool
     if (!payout.fulfill.destination.isInternal()) {
         payout.fulfill.destination = fallback;
     }
+
     if (!payout.reject.destination.isInternal()) {
         payout.reject.destination = fallback;
     }
+
     if (!payout.excessesTo.isInternal()) {
         payout.excessesTo = fallback;
     }
+
     return payout;
 }

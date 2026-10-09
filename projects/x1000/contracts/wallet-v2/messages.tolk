@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "protocol-kinds"
 import "../../../libraries/messages/opcodes"
 import "compat"
@@ -14,6 +15,7 @@ fun invokeAmountHook(
     hookArgument: unknown,
 ): unknown {
     val savedContinuation = getExecutionContinuation();
+
     val hookContinuation = blessCode(hookCode.beginParse());
     setExecutionContinuation(hookContinuation);
     val hookResult = callAmountHookAbi(
@@ -27,6 +29,7 @@ fun invokeAmountHook(
         hookContinuation,
     );
     setExecutionContinuation(savedContinuation);
+
     return hookResult;
 }
 
@@ -48,12 +51,15 @@ fun jettonTransferBody(
             (recipientOwner as address),
         );
     val responseAddressAbsent = (((responseAddress as unknown) == null) as int);
+
     var builder = beginCell();
+
     if (responseAddressAbsent != 0) {
         builder = storeTwoZeroBitsCompat(bodyWithRecipient);
     } else {
         builder = bodyWithRecipient.storeAddress((responseAddress as unknown as slice) as address);
     }
+
     return (builder.storeMaybeRef(customPayload).storeCoins(forwardTonAmount))
         .storeMaybeRef(forwardPayload)
         .endCell();
@@ -71,16 +77,20 @@ fun prepareTradeMessage(
 ): cell {
     val noOutgoingMessage = (null as unknown as cell);
     var outgoingMessage: cell;
+
     if ((protocolKind == PROTOCOL_CLASSIC_DEDUST)) {
         val isJettonToNative2 = ((sourceAssetKind == ASSET_JETTON &&
             targetAssetKind == ASSET_NATIVE) as int);
         var candidateMessage3 = noOutgoingMessage;
+
         if (isJettonToNative2 != 0) {
             var cursor2 = instruction;
             var instructionAmount = cursor2.loadCoins();
             var tail = cursor2;
             val refCell = tail.loadRef();
+
             var dataSlice = refCell.beginParse();
+
             var dataSlice2 = tail.preloadRef().beginParse();
             var tail2 = dataSlice;
             val address = (tail2.loadAddress() as slice);
@@ -88,12 +98,14 @@ fun prepareTradeMessage(
             var tail3 = dataSlice2;
             val address3 = (tail3.loadAddress() as slice);
             val address4 = (tail3.loadAddress() as slice);
+
             var b = beginCell()
                 .storeUint(0x0, 32)
                 .storeTwoZeroBitsCompat()
                 .storeTwoZeroBitsCompat();
             var b2 = b.storeMaybeRef((null as unknown as cell));
             val c = b2.storeMaybeRef((null as unknown as cell)).endCell();
+
             var b22 = beginCell()
                 .storeUint(OP_CLASSIC_JETTON_SWAP, 32)
                 .storeAddress((address4 as address))
@@ -110,16 +122,20 @@ fun prepareTradeMessage(
                 200000000,
                 c2,
             );
+
             var b23 = beginCell().storeUint(0x18, 6).storeAddress((address2 as address));
             var b24 = b23.storeCoins(250000000);
             candidateMessage3 = b24.storeUint(0, 106).storeMaybeRef(result4).endCell();
         }
+
         if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
             var cursor22 = instruction;
             var instructionAmount2 = cursor22.loadCoins();
             var tail4 = cursor22;
             val refCell2 = tail4.loadRef();
+
             var dataSlice3 = refCell2.beginParse();
+
             var dataSlice4 = tail4.preloadRef().beginParse();
             var tail5 = dataSlice3;
             tail5.loadAddress();
@@ -127,12 +143,14 @@ fun prepareTradeMessage(
             var tail6 = dataSlice4;
             val address6 = (tail6.loadAddress() as slice);
             val address7 = (tail6.loadAddress() as slice);
+
             var b3 = beginCell()
                 .storeUint(0x0, 32)
                 .storeTwoZeroBitsCompat()
                 .storeTwoZeroBitsCompat();
             var b25 = b3.storeMaybeRef((null as unknown as cell));
             val c3 = b25.storeMaybeRef((null as unknown as cell)).endCell();
+
             var b26 = beginCell()
                 .storeUint(OP_CLASSIC_JETTON_SWAP, 32)
                 .storeAddress((address7 as address))
@@ -150,6 +168,7 @@ fun prepareTradeMessage(
                 200000000,
                 c4,
             );
+
             var b27 = beginCell().storeUint(0x18, 6).storeAddress((address5 as address));
             var b28 = b27.storeCoins(250000000);
             outgoingMessage = b28.storeUint(0, 106).storeMaybeRef(result7).endCell();
@@ -161,12 +180,15 @@ fun prepareTradeMessage(
             val isJettonToNative5 = ((sourceAssetKind == ASSET_JETTON &&
                 targetAssetKind == ASSET_NATIVE) as int);
             var candidateMessage6 = noOutgoingMessage;
+
             if (isJettonToNative5 != 0) {
                 var cursor23 = instruction;
                 var instructionAmount3 = cursor23.loadCoins();
                 var tail7 = cursor23;
                 val refCell3 = tail7.loadRef();
+
                 var dataSlice5 = refCell3.beginParse();
+
                 var dataSlice6 = tail7.preloadRef().beginParse();
                 var tail8 = dataSlice5;
                 val address8 = (tail8.loadAddress() as slice);
@@ -174,6 +196,7 @@ fun prepareTradeMessage(
                 var tail9 = dataSlice6;
                 val address10 = (tail9.loadAddress() as slice);
                 val address11 = (tail9.loadAddress() as slice);
+
                 var b29 = beginCell()
                     .storeCoins(instructionAmount3)
                     .storeAddress((address8 as address));
@@ -184,6 +207,7 @@ fun prepareTradeMessage(
                     .storeUint(0, 16)
                     .storeTwoZeroBitsCompat()
                     .endCell();
+
                 var b211 = beginCell()
                     .storeUint(OP_STONFI_V2_SWAP, 32)
                     .storeAddress((address11 as address))
@@ -202,16 +226,20 @@ fun prepareTradeMessage(
                     0x1ad27480,
                     c6,
                 );
+
                 var b212 = beginCell().storeUint(0x18, 6).storeAddress((address9 as address));
                 var b213 = b212.storeCoins(0x26be3680);
                 candidateMessage6 = b213.storeUint(0, 106).storeMaybeRef(result11).endCell();
             }
+
             if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                 var cursor24 = instruction;
                 var instructionAmount4 = cursor24.loadCoins();
                 var tail10 = cursor24;
                 val refCell4 = tail10.loadRef();
+
                 var dataSlice7 = refCell4.beginParse();
+
                 var dataSlice8 = tail10.preloadRef().beginParse();
                 var tail11 = dataSlice7;
                 val address12 = (tail11.loadAddress() as slice);
@@ -219,6 +247,7 @@ fun prepareTradeMessage(
                 var tail12 = dataSlice8;
                 val address14 = (tail12.loadAddress() as slice);
                 val address15 = (tail12.loadAddress() as slice);
+
                 var b214 = beginCell()
                     .storeCoins(instructionAmount4)
                     .storeAddress((address12 as address));
@@ -229,6 +258,7 @@ fun prepareTradeMessage(
                     .storeUint(0, 16)
                     .storeTwoZeroBitsCompat()
                     .endCell();
+
                 var b216 = beginCell()
                     .storeUint(OP_STONFI_V2_SWAP, 32)
                     .storeAddress((address15 as address))
@@ -247,6 +277,7 @@ fun prepareTradeMessage(
                     0x1ad27480,
                     c8,
                 );
+
                 var b217 = beginCell().storeUint(0x18, 6).storeAddress((address13 as address));
                 var b218 = b217.storeCoins(0x26be3680);
                 outgoingMessage = b218.storeUint(0, 106).storeMaybeRef(result15).endCell();
@@ -258,12 +289,15 @@ fun prepareTradeMessage(
                 val isJettonToNative8 = ((sourceAssetKind == ASSET_JETTON &&
                     targetAssetKind == ASSET_NATIVE) as int);
                 var candidateMessage9 = noOutgoingMessage;
+
                 if (isJettonToNative8 != 0) {
                     var cursor25 = instruction;
                     var instructionAmount5 = cursor25.loadCoins();
+
                     var tail13 = cursor25.preloadRef().beginParse();
                     val address16 = (tail13.loadAddress() as slice);
                     val address17 = (tail13.loadAddress() as slice);
+
                     var b6 = beginCell().storeUint(OP_TONCO_SWAP, 32);
                     var b219 = b6.storeAddress(
                         ("8010E3B5242B6292042CDE1D4542DB6AC4F1AA502106EFF02B18BE999FBFBA45C2F_".hexToSlice() as address),
@@ -285,21 +319,26 @@ fun prepareTradeMessage(
                         0x1dcd6500,
                         c9,
                     );
+
                     var b220 = beginCell().storeUint(0x18, 6).storeAddress((address17 as address));
                     var b221 = b220.storeCoins(0x23c34600);
                     candidateMessage9 = b221.storeUint(0, 106).storeMaybeRef(result18).endCell();
                 }
+
                 if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                     var cursor26 = instruction;
                     var instructionAmount6 = cursor26.loadCoins();
                     var tail14 = cursor26;
                     val refCell5 = tail14.loadRef();
+
                     var dataSlice9 = refCell5.beginParse();
+
                     var dataSlice10 = tail14.preloadRef().beginParse();
                     var tail15 = dataSlice9;
                     val address18 = (tail15.loadAddress() as slice);
                     val address19 = (tail15.loadAddress() as slice);
                     val address20 = (dataSlice10.loadAddress() as slice);
+
                     var b222 = beginCell()
                         .storeUint(OP_TONCO_SWAP, 32)
                         .storeAddress((address20 as address));
@@ -320,6 +359,7 @@ fun prepareTradeMessage(
                         0x1dcd6500,
                         c10,
                     );
+
                     var b223 = beginCell().storeUint(0x18, 6).storeAddress((address19 as address));
                     var b224 = b223.storeCoins(0x23c34600);
                     outgoingMessage = b224.storeUint(0, 106).storeMaybeRef(result21).endCell();
@@ -331,17 +371,21 @@ fun prepareTradeMessage(
                     val isJettonToNative11 = ((sourceAssetKind == ASSET_JETTON &&
                         targetAssetKind == ASSET_NATIVE) as int);
                     var candidateMessage12 = noOutgoingMessage;
+
                     if (isJettonToNative11 != 0) {
                         var cursor27 = instruction;
                         var instructionAmount7 = cursor27.loadCoins();
                         var tail16 = cursor27;
                         val refCell6 = tail16.loadRef();
+
                         var dataSlice11 = refCell6.beginParse();
+
                         var dataSlice12 = tail16.preloadRef().beginParse();
                         var tail17 = dataSlice11;
                         val address21 = (tail17.loadAddress() as slice);
                         val address22 = (tail17.loadAddress() as slice);
                         val address23 = (dataSlice12.loadAddress() as slice);
+
                         var b225 = beginCell()
                             .storeAddress((address21 as address))
                             .storeUint(1, 6)
@@ -351,12 +395,14 @@ fun prepareTradeMessage(
                             .storeTwoZeroBitsCompat()
                             .storeAddress((address21 as address))
                             .endCell();
+
                         var b226 = beginCell()
                             .storeUint(OP_CPMM_SWAP_PAYLOAD, 32)
                             .storeCoins(instructionAmount7);
                         val inmsg_33 = blockchain.now();
                         val result24 = (inmsg_33 + 300);
                         val c12 = b226.storeUint(result24, 40).storeUint(0, 3).endCell();
+
                         val c13 = beginCell()
                             .storeUint(OP_CPMM_PAY_JETTON, 32)
                             .storeRef(c12)
@@ -372,6 +418,7 @@ fun prepareTradeMessage(
                             0x17d78400,
                             c13,
                         );
+
                         var b227 = beginCell()
                             .storeUint(0x18, 6)
                             .storeAddress((address22 as address));
@@ -381,17 +428,21 @@ fun prepareTradeMessage(
                             .storeMaybeRef(result25)
                             .endCell();
                     }
+
                     if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                         var cursor28 = instruction;
                         var instructionAmount8 = cursor28.loadCoins();
                         var tail18 = cursor28;
                         val refCell7 = tail18.loadRef();
+
                         var dataSlice13 = refCell7.beginParse();
+
                         var dataSlice14 = tail18.preloadRef().beginParse();
                         var tail19 = dataSlice13;
                         val address24 = (tail19.loadAddress() as slice);
                         val address25 = (tail19.loadAddress() as slice);
                         val address26 = (dataSlice14.loadAddress() as slice);
+
                         var b229 = beginCell().storeAddress((address24 as address));
                         var b230 = b229
                             .storeCoins(0x11e1a300)
@@ -402,12 +453,14 @@ fun prepareTradeMessage(
                             .storeTwoZeroBitsCompat()
                             .storeAddress((address24 as address))
                             .endCell();
+
                         var b231 = beginCell()
                             .storeUint(OP_CPMM_SWAP_PAYLOAD, 32)
                             .storeCoins(instructionAmount8);
                         val inmsg_34 = blockchain.now();
                         val result28 = (inmsg_34 + 300);
                         val c15 = b231.storeUint(result28, 40).storeUint(0, 3).endCell();
+
                         val c16 = beginCell()
                             .storeUint(OP_CPMM_PAY_JETTON, 32)
                             .storeRef(c15)
@@ -423,6 +476,7 @@ fun prepareTradeMessage(
                             0x17d78400,
                             c16,
                         );
+
                         var b232 = beginCell()
                             .storeUint(0x18, 6)
                             .storeAddress((address25 as address));
@@ -435,17 +489,21 @@ fun prepareTradeMessage(
                     val isJettonToNative14 = ((sourceAssetKind == ASSET_JETTON &&
                         targetAssetKind == ASSET_NATIVE) as int);
                     var candidateMessage15 = noOutgoingMessage;
+
                     if (isJettonToNative14 != 0) {
                         var cursor29 = instruction;
                         var instructionAmount9 = cursor29.loadCoins();
                         var tail20 = cursor29;
                         val refCell8 = tail20.loadRef();
+
                         var dataSlice15 = refCell8.beginParse();
+
                         var dataSlice16 = tail20.preloadRef().beginParse();
                         var tail21 = dataSlice15;
                         val address27 = (tail21.loadAddress() as slice);
                         val address28 = (tail21.loadAddress() as slice);
                         val address29 = (dataSlice16.loadAddress() as slice);
+
                         var b7 = beginCell()
                             .storeUint(OP_BIDASK_DAMM_SWAP, 32)
                             .storeAddress((address27 as address))
@@ -465,6 +523,7 @@ fun prepareTradeMessage(
                             0x1dcd6500,
                             c17,
                         );
+
                         var b236 = beginCell()
                             .storeUint(0x18, 6)
                             .storeAddress((address28 as address));
@@ -474,18 +533,23 @@ fun prepareTradeMessage(
                             .storeMaybeRef(result32)
                             .endCell();
                     }
+
                     if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                         var cursor210 = instruction;
                         var instructionAmount10 = cursor210.loadCoins();
                         var tail22 = cursor210;
                         val refCell9 = tail22.loadRef();
+
                         var dataSlice17 = refCell9.beginParse();
+
                         var dataSlice18 = tail22.preloadRef().beginParse();
                         var tail23 = dataSlice17;
                         val address30 = (tail23.loadAddress() as slice);
                         val address31 = (tail23.loadAddress() as slice);
                         val address32 = (dataSlice18.loadAddress() as slice);
+
                         val c18 = beginCell().storeUint(0x0, 32).endCell();
+
                         var b8 = beginCell()
                             .storeUint(OP_BIDASK_DAMM_SWAP, 32)
                             .storeAddress((address30 as address))
@@ -509,6 +573,7 @@ fun prepareTradeMessage(
                             0x1dcd6500,
                             c19,
                         );
+
                         var b238 = beginCell()
                             .storeUint(0x18, 6)
                             .storeAddress((address31 as address));
@@ -522,22 +587,28 @@ fun prepareTradeMessage(
                         val isJettonToNative17 = ((sourceAssetKind == ASSET_JETTON &&
                             targetAssetKind == ASSET_NATIVE) as int);
                         var candidateMessage18 = noOutgoingMessage;
+
                         if (isJettonToNative17 != 0) {
                             var cursor211 = instruction;
                             var instructionAmount11 = cursor211.loadCoins();
                             var tail24 = cursor211;
                             val refCell10 = tail24.loadRef();
+
                             var dataSlice19 = refCell10.beginParse();
+
                             var dataSlice20 = tail24.preloadRef().beginParse();
                             var tail25 = dataSlice19;
                             val address33 = (tail25.loadAddress() as slice);
                             val address34 = (tail25.loadAddress() as slice);
                             val address35 = (dataSlice20.loadAddress() as slice);
+
                             val c20 = beginCell()
                                 .storeAddress((address33 as address))
                                 .storeTwoZeroBitsCompat()
                                 .endCell();
+
                             val c21 = beginCell().storeUint(0x0, 32).endCell();
+
                             var b240 = beginCell()
                                 .storeUint(OP_BIDASK_CLMM_SWAP, 32)
                                 .storeAddress((address33 as address))
@@ -557,6 +628,7 @@ fun prepareTradeMessage(
                                 0x1dcd6500,
                                 c22,
                             );
+
                             var b241 = beginCell()
                                 .storeUint(0x18, 6)
                                 .storeAddress((address34 as address));
@@ -566,22 +638,28 @@ fun prepareTradeMessage(
                                 .storeMaybeRef(result38)
                                 .endCell();
                         }
+
                         if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                             var cursor212 = instruction;
                             var instructionAmount12 = cursor212.loadCoins();
                             var tail26 = cursor212;
                             val refCell11 = tail26.loadRef();
+
                             var dataSlice21 = refCell11.beginParse();
+
                             var dataSlice22 = tail26.preloadRef().beginParse();
                             var tail27 = dataSlice21;
                             val address36 = (tail27.loadAddress() as slice);
                             val address37 = (tail27.loadAddress() as slice);
                             val address38 = (dataSlice22.loadAddress() as slice);
+
                             val c23 = beginCell()
                                 .storeAddress((address36 as address))
                                 .storeTwoZeroBitsCompat()
                                 .endCell();
+
                             val c24 = beginCell().storeUint(0x0, 32).endCell();
+
                             val c25 = beginCell()
                                 .storeUint(OP_BIDASK_CLMM_SWAP, 32)
                                 .storeAddress((address36 as address))
@@ -602,6 +680,7 @@ fun prepareTradeMessage(
                                 0x1dcd6500,
                                 c25,
                             );
+
                             var b243 = beginCell()
                                 .storeUint(0x18, 6)
                                 .storeAddress((address37 as address));
@@ -617,12 +696,15 @@ fun prepareTradeMessage(
                         val isJettonToNative20 = ((sourceAssetKind == ASSET_JETTON &&
                             targetAssetKind == ASSET_NATIVE) as int);
                         var candidateMessage21 = noOutgoingMessage;
+
                         if (isJettonToNative20 != 0) {
                             var cursor213 = instruction;
                             var instructionAmount13 = cursor213.loadCoins();
                             var tail28 = cursor213;
                             val refCell12 = tail28.loadRef();
+
                             var dataSlice23 = refCell12.beginParse();
+
                             var dataSlice24 = tail28.preloadRef().beginParse();
                             var tail29 = dataSlice23;
                             val address39 = (tail29.loadAddress() as slice);
@@ -632,12 +714,14 @@ fun prepareTradeMessage(
                             val x14 = tail30.preloadUint(256);
                             val inmsg_35 = blockchain.now();
                             val result44 = (inmsg_35 + 60);
+
                             var builder = beginCell();
                             var b9 = builder
                                 .storeUint(result44, 32)
                                 .storeAddress((address39 as address))
                                 .storeTwoZeroBitsCompat();
                             val c26 = b9.storeMaybeRef((null as unknown as cell)).endCell();
+
                             var b10 = beginCell().storeUint(OP_COFFEE_SWAP, 32);
                             var b245 = b10.storeUint(x14, 256).storeCoins(instructionAmount13);
                             val c27 = b245
@@ -654,6 +738,7 @@ fun prepareTradeMessage(
                                 0x14dc9380,
                                 c27,
                             );
+
                             var b246 = beginCell()
                                 .storeUint(0x18, 6)
                                 .storeAddress((address40 as address));
@@ -663,12 +748,15 @@ fun prepareTradeMessage(
                                 .storeMaybeRef(result45)
                                 .endCell();
                         }
+
                         if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                             var cursor214 = instruction;
                             var instructionAmount15 = cursor214.loadCoins();
                             var tail31 = cursor214;
                             val refCell13 = tail31.loadRef();
+
                             var dataSlice25 = refCell13.beginParse();
+
                             var dataSlice26 = tail31.preloadRef().beginParse();
                             var tail32 = dataSlice25;
                             val address42 = (tail32.loadAddress() as slice);
@@ -676,14 +764,17 @@ fun prepareTradeMessage(
                             var tail33 = dataSlice26;
                             val address44 = (tail33.loadAddress() as slice);
                             val x16 = tail33.preloadUint(256);
+
                             var b248 = beginCell().storeAddress((address42 as address));
                             var b249 = b248.storeCoins(100000000);
                             val c28 = b249
                                 .storeRef(beginCell().storeUint(0x3039, 32).endCell())
                                 .endCell();
+
                             val c29 = beginCell().storeMaybeRef(c28).storeMaybeRef(c28).endCell();
                             val inmsg_36 = blockchain.now();
                             val result48 = (inmsg_36 + 60);
+
                             var builder2 = beginCell();
                             val c30 = builder2
                                 .storeUint(result48, 32)
@@ -691,6 +782,7 @@ fun prepareTradeMessage(
                                 .storeTwoZeroBitsCompat()
                                 .storeMaybeRef(c29)
                                 .endCell();
+
                             var b11 = beginCell().storeUint(OP_COFFEE_SWAP, 32);
                             var b250 = b11.storeUint(x16, 256).storeCoins(instructionAmount15);
                             val c31 = b250
@@ -707,6 +799,7 @@ fun prepareTradeMessage(
                                 0x14dc9380,
                                 c31,
                             );
+
                             var b251 = beginCell()
                                 .storeUint(0x18, 6)
                                 .storeAddress((address43 as address));
@@ -727,24 +820,31 @@ fun prepareTradeMessage(
                                 var instructionAmount17 = cursor215.loadCoins();
                                 var tail34 = cursor215;
                                 val refCell14 = tail34.loadRef();
+
                                 var dataSlice27 = refCell14.beginParse();
+
                                 var dataSlice28 = tail34.preloadRef().beginParse();
                                 var tail35 = dataSlice27;
                                 val address45 = (tail35.loadAddress() as slice);
                                 val address46 = (tail35.loadAddress() as slice);
                                 val address47 = (dataSlice28.loadAddress() as slice);
+
                                 var b12 = beginCell().storeUint(OP_MOON_SWAP_SUCCEEDED, 32);
                                 val c32 = b12.storeUint(queryId, 64).endCell();
+
                                 var b13 = beginCell().storeUint(OP_MOON_SWAP_FAILED, 32);
                                 val c33 = b13.storeUint(queryId, 64).endCell();
+
                                 val c34 = beginCell()
                                     .storeAddress((address45 as address))
                                     .storeMaybeRef(c32)
                                     .endCell();
+
                                 val c35 = beginCell()
                                     .storeAddress((address45 as address))
                                     .storeMaybeRef(c33)
                                     .endCell();
+
                                 var b253 = beginCell()
                                     .storeUint(OP_MOON_SWAP, 32)
                                     .storeCoins(
@@ -769,6 +869,7 @@ fun prepareTradeMessage(
                                     150000000,
                                     c36,
                                 );
+
                                 var b254 = beginCell()
                                     .storeUint(0x18, 6)
                                     .storeAddress(
@@ -786,20 +887,25 @@ fun prepareTradeMessage(
                             val isJettonToNative24 = ((sourceAssetKind == ASSET_JETTON &&
                                 targetAssetKind == ASSET_NATIVE) as int);
                             var candidateMessage25 = noOutgoingMessage;
+
                             if (isJettonToNative24 != 0) {
                                 var cursor216 = instruction;
                                 var instructionAmount18 = cursor216.loadCoins();
                                 var tail36 = cursor216;
                                 val refCell15 = tail36.loadRef();
+
                                 var dataSlice29 = refCell15.beginParse();
+
                                 var dataSlice30 = tail36.preloadRef().beginParse();
                                 var tail37 = dataSlice29;
                                 val address48 = (tail37.loadAddress() as slice);
                                 val address49 = (tail37.loadAddress() as slice);
                                 val address50 = (dataSlice30.loadAddress() as slice);
+
                                 val c37 = beginCell()
                                     .storeAddress((address48 as address))
                                     .endCell();
+
                                 val c38 = beginCell()
                                     .storeUint(OP_ADAPTER_8_SWAP, 32)
                                     .storeAddress(
@@ -819,6 +925,7 @@ fun prepareTradeMessage(
                                     150000000,
                                     c38,
                                 );
+
                                 var b256 = beginCell()
                                     .storeUint(0x18, 6)
                                     .storeAddress(
@@ -830,6 +937,7 @@ fun prepareTradeMessage(
                                     .storeMaybeRef(result56)
                                     .endCell();
                             }
+
                             if (
                                 (sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)
                             ) {
@@ -837,15 +945,19 @@ fun prepareTradeMessage(
                                 var instructionAmount19 = cursor217.loadCoins();
                                 var tail38 = cursor217;
                                 val refCell16 = tail38.loadRef();
+
                                 var dataSlice31 = refCell16.beginParse();
+
                                 var dataSlice32 = tail38.preloadRef().beginParse();
                                 var tail39 = dataSlice31;
                                 val address51 = (tail39.loadAddress() as slice);
                                 val address52 = (tail39.loadAddress() as slice);
                                 val address53 = (dataSlice32.loadAddress() as slice);
+
                                 val c39 = beginCell()
                                     .storeAddress((address51 as address))
                                     .endCell();
+
                                 val c40 = beginCell()
                                     .storeUint(OP_ADAPTER_8_SWAP, 32)
                                     .storeAddress(
@@ -865,6 +977,7 @@ fun prepareTradeMessage(
                                     150000000,
                                     c40,
                                 );
+
                                 var b258 = beginCell()
                                     .storeUint(0x18, 6)
                                     .storeAddress(
@@ -883,20 +996,25 @@ fun prepareTradeMessage(
                                 val isJettonToNative27 = ((sourceAssetKind == ASSET_JETTON &&
                                     targetAssetKind == ASSET_NATIVE) as int);
                                 var candidateMessage28 = noOutgoingMessage;
+
                                 if (isJettonToNative27 != 0) {
                                     var cursor218 = instruction;
                                     var x20 = cursor218.loadUint(256);
                                     var tail40 = cursor218;
                                     val refCell17 = tail40.loadRef();
+
                                     var dataSlice33 = refCell17.beginParse();
+
                                     var dataSlice34 = tail40.preloadRef().beginParse();
                                     var tail41 = dataSlice33;
                                     val address54 = (tail41.loadAddress() as slice);
                                     val address55 = (tail41.loadAddress() as slice);
                                     val address56 = (dataSlice34.loadAddress() as slice);
+
                                     val c41 = beginCell()
                                         .storeAddress((address54 as address))
                                         .endCell();
+
                                     var b260 = beginCell()
                                         .storeUint(OP_MOON_CLMM_SWAP, 32)
                                         .storeAddress(
@@ -917,6 +1035,7 @@ fun prepareTradeMessage(
                                         250000000,
                                         c42,
                                     );
+
                                     var b261 = beginCell()
                                         .storeUint(0x18, 6)
                                         .storeAddress(
@@ -928,6 +1047,7 @@ fun prepareTradeMessage(
                                         .storeMaybeRef(result62)
                                         .endCell();
                                 }
+
                                 if (
                                     (sourceAssetKind == ASSET_JETTON &&
                                         targetAssetKind == ASSET_JETTON)
@@ -936,15 +1056,19 @@ fun prepareTradeMessage(
                                     var x21 = cursor219.loadUint(256);
                                     var tail42 = cursor219;
                                     val refCell18 = tail42.loadRef();
+
                                     var dataSlice35 = refCell18.beginParse();
+
                                     var dataSlice36 = tail42.preloadRef().beginParse();
                                     var tail43 = dataSlice35;
                                     val address57 = (tail43.loadAddress() as slice);
                                     val address58 = (tail43.loadAddress() as slice);
                                     val address59 = (dataSlice36.loadAddress() as slice);
+
                                     val c43 = beginCell()
                                         .storeAddress((address57 as address))
                                         .endCell();
+
                                     var b263 = beginCell()
                                         .storeUint(OP_MOON_CLMM_SWAP, 32)
                                         .storeAddress(
@@ -965,6 +1089,7 @@ fun prepareTradeMessage(
                                         250000000,
                                         c44,
                                     );
+
                                     var b264 = beginCell()
                                         .storeUint(0x18, 6)
                                         .storeAddress(
@@ -985,9 +1110,11 @@ fun prepareTradeMessage(
                                 ) {
                                     var cursor220 = instruction;
                                     var instructionAmount22 = cursor220.loadCoins();
+
                                     var tail44 = cursor220.preloadRef().beginParse();
                                     val address60 = (tail44.loadAddress() as slice);
                                     val address61 = (tail44.loadAddress() as slice);
+
                                     var b14 = beginCell().storeUint(OP_STONKS_PUMP_SELL, 32);
                                     val c45 = b14
                                         .storeUint(queryId, 64)
@@ -995,6 +1122,7 @@ fun prepareTradeMessage(
                                         .storeAddress((address60 as address))
                                         .storeCoins(instructionAmount22)
                                         .endCell();
+
                                     var b266 = beginCell()
                                         .storeUint(0x18, 6)
                                         .storeAddress(
@@ -1016,9 +1144,11 @@ fun prepareTradeMessage(
                                     ) {
                                         var cursor221 = instruction;
                                         var instructionAmount23 = cursor221.loadCoins();
+
                                         var tail45 = cursor221.preloadRef().beginParse();
                                         val address62 = (tail45.loadAddress() as slice);
                                         val address63 = (tail45.loadAddress() as slice);
+
                                         var b15 = beginCell().storeUint(OP_URANUS_SELL, 32);
                                         var b268 = b15
                                             .storeUint(queryId, 64)
@@ -1029,6 +1159,7 @@ fun prepareTradeMessage(
                                         val c46 = b269
                                             .storeMaybeRef((null as unknown as cell))
                                             .endCell();
+
                                         var b270 = beginCell()
                                             .storeUint(0x18, 6)
                                             .storeAddress(
@@ -1049,15 +1180,18 @@ fun prepareTradeMessage(
                                     ) {
                                         var cursor222 = instruction;
                                         var instructionAmount24 = cursor222.loadCoins();
+
                                         var tail46 = cursor222.preloadRef().beginParse();
                                         val address64 = (tail46.loadAddress() as slice);
                                         val address65 = (tail46.loadAddress() as slice);
+
                                         var b16 = beginCell()
                                             .storeCoins(instructionAmount24)
                                             .storeTwoZeroBitsCompat();
                                         val c47 = b16
                                             .storeMaybeRef((null as unknown as cell))
                                             .endCell();
+
                                         var b17 = beginCell().storeUint(OP_JETTON_BURN, 32);
                                         val c48 = b17
                                             .storeUint(queryId, 64)
@@ -1067,6 +1201,7 @@ fun prepareTradeMessage(
                                             )
                                             .storeMaybeRef(c47)
                                             .endCell();
+
                                         var b272 = beginCell()
                                             .storeUint(0x18, 6)
                                             .storeAddress(
@@ -1092,12 +1227,15 @@ fun prepareTradeMessage(
             val isJettonToNative33 = ((sourceAssetKind == ASSET_JETTON &&
                 targetAssetKind == ASSET_NATIVE) as int);
             var candidateMessage34 = noOutgoingMessage;
+
             if (isJettonToNative33 != 0) {
                 var cursor223 = instruction;
                 var instructionAmount25 = cursor223.loadCoins();
+
                 var tail47 = cursor223.preloadRef().beginParse();
                 val address66 = (tail47.loadAddress() as slice);
                 val address67 = (tail47.loadAddress() as slice);
+
                 var b18 = beginCell().storeUint(OP_STONFI_V1_SWAP, 32);
                 val c49 = b18
                     .storeAddress(
@@ -1119,21 +1257,26 @@ fun prepareTradeMessage(
                     250000000,
                     c49,
                 );
+
                 var b274 = beginCell().storeUint(0x18, 6).storeAddress((address67 as address));
                 var b275 = b274.storeCoins(0x11e1a300);
                 candidateMessage34 = b275.storeUint(0, 106).storeMaybeRef(result74).endCell();
             }
+
             if ((sourceAssetKind == ASSET_JETTON && targetAssetKind == ASSET_JETTON)) {
                 var cursor224 = instruction;
                 var instructionAmount26 = cursor224.loadCoins();
                 var tail48 = cursor224;
                 val refCell19 = tail48.loadRef();
+
                 var dataSlice37 = refCell19.beginParse();
+
                 var dataSlice38 = tail48.preloadRef().beginParse();
                 var tail49 = dataSlice37;
                 val address68 = (tail49.loadAddress() as slice);
                 val address69 = (tail49.loadAddress() as slice);
                 val address70 = (dataSlice38.loadAddress() as slice);
+
                 val c50 = beginCell()
                     .storeUint(OP_STONFI_V1_SWAP, 32)
                     .storeAddress((address70 as address))
@@ -1153,6 +1296,7 @@ fun prepareTradeMessage(
                     250000000,
                     c50,
                 );
+
                 var b276 = beginCell().storeUint(0x18, 6).storeAddress((address69 as address));
                 var b277 = b276.storeCoins(0x11e1a300);
                 outgoingMessage = b277.storeUint(0, 106).storeMaybeRef(result77).endCell();
@@ -1161,5 +1305,6 @@ fun prepareTradeMessage(
             }
         }
     }
+
     return outgoingMessage;
 }

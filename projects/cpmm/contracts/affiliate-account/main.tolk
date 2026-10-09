@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 // Reconstructed from mainnet code 4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6.
 // Names describe observed behavior; the original identifiers are unknown.
@@ -14,6 +15,7 @@ fun sendExcesses(recipient: any_address, queryId: uint64, mode: int) {
         .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
+
     sendRawMessage(message, mode | SEND_MODE_IGNORE_ERRORS);
 }
 
@@ -24,13 +26,16 @@ fun onInternalMessage(in: InMessage) {
         { assertEndAfterReading: false },
     );
     val message = lazy AffiliateMessage.fromSlice(in.body);
+
     match (message) {
         FeeNotification => {
             return;
         }
+
         ActivateAffiliate => {
             assert (!storage.isActivated) throw 16;
             assert ((in.senderAddress as slice).bitsEqual(storage.authority as slice)) throw 18;
+
             // Incoming payload suffixes are ignored in this contract.
             val activation = ActivationBody.fromSlice(
                 message.tail,
@@ -39,15 +44,18 @@ fun onInternalMessage(in: InMessage) {
             storage.isActivated = true;
             storage.metadata = activation.metadata;
             storage.owner = activation.owner;
+
             // These slices have just been decoded with fixed widths. The original
             // stores them directly, without adding bitsN serialization checks.
             contract.setData(storage.toCell({ skipBitsNValidation: true }));
             reserveToncoinsOnBalance(RETAINED_BALANCE, RESERVE_MODE_AT_MOST);
             sendExcesses(activation.excesses, activation.queryId, SEND_MODE_CARRY_ALL_BALANCE);
         }
+
         WithdrawAffiliate => {
             assert (storage.isActivated) throw 17;
             assert ((in.senderAddress as slice).bitsEqual(storage.owner as slice)) throw 18;
+
             reserveToncoinsOnBalance(RETAINED_BALANCE, RESERVE_MODE_AT_MOST);
             val available = max(
                 contract.getOriginalBalance() - RETAINED_BALANCE - in.valueCoins,
@@ -57,6 +65,7 @@ fun onInternalMessage(in: InMessage) {
                 message.tail,
                 { assertEndAfterReading: false },
             );
+
             if (available > 0) {
                 val outgoing = beginCell()
                     .storeUint(0x10, 6)
@@ -64,8 +73,10 @@ fun onInternalMessage(in: InMessage) {
                     .storeCoins(available)
                     .storeUint(0, 107)
                     .endCell();
+
                 sendRawMessage(outgoing, SEND_MODE_PAY_FEES_SEPARATELY | SEND_MODE_IGNORE_ERRORS);
             }
+
             sendExcesses(withdrawal.excesses, withdrawal.queryId, SEND_MODE_CARRY_ALL_BALANCE);
         }
         else => {
@@ -95,6 +106,7 @@ get fun get_affiliate_account_data(): (
         ReferrerKind => 0,
         PartnerKind => 1,
     };
+
     return (
         storage.isActivated,
         storage.authority,

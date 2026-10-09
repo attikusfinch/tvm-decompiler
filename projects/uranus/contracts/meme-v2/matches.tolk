@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../common/state-init-v2"
 
 @inline
@@ -6,6 +7,7 @@ fun AutoDeployAddress.matchesArchivedAddress(self, addr: address): bool {
     val state = self.stateInit;
     val shard = self.toShard;
     var hash: uint256;
+
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
             hash = archivedStateHashPrefix(shard.fixedPrefixLength, state.code, state.data);
@@ -15,14 +17,18 @@ fun AutoDeployAddress.matchesArchivedAddress(self, addr: address): bool {
     } else {
         hash = state.hash();
     }
+
     if (shard is AddressShardingOptions) {
         hash &= (1 << (256 - shard.fixedPrefixLength)) - 1;
     }
+
     val (workchain, fullHash) = addr.getWorkchainAndHash();
     var suffix = fullHash;
+
     if (shard is AddressShardingOptions) {
         suffix &= (1 << (256 - shard.fixedPrefixLength)) - 1;
     }
+
     return (suffix == hash) & (workchain == self.workchain);
 }
 

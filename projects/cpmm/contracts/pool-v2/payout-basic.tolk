@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "payout-config"
 
 @overflow1023_policy("suppress")
@@ -12,8 +13,10 @@ fun normalizePoolBasicPayout(payout: PoolBasicPayout, fallback: any_address): Po
     if (!payout.options.destination.isInternal()) {
         payout.options.destination = fallback;
     }
+
     if (!payout.excessesTo.isInternal()) {
         payout.excessesTo = fallback;
     }
+
     return payout;
 }

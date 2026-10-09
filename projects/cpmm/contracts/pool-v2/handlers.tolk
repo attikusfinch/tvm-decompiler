@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 // Byte-identical readable Pool V2 incoming handlers.
 import "@stdlib/gas-payments"
@@ -37,6 +38,7 @@ fun defaultPoolPaymentReject(sender: any_address): (any_address, PoolPayoutOptio
 @inline
 fun buildPoolInitializationResult(to: any_address, queryId: uint64, exitCode: int): cell {
     val payload: cell? = null;
+
     val message = beginCell()
         .storeUint(0x10, 6)
         .storeSlice(to as slice)
@@ -45,6 +47,7 @@ fun buildPoolInitializationResult(to: any_address, queryId: uint64, exitCode: in
         .storeInt(exitCode, 32)
         .storeDict(payload)
         .endCell();
+
     return message;
 }
 
@@ -52,74 +55,93 @@ fun buildPoolInitializationResult(to: any_address, queryId: uint64, exitCode: in
 fun initializePool(storage: PoolStorage, message: InitPool, in: PoolInboundContext) {
     try {
         val initialCost = 50000000 + calculateGasFee(0, 40000) + poolOriginalForwardFee();
+
         assert (in.valueCoins() >= initialCost) throw 25;
         assert (storage.status is PoolUninitialized) throw 20;
+
         val config = PoolConfig.fromCell(storage.config);
+
         assert (!(config.assetX as slice).bitsEqual(config.assetY as slice)) throw 26;
         assert (config.creatorFee <= 5000) throw 35;
+
         val depositActive = config.depositActivation == null;
         val swapActive = config.swapActivation == null;
         var requested = 0;
         var extra = PoolExtra.fromCell(storage.extra);
+
         if (config.assetX.isInternal()) {
             val (isNew, resolver) = schedulePoolWallets(
                 mutate extra.wallets,
                 config.assetX,
                 config.customResolvers,
             );
+
             if (isNew) {
                 requestPoolWalletAddress(resolver, message.queryId);
                 requested += 1;
             }
         }
+
         if (config.assetY.isInternal()) {
             val (isNew, resolver) = schedulePoolWallets(
                 mutate extra.wallets,
                 config.assetY,
                 config.customResolvers,
             );
+
             if (isNew) {
                 requestPoolWalletAddress(resolver, message.queryId);
                 requested += 1;
             }
         }
+
         var reward = config.allowedRewards.findFirst();
+
         while (reward.isFound) {
             val allowed = reward.loadValue();
+
             if (allowed.asset.isInternal()) {
                 val (isNew, resolver) = schedulePoolWallets(
                     mutate extra.wallets,
                     allowed.asset,
                     config.customResolvers,
                 );
+
                 if (isNew) {
                     requestPoolWalletAddress(resolver, message.queryId);
                     requested += 1;
                 }
             }
+
             reward = config.allowedRewards.iterateNext(reward);
         }
+
         val processingFee = max(calculateGasFee(0, 25000), 10000000);
         val requestForwardFee = calculateForwardFee(0, 364, 1);
         val replyForwardFee = calculateForwardFee(0, 1, 364);
         val resolverCost = requestForwardFee + processingFee + replyForwardFee;
+
         assert (
             initialCost + (resolverCost + calculateGasFee(0, 14500)) * requested <= in.valueCoins()
         ) throw 25;
         storage.extra = extra.toCell();
         reserveToncoinsOnBalance(50000000, RESERVE_MODE_AT_MOST);
+
         if (requested > 0) {
             storage.status = PoolInitializing { initiator: in.senderAddress() as any_address };
             sendPoolExcesses(in.senderAddress() as any_address, message.queryId, 128);
         } else {
             storage.status = PoolInitialized {};
+
             sendRawMessage(
                 buildPoolInitializationResult(in.senderAddress(), message.queryId, 0),
                 SEND_MODE_CARRY_ALL_BALANCE,
             );
         }
+
         storage.depositActive = depositActive;
         storage.swapActive = swapActive;
+
         contract.setData(storage.toCell());
     } catch (code, value) {
         sendRawMessage(
@@ -127,6 +149,7 @@ fun initializePool(storage: PoolStorage, message: InitPool, in: PoolInboundConte
             SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE,
         );
         commitContractDataAndActions();
+
         throw code;
     }
 }
@@ -135,6 +158,7 @@ fun initializePool(storage: PoolStorage, message: InitPool, in: PoolInboundConte
 fun receivePoolWallet(storage: PoolStorage, message: TakeWalletAddress, in: PoolInboundContext) {
     assert (storage.status is PoolInitializing) throw 21;
     assert (message.wallet.isInternal()) throw 24;
+
     var extra = PoolExtra.fromCell(storage.extra);
     extra.wallets = finishWalletResolution(
         extra.wallets,
@@ -142,6 +166,7 @@ fun receivePoolWallet(storage: PoolStorage, message: TakeWalletAddress, in: Pool
         message.wallet,
     );
     storage.extra = extra.toCell();
+
     if (extra.wallets.resolutions.findFirst().isFound) {
         sendPoolExcesses(storage.status.initiator, message.queryId, 64);
     } else {
@@ -151,6 +176,7 @@ fun receivePoolWallet(storage: PoolStorage, message: TakeWalletAddress, in: Pool
         );
         storage.status = PoolInitialized {};
     }
+
     contract.setData(storage.toCell());
 }
 
@@ -159,6 +185,7 @@ fun receivePoolNativePayment(storage: PoolStorage, message: PayNative, in: PoolI
     try {
         assert (storage.status is PoolInitialized) throw 22;
         assert (calculateGasFee(0, 10000) + poolOriginalForwardFee() <= in.valueCoins()) throw 25;
+
         processPoolPayment(
             storage,
             in.senderAddress() as any_address,
@@ -179,6 +206,7 @@ fun receivePoolNativePayment(storage: PoolStorage, message: PayNative, in: PoolI
         );
         val insufficientValue = code == 25;
         val valueToSend = insufficientValue ? 0 as coins : message.amount + reject.extraGas;
+
         val callback = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(reject.destination as slice)
@@ -189,11 +217,15 @@ fun receivePoolNativePayment(storage: PoolStorage, message: PayNative, in: PoolI
             .storeInt(code, 32)
             .storeDict(reject.payload)
             .endCell();
+
         sendRawMessage(callback, insufficientValue ? 128 : 1);
+
         if (insufficientValue) {} else {
             sendPoolExcesses(excessesTo, message.queryId, 128);
         }
+
         commitContractDataAndActions();
+
         throw code;
     }
 }
@@ -245,6 +277,7 @@ fun receivePoolJettonPayment(
         val valueToSend = insufficientValue ? 0 : 50000000 + reject.extraGas;
         val wallet = in.senderAddress();
         val customPayload: cell? = null;
+
         var transfer = beginCell()
             .storeUint(OP_JETTON_TRANSFER, 32)
             .storeUint(message.queryId, 64)
@@ -255,6 +288,7 @@ fun receivePoolJettonPayment(
             .storeCoins(reject.extraGas);
         forward.packToBuilder(mutate transfer);
         val body = transfer.endCell();
+
         val callback = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(wallet as slice)
@@ -262,11 +296,15 @@ fun receivePoolJettonPayment(
             .storeUint(1, 107)
             .storeRef(body)
             .endCell();
+
         sendRawMessage(callback, insufficientValue ? 128 : 1);
+
         if (insufficientValue) {} else {
             sendPoolExcesses(excessesTo, message.queryId, 128);
         }
+
         commitContractDataAndActions();
+
         throw code;
     }
 }

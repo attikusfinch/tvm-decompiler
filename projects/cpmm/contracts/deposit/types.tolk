@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 @overflow1023_policy("suppress")
 struct ExtendedPayoutConfig {
     recipient: any_address

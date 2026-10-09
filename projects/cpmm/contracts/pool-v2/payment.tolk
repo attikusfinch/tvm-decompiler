@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "payout-config"
 
@@ -28,6 +29,7 @@ fun poolNotificationPayload(
     exitCode: int32,
 ): PoolForwardPayload {
     var result = emptyPoolForwardPayload();
+
     if (payload != null || wrapPayload) {
         if (wrapPayload) {
             result = PoolPaymentResult { exitCode, payload }.toCell();
@@ -35,6 +37,7 @@ fun poolNotificationPayload(
             result = payload ?? result;
         }
     }
+
     return result;
 }
 
@@ -62,6 +65,7 @@ fun sendPoolPayment(
 ): (coins, coins) {
     if (asset.isNone()) {
         val value = amount + options.extraGas;
+
         val message = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(options.destination as slice)
@@ -72,8 +76,10 @@ fun sendPoolPayment(
             .storeInt(exitCode, 32)
             .storeDict(options.payload)
             .endCell();
+
         return (amount, OutMessage { messageCell: message }.sendAndEstimateFee(17));
     }
+
     if (asset.isInternal()) {
         val forwardPayload = poolNotificationPayload(
             options.payload,
@@ -82,6 +88,7 @@ fun sendPoolPayment(
         );
         val value = 50000000 + options.extraGas;
         val customPayload: cell? = null;
+
         var transfer = beginCell()
             .storeUint(OP_JETTON_TRANSFER, 32)
             .storeUint(queryId, 64)
@@ -92,6 +99,7 @@ fun sendPoolPayment(
             .storeCoins(options.extraGas);
         forwardPayload.packToBuilder(mutate transfer);
         val body = transfer.endCell();
+
         val message = beginCell()
             .storeUint(0x10, 6)
             .storeSlice(wallet as slice)
@@ -99,7 +107,9 @@ fun sendPoolPayment(
             .storeUint(1, 107)
             .storeRef(body)
             .endCell();
+
         return (0, OutMessage { messageCell: message }.sendAndEstimateFee(17));
     }
+
     throw 31;
 }

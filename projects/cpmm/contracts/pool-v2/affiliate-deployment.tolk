@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "@stdlib/exotic-cells"
 import "addresses"
 
@@ -23,18 +24,22 @@ fun affiliateDeployment(kind: int, identity: uint256, fee: uint16): AutoDeployAd
     val authority = poolAffiliateAuthority();
     val metadata: cell? = null;
     val owner = poolAffiliateNone();
+
     var data = beginCell().storeBool(false).storeSlice(authority as slice);
+
     if (POOL_REFERRER_TAG == kind) {
         data.storeBool(false);
     } else {
         data.storeBool(true);
     }
+
     val initialData = data
         .storeDict(metadata)
         .storeUint(identity, 256)
         .storeUint(fee, 16)
         .storeSlice(owner as slice)
         .endCell();
+
     return {
         workchain,
         stateInit: { code, data: initialData },

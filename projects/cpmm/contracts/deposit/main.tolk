@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 // Reconstructed from mainnet code 2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825.
 // Names are inferred from the public DeDust ABI; this is not the author's source.
@@ -15,6 +16,7 @@ fun sendExcesses(recipient: any_address, queryId: uint64, mode: int) {
         .storeUint(OP_JETTON_EXCESSES, 143)
         .storeUint(queryId, 64)
         .endCell();
+
     sendRawMessage(message, mode | SEND_MODE_IGNORE_ERRORS);
 }
 
@@ -39,6 +41,7 @@ fun onInternalMessage(in: InMessage) {
     match (message) {
         CreditAsset => {
             assert ((in.senderAddress as slice).bitsEqual(storage.pool as slice)) throw 23;
+
             if (message.isX) {
                 storage.balanceX += message.amount;
             } else {
@@ -46,6 +49,7 @@ fun onInternalMessage(in: InMessage) {
             }
 
             val config = storage.config.load();
+
             if (storage.balanceX >= config.targetX && storage.balanceY >= config.targetY) {
                 val body = JoinLiquidity {
                     queryId: message.queryId,
@@ -54,12 +58,14 @@ fun onInternalMessage(in: InMessage) {
                     balanceY: storage.balanceY,
                     initiator: storage.initiator,
                 }.toCell();
+
                 val outgoing = beginCell()
                     .storeUint(0x10, 6)
                     .storeSlice(storage.pool as slice)
                     .storeUint(1, 111)
                     .storeRef(body)
                     .endCell();
+
                 sendRawMessage(outgoing, SEND_MODE_DESTROY | SEND_MODE_CARRY_ALL_BALANCE);
                 storage.balanceX = 0;
                 storage.balanceY = 0;
@@ -67,10 +73,13 @@ fun onInternalMessage(in: InMessage) {
                 val payout = config.payoutConfig.load();
                 sendExcesses(payout.excesses, message.queryId, SEND_MODE_CARRY_ALL_BALANCE);
             }
+
             storage.save();
         }
+
         CancelDeposit => {
             assert ((in.senderAddress as slice).bitsEqual(storage.initiator as slice)) throw 23;
+
             val config = storage.config.load();
             val payout = config.payoutConfig.load();
             val (cells, bits, _) = (storage.config as cell).calculateSizeStrict(512);
@@ -80,6 +89,7 @@ fun onInternalMessage(in: InMessage) {
                 calculateGasFee(0, 21000) +
                 forwardFee +
                 assetCount * (forwardFee + payout.refundNotifyExtraGas + 50000000);
+
             assert (in.valueCoins >= requiredValue) throw 25;
 
             val body = RefundDeposit {
@@ -89,12 +99,14 @@ fun onInternalMessage(in: InMessage) {
                 balanceY: storage.balanceY,
                 initiator: storage.initiator,
             }.toCell();
+
             val outgoing = beginCell()
                 .storeUint(0x10, 6)
                 .storeSlice(storage.pool as slice)
                 .storeUint(1, 111)
                 .storeRef(body)
                 .endCell();
+
             sendRawMessage(outgoing, SEND_MODE_DESTROY | SEND_MODE_CARRY_ALL_BALANCE);
             storage.balanceX = 0;
             storage.balanceY = 0;
@@ -117,6 +129,7 @@ get fun get_deposit_data(): (
     val storage = DepositStorage.fromCell(contract.getData());
     val config = storage.config.load();
     val payout = config.payoutConfig.load();
+
     return (
         storage.pool,
         payout.recipient,

@@ -1,7 +1,10 @@
 #pragma version =0.4.4;
+
 #include "../../../libraries/func/stdlib.fc";
+
 () after_upgrade() impure method_id(43092) {
     cell previous = get_data();
+
     slice data = previous.begin_parse();
     data~load_ref();
     data~load_ref();
@@ -9,7 +12,9 @@
     data~load_msg_addr();
     data~load_msg_addr();
     int version = data~load_uint(16);
+
     set_data(begin_cell().store_uint(0xdeadbeef, 32).store_ref(previous).end_cell());
+
     throw_if(777, version == 13);
 }
 

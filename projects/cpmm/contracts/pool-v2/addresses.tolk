@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Shared Pool deployment/address logic. This module is not a complete Pool.
+
 struct ReservedAddressVariantA {}
 
 struct ReservedAddressVariantB {}
@@ -69,6 +70,7 @@ fun initialPositionData(owner: any_address): cell {
         yPending: 0,
         yReserved: 0,
     }.toCell();
+
     return InitialPositionStorage {
         pool: pool as any_address,
         owner,
@@ -105,6 +107,7 @@ fun initialDepositData(
         payout,
     }.toCell();
     val pool = contract.getAddress();
+
     return InitialDepositStorage {
         config,
         pool: pool as any_address,

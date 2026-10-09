@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "../../../libraries/messages/opcodes"
 import "compat"
 import "messages"
@@ -25,40 +26,50 @@ fun processToncoTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_EXCESSES)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var dataSlice = secondLeg.beginParse();
             var cursor25 = dataSlice;
             var protocolKind3 = cursor25.loadUint(4);
@@ -67,14 +78,18 @@ fun processToncoTrade(
             var cursor27 = cursor26;
             var targetAssetKind5 = cursor27.loadUint(4);
             val tradeInstruction = (cursor27.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             var instructionTail28 = tradeInstruction.beginParse();
             var tradeAmount6 = instructionTail28.loadCoins();
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
             val outgoingTrade = prepareTradeMessage(
@@ -86,6 +101,7 @@ fun processToncoTrade(
                 instructionTail28,
                 tradeAmount6,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 retriesState7 = retries;
                 amountsState8 = amounts;
@@ -100,6 +116,7 @@ fun processToncoTrade(
                 retriesState7 = updatedRetries;
                 amountsState8 = amountsState212;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -115,17 +132,21 @@ fun processToncoTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_PTON_TON_TRANSFER)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -138,23 +159,31 @@ fun processToncoTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_EXCESSES)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 if ((messageValue < 200000000)) {
                     return (programs, amounts, retries);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, tradeAmount8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor29 = dataSlice3;
                 var protocolKind9 = cursor29.loadUint(4);
@@ -163,14 +192,18 @@ fun processToncoTrade(
                 var cursor211 = cursor210;
                 var targetAssetKind11 = cursor211.loadUint(4);
                 val tradeInstruction28 = (cursor211.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction28 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState225 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var (instructionTail212, _) = loadCoinsField(tradeInstruction28.beginParse());
                 val outgoingTrade22 = prepareTradeMessage(
                     protocolKind9,
@@ -181,6 +214,7 @@ fun processToncoTrade(
                     instructionTail212,
                     tradeAmount8,
                 );
+
                 if (((outgoingTrade22 as unknown) == null)) {
                     (
                         programsState4,
@@ -207,6 +241,7 @@ fun processToncoTrade(
                     amountsState5 = amountsState226;
                     programsState4 = programsState225;
                 }
+
                 (retriesState3, programsState4, amountsState5) = pendingState(
                     retriesState3,
                     programsState4,
@@ -230,6 +265,7 @@ fun processToncoTrade(
             }
         } else {
             var selectedValue10: int;
+
             if ((firstLegMode == 1)) {
                 val result16 = ((secondLegMode == 1) as int);
                 selectedValue10 = ((result16 != 0) as int);
@@ -243,11 +279,14 @@ fun processToncoTrade(
                         var (programsAfterDelete16, _) = deleteUnsignedEntry(programs, 64, queryId);
                         var (amountsAfterDelete17, _) = deleteUnsignedEntry(amounts, 64, queryId);
                         var (retriesAfterDelete18, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                         return (programsAfterDelete16, amountsAfterDelete17, retriesAfterDelete18);
                     }
+
                     if ((messageValue < 200000000)) {
                         return (programs, amounts, retries);
                     }
+
                     var dataSlice5 = secondLeg.beginParse();
                     var cursor213 = dataSlice5;
                     var protocolKind12 = cursor213.loadUint(4);
@@ -256,14 +295,18 @@ fun processToncoTrade(
                     var cursor215 = cursor214;
                     var targetAssetKind14 = cursor215.loadUint(4);
                     val tradeInstruction29 = (cursor215.preloadMaybeRef() as unknown as cell);
+
                     if ((((tradeInstruction29 as unknown) == null) as int) != 0) {
                         var (programsAfterDelete19, _) = deleteUnsignedEntry(programs, 64, queryId);
                         var (amountsAfterDelete20, _) = deleteUnsignedEntry(amounts, 64, queryId);
                         var (retriesAfterDelete21, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                         return (programsAfterDelete19, amountsAfterDelete20, retriesAfterDelete21);
                     }
+
                     var instructionTail216 = tradeInstruction29.beginParse();
                     var tradeAmount15 = instructionTail216.loadCoins();
+
                     val dataSlice6 = secondLeg.beginParse();
                     val programsState233 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice6);
                     val outgoingTrade23 = prepareTradeMessage(
@@ -275,6 +318,7 @@ fun processToncoTrade(
                         instructionTail216,
                         tradeAmount15,
                     );
+
                     if (((outgoingTrade23 as unknown) == null)) {
                         (retriesState3, programsState4, amountsState5) = releasePreparedTrade(
                             retries,
@@ -297,6 +341,7 @@ fun processToncoTrade(
 
                         programsState4 = programsState233;
                     }
+
                     (retriesState3, programsState4, amountsState5) = pendingState(
                         retriesState3,
                         programsState4,
@@ -337,6 +382,7 @@ fun processToncoTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -361,37 +407,46 @@ fun processUranusSellTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var selectedValue3: cell;
     var programsState4: cell;
     var selectedValue5: cell;
+
     if (selectedValue2 != 0) {
         if ((opcode == OP_JETTON_EXCESSES)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var dataSlice = secondLeg.beginParse();
             var cursor25 = dataSlice;
             var protocolKind3 = cursor25.loadUint(4);
@@ -400,14 +455,18 @@ fun processUranusSellTrade(
             var cursor27 = cursor26;
             var targetAssetKind5 = cursor27.loadUint(4);
             val tradeInstruction = (cursor27.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             var instructionTail28 = tradeInstruction.beginParse();
             var tradeAmount6 = instructionTail28.loadCoins();
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
             val outgoingTrade = prepareTradeMessage(
@@ -419,6 +478,7 @@ fun processUranusSellTrade(
                 instructionTail28,
                 tradeAmount6,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 (programsState4, selectedValue5, selectedValue3) = releasePreparedTrade(
                     programsState211,
@@ -440,6 +500,7 @@ fun processUranusSellTrade(
                 selectedValue5 = updatedRetries;
                 programsState4 = programsState211;
             }
+
             (selectedValue5, programsState4, selectedValue3) = pendingState(
                 selectedValue5,
                 programsState4,
@@ -466,6 +527,7 @@ fun processUranusSellTrade(
             amounts,
         );
     }
+
     return (programsState4, selectedValue3, selectedValue5);
 }
 
@@ -490,37 +552,46 @@ fun processJettonBurnTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var selectedValue3: cell;
     var programsState4: cell;
     var selectedValue5: cell;
+
     if (selectedValue2 != 0) {
         if ((opcode == OP_JETTON_EXCESSES)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var dataSlice = secondLeg.beginParse();
             var cursor25 = dataSlice;
             var protocolKind3 = cursor25.loadUint(4);
@@ -529,14 +600,18 @@ fun processJettonBurnTrade(
             var cursor27 = cursor26;
             var targetAssetKind5 = cursor27.loadUint(4);
             val tradeInstruction = (cursor27.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             var instructionTail28 = tradeInstruction.beginParse();
             var tradeAmount6 = instructionTail28.loadCoins();
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
             val outgoingTrade = prepareTradeMessage(
@@ -548,6 +623,7 @@ fun processJettonBurnTrade(
                 instructionTail28,
                 tradeAmount6,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 (programsState4, selectedValue5, selectedValue3) = releasePreparedTrade(
                     programsState211,
@@ -569,6 +645,7 @@ fun processJettonBurnTrade(
                 selectedValue5 = updatedRetries;
                 programsState4 = programsState211;
             }
+
             (selectedValue5, programsState4, selectedValue3) = pendingState(
                 selectedValue5,
                 programsState4,
@@ -595,6 +672,7 @@ fun processJettonBurnTrade(
             amounts,
         );
     }
+
     return (programsState4, selectedValue3, selectedValue5);
 }
 
@@ -619,40 +697,50 @@ fun processDefaultTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_EXCESSES)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var dataSlice = secondLeg.beginParse();
             var cursor25 = dataSlice;
             var protocolKind3 = cursor25.loadUint(4);
@@ -661,14 +749,18 @@ fun processDefaultTrade(
             var cursor27 = cursor26;
             var targetAssetKind5 = cursor27.loadUint(4);
             val tradeInstruction = (cursor27.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             var instructionTail28 = tradeInstruction.beginParse();
             var tradeAmount6 = instructionTail28.loadCoins();
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
             val outgoingTrade = prepareTradeMessage(
@@ -680,6 +772,7 @@ fun processDefaultTrade(
                 instructionTail28,
                 tradeAmount6,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 amountsState8 = amounts;
                 retriesState7 = retries;
@@ -693,6 +786,7 @@ fun processDefaultTrade(
                 );
                 retriesState7 = updatedRetries;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -708,17 +802,21 @@ fun processDefaultTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -731,20 +829,27 @@ fun processDefaultTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_EXCESSES)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, tradeAmount8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor29 = dataSlice3;
                 var protocolKind9 = cursor29.loadUint(4);
@@ -753,14 +858,18 @@ fun processDefaultTrade(
                 var cursor211 = cursor210;
                 var targetAssetKind11 = cursor211.loadUint(4);
                 val tradeInstruction25 = (cursor211.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction25 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState224 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var (instructionTail212, _) = loadCoinsField(tradeInstruction25.beginParse());
                 val outgoingTrade19 = prepareTradeMessage(
                     protocolKind9,
@@ -771,6 +880,7 @@ fun processDefaultTrade(
                     instructionTail212,
                     tradeAmount8,
                 );
+
                 if (((outgoingTrade19 as unknown) == null)) {
                     amountsState5 = amounts;
                     retriesState3 = retries;
@@ -784,6 +894,7 @@ fun processDefaultTrade(
                     );
                     retriesState3 = updatedRetries21;
                 }
+
                 programsState4 = programsState224;
             } else {
                 amountsState5 = amounts;
@@ -792,6 +903,7 @@ fun processDefaultTrade(
             }
         } else {
             var selectedValue10: int;
+
             if ((firstLegMode == 1)) {
                 val result16 = ((secondLegMode == 1) as int);
                 selectedValue10 = ((result16 != 0) as int);
@@ -802,9 +914,11 @@ fun processDefaultTrade(
             if (selectedValue10 != 0) {
                 if ((opcode == OP_JETTON_EXCESSES)) {
                     var (_, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var dataSlice5 = secondLeg.beginParse();
                     var cursor213 = dataSlice5;
                     var protocolKind12 = cursor213.loadUint(4);
@@ -813,14 +927,18 @@ fun processDefaultTrade(
                     var cursor215 = cursor214;
                     var targetAssetKind14 = cursor215.loadUint(4);
                     val tradeInstruction26 = (cursor215.preloadMaybeRef() as unknown as cell);
+
                     if ((((tradeInstruction26 as unknown) == null) as int) != 0) {
                         var (programsAfterDelete16, _) = deleteUnsignedEntry(programs, 64, queryId);
                         var (amountsAfterDelete17, _) = deleteUnsignedEntry(amounts, 64, queryId);
                         var (retriesAfterDelete18, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                         return (programsAfterDelete16, amountsAfterDelete17, retriesAfterDelete18);
                     }
+
                     var instructionTail216 = tradeInstruction26.beginParse();
                     var tradeAmount15 = instructionTail216.loadCoins();
+
                     val dataSlice6 = secondLeg.beginParse();
                     val programsState228 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice6);
                     val outgoingTrade20 = prepareTradeMessage(
@@ -832,6 +950,7 @@ fun processDefaultTrade(
                         instructionTail216,
                         tradeAmount15,
                     );
+
                     if (((outgoingTrade20 as unknown) == null)) {
                         (programsState4, retriesState3, amountsState5) = releasePreparedTrade(
                             programsState228,
@@ -854,6 +973,7 @@ fun processDefaultTrade(
 
                         programsState4 = programsState228;
                     }
+
                     (retriesState3, programsState4, amountsState5) = pendingState(
                         retriesState3,
                         programsState4,
@@ -882,6 +1002,7 @@ fun processDefaultTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -906,42 +1027,53 @@ fun processClassicDedustTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -950,14 +1082,18 @@ fun processClassicDedustTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -968,6 +1104,7 @@ fun processClassicDedustTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 amountsState8 = amounts;
                 retriesState7 = retries;
@@ -981,6 +1118,7 @@ fun processClassicDedustTrade(
                 );
                 retriesState7 = updatedRetries;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -996,17 +1134,21 @@ fun processClassicDedustTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_CLASSIC_PAYOUT)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -1019,20 +1161,27 @@ fun processClassicDedustTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -1041,21 +1190,27 @@ fun processClassicDedustTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction36 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction36 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState224 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction36.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade28 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -1065,6 +1220,7 @@ fun processClassicDedustTrade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade28 as unknown) == null)) {
                     amountsState5 = amounts;
                     retriesState3 = retries;
@@ -1078,6 +1234,7 @@ fun processClassicDedustTrade(
                     );
                     retriesState3 = updatedRetries31;
                 }
+
                 programsState4 = programsState224;
             } else {
                 amountsState5 = amounts;
@@ -1086,6 +1243,7 @@ fun processClassicDedustTrade(
             }
         } else {
             var selectedValue11: int;
+
             if ((firstLegMode == 1)) {
                 val result17 = ((secondLegMode == 1) as int);
                 selectedValue11 = ((result17 != 0) as int);
@@ -1096,12 +1254,15 @@ fun processClassicDedustTrade(
             if (selectedValue11 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x13, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount14) = loadCoinsField(x13);
                     var callbackTail214 = body;
                     var tradeAmount15 = callbackTail214.loadCoins();
+
                     if ((tradeAmount14 == tradeAmount15)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
@@ -1119,12 +1280,14 @@ fun processClassicDedustTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind16 = cursor215.loadUint(4);
@@ -1133,6 +1296,7 @@ fun processClassicDedustTrade(
                         var cursor217 = cursor216;
                         var targetAssetKind18 = cursor217.loadUint(4);
                         val tradeInstruction37 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction37 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete19, _) = deleteUnsignedEntry(
                                 programs,
@@ -1149,12 +1313,14 @@ fun processClassicDedustTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState231 = setUnsignedSlice(
                             programs,
@@ -1174,6 +1340,7 @@ fun processClassicDedustTrade(
                             instructionTail218,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade29 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount14,
@@ -1217,12 +1384,14 @@ fun processClassicDedustTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind19 = cursor219.loadUint(4);
@@ -1231,6 +1400,7 @@ fun processClassicDedustTrade(
                         var cursor221 = cursor220;
                         var targetAssetKind21 = cursor221.loadUint(4);
                         val tradeInstruction38 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction38 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete25, _) = deleteUnsignedEntry(
                                 programs,
@@ -1247,12 +1417,14 @@ fun processClassicDedustTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete25,
                                 amountsAfterDelete26,
                                 retriesAfterDelete27,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState238 = setUnsignedSlice(
                             programs,
@@ -1272,6 +1444,7 @@ fun processClassicDedustTrade(
                             instructionTail222,
                             tradeAmount15,
                         );
+
                         if (((outgoingTrade30 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount15,
@@ -1311,6 +1484,7 @@ fun processClassicDedustTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -1335,42 +1509,53 @@ fun processCoffeeTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -1379,14 +1564,18 @@ fun processCoffeeTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -1397,6 +1586,7 @@ fun processCoffeeTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 retriesState7 = retries;
                 amountsState8 = amounts;
@@ -1411,6 +1601,7 @@ fun processCoffeeTrade(
                 retriesState7 = updatedRetries;
                 amountsState8 = amountsState212;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -1426,17 +1617,21 @@ fun processCoffeeTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_COFFEE_PAYOUT)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -1449,23 +1644,31 @@ fun processCoffeeTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_EXCESSES)) {
                 if ((messageValue < 100000000)) {
                     return (programs, amounts, retries);
                 }
+
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -1474,21 +1677,27 @@ fun processCoffeeTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction35 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction35 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState225 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction35.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade28 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -1498,6 +1707,7 @@ fun processCoffeeTrade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade28 as unknown) == null)) {
                     (
                         programsState4,
@@ -1524,6 +1734,7 @@ fun processCoffeeTrade(
                     amountsState5 = amountsState226;
                     programsState4 = programsState225;
                 }
+
                 (retriesState3, programsState4, amountsState5) = pendingState(
                     retriesState3,
                     programsState4,
@@ -1547,6 +1758,7 @@ fun processCoffeeTrade(
             }
         } else {
             var selectedValue11: int;
+
             if ((firstLegMode == 1)) {
                 val result17 = ((secondLegMode == 1) as int);
                 selectedValue11 = ((result17 != 0) as int);
@@ -1557,12 +1769,15 @@ fun processCoffeeTrade(
             if (selectedValue11 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x13, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount14) = loadCoinsField(x13);
                     var callbackTail214 = body;
                     var tradeAmount15 = callbackTail214.loadCoins();
+
                     if ((tradeAmount14 == tradeAmount15)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
@@ -1580,12 +1795,14 @@ fun processCoffeeTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind16 = cursor215.loadUint(4);
@@ -1594,6 +1811,7 @@ fun processCoffeeTrade(
                         var cursor217 = cursor216;
                         var targetAssetKind18 = cursor217.loadUint(4);
                         val tradeInstruction36 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction36 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete19, _) = deleteUnsignedEntry(
                                 programs,
@@ -1610,12 +1828,14 @@ fun processCoffeeTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState233 = setUnsignedSlice(
                             programs,
@@ -1635,6 +1855,7 @@ fun processCoffeeTrade(
                             instructionTail218,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade29 as unknown) == null)) {
                             (
                                 amountsState5,
@@ -1682,12 +1903,14 @@ fun processCoffeeTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind19 = cursor219.loadUint(4);
@@ -1696,6 +1919,7 @@ fun processCoffeeTrade(
                         var cursor221 = cursor220;
                         var targetAssetKind21 = cursor221.loadUint(4);
                         val tradeInstruction37 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction37 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete25, _) = deleteUnsignedEntry(
                                 programs,
@@ -1712,12 +1936,14 @@ fun processCoffeeTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete25,
                                 amountsAfterDelete26,
                                 retriesAfterDelete27,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState241 = setUnsignedSlice(
                             programs,
@@ -1737,6 +1963,7 @@ fun processCoffeeTrade(
                             instructionTail222,
                             tradeAmount15,
                         );
+
                         if (((outgoingTrade30 as unknown) == null)) {
                             amountsState5 = amounts;
                             retriesState3 = retries;
@@ -1754,6 +1981,7 @@ fun processCoffeeTrade(
                             );
                             retriesState3 = updatedRetries33;
                         }
+
                         programsState4 = programsState241;
                         (amountsState5, programsState4, retriesState3) = pendingState(
                             amountsState5,
@@ -1761,6 +1989,7 @@ fun processCoffeeTrade(
                             retriesState3,
                         );
                     }
+
                     (retriesState3, programsState4, amountsState5) = pendingState(
                         retriesState3,
                         programsState4,
@@ -1801,6 +2030,7 @@ fun processCoffeeTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -1825,42 +2055,53 @@ fun processMoonTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -1869,14 +2110,18 @@ fun processMoonTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -1887,6 +2132,7 @@ fun processMoonTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 amountsState8 = amounts;
                 retriesState7 = retries;
@@ -1900,6 +2146,7 @@ fun processMoonTrade(
                 );
                 retriesState7 = updatedRetries;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -1915,17 +2162,21 @@ fun processMoonTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_MOON_SWAP_FAILED)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -1938,20 +2189,27 @@ fun processMoonTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -1960,21 +2218,27 @@ fun processMoonTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction19 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction19 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState224 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction19.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade16 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -1984,6 +2248,7 @@ fun processMoonTrade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade16 as unknown) == null)) {
                     (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                         selectedValue10,
@@ -2017,6 +2282,7 @@ fun processMoonTrade(
             retriesState3 = retries;
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -2041,42 +2307,53 @@ fun processExternalAdapter8Trade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -2085,14 +2362,18 @@ fun processExternalAdapter8Trade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -2103,6 +2384,7 @@ fun processExternalAdapter8Trade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 amountsState8 = amounts;
                 retriesState7 = retries;
@@ -2116,6 +2398,7 @@ fun processExternalAdapter8Trade(
                 );
                 retriesState7 = updatedRetries;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -2131,17 +2414,21 @@ fun processExternalAdapter8Trade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_ROUTE_CLOSE_FIRST_VARIANT)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -2154,20 +2441,27 @@ fun processExternalAdapter8Trade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -2176,21 +2470,27 @@ fun processExternalAdapter8Trade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction36 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction36 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState224 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction36.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade28 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -2200,6 +2500,7 @@ fun processExternalAdapter8Trade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade28 as unknown) == null)) {
                     amountsState5 = amounts;
                     retriesState3 = retries;
@@ -2213,6 +2514,7 @@ fun processExternalAdapter8Trade(
                     );
                     retriesState3 = updatedRetries31;
                 }
+
                 programsState4 = programsState224;
             } else {
                 amountsState5 = amounts;
@@ -2221,6 +2523,7 @@ fun processExternalAdapter8Trade(
             }
         } else {
             var selectedValue11: int;
+
             if ((firstLegMode == 1)) {
                 val result17 = ((secondLegMode == 1) as int);
                 selectedValue11 = ((result17 != 0) as int);
@@ -2231,12 +2534,15 @@ fun processExternalAdapter8Trade(
             if (selectedValue11 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x13, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount14) = loadCoinsField(x13);
                     var callbackTail214 = body;
                     var tradeAmount15 = callbackTail214.loadCoins();
+
                     if ((tradeAmount14 == tradeAmount15)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
@@ -2254,12 +2560,14 @@ fun processExternalAdapter8Trade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind16 = cursor215.loadUint(4);
@@ -2268,6 +2576,7 @@ fun processExternalAdapter8Trade(
                         var cursor217 = cursor216;
                         var targetAssetKind18 = cursor217.loadUint(4);
                         val tradeInstruction37 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction37 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete19, _) = deleteUnsignedEntry(
                                 programs,
@@ -2284,12 +2593,14 @@ fun processExternalAdapter8Trade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState231 = setUnsignedSlice(
                             programs,
@@ -2309,6 +2620,7 @@ fun processExternalAdapter8Trade(
                             instructionTail218,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade29 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount14,
@@ -2352,12 +2664,14 @@ fun processExternalAdapter8Trade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind19 = cursor219.loadUint(4);
@@ -2366,6 +2680,7 @@ fun processExternalAdapter8Trade(
                         var cursor221 = cursor220;
                         var targetAssetKind21 = cursor221.loadUint(4);
                         val tradeInstruction38 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction38 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete25, _) = deleteUnsignedEntry(
                                 programs,
@@ -2382,12 +2697,14 @@ fun processExternalAdapter8Trade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete25,
                                 amountsAfterDelete26,
                                 retriesAfterDelete27,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState238 = setUnsignedSlice(
                             programs,
@@ -2407,6 +2724,7 @@ fun processExternalAdapter8Trade(
                             instructionTail222,
                             tradeAmount15,
                         );
+
                         if (((outgoingTrade30 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount15,
@@ -2446,6 +2764,7 @@ fun processExternalAdapter8Trade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -2470,42 +2789,53 @@ fun processMoonClmmTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -2514,14 +2844,18 @@ fun processMoonClmmTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -2532,6 +2866,7 @@ fun processMoonClmmTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 amountsState8 = amounts;
                 retriesState7 = retries;
@@ -2545,6 +2880,7 @@ fun processMoonClmmTrade(
                 );
                 retriesState7 = updatedRetries;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -2560,17 +2896,21 @@ fun processMoonClmmTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_ROUTE_CLOSE_FIRST_VARIANT)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -2583,20 +2923,27 @@ fun processMoonClmmTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -2605,21 +2952,27 @@ fun processMoonClmmTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction36 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction36 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState224 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction36.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade28 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -2629,6 +2982,7 @@ fun processMoonClmmTrade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade28 as unknown) == null)) {
                     amountsState5 = amounts;
                     retriesState3 = retries;
@@ -2642,6 +2996,7 @@ fun processMoonClmmTrade(
                     );
                     retriesState3 = updatedRetries31;
                 }
+
                 programsState4 = programsState224;
             } else {
                 amountsState5 = amounts;
@@ -2650,6 +3005,7 @@ fun processMoonClmmTrade(
             }
         } else {
             var selectedValue11: int;
+
             if ((firstLegMode == 1)) {
                 val result17 = ((secondLegMode == 1) as int);
                 selectedValue11 = ((result17 != 0) as int);
@@ -2660,12 +3016,15 @@ fun processMoonClmmTrade(
             if (selectedValue11 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x13, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount14) = loadCoinsField(x13);
                     var callbackTail214 = body;
                     var tradeAmount15 = callbackTail214.loadCoins();
+
                     if ((tradeAmount14 == tradeAmount15)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
@@ -2683,12 +3042,14 @@ fun processMoonClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind16 = cursor215.loadUint(4);
@@ -2697,6 +3058,7 @@ fun processMoonClmmTrade(
                         var cursor217 = cursor216;
                         var targetAssetKind18 = cursor217.loadUint(4);
                         val tradeInstruction37 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction37 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete19, _) = deleteUnsignedEntry(
                                 programs,
@@ -2713,12 +3075,14 @@ fun processMoonClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState231 = setUnsignedSlice(
                             programs,
@@ -2738,6 +3102,7 @@ fun processMoonClmmTrade(
                             instructionTail218,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade29 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount14,
@@ -2781,12 +3146,14 @@ fun processMoonClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind19 = cursor219.loadUint(4);
@@ -2795,6 +3162,7 @@ fun processMoonClmmTrade(
                         var cursor221 = cursor220;
                         var targetAssetKind21 = cursor221.loadUint(4);
                         val tradeInstruction38 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction38 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete25, _) = deleteUnsignedEntry(
                                 programs,
@@ -2811,12 +3179,14 @@ fun processMoonClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete25,
                                 amountsAfterDelete26,
                                 retriesAfterDelete27,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState238 = setUnsignedSlice(
                             programs,
@@ -2836,6 +3206,7 @@ fun processMoonClmmTrade(
                             instructionTail222,
                             tradeAmount15,
                         );
+
                         if (((outgoingTrade30 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount15,
@@ -2875,6 +3246,7 @@ fun processMoonClmmTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -2899,42 +3271,53 @@ fun processBidaskDammTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -2943,14 +3326,18 @@ fun processBidaskDammTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -2961,6 +3348,7 @@ fun processBidaskDammTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 retriesState7 = retries;
                 amountsState8 = amounts;
@@ -2975,6 +3363,7 @@ fun processBidaskDammTrade(
                 retriesState7 = updatedRetries;
                 amountsState8 = amountsState212;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -2990,17 +3379,21 @@ fun processBidaskDammTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_BIDASK_NATIVE_TRANSFER_NOTIFICATION)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -3013,23 +3406,31 @@ fun processBidaskDammTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_EXCESSES)) {
                 if ((messageValue < 100000000)) {
                     return (programs, amounts, retries);
                 }
+
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -3038,21 +3439,27 @@ fun processBidaskDammTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction35 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction35 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState225 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction35.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade28 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -3062,6 +3469,7 @@ fun processBidaskDammTrade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade28 as unknown) == null)) {
                     (
                         programsState4,
@@ -3088,6 +3496,7 @@ fun processBidaskDammTrade(
                     amountsState5 = amountsState226;
                     programsState4 = programsState225;
                 }
+
                 (retriesState3, programsState4, amountsState5) = pendingState(
                     retriesState3,
                     programsState4,
@@ -3111,6 +3520,7 @@ fun processBidaskDammTrade(
             }
         } else {
             var selectedValue11: int;
+
             if ((firstLegMode == 1)) {
                 val result17 = ((secondLegMode == 1) as int);
                 selectedValue11 = ((result17 != 0) as int);
@@ -3121,12 +3531,15 @@ fun processBidaskDammTrade(
             if (selectedValue11 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x13, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount14) = loadCoinsField(x13);
                     var callbackTail214 = body;
                     var tradeAmount15 = callbackTail214.loadCoins();
+
                     if ((tradeAmount14 == tradeAmount15)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
@@ -3144,12 +3557,14 @@ fun processBidaskDammTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind16 = cursor215.loadUint(4);
@@ -3158,6 +3573,7 @@ fun processBidaskDammTrade(
                         var cursor217 = cursor216;
                         var targetAssetKind18 = cursor217.loadUint(4);
                         val tradeInstruction36 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction36 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete19, _) = deleteUnsignedEntry(
                                 programs,
@@ -3174,12 +3590,14 @@ fun processBidaskDammTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState233 = setUnsignedSlice(
                             programs,
@@ -3199,6 +3617,7 @@ fun processBidaskDammTrade(
                             instructionTail218,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade29 as unknown) == null)) {
                             (
                                 amountsState5,
@@ -3246,12 +3665,14 @@ fun processBidaskDammTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind19 = cursor219.loadUint(4);
@@ -3260,6 +3681,7 @@ fun processBidaskDammTrade(
                         var cursor221 = cursor220;
                         var targetAssetKind21 = cursor221.loadUint(4);
                         val tradeInstruction37 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction37 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete25, _) = deleteUnsignedEntry(
                                 programs,
@@ -3276,12 +3698,14 @@ fun processBidaskDammTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete25,
                                 amountsAfterDelete26,
                                 retriesAfterDelete27,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState241 = setUnsignedSlice(
                             programs,
@@ -3301,6 +3725,7 @@ fun processBidaskDammTrade(
                             instructionTail222,
                             tradeAmount15,
                         );
+
                         if (((outgoingTrade30 as unknown) == null)) {
                             amountsState5 = amounts;
                             retriesState3 = retries;
@@ -3318,6 +3743,7 @@ fun processBidaskDammTrade(
                             );
                             retriesState3 = updatedRetries33;
                         }
+
                         programsState4 = programsState241;
                         (amountsState5, programsState4, retriesState3) = pendingState(
                             amountsState5,
@@ -3325,6 +3751,7 @@ fun processBidaskDammTrade(
                             retriesState3,
                         );
                     }
+
                     (retriesState3, programsState4, amountsState5) = pendingState(
                         retriesState3,
                         programsState4,
@@ -3365,6 +3792,7 @@ fun processBidaskDammTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -3389,42 +3817,53 @@ fun processBidaskClmmTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -3433,14 +3872,18 @@ fun processBidaskClmmTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -3451,6 +3894,7 @@ fun processBidaskClmmTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 amountsState8 = amounts;
                 retriesState7 = retries;
@@ -3464,6 +3908,7 @@ fun processBidaskClmmTrade(
                 );
                 retriesState7 = updatedRetries;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -3479,17 +3924,21 @@ fun processBidaskClmmTrade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_BIDASK_NATIVE_TRANSFER_NOTIFICATION)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -3502,20 +3951,27 @@ fun processBidaskClmmTrade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, x8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -3524,21 +3980,27 @@ fun processBidaskClmmTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction36 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction36 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState224 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var instructionTail213 = tradeInstruction36.beginParse();
                 var x12 = instructionTail213.loadCoins();
                 val result12 = ((x12 > 0) as int);
                 var selectedValue10 = x8;
+
                 if (result12 != 0) {
                     selectedValue10 = x12;
                 } else {}
+
                 val outgoingTrade28 = prepareTradeMessage(
                     protocolKind9,
                     sourceAssetKind10,
@@ -3548,6 +4010,7 @@ fun processBidaskClmmTrade(
                     instructionTail213,
                     selectedValue10,
                 );
+
                 if (((outgoingTrade28 as unknown) == null)) {
                     amountsState5 = amounts;
                     retriesState3 = retries;
@@ -3561,6 +4024,7 @@ fun processBidaskClmmTrade(
                     );
                     retriesState3 = updatedRetries31;
                 }
+
                 programsState4 = programsState224;
             } else {
                 amountsState5 = amounts;
@@ -3569,6 +4033,7 @@ fun processBidaskClmmTrade(
             }
         } else {
             var selectedValue11: int;
+
             if ((firstLegMode == 1)) {
                 val result17 = ((secondLegMode == 1) as int);
                 selectedValue11 = ((result17 != 0) as int);
@@ -3579,12 +4044,15 @@ fun processBidaskClmmTrade(
             if (selectedValue11 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x13, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount14) = loadCoinsField(x13);
                     var callbackTail214 = body;
                     var tradeAmount15 = callbackTail214.loadCoins();
+
                     if ((tradeAmount14 == tradeAmount15)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
@@ -3602,12 +4070,14 @@ fun processBidaskClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind16 = cursor215.loadUint(4);
@@ -3616,6 +4086,7 @@ fun processBidaskClmmTrade(
                         var cursor217 = cursor216;
                         var targetAssetKind18 = cursor217.loadUint(4);
                         val tradeInstruction37 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction37 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete19, _) = deleteUnsignedEntry(
                                 programs,
@@ -3632,12 +4103,14 @@ fun processBidaskClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState231 = setUnsignedSlice(
                             programs,
@@ -3657,6 +4130,7 @@ fun processBidaskClmmTrade(
                             instructionTail218,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade29 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount14,
@@ -3700,12 +4174,14 @@ fun processBidaskClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind19 = cursor219.loadUint(4);
@@ -3714,6 +4190,7 @@ fun processBidaskClmmTrade(
                         var cursor221 = cursor220;
                         var targetAssetKind21 = cursor221.loadUint(4);
                         val tradeInstruction38 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction38 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete25, _) = deleteUnsignedEntry(
                                 programs,
@@ -3730,12 +4207,14 @@ fun processBidaskClmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete25,
                                 amountsAfterDelete26,
                                 retriesAfterDelete27,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState238 = setUnsignedSlice(
                             programs,
@@ -3755,6 +4234,7 @@ fun processBidaskClmmTrade(
                             instructionTail222,
                             tradeAmount15,
                         );
+
                         if (((outgoingTrade30 as unknown) == null)) {
                             (retriesState3, programsState4, amountsState5) = releaseRejectedTrade(
                                 tradeAmount15,
@@ -3794,6 +4274,7 @@ fun processBidaskClmmTrade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }
 
@@ -3818,39 +4299,49 @@ fun processStonksPumpSellTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var amountsState3: cell;
     var programsState4: cell;
     var retriesState5: cell;
+
     if (selectedValue2 != 0) {
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -3859,14 +4350,18 @@ fun processStonksPumpSellTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -3877,6 +4372,7 @@ fun processStonksPumpSellTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 (retriesState5, programsState4, amountsState3) = releaseRejectedTrade(
                     nextQueryId,
@@ -3910,6 +4406,7 @@ fun processStonksPumpSellTrade(
 
         retriesState5 = retries;
     }
+
     return (programsState4, amountsState3, retriesState5);
 }
 
@@ -3934,42 +4431,53 @@ fun processCpmmTrade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var amountsState3: cell;
     var retriesState4: cell;
     var programsState5: cell;
+
     if (selectedValue2 != 0) {
         var retriesState6: cell;
         var amountsState7: cell;
         var programsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -3978,14 +4486,18 @@ fun processCpmmTrade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -3996,6 +4508,7 @@ fun processCpmmTrade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 (programsState8, opcode, amountsState7, retriesState6) = releaseCompletedTrade(
                     programsState211,
@@ -4026,14 +4539,17 @@ fun processCpmmTrade(
 
             programsState8 = programs;
         }
+
         if ((opcode == OP_JETTON_EXCESSES)) {
             return (programsState8, amountsState7, retriesState6);
         }
+
         amountsState3 = amountsState7;
         retriesState4 = retriesState6;
         programsState5 = programsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -4047,13 +4563,18 @@ fun processCpmmTrade(
                     var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, tradeAmount8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -4062,14 +4583,18 @@ fun processCpmmTrade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction33 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction33 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState219 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var (instructionTail213, _) = loadCoinsField(tradeInstruction33.beginParse());
                 val outgoingTrade25 = prepareTradeMessage(
                     protocolKind9,
@@ -4080,6 +4605,7 @@ fun processCpmmTrade(
                     instructionTail213,
                     tradeAmount8,
                 );
+
                 if (((outgoingTrade25 as unknown) == null)) {
                     amountsState3 = amounts;
                     retriesState4 = retries;
@@ -4093,6 +4619,7 @@ fun processCpmmTrade(
                     );
                     retriesState4 = updatedRetries28;
                 }
+
                 programsState5 = programsState219;
             } else {
                 amountsState3 = amounts;
@@ -4101,6 +4628,7 @@ fun processCpmmTrade(
             }
         } else {
             var selectedValue10: int;
+
             if ((firstLegMode == 1)) {
                 val result16 = ((secondLegMode == 1) as int);
                 selectedValue10 = ((result16 != 0) as int);
@@ -4111,12 +4639,15 @@ fun processCpmmTrade(
             if (selectedValue10 != 0) {
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     var (x12, status2) = findUnsignedEntry(amounts, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programs, amounts, retries);
                     }
+
                     var (_, tradeAmount13) = loadCoinsField(x12);
                     var callbackTail214 = body;
                     var tradeAmount14 = callbackTail214.loadCoins();
+
                     if ((tradeAmount13 == tradeAmount14)) {
                         if ((((firstLeg as unknown) == null) as int) != 0) {
                             var (programsAfterDelete13, _) = deleteUnsignedEntry(
@@ -4134,12 +4665,14 @@ fun processCpmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete13,
                                 amountsAfterDelete14,
                                 retriesAfterDelete15,
                             );
                         }
+
                         var dataSlice5 = firstLeg.beginParse();
                         var cursor215 = dataSlice5;
                         var protocolKind15 = cursor215.loadUint(4);
@@ -4148,6 +4681,7 @@ fun processCpmmTrade(
                         var cursor217 = cursor216;
                         var targetAssetKind17 = cursor217.loadUint(4);
                         val tradeInstruction34 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction34 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete16, _) = deleteUnsignedEntry(
                                 programs,
@@ -4164,12 +4698,14 @@ fun processCpmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete16,
                                 amountsAfterDelete17,
                                 retriesAfterDelete18,
                             );
                         }
+
                         val dataSlice6 = firstLeg.beginParse();
                         val programsState226 = setUnsignedSlice(
                             programs,
@@ -4189,6 +4725,7 @@ fun processCpmmTrade(
                             instructionTail218,
                             tradeAmount13,
                         );
+
                         if (((outgoingTrade26 as unknown) == null)) {
                             (retriesState4, programsState5, amountsState3) = releaseRejectedTrade(
                                 tradeAmount13,
@@ -4232,12 +4769,14 @@ fun processCpmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete19,
                                 amountsAfterDelete20,
                                 retriesAfterDelete21,
                             );
                         }
+
                         var dataSlice7 = secondLeg.beginParse();
                         var cursor219 = dataSlice7;
                         var protocolKind18 = cursor219.loadUint(4);
@@ -4246,6 +4785,7 @@ fun processCpmmTrade(
                         var cursor221 = cursor220;
                         var targetAssetKind20 = cursor221.loadUint(4);
                         val tradeInstruction35 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                         if ((((tradeInstruction35 as unknown) == null) as int) != 0) {
                             var (programsAfterDelete22, _) = deleteUnsignedEntry(
                                 programs,
@@ -4262,12 +4802,14 @@ fun processCpmmTrade(
                                 64,
                                 queryId,
                             );
+
                             return (
                                 programsAfterDelete22,
                                 amountsAfterDelete23,
                                 retriesAfterDelete24,
                             );
                         }
+
                         val dataSlice8 = secondLeg.beginParse();
                         val programsState233 = setUnsignedSlice(
                             programs,
@@ -4287,6 +4829,7 @@ fun processCpmmTrade(
                             instructionTail222,
                             tradeAmount14,
                         );
+
                         if (((outgoingTrade27 as unknown) == null)) {
                             (retriesState4, programsState5, amountsState3) = releaseRejectedTrade(
                                 tradeAmount14,
@@ -4326,6 +4869,7 @@ fun processCpmmTrade(
             }
         }
     }
+
     return (programsState5, amountsState3, retriesState4);
 }
 
@@ -4350,42 +4894,53 @@ fun processStonfiV2Trade(
     var firstLeg = cursor24.loadMaybeRef() as unknown as cell;
     val secondLeg = (cursor24.preloadMaybeRef() as unknown as cell);
     var selectedValue0: int;
+
     if (((secondLeg as unknown) == null)) {
         val firstLegAbsent = (((firstLeg as unknown) == null) as int);
         selectedValue0 = ((firstLegAbsent != 0) as int);
     } else {
         selectedValue0 = 0;
     }
+
     if (selectedValue0 != 0) {
         var (programsAfterDelete, _) = deleteUnsignedEntry(programs, 64, queryId);
         var (amountsAfterDelete, _) = deleteUnsignedEntry(amounts, 64, queryId);
         var (retriesAfterDelete, _) = deleteUnsignedEntry(retries, 64, queryId);
+
         return (programsAfterDelete, amountsAfterDelete, retriesAfterDelete);
     }
+
     var nextQueryId = (queryId + 1);
     var selectedValue2: int;
+
     if (firstLegMode != 0) {
         selectedValue2 = 0;
     } else {
         val result4 = ((secondLegMode == 1) as int);
         selectedValue2 = ((result4 != 0) as int);
     }
+
     var retriesState3: cell;
     var programsState4: cell;
     var amountsState5: cell;
+
     if (selectedValue2 != 0) {
         var programsState6: cell;
         var retriesState7: cell;
         var amountsState8: cell;
+
         if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
             if ((((secondLeg as unknown) == null) as int) != 0) {
                 var (programsAfterDelete1, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete2, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete3, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete1, amountsAfterDelete2, retriesAfterDelete3);
             }
+
             var callbackTail25 = body;
             var tradeAmount3 = callbackTail25.loadCoins();
+
             var dataSlice = secondLeg.beginParse();
             var cursor26 = dataSlice;
             var protocolKind4 = cursor26.loadUint(4);
@@ -4394,14 +4949,18 @@ fun processStonfiV2Trade(
             var cursor28 = cursor27;
             var targetAssetKind6 = cursor28.loadUint(4);
             val tradeInstruction = (cursor28.preloadMaybeRef() as unknown as cell);
+
             if ((((tradeInstruction as unknown) == null) as int) != 0) {
                 var (programsAfterDelete4, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete5, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete6, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete4, amountsAfterDelete5, retriesAfterDelete6);
             }
+
             val dataSlice2 = secondLeg.beginParse();
             val programsState211 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice2);
+
             var (instructionTail29, _) = loadCoinsField(tradeInstruction.beginParse());
             val outgoingTrade = prepareTradeMessage(
                 protocolKind4,
@@ -4412,6 +4971,7 @@ fun processStonfiV2Trade(
                 instructionTail29,
                 tradeAmount3,
             );
+
             if (((outgoingTrade as unknown) == null)) {
                 retriesState7 = retries;
                 amountsState8 = amounts;
@@ -4426,6 +4986,7 @@ fun processStonfiV2Trade(
                 retriesState7 = updatedRetries;
                 amountsState8 = amountsState212;
             }
+
             programsState6 = programsState211;
             (amountsState8, opcode, queryId, retriesState7, programsState6) = activeState(
                 amountsState8,
@@ -4441,17 +5002,21 @@ fun processStonfiV2Trade(
 
             amountsState8 = amounts;
         }
+
         if ((opcode == OP_PTON_TON_TRANSFER)) {
             var (programsState6AfterDelete, _) = deleteUnsignedEntry(programsState6, 64, queryId);
             var (amountsState8AfterDelete, _) = deleteUnsignedEntry(amountsState8, 64, queryId);
             var (retriesState7AfterDelete, _) = deleteUnsignedEntry(retriesState7, 64, queryId);
+
             return (programsState6AfterDelete, amountsState8AfterDelete, retriesState7AfterDelete);
         }
+
         retriesState3 = retriesState7;
         programsState4 = programsState6;
         amountsState5 = amountsState8;
     } else {
         var selectedValue9: int;
+
         if ((firstLegMode == 1)) {
             val result10 = ((secondLegMode == 0) as int);
             selectedValue9 = ((result10 != 0) as int);
@@ -4464,23 +5029,31 @@ fun processStonfiV2Trade(
                 var (programsAfterDelete7, _) = deleteUnsignedEntry(programs, 64, queryId);
                 var (amountsAfterDelete8, _) = deleteUnsignedEntry(amounts, 64, queryId);
                 var (retriesAfterDelete9, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                 return (programsAfterDelete7, amountsAfterDelete8, retriesAfterDelete9);
             }
+
             if ((opcode == OP_JETTON_EXCESSES)) {
                 if ((messageValue < 100000000)) {
                     return (programs, amounts, retries);
                 }
+
                 if ((((firstLeg as unknown) == null) as int) != 0) {
                     var (programsAfterDelete10, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete11, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete12, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete10, amountsAfterDelete11, retriesAfterDelete12);
                 }
+
                 var (x7, status) = findUnsignedEntry(amounts, 64, queryId);
+
                 if (!(status != 0)) {
                     return (programs, amounts, retries);
                 }
+
                 var (_, tradeAmount8) = loadCoinsField(x7);
+
                 var dataSlice3 = firstLeg.beginParse();
                 var cursor210 = dataSlice3;
                 var protocolKind9 = cursor210.loadUint(4);
@@ -4489,14 +5062,18 @@ fun processStonfiV2Trade(
                 var cursor212 = cursor211;
                 var targetAssetKind11 = cursor212.loadUint(4);
                 val tradeInstruction33 = (cursor212.preloadMaybeRef() as unknown as cell);
+
                 if ((((tradeInstruction33 as unknown) == null) as int) != 0) {
                     var (programsAfterDelete13, _) = deleteUnsignedEntry(programs, 64, queryId);
                     var (amountsAfterDelete14, _) = deleteUnsignedEntry(amounts, 64, queryId);
                     var (retriesAfterDelete15, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                     return (programsAfterDelete13, amountsAfterDelete14, retriesAfterDelete15);
                 }
+
                 val dataSlice4 = firstLeg.beginParse();
                 val programsState225 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice4);
+
                 var (instructionTail213, _) = loadCoinsField(tradeInstruction33.beginParse());
                 val outgoingTrade25 = prepareTradeMessage(
                     protocolKind9,
@@ -4507,6 +5084,7 @@ fun processStonfiV2Trade(
                     instructionTail213,
                     tradeAmount8,
                 );
+
                 if (((outgoingTrade25 as unknown) == null)) {
                     (
                         programsState4,
@@ -4533,6 +5111,7 @@ fun processStonfiV2Trade(
                     amountsState5 = amountsState226;
                     programsState4 = programsState225;
                 }
+
                 (retriesState3, programsState4, amountsState5) = pendingState(
                     retriesState3,
                     programsState4,
@@ -4556,6 +5135,7 @@ fun processStonfiV2Trade(
             }
         } else {
             var selectedValue10: int;
+
             if ((firstLegMode == 1)) {
                 val result16 = ((secondLegMode == 1) as int);
                 selectedValue10 = ((result16 != 0) as int);
@@ -4568,15 +5148,19 @@ fun processStonfiV2Trade(
                 var amountsState12: cell;
                 var programsState13: cell;
                 var selectedValue14: slice;
+
                 if ((opcode == OP_JETTON_TRANSFER_NOTIFICATION)) {
                     if ((((secondLeg as unknown) == null) as int) != 0) {
                         var (programsAfterDelete16, _) = deleteUnsignedEntry(programs, 64, queryId);
                         var (amountsAfterDelete17, _) = deleteUnsignedEntry(amounts, 64, queryId);
                         var (retriesAfterDelete18, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                         return (programsAfterDelete16, amountsAfterDelete17, retriesAfterDelete18);
                     }
+
                     var callbackTail214 = body;
                     var tradeAmount12 = callbackTail214.loadCoins();
+
                     var dataSlice5 = secondLeg.beginParse();
                     var cursor215 = dataSlice5;
                     var protocolKind13 = cursor215.loadUint(4);
@@ -4585,14 +5169,18 @@ fun processStonfiV2Trade(
                     var cursor217 = cursor216;
                     var targetAssetKind15 = cursor217.loadUint(4);
                     val tradeInstruction34 = (cursor217.preloadMaybeRef() as unknown as cell);
+
                     if ((((tradeInstruction34 as unknown) == null) as int) != 0) {
                         var (programsAfterDelete19, _) = deleteUnsignedEntry(programs, 64, queryId);
                         var (amountsAfterDelete20, _) = deleteUnsignedEntry(amounts, 64, queryId);
                         var (retriesAfterDelete21, _) = deleteUnsignedEntry(retries, 64, queryId);
+
                         return (programsAfterDelete19, amountsAfterDelete20, retriesAfterDelete21);
                     }
+
                     val dataSlice6 = secondLeg.beginParse();
                     val programsState233 = setUnsignedSlice(programs, 64, nextQueryId, dataSlice6);
+
                     var (instructionTail218, _) = loadCoinsField(tradeInstruction34.beginParse());
                     val outgoingTrade26 = prepareTradeMessage(
                         protocolKind13,
@@ -4603,6 +5191,7 @@ fun processStonfiV2Trade(
                         instructionTail218,
                         tradeAmount12,
                     );
+
                     if (((outgoingTrade26 as unknown) == null)) {
                         retriesState11 = retries;
                         amountsState12 = amounts;
@@ -4617,6 +5206,7 @@ fun processStonfiV2Trade(
                         retriesState11 = updatedRetries29;
                         amountsState12 = amountsState234;
                     }
+
                     programsState13 = programsState233;
                     selectedValue14 = callbackTail214;
                     (
@@ -4649,10 +5239,12 @@ fun processStonfiV2Trade(
 
                     selectedValue14 = body;
                 }
+
                 if ((opcode == OP_JETTON_EXCESSES)) {
                     if ((messageValue < 170000000)) {
                         return (programsState13, amountsState12, retriesState11);
                     }
+
                     if ((((firstLeg as unknown) == null) as int) != 0) {
                         var (programsState13AfterDelete, _) = deleteUnsignedEntry(
                             programsState13,
@@ -4669,17 +5261,22 @@ fun processStonfiV2Trade(
                             64,
                             queryId,
                         );
+
                         return (
                             programsState13AfterDelete,
                             amountsState12AfterDelete,
                             retriesState11AfterDelete,
                         );
                     }
+
                     var (x16, status2) = findUnsignedEntry(amountsState12, 64, queryId);
+
                     if (!(status2 != 0)) {
                         return (programsState13, amountsState12, retriesState11);
                     }
+
                     var (_, tradeAmount17) = loadCoinsField(x16);
+
                     var dataSlice7 = firstLeg.beginParse();
                     var cursor219 = dataSlice7;
                     var protocolKind18 = cursor219.loadUint(4);
@@ -4688,6 +5285,7 @@ fun processStonfiV2Trade(
                     var cursor221 = cursor220;
                     var targetAssetKind20 = cursor221.loadUint(4);
                     val tradeInstruction35 = (cursor221.preloadMaybeRef() as unknown as cell);
+
                     if ((((tradeInstruction35 as unknown) == null) as int) != 0) {
                         var (programsState13AfterDelete22, _) = deleteUnsignedEntry(
                             programsState13,
@@ -4704,12 +5302,14 @@ fun processStonfiV2Trade(
                             64,
                             queryId,
                         );
+
                         return (
                             programsState13AfterDelete22,
                             amountsState12AfterDelete23,
                             retriesState11AfterDelete24,
                         );
                     }
+
                     val dataSlice8 = firstLeg.beginParse();
                     val programsState13AfterUpdate = setUnsignedSlice(
                         programsState13,
@@ -4717,6 +5317,7 @@ fun processStonfiV2Trade(
                         nextQueryId,
                         dataSlice8,
                     );
+
                     var (instructionTail222, _) = loadCoinsField(tradeInstruction35.beginParse());
                     val outgoingTrade27 = prepareTradeMessage(
                         protocolKind18,
@@ -4727,6 +5328,7 @@ fun processStonfiV2Trade(
                         instructionTail222,
                         tradeAmount17,
                     );
+
                     if (((outgoingTrade27 as unknown) == null)) {
                         (
                             amountsState5,
@@ -4758,6 +5360,7 @@ fun processStonfiV2Trade(
 
                         programsState4 = programsState13AfterUpdate;
                     }
+
                     (retriesState3, programsState4, amountsState5) = pendingState(
                         retriesState3,
                         programsState4,
@@ -4799,5 +5402,6 @@ fun processStonfiV2Trade(
             }
         }
     }
+
     return (programsState4, amountsState5, retriesState3);
 }

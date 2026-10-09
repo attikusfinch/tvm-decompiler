@@ -1,17 +1,20 @@
 // decompiled by @fiscaldev
 // Compatibility with the legacy Tolk AutoDeployAddress message encoder.
 // The StateInit hashing primitives are attributed in stdlib-legacy-stateinit.tolk.
+
 import "../common/state-init-v3"
 
 @inline
 fun archivedPoolInlineDeploymentHeader(recipientOwner: AutoDeployAddress): builder {
     val state = recipientOwner.stateInit;
     val shard = recipientOwner.toShard;
+
     var message = beginCell()
         .storeUint(0x18, 6)
         .storeUint(4, 3)
         .storeInt(recipientOwner.workchain, 8);
     var stateHash: uint256;
+
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
             stateHash = archivedStateHashPrefix(shard.fixedPrefixLength, state.code, state.data);
@@ -21,6 +24,7 @@ fun archivedPoolInlineDeploymentHeader(recipientOwner: AutoDeployAddress): build
     } else {
         stateHash = state.hash();
     }
+
     if (shard is AddressShardingOptions) {
         val suffix = stateHash & ((1 << (256 - shard.fixedPrefixLength)) - 1);
         val width = 256 - shard.fixedPrefixLength;
@@ -29,18 +33,22 @@ fun archivedPoolInlineDeploymentHeader(recipientOwner: AutoDeployAddress): build
     } else {
         message.storeUint(stateHash, 256);
     }
+
     // Zero value, empty extra currencies, fees and creation fields.
     message.storeUint(0, 109);
+
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
             message.storeUint(0b101, 3).storeUint(shard.fixedPrefixLength, 5).storeUint(0b01100, 5);
         } else {
             message.storeUint(0b10001100, 8);
         }
+
         message.storeRef(state.code).storeRef(state.data);
     } else {
         message.storeUint(0b110, 3).storeRef(state);
     }
+
     return message;
 }
 
@@ -49,11 +57,13 @@ fun archivedPoolInlineDeploymentHeader(recipientOwner: AutoDeployAddress): build
 fun archivedPoolRefDeploymentHeader(recipientOwner: AutoDeployAddress): builder {
     val state = recipientOwner.stateInit;
     val shard = recipientOwner.toShard;
+
     var message = beginCell()
         .storeUint(0x18, 6)
         .storeUint(4, 3)
         .storeInt(recipientOwner.workchain, 8);
     var stateHash: uint256;
+
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
             stateHash = archivedStateHashPrefix(shard.fixedPrefixLength, state.code, state.data);
@@ -63,6 +73,7 @@ fun archivedPoolRefDeploymentHeader(recipientOwner: AutoDeployAddress): builder 
     } else {
         stateHash = state.hash();
     }
+
     if (shard is AddressShardingOptions) {
         val suffix = stateHash & ((1 << (256 - shard.fixedPrefixLength)) - 1);
         val width = 256 - shard.fixedPrefixLength;
@@ -71,17 +82,21 @@ fun archivedPoolRefDeploymentHeader(recipientOwner: AutoDeployAddress): builder 
     } else {
         message.storeUint(stateHash, 256);
     }
+
     // Zero value, empty extra currencies, fees and creation fields.
     message.storeUint(0, 109);
+
     if (state is ContractState) {
         if (shard is AddressShardingOptions) {
             message.storeUint(0b101, 3).storeUint(shard.fixedPrefixLength, 5).storeUint(0b01101, 5);
         } else {
             message.storeUint(0b10001101, 8);
         }
+
         message.storeRef(state.code).storeRef(state.data);
     } else {
         message.storeUint(0b111, 3).storeRef(state);
     }
+
     return message;
 }

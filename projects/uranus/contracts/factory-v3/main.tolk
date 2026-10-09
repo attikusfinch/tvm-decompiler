@@ -1,4 +1,5 @@
 // decompiled by @fiscaldev
+
 import "@stdlib/gas-payments"
 import "types"
 
@@ -16,13 +17,16 @@ fun initialCurve(
     virtualFunds: coins,
 ): Curve {
     assert (totalSupply > onSellSupply) throw 20;
+
     val remaining = totalSupply - onSellSupply;
     val sum = raisingFunds + virtualFunds;
     val weighted = mulDivFloor(raisingFunds, onSellSupply * onSellSupply, remaining);
     val denominator = mulDivFloor(raisingFunds, onSellSupply, remaining) - sum;
     val alpha = weighted / denominator;
     val beta = sum * sum / denominator;
+
     assert (alpha > 0 && beta > 0) throw 20;
+
     return {
         graduated: false,
         alpha,
@@ -68,6 +72,7 @@ fun incomingOriginalFee(): coins
 @inline
 fun presetDeploymentBudget(initialBuy: coins): coins {
     var required: coins;
+
     if (initialBuy > 0) {
         required = contract.getStoragePaidPayment() + calculateGasFee(0, 10253) + 10000000 +
             calculateGasFee(0, 22492) +
@@ -81,12 +86,14 @@ fun presetDeploymentBudget(initialBuy: coins): coins {
             calculateGasFee(0, 16450) +
             incomingOriginalFee();
     }
+
     return required;
 }
 
 @inline
 fun customDeploymentBudget(initialBuy: coins): coins {
     var required: coins;
+
     if (initialBuy > 0) {
         required = contract.getStoragePaidPayment() + calculateGasFee(0, 12458) + 10000000 +
             calculateGasFee(0, 22492) +
@@ -100,6 +107,7 @@ fun customDeploymentBudget(initialBuy: coins): coins {
             calculateGasFee(0, 16450) +
             incomingOriginalFee();
     }
+
     return required;
 }
 
@@ -133,6 +141,7 @@ fun sendDeployment(code: cell, data: cell, depth: int, near: address, body: cell
         contract.getStoragePaidPayment(),
         RESERVE_MODE_INCREASE_BY_ORIGINAL_BALANCE,
     );
+
     sendRawMessage(wire, SEND_MODE_CARRY_ALL_BALANCE);
 }
 
@@ -141,15 +150,20 @@ fun onInternalMessage(in: InMessage) {
     if (in.body.isEmpty()) {
         return;
     }
+
     val message = Incoming.fromSlice(in.body, { throwIfOpcodeDoesNotMatch: 65535 });
     val storage = FactoryStorage.fromCell(contract.getData());
+
     match (message) {
         DeployPreset => {
             assert (presetDeploymentBudget(message.initialBuy) <= in.valueCoins) throw 23;
+
             val (totalSupply, onSellSupply, raisingFunds, virtualFunds, baseFee) = presetParameters(
                 message.preset,
             );
+
             assert (message.initialBuy < raisingFunds) throw 26;
+
             val creator = in.senderAddress;
             val code = memeLibrary();
             val liquidityTokens = totalSupply - onSellSupply;
@@ -192,15 +206,18 @@ fun onInternalMessage(in: InMessage) {
             }.toCell();
             sendDeployment(code, data, depth, near, body);
         }
+
         DeployCustom => {
             assert (customDeploymentBudget(message.initialBuy) <= in.valueCoins) throw 23;
             assert (
                 message.raisingFunds >= 800000000000 && message.raisingFunds <= 1000000000000000
             ) throw 36;
+
             assert (message.partnerFee <= 6000) throw 37;
             assert (message.poolPartnerFee <= 4000) throw 39;
             assert (message.onSellPercent > 59 && message.onSellPercent < 81) throw 38;
             assert (message.initialBuy < message.raisingFunds) throw 26;
+
             val totalSupply = match (message.supplyPreset) {
                 0 => 100000000000000000,
                 1 => 1000000000000000000,

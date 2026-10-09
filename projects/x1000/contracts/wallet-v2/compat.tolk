@@ -1,6 +1,8 @@
 // decompiled by @fiscaldev
+
 import "@stdlib/tvm-dicts"
 import "../../../libraries/messages/opcodes"
+
 // Wire codecs and bounded stack-lifetime primitives. No trade branch or whole method is assembly.
 fun releaseNoHook(
     fields: (
@@ -87,6 +89,7 @@ fun ackValue(key: int): (int, int, builder)
 fun setWithWidth(dictionary: cell, key: int, width: int, value: builder): cell {
     var entries = dictionary as dict;
     entries.uDictSetBuilder(width, key, value);
+
     return entries as unknown as cell;
 }
 
@@ -545,6 +548,7 @@ fun loadMaybeDictionary(s: slice): (slice, cell)
 fun deleteUnsignedEntry(dictionary: cell, keyWidth: int, key: int): (cell, int) {
     var entries = dictionary as dict;
     val changed = entries.uDictDelete(keyWidth, key);
+
     return (entries as unknown as cell, changed as int);
 }
 
@@ -555,6 +559,7 @@ fun loadCoinsField(s: slice): (slice, int)
 fun setUnsignedSlice(dictionary: cell, keyWidth: int, key: int, value: slice): cell {
     var entries = dictionary as dict;
     entries.uDictSet(keyWidth, key, value);
+
     return entries as unknown as cell;
 }
 
@@ -562,12 +567,14 @@ fun setUnsignedSlice(dictionary: cell, keyWidth: int, key: int, value: slice): c
 fun setUnsignedBuilder(dictionary: cell, keyWidth: int, key: int, value: builder): cell {
     var entries = dictionary as dict;
     entries.uDictSetBuilder(keyWidth, key, value);
+
     return entries as unknown as cell;
 }
 
 @inline
 fun findUnsignedEntry(dictionary: cell, keyWidth: int, key: int): (slice, int) {
     val (value, found) = (dictionary as dict).uDictGet(keyWidth, key);
+
     return (value as unknown as slice, found as int);
 }
 
@@ -575,6 +582,7 @@ fun findUnsignedEntry(dictionary: cell, keyWidth: int, key: int): (slice, int) {
 fun removeUnsignedEntry(dictionary: cell, keyWidth: int, key: int): (cell, slice, int) {
     var entries = dictionary as dict;
     val (value, changed) = entries.uDictDeleteAndGet(keyWidth, key);
+
     return (entries as unknown as cell, value as unknown as slice, changed as int);
 }
 
@@ -582,6 +590,7 @@ fun removeUnsignedEntry(dictionary: cell, keyWidth: int, key: int): (cell, slice
 fun firstUnsignedEntry(dictionary: cell, keyWidth: int): (int, slice, int) {
     var entries = dictionary as dict;
     val (key, value, found) = entries.uDictGetFirst(keyWidth);
+
     return (key as unknown as int, value as unknown as slice, found as int);
 }
 
@@ -589,6 +598,7 @@ fun firstUnsignedEntry(dictionary: cell, keyWidth: int): (int, slice, int) {
 fun nextUnsignedEntry(dictionary: cell, keyWidth: int, pivot: int): (int, slice, int) {
     var entries = dictionary as dict;
     val (key, value, found) = entries.uDictGetNext(keyWidth, pivot);
+
     return (key as unknown as int, value as unknown as slice, found as int);
 }
 
@@ -596,6 +606,7 @@ fun nextUnsignedEntry(dictionary: cell, keyWidth: int, pivot: int): (int, slice,
 fun replaceUnsignedBuilder(dictionary: cell, keyWidth: int, key: int, value: builder): (cell, int) {
     var entries = dictionary as dict;
     val changed = entries.uDictSetBuilderIfExists(keyWidth, key, value);
+
     return (entries as unknown as cell, changed as int);
 }
 

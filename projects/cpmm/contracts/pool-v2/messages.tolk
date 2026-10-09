@@ -1,5 +1,6 @@
 // decompiled by @fiscaldev
 // Incoming message layouts recovered from the archived code and public ABI.
+
 struct (0xd53276db) PoolExcesses {
     queryId: uint64
 }
