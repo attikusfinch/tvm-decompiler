@@ -6,7 +6,7 @@ export function paymentNetwork(network) {
     throw new Error('Unsupported payment network: ' + network);
 }
 
-export function validateQuote(quote, codeHash, requiredNetwork = 'mainnet') {
+export function validateQuote(quote, codeHash, requiredNetwork = 'testnet') {
     paymentNetwork(requiredNetwork);
     if (quote.network !== requiredNetwork)
         throw new Error('Verifier issued a ' + quote.network + ' ticket; ' + requiredNetwork + ' payment is required');
@@ -18,7 +18,7 @@ export function validateQuote(quote, codeHash, requiredNetwork = 'mainnet') {
     return quote;
 }
 
-export function paymentTransaction(quote, codeHash, wallet, chain, requiredNetwork = 'mainnet') {
+export function paymentTransaction(quote, codeHash, wallet, chain, requiredNetwork = 'testnet') {
     const network = paymentNetwork(requiredNetwork);
     if (chain !== network.chain) throw new Error('Connect a ' + requiredNetwork + ' wallet');
     validateQuote(quote, codeHash, requiredNetwork);

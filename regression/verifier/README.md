@@ -14,8 +14,8 @@ node scripts/check-verifier-upload.mjs
 node scripts/serve-verifier-publication.mjs
 ```
 
-Open `http://127.0.0.1:8099`. Connect a **mainnet** wallet and click the next
-publication button when a mainnet ticket is available. Each payment requires the wallet owner's confirmation.
+Open `http://127.0.0.1:8099`. Connect a **testnet** wallet and click the next
+publication button. Each payment requires the wallet owner's confirmation.
 After finalization, the queue uploads the frozen, checksum-checked source files.
 It reads back the public source bundle and checks every source checksum before
 marking a contract published. The admission check sends the source files without
@@ -28,11 +28,14 @@ The observed tickets asked for 5 testnet TON per new hash. ClassicLpWallet was
 already verified; the remaining 20 tickets totaled 100 testnet TON plus gas.
 Fresh tickets are requested immediately before wallet approval.
 
-The recovered contracts and the requested payment network are **mainnet**.
-The queue enforces `-239` at wallet connection, payment preparation and the
-transaction request, and tracks finalized transactions through mainnet TON Center.
-A testnet ticket cannot authorize a mainnet payment. The page shows mismatched
-tickets separately and does not quote their testnet amounts as a mainnet cost.
+The recovered contracts come from **mainnet**. With the user's approval,
+verification is paid in **testnet**, as required by the current official service.
+Sources are published by code hash; this flow does not deploy contracts.
+The queue requests chain `-3` at wallet connection, enforces it at payment
+preparation and in the transaction request, and tracks finalized transactions
+through testnet TON Center. A mainnet ticket or wallet cannot authorize a
+testnet payment. The page shows mismatched tickets separately and labels the
+cost as test TON.
 The refresh button requests fresh tickets without initiating any payment.
 
 As checked on 2026-10-09, `/api/v1/take_ticket` still returned **testnet** tickets.
@@ -41,8 +44,9 @@ by the verifier operator. The old mainnet backend listed in the official web UI,
 `https://verifier-mainnet.tonstudio.io/source`, rejected our FunC
 `0.4.4-newops.1` and Tolk `1.4.0` sources as unsupported. The central verifier
 configuration now directs both networks to `https://verifier.ton.org` and
-lists no legacy compiler versions. Mainnet publication remains blocked until
+lists no legacy compiler versions. Payment in mainnet remains unavailable until
 the official service issues mainnet tickets or offers a working mainnet backend.
+The active workflow therefore uses testnet payment.
 The checked responses and queue counts are summarized in `mainnet-availability.json`.
 
 Prepared files, payment progress and server logs live in the Git-ignored

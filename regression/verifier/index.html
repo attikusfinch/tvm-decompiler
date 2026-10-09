@@ -8,7 +8,7 @@ body{font:16px/1.5 system-ui;background:#111820;color:#e6edf4;margin:0}main{max-
 <main>
 <header><div><small>@fiscaldev · восстановленные исходники</small><h1>Публикация в TON Verifier</h1></div><div id="wallet-button"></div></header>
 <p>21 семейство из mainnet: DeDust DEX, Uranus и X1000. Каждый пакет проверен компилятором verifier и совпадает с сохранённым code hash.</p>
-<div class="notice"><strong>Запрошена верификация и оплата в mainnet</strong><br>Исходники публикуются по хешу кода. Для оплаты необходим mainnet-билет официального API verifier.<br><span id="service-network">Проверяем сеть билетов…</span><br><span id="cost">Загрузка билетов…</span></div>
+<div class="notice"><strong id="payment-title">Оплата проверки в testnet</strong><br>Исходники контрактов из mainnet публикуются по хешу кода. <span id="payment-description">Проверка оплачивается тестовыми TON по билету официального API verifier.</span><br><span id="service-network">Проверяем сеть билетов…</span><br><span id="cost">Загрузка билетов…</span></div>
 <p id="wallet-network" role="status" aria-live="polite">Кошелёк не подключён.</p>
 <div class="bar"><button id="next" disabled>Подключи кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
 <div id="log" role="status" aria-live="polite"></div>
@@ -27,26 +27,30 @@ let data, ui, busy=false;
 const labels={'ready':'Готов к публикации','already-verified':'Уже есть в реестре','awaiting-wallet':'Ожидание кошелька','payment-sent':'Платёж отправлен','payment-finalized':'Платёж финализирован','uploading':'Загрузка исходников','checking-registry':'Проверка реестра','published':'Опубликован','upload-uncertain':'Проверка результата загрузки','rejected':'Ошибка сервиса'};
 const el=id=>document.getElementById(id);
 const amount=n=>Number(BigInt(n))/1e9;
+const currency=network=>network==='testnet'?'тестовых TON':'mainnet TON';
+const walletNetwork=chain=>chain==='-3'?'testnet':chain==='-239'?'mainnet':'сети '+chain;
 async function api(route,body){const r=await fetch(route,{method:body?'POST':'GET',headers:{'x-session-token':token,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});const result=await r.json();if(!r.ok)throw Error(result.error);return result}
 function log(text){el('log').textContent=text}
 function paint(){
  const done=data.contracts.filter(c=>['published','already-verified'].includes(c.stage)).length;
  const ready=data.contracts.filter(c=>c.stage==='ready');
- const network=data.paymentNetwork??'mainnet'; const paymentChain=data.paymentChain??'-239';
+ const network=data.paymentNetwork??'testnet'; const paymentChain=data.paymentChain??'-3';
  const payable=ready.filter(c=>c.ticket?.status==='payment_required'&&c.ticket.network===network);
  const blocked=ready.length-payable.length;
  el('count').textContent=done+' / '+data.contracts.length+' в реестре';
- el('service-network').textContent=blocked?blocked+' контрактов ожидают '+network+'-билет. Сервис сообщает сеть: '+[...new Set(ready.filter(c=>!payable.includes(c)).map(c=>c.ticket?.network??'неизвестна'))].join(', ')+'. Оплата недоступна до получения подходящего билета.':'Сеть билетов соответствует mainnet.';
+ el('payment-title').textContent='Оплата проверки в '+network;
+ el('payment-description').textContent='Проверка оплачивается '+(network==='testnet'?'тестовыми TON':'mainnet TON')+' по билету официального API verifier.';
+ el('service-network').textContent=blocked?blocked+' контрактов ожидают '+network+'-билет. Сервис сообщает сеть: '+[...new Set(ready.filter(c=>!payable.includes(c)).map(c=>c.ticket?.network??'неизвестна'))].join(', ')+'. Оплата недоступна до получения подходящего билета.':'Сеть билетов соответствует '+network+'.';
  el('service-network').className=blocked?'bad':'good';
- el('cost').textContent=payable.length?payable.length+' контрактов · '+payable.reduce((n,c)=>n+amount(c.ticket.amount_nano),0)+' mainnet TON + комиссии.':blocked?'Стоимость mainnet пока неизвестна.':'Новых платежей нет.';
- el('rows').replaceChildren(...data.contracts.map(c=>{const tr=document.createElement('tr');const td=document.createElement('td');const a=document.createElement('a');a.href=c.verifierLink;a.target='_blank';a.rel='noreferrer';a.textContent=c.name;td.append(a);tr.append(td);const wrongNetwork=c.stage==='ready'&&!payable.includes(c);for(const text of [c.language+' '+c.compilerVersion,c.fileCount+' · '+Math.ceil(c.bytes/1024)+' КБ',wrongNetwork?'Нет mainnet-билета ('+(c.ticket?.network??'неизвестно')+')':labels[c.stage]??c.stage]){const cell=document.createElement('td');cell.textContent=text;tr.append(cell)}if(c.error||wrongNetwork){tr.lastChild.title=c.error??'Билет не соответствует запрошенной сети оплаты';tr.lastChild.className='bad'}else if(['published','already-verified'].includes(c.stage))tr.lastChild.className='good';return tr}));
+ el('cost').textContent=payable.length?payable.length+' контрактов · '+payable.reduce((n,c)=>n+amount(c.ticket.amount_nano),0)+' '+currency(network)+' + комиссии.':blocked?'Стоимость '+network+' пока неизвестна.':'Новых платежей нет.';
+ el('rows').replaceChildren(...data.contracts.map(c=>{const tr=document.createElement('tr');const td=document.createElement('td');const a=document.createElement('a');a.href=c.verifierLink;a.target='_blank';a.rel='noreferrer';a.textContent=c.name;td.append(a);tr.append(td);const wrongNetwork=c.stage==='ready'&&!payable.includes(c);for(const text of [c.language+' '+c.compilerVersion,c.fileCount+' · '+Math.ceil(c.bytes/1024)+' КБ',wrongNetwork?'Нет '+network+'-билета ('+(c.ticket?.network??'неизвестно')+')':labels[c.stage]??c.stage]){const cell=document.createElement('td');cell.textContent=text;tr.append(cell)}if(c.error||wrongNetwork){tr.lastChild.title=c.error??'Билет не соответствует запрошенной сети оплаты';tr.lastChild.className='bad'}else if(['published','already-verified'].includes(c.stage))tr.lastChild.className='good';return tr}));
  const pending=data.contracts.some(c=>!['ready','published','already-verified'].includes(c.stage));
  const next=payable[0]; const wallet=ui?.wallet;
  const chain=wallet?.account.chain;
- el('wallet-network').textContent=!wallet?'Подключи кошелёк в mainnet.':chain===paymentChain?'Кошелёк подключён к mainnet.':(chain==='-3'?'Кошелёк подключён к testnet.':'Кошелёк подключён к сети '+chain+'.')+' Для оплаты переключи кошелёк на mainnet и подключи заново.';
+ el('wallet-network').textContent=!wallet?'Подключи кошелёк в '+network+'.':chain===paymentChain?'Кошелёк подключён к '+network+'.':'Кошелёк подключён к '+walletNetwork(chain)+'. Для оплаты переключи кошелёк на '+network+' и подключи заново.';
  el('wallet-network').className=wallet?(chain===paymentChain?'good':'bad'):'';
  el('next').disabled=busy||pending||!next||!wallet||chain!==paymentChain;
- el('next').textContent=pending?'Завершаем текущую публикацию':!next&&blocked?'Ожидаем mainnet-билет от verifier':!wallet?'Подключи mainnet-кошелёк':chain!==paymentChain?'Для оплаты нужен mainnet':next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' mainnet TON':'Все контракты опубликованы';
+ el('next').textContent=pending?'Завершаем текущую публикацию':!next&&blocked?'Ожидаем '+network+'-билет от verifier':!wallet?'Подключи '+network+'-кошелёк':chain!==paymentChain?'Для оплаты нужен '+network:next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' '+currency(network):'Все контракты опубликованы';
 }
 async function refresh(){data=await api('/api/state');paint()}
 el('refresh').onclick=async()=>{el('refresh').disabled=true;try{log('Запрашиваем свежие билеты verifier…');await api('/api/action',{action:'refresh-tickets'});await refresh();log('Билеты обновлены.')}catch(e){log(e.message)}finally{el('refresh').disabled=false}};
@@ -56,9 +60,9 @@ el('next').onclick=async()=>{
  try{
   prepared=await api('/api/action',{action:'prepare',name:item.name,wallet:ui.wallet.account.address,chain:ui.wallet.account.chain});
   if(prepared.alreadyVerified){log(item.name+': уже опубликован');return}
-  const q=prepared.quote;log(item.name+': подтвердить '+amount(q.amount_nano)+' mainnet TON → '+q.payment_address+'\nКомментарий: '+q.comment);
+  const q=prepared.quote;log(item.name+': подтвердить '+amount(q.amount_nano)+' '+currency(q.network)+' → '+q.payment_address+'\nКомментарий: '+q.comment);
   if(q.amount_nano!==item.ticket.amount_nano||q.payment_address!==item.ticket.payment_address){
-   if(!confirm('Билет изменился. Оплатить '+amount(q.amount_nano)+' mainnet TON на '+q.payment_address+'?')){await api('/api/action',{action:'wallet-rejected',name:item.name});return}
+   if(!confirm('Билет изменился. Оплатить '+amount(q.amount_nano)+' '+currency(q.network)+' на '+q.payment_address+'?')){await api('/api/action',{action:'wallet-rejected',name:item.name});return}
   }
   signed=await ui.sendTransaction(prepared.transaction);
   localStorage.setItem('fiscaldev-publication-pending',JSON.stringify({name:item.name,boc:signed.boc}));

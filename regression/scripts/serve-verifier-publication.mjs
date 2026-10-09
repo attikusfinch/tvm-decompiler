@@ -10,7 +10,7 @@ import {publicationWebConfig, pageToken} from './verifier-web.mjs';
 const port = Number(process.env.VERIFIER_LOCAL_PORT ?? 8099);
 const web = publicationWebConfig(port, process.env.VERIFIER_PUBLIC_ORIGIN);
 const origin = web.localOrigin;
-const requiredNetwork = 'mainnet';
+const requiredNetwork = 'testnet';
 let previousAccess;
 try { previousAccess = JSON.parse(await fs.readFile(path.join(publicationDirectory, 'access.json'), 'utf8')); }
 catch (error) { if (error.code !== 'ENOENT') throw error; }
@@ -180,7 +180,7 @@ async function action(body) {
         if (entry.stage !== 'ready') throw new Error('A previous attempt exists; use its current status');
         await checkedSources(item);
         if (await remoteVerified(item)) { entry.stage = 'already-verified'; await save(); return {alreadyVerified: true}; }
-        if (body.chain !== paymentNetwork(requiredNetwork).chain) throw new Error('Connect a mainnet wallet');
+        if (body.chain !== paymentNetwork(requiredNetwork).chain) throw new Error('Connect a ' + requiredNetwork + ' wallet');
         const wallet = Address.parse(body.wallet).toRawString();
         const reply = await verifierRequest('/api/v1/take_ticket', {
             method: 'POST', headers: {'Content-Type': 'application/json'},
