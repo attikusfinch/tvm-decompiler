@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "toolchain": {
+    "acton": "1.2.1",
+    "tolk": "1.4.0",
+    "func": "0.4.4"
+  },
+  "projects": {
+    "classic-dex": {
+      "title": "DeDust Classic DEX",
+      "contracts": [
+        "ClassicBlank",
+        "ClassicPoolInstalledV9",
+        "ClassicLiquidityDeposit",
+        "ClassicLpWallet",
+        "ClassicOperator",
+        "ClassicNativeVault",
+        "ClassicJettonVault",
+        "ClassicFactory",
+        "ClassicVolatilePool",
+        "ClassicPoolInstalledV8"
+      ],
+      "dependencies": []
+    },
+    "cpmm": {
+      "title": "DeDust CPMM",
+      "contracts": [
+        "CpmmPoolV1",
+        "CpmmPoolV2",
+        "CpmmPosition",
+        "CpmmDeposit",
+        "CpmmAffiliateAccount"
+      ],
+      "dependencies": []
+    },
+    "uranus": {
+      "title": "Uranus launchpad",
+      "contracts": [
+        "UranusFactoryV3",
+        "UranusMemeV2",
+        "UranusMemeV3",
+        "UranusMemeWalletV3",
+        "UranusMemeWalletV2"
+      ],
+      "dependencies": [
+        "CpmmPoolV1",
+        "CpmmPoolV2"
+      ]
+    },
+    "x1000": {
+      "title": "X1000 execution wallet",
+      "contracts": [
+        "X1000WalletV2"
+      ],
+      "dependencies": [
+        "UranusMemeWalletV3"
+      ]
+    }
+  },
+  "contracts": [
+    {
+      "name": "ClassicBlank",
+      "directory": "classic-dex/contracts/blank",
+      "originalDirectory": "dedust/classic/ClassicBlank",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [],
+      "codeHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
+      "bocSha256": "a18942b4f28420578d28da61b023ed1e385c83a012b67f85c4188ec69bd64785"
+    },
+    {
+      "name": "ClassicPoolInstalledV9",
+      "directory": "classic-dex/contracts/pool-v9",
+      "originalDirectory": "dedust/classic/ClassicPoolInstalledV9",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank",
+        "ClassicLpWallet"
+      ],
+      "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+      "bocSha256": "97b7380e88ed19f39e620e21582859e7f9c6c028671249c7f234ed5be6d98437"
+    },
+    {
+      "name": "ClassicLiquidityDeposit",
+      "directory": "classic-dex/contracts/liquidity-deposit",
+      "originalDirectory": "dedust/classic/ClassicLiquidityDeposit",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank"
+      ],
+      "codeHash": "80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc",
+      "bocSha256": "f09a6565f807e979685081ae18364e5e1871f8aa31e47ef46b1cb5027ccdc820"
+    },
+    {
+      "name": "ClassicLpWallet",
+      "directory": "classic-dex/contracts/lp-wallet",
+      "originalDirectory": "dedust/classic/ClassicLpWallet",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [],
+      "codeHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+      "bocSha256": "1b8707109c5d2d6074bc1727a301358c76dea6e15af8b8d1b49a6916958d6f85"
+    },
+    {
+      "name": "ClassicOperator",
+      "directory": "classic-dex/contracts/operator",
+      "originalDirectory": "dedust/classic/ClassicOperator",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank"
+      ],
+      "codeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+      "bocSha256": "4e3dc6a8708b7ae7c7272ec89dd09817c45fd2059808dc302a6b21a0ff2d9cab"
+    },
+    {
+      "name": "ClassicNativeVault",
+      "directory": "classic-dex/contracts/native-vault",
+      "originalDirectory": "dedust/classic/ClassicNativeVault",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank"
+      ],
+      "codeHash": "875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c",
+      "bocSha256": "6682182533c4999c37f0e46c4b92cc207ccc9cc8e9387d2e44b88e628b5a5652"
+    },
+    {
+      "name": "ClassicJettonVault",
+      "directory": "classic-dex/contracts/jetton-vault",
+      "originalDirectory": "dedust/classic/ClassicJettonVault",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank"
+      ],
+      "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+      "bocSha256": "d63847c308157c8bdb19a6f603430b180846b1d41f2335a9b96265dbe644b163"
+    },
+    {
+      "name": "ClassicFactory",
+      "directory": "classic-dex/contracts/factory",
+      "originalDirectory": "dedust/classic/ClassicFactory",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank",
+        "ClassicNativeVault",
+        "ClassicJettonVault",
+        "ClassicLiquidityDeposit",
+        "ClassicOperator",
+        "ClassicLpWallet"
+      ],
+      "codeHash": "e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+      "bocSha256": "2accfe6ec140d64dbf941c92ea44616f9a4a4d116a779dc661827fef8f33fa7c"
+    },
+    {
+      "name": "ClassicVolatilePool",
+      "directory": "classic-dex/contracts/pool-v7",
+      "originalDirectory": "dedust/classic/ClassicVolatilePool",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank",
+        "ClassicLpWallet",
+        "ClassicLiquidityDeposit",
+        "ClassicNativeVault",
+        "ClassicJettonVault"
+      ],
+      "codeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+      "bocSha256": "c98810fd1ff9f50922613b2cdab433eed51f00d3abb1ec2091bd354240c94d55"
+    },
+    {
+      "name": "CpmmPoolV1",
+      "directory": "cpmm/contracts/pool-v1",
+      "originalDirectory": "dedust/cpmm/CpmmPoolV1",
+      "project": "cpmm",
+      "language": "tolk",
+      "depends": [
+        "CpmmDeposit",
+        "CpmmPosition",
+        "CpmmAffiliateAccount"
+      ],
+      "codeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+      "bocSha256": "cc7114bedfa172b85aae6bf17596680ab4a6a235f8aad59076f8788e3059dee4"
+    },
+    {
+      "name": "CpmmPoolV2",
+      "directory": "cpmm/contracts/pool-v2",
+      "originalDirectory": "dedust/cpmm/CpmmPoolV2",
+      "project": "cpmm",
+      "language": "tolk",
+      "depends": [
+        "CpmmDeposit",
+        "CpmmPosition",
+        "CpmmAffiliateAccount"
+      ],
+      "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+      "bocSha256": "289d2d36bed3aac89fcfbf3c0afb5883b676fc17fa57343467d99820a407ca4b"
+    },
+    {
+      "name": "ClassicPoolInstalledV8",
+      "directory": "classic-dex/contracts/pool-v8",
+      "originalDirectory": "dedust/classic/ClassicPoolInstalledV8",
+      "project": "classic-dex",
+      "language": "func",
+      "depends": [
+        "ClassicBlank",
+        "ClassicLpWallet"
+      ],
+      "codeHash": "c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+      "bocSha256": "178d06a28a4863a1ce628722e9d8cb206e1e006f06fc1ffd85217907460d5d6f"
+    },
+    {
+      "name": "CpmmPosition",
+      "directory": "cpmm/contracts/position",
+      "originalDirectory": "dedust/cpmm/CpmmPosition",
+      "project": "cpmm",
+      "language": "tolk",
+      "depends": [],
+      "codeHash": "dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6",
+      "bocSha256": "4b462583ce7350fd65bed4e0e2f9dc621d8fa236f93aa41441233d8a456a0714"
+    },
+    {
+      "name": "CpmmDeposit",
+      "directory": "cpmm/contracts/deposit",
+      "originalDirectory": "dedust/cpmm/CpmmDeposit",
+      "project": "cpmm",
+      "language": "tolk",
+      "depends": [],
+      "codeHash": "2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825",
+      "bocSha256": "b653d8585e8e11673fb21cd87f64411f083e1f87769e198a649f151d3f9c11ac"
+    },
+    {
+      "name": "CpmmAffiliateAccount",
+      "directory": "cpmm/contracts/affiliate-account",
+      "originalDirectory": "dedust/cpmm/CpmmAffiliateAccount",
+      "project": "cpmm",
+      "language": "tolk",
+      "depends": [],
+      "codeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+      "bocSha256": "290e900ccc135ff99b071be9dcdd2ce8112b26b9eb719abb5f555bff5eb5e264"
+    },
+    {
+      "name": "UranusFactoryV3",
+      "directory": "uranus/contracts/factory-v3",
+      "originalDirectory": "uranus/UranusFactoryV3",
+      "project": "uranus",
+      "language": "tolk",
+      "depends": [
+        "UranusMemeV3"
+      ],
+      "codeHash": "b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+      "bocSha256": "d9e4be65858890a9e57ad0ae600032885ecd8c49e518d8896d5b2a687c65803d"
+    },
+    {
+      "name": "UranusMemeV2",
+      "directory": "uranus/contracts/meme-v2",
+      "originalDirectory": "uranus/UranusMemeV2",
+      "project": "uranus",
+      "language": "tolk",
+      "depends": [
+        "UranusMemeWalletV2",
+        "CpmmAffiliateAccount",
+        "CpmmPoolV1"
+      ],
+      "codeHash": "e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+      "bocSha256": "396523af6a6a9bbe2232e1ccb9789cf7afd90cf65fc36f206a2a0ea46ae7a420"
+    },
+    {
+      "name": "UranusMemeV3",
+      "directory": "uranus/contracts/meme-v3",
+      "originalDirectory": "uranus/UranusMemeV3",
+      "project": "uranus",
+      "language": "tolk",
+      "depends": [
+        "UranusMemeWalletV3",
+        "CpmmAffiliateAccount",
+        "CpmmPoolV2"
+      ],
+      "codeHash": "a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d",
+      "bocSha256": "e89f3948359eac232379f2c96a3efae0ae5355c56fa977ec8c1e1c464a80ee8f"
+    },
+    {
+      "name": "UranusMemeWalletV3",
+      "directory": "uranus/contracts/meme-wallet-v3",
+      "originalDirectory": "uranus/UranusMemeWalletV3",
+      "project": "uranus",
+      "language": "tolk",
+      "depends": [],
+      "codeHash": "891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+      "bocSha256": "4cec602b59d8d6b3fe673272cf3b8a743675da4dd401f7811faa0f73d076a43e"
+    },
+    {
+      "name": "UranusMemeWalletV2",
+      "directory": "uranus/contracts/meme-wallet-v2",
+      "originalDirectory": "uranus/UranusMemeWalletV2",
+      "project": "uranus",
+      "language": "tolk",
+      "depends": [],
+      "codeHash": "eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605",
+      "bocSha256": "cffcc446c7927d3290e0350d8501dd5b463b6994d5d785451725431a19328093"
+    },
+    {
+      "name": "X1000WalletV2",
+      "directory": "x1000/contracts/wallet-v2",
+      "originalDirectory": "x1000/X1000WalletV2",
+      "project": "x1000",
+      "language": "tolk",
+      "depends": [],
+      "codeHash": "4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+      "bocSha256": "cec5f1a4028f54ba74342f8daa27543aff39474e668f88bead3d73b36d33fc2d"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@recovered/classic-dex",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "node ../tools/cli.mjs build classic-dex",
+    "test": "node ../tools/cli.mjs test classic-dex",
+    "fmt": "node ../tools/cli.mjs fmt classic-dex"
+  }
+}

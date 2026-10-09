@@ -1,0 +1,47 @@
+name: Recovered contract projects
+
+on:
+  push:
+    paths: ['projects/**', '.github/workflows/recovered-contracts.yml']
+  pull_request:
+    paths: ['projects/**', '.github/workflows/recovered-contracts.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: projects
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22.23.3'
+          cache: npm
+          cache-dependency-path: projects/package-lock.json
+      - name: Install pinned Acton with checksum verification
+        run: |
+          curl --fail --location --retry 3 https://github.com/ton-blockchain/acton/releases/download/v1.2.1/acton-x86_64-unknown-linux-gnu.tar.gz -o /tmp/acton.tar.gz
+          echo '490d6763dcfe148e9c8346e3d56c398e950552d329a768b7e9168d4dd54afe3f  /tmp/acton.tar.gz' | sha256sum --check
+          mkdir /tmp/acton-release
+          tar -xzf /tmp/acton.tar.gz -C /tmp/acton-release
+          binary=$(find /tmp/acton-release -type f -name acton)
+          test -n "$binary"
+          sudo install -m 755 "$binary" /usr/local/bin/acton
+          acton --version
+      - run: npm ci --no-audit --no-fund
+      - run: npm run verify
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: recovered-contract-proofs-and-tests
+          path: |
+            projects/*/test-results/**
+            projects/*/build/*/proof.json

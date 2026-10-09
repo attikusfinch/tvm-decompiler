@@ -1,0 +1,25 @@
+{
+  "name": "recovered-ton-contracts",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "workspaces": ["classic-dex", "cpmm", "uranus", "x1000"],
+  "scripts": {
+    "build": "node tools/cli.mjs build",
+    "test": "node tools/cli.mjs test",
+    "fmt": "node tools/cli.mjs fmt",
+    "fmt:check": "node tools/cli.mjs fmt-check",
+    "doctor": "node tools/cli.mjs doctor",
+    "chain:refresh": "node tools/collect-chain.mjs --refresh && node tools/render-evidence.mjs",
+    "verify": "npm run fmt:check && npm run chain:check && npm test",
+    "chain:check": "node --test tools/chain-evidence.test.mjs"
+  },
+  "dependencies": {
+    "@ton-community/func-js": "0.11.0",
+    "@ton/core": "0.63.1",
+    "@ton/crypto": "3.3.0",
+    "@ton/tolk-js": "1.4.0",
+    "func-bin-044": "npm:@ton-community/func-js-bin@0.4.4-newops.1"
+  }
+}

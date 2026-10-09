@@ -1,0 +1,10 @@
+{
+  "name": "@recovered/cpmm",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "node ../tools/cli.mjs build cpmm",
+    "test": "node ../tools/cli.mjs test cpmm",
+    "fmt": "node ../tools/cli.mjs fmt cpmm"
+  }
+}

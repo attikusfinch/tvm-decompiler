@@ -1,0 +1,7 @@
+node_modules/
+**/.acton/
+**/gen/
+**/build/
+**/test-results/
+**/.cache/
+**/lcov.info

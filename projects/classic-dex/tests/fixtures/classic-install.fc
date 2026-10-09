@@ -1,0 +1,24 @@
+#pragma version =0.4.4;
+#include "../../../libraries/func/stdlib.fc";
+;; Independent constructor oracle for the seven-value Classic loader ABI.
+() initialize(slice owner, int kind, slice template_data, cell parameters, int version, cell code,
+    slice body_tail) impure method_id(58662) {
+    cell template = begin_cell().store_slice(template_data).end_cell();
+    cell suffix = begin_cell().store_slice(body_tail).end_cell();
+    set_data(begin_cell().store_slice(owner).store_uint(kind, 8).store_uint(version, 16)
+        .store_uint(cell_hash(code), 256).store_ref(template).store_ref(parameters).store_ref(suffix)
+        .end_cell());
+    if (version == 13) {
+        cell before_failure = begin_cell().store_uint(16, 6).store_slice(owner)
+            .store_coins(17).store_uint(0, 107).end_cell();
+        send_raw_message(before_failure, 0);
+        throw(123);
+    }
+}
+
+() recv_internal(cell message, slice body) impure {
+}
+
+cell installed_data() method_id(90046) {
+    return get_data();
+}

@@ -1,0 +1,363 @@
+{
+  "schemaVersion": 1,
+  "network": "mainnet",
+  "archiveGeneratedAt": "2026-10-08T14:22:57.037Z",
+  "scope": "Current on-chain DeDust factory configuration; live representative classic, CPMM v2, Uranus and x1000 accounts; recursively resolved referenced libraries. This is a code-family archive, not an enumeration of every deployed account.",
+  "limitations": [
+    "Classic discovery samples the first 60 registry entries; it does not prove absence of additional historical pool revisions.",
+    "Standalone Classic FeeCollector has no published deployment address in the inspected reference. An opcode-search candidate failed get_operator_address and was excluded.",
+    "API snapshots were retrieved at different times, not at one pinned masterchain block. Cell hashes are verified; consensus proofs were not fetched.",
+    "Complete decompilation and successful compilation do not establish behavioral equivalence. Recompiled code hashes are compared separately."
+  ],
+  "contracts": [
+    {
+      "name": "ClassicBlank",
+      "codeHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
+      "bocSha256": "a18942b4f28420578d28da61b023ed1e385c83a012b67f85c4188ec69bd64785",
+      "codeBytes": 165,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "blankCode",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicPoolInstalledV9",
+      "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+      "bocSha256": "97b7380e88ed19f39e620e21582859e7f9c6c028671249c7f234ed5be6d98437",
+      "codeBytes": 5839,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "config.poolCode",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicLiquidityDeposit",
+      "codeHash": "80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc",
+      "bocSha256": "f09a6565f807e979685081ae18364e5e1871f8aa31e47ef46b1cb5027ccdc820",
+      "codeBytes": 2104,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "config.liquidityDepositCode",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicLpWallet",
+      "codeHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+      "bocSha256": "1b8707109c5d2d6074bc1727a301358c76dea6e15af8b8d1b49a6916958d6f85",
+      "codeBytes": 836,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "config.lpWalletCode",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicOperator",
+      "codeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+      "bocSha256": "4e3dc6a8708b7ae7c7272ec89dd09817c45fd2059808dc302a6b21a0ff2d9cab",
+      "codeBytes": 455,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "operatorCode",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicNativeVault",
+      "codeHash": "875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c",
+      "bocSha256": "6682182533c4999c37f0e46c4b92cc207ccc9cc8e9387d2e44b88e628b5a5652",
+      "codeBytes": 2302,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "config.vaultCodeByAssetType[0]",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicJettonVault",
+      "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+      "bocSha256": "d63847c308157c8bdb19a6f603430b180846b1d41f2335a9b96265dbe644b163",
+      "codeBytes": 3811,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "dataHash": "cd5cd9938d9920f46651edcb8c8ca379d1d142c27d2621fa90bc2178215b7963",
+        "field": "config.vaultCodeByAssetType[1]",
+        "schema": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/factory/types/dedust_factory_v2.types.tolk"
+      }
+    },
+    {
+      "name": "ClassicFactory",
+      "codeHash": "e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+      "bocSha256": "2accfe6ec140d64dbf941c92ea44616f9a4a4d116a779dc661827fef8f33fa7c",
+      "codeBytes": 3733,
+      "evidence": {
+        "account": "ClassicFactory",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "rawAddress": "0:5f0564fb5f604783db57031ce1cf668a88d4d4d6da6de4db222b4b920d6fd800",
+        "source": "https://hub-beta.dedust.io/docs/cpmm-v1/reference/core/factory",
+        "accountCodeHash": "e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+        "libraryHash": null,
+        "lastTransactionLt": "108593577000012"
+      }
+    },
+    {
+      "name": "ClassicVolatilePool",
+      "codeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+      "bocSha256": "c98810fd1ff9f50922613b2cdab433eed51f00d3abb1ec2091bd354240c94d55",
+      "codeBytes": 5691,
+      "evidence": {
+        "account": "ClassicVolatilePool",
+        "address": "EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r",
+        "rawAddress": "0:3e5ffca8ddfcf36c36c9ff46f31562aab51b9914845ad6c26cbde649d58a5588",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+        "libraryHash": null,
+        "lastTransactionLt": "108627274000033"
+      }
+    },
+    {
+      "name": "CpmmPoolV1",
+      "codeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+      "bocSha256": "cc7114bedfa172b85aae6bf17596680ab4a6a235f8aad59076f8788e3059dee4",
+      "codeBytes": 10014,
+      "evidence": {
+        "account": "CpmmPoolV1",
+        "address": "EQAEGspJNRpLvMDXeLrD8QcUNSNAP61jwgFQIJlOEPDCtwwi",
+        "rawAddress": "0:041aca49351a4bbcc0d778bac3f107143523403fad63c2015020994e10f0c2b7",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "3997a5c1ee8923e93cf3a6a98ea3ef9482c64dd8aea2ba8365689e14d99c760d",
+        "libraryHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+        "lastTransactionLt": "108611104000007"
+      }
+    },
+    {
+      "name": "CpmmPoolV2",
+      "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+      "bocSha256": "289d2d36bed3aac89fcfbf3c0afb5883b676fc17fa57343467d99820a407ca4b",
+      "codeBytes": 10032,
+      "evidence": {
+        "account": "CpmmPoolV2",
+        "address": "EQD026kOv4j6-56O6y8kbaaFZdQhVkh4RbEGrQND7XJMlgLf",
+        "rawAddress": "0:f4dba90ebf88fafb9e8eeb2f246da68565d42156487845b106ad0343ed724c96",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "5851780d2386e989b9ab956da7cec5c69a667b9e525f628dcba5eb02c1ee0367",
+        "libraryHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+        "lastTransactionLt": "108624190000007"
+      }
+    },
+    {
+      "name": "UranusFactoryV3",
+      "codeHash": "b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+      "bocSha256": "d9e4be65858890a9e57ad0ae600032885ecd8c49e518d8896d5b2a687c65803d",
+      "codeBytes": 1605,
+      "evidence": {
+        "account": "UranusFactoryV3",
+        "address": "EQA6ivhIOBQJvqO1SY3IvutmluM1d817gZDeEjiaVNBLePd3",
+        "rawAddress": "0:3a8af848381409bea3b5498dc8beeb6696e33577cd7b8190de12389a54d04b78",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+        "libraryHash": null,
+        "lastTransactionLt": "108201695000007"
+      }
+    },
+    {
+      "name": "UranusMemeV2",
+      "codeHash": "e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+      "bocSha256": "396523af6a6a9bbe2232e1ccb9789cf7afd90cf65fc36f206a2a0ea46ae7a420",
+      "codeBytes": 4600,
+      "evidence": {
+        "account": "UranusMemeV2",
+        "address": "EQAO_1qemostkDtMfhp7XU0nOsAkQ_tLUO5YJeNMrj3dRAaH",
+        "rawAddress": "0:0eff5a9e9a8b2d903b4c7e1a7b5d4d273ac02443fb4b50ee5825e34cae3ddd44",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "722d37be518ee0d4b6714077727ed60724bf379e8f1479c220b853d1af3cf00d",
+        "libraryHash": "e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+        "lastTransactionLt": "103199217000012"
+      }
+    },
+    {
+      "name": "UranusMemeV3",
+      "codeHash": "a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d",
+      "bocSha256": "e89f3948359eac232379f2c96a3efae0ae5355c56fa977ec8c1e1c464a80ee8f",
+      "codeBytes": 4719,
+      "evidence": {
+        "account": "UranusMemeV3",
+        "address": "EQA6dGeKIcHUVQghKGmGe1fEfyfYaYyLC594PkYO5uIbEqT4",
+        "rawAddress": "0:3a74678a21c1d45508212869867b57c47f27d8698c8b0b9f783e460ee6e21b12",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "1e4f8fcaabefdbbb9b397372d9f021511c272eda2b492ca2d33b817bc3251afe",
+        "libraryHash": "a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d",
+        "lastTransactionLt": "96138181000009"
+      }
+    },
+    {
+      "name": "UranusMemeWalletV3",
+      "codeHash": "891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+      "bocSha256": "4cec602b59d8d6b3fe673272cf3b8a743675da4dd401f7811faa0f73d076a43e",
+      "codeBytes": 1156,
+      "evidence": {
+        "account": "UranusMemeWalletV3",
+        "address": "EQAIQw-od7Nq8ZJrn40VQHzXOFm3N7XteVgF4ITp-GiiBjzG",
+        "rawAddress": "0:08430fa877b36af1926b9f8d15407cd73859b737b5ed795805e084e9f868a206",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "e2da88070dcf9d1b2ed4ab9079b8c473625bf320f38423ed86ee03ef5c326858",
+        "libraryHash": "891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+        "lastTransactionLt": "82457728000003"
+      }
+    },
+    {
+      "name": "X1000WalletV2",
+      "codeHash": "4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+      "bocSha256": "cec5f1a4028f54ba74342f8daa27543aff39474e668f88bead3d73b36d33fc2d",
+      "codeBytes": 10964,
+      "evidence": {
+        "account": "X1000WalletV2",
+        "address": "EQAFixgyPnv8ejzC5jjobQmbAZxpe1Sbh_rKlk7FsnZPUFZn",
+        "rawAddress": "0:058b18323e7bfc7a3cc2e638e86d099b019c697b549b87faca964ec5b2764f50",
+        "source": "https://github.com/ton-blockchain/abis/blob/master/data/dedust/info.toml",
+        "accountCodeHash": "4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+        "libraryHash": null,
+        "lastTransactionLt": "98740127000060"
+      }
+    },
+    {
+      "name": "ClassicPoolInstalledV8",
+      "codeHash": "c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+      "bocSha256": "178d06a28a4863a1ce628722e9d8cb206e1e006f06fc1ffd85217907460d5d6f",
+      "codeBytes": 5846,
+      "evidence": {
+        "account": "ClassicPoolRevisionSample",
+        "address": "EQAAGAl41QO7FGH_D12kw0yJq6Zyb5iu1K-dvVJQGScpRThG",
+        "rawAddress": "0:00180978d503bb1461ff0f5da4c34c89aba6726f98aed4af9dbd525019272945",
+        "source": "discovery/classic-sample-boc-states.json",
+        "accountCodeHash": "c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+        "libraryHash": null,
+        "lastTransactionLt": "50152227000001"
+      }
+    },
+    {
+      "name": "CpmmPosition",
+      "codeHash": "dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6",
+      "bocSha256": "4b462583ce7350fd65bed4e0e2f9dc621d8fa236f93aa41441233d8a456a0714",
+      "codeBytes": 1540,
+      "evidence": {
+        "account": "CpmmPositionLive",
+        "address": "EQD02u9mj0sFixYvRmtXvGUjxxsogW_TIZIocJiuHHskWTFM",
+        "rawAddress": "0:f4daef668f4b058b162f466b57bc6523c71b28816fd32192287098ae1c7b2459",
+        "source": "discovery/cpmm-position-address.json",
+        "accountCodeHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56",
+        "libraryHash": "dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6",
+        "lastTransactionLt": "100587936000011"
+      }
+    },
+    {
+      "name": "CpmmDeposit",
+      "codeHash": "2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825",
+      "bocSha256": "b653d8585e8e11673fb21cd87f64411f083e1f87769e198a649f151d3f9c11ac",
+      "codeBytes": 522,
+      "evidence": {
+        "parent": "CpmmPoolV1",
+        "parentCodeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+        "cellReferencePath": [
+          0,
+          0,
+          0,
+          3,
+          1,
+          0,
+          0
+        ],
+        "source": "https://tonapi.io/v2/blockchain/libraries/2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825",
+        "roleAssignment": {
+          "getters": [
+            "get_deposit_data"
+          ],
+          "operations": [
+            "dc5ddba1",
+            "3db5f13a"
+          ],
+          "docs": "https://hub-beta.dedust.io/docs/cpmm-v2/reference/deposit"
+        }
+      }
+    },
+    {
+      "name": "CpmmAffiliateAccount",
+      "codeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+      "bocSha256": "290e900ccc135ff99b071be9dcdd2ce8112b26b9eb719abb5f555bff5eb5e264",
+      "codeBytes": 306,
+      "evidence": {
+        "parent": "CpmmPoolV1",
+        "parentCodeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+        "cellReferencePath": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "source": "https://tonapi.io/v2/blockchain/libraries/4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+        "roleAssignment": {
+          "getters": [
+            "get_affiliate_account_data"
+          ],
+          "docs": "https://hub-beta.dedust.io/docs/cpmm-v2/concepts",
+          "inferred": true
+        }
+      }
+    },
+    {
+      "name": "UranusMemeWalletV2",
+      "codeHash": "eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605",
+      "bocSha256": "cffcc446c7927d3290e0350d8501dd5b463b6994d5d785451725431a19328093",
+      "codeBytes": 1219,
+      "evidence": {
+        "parent": "UranusMemeV2",
+        "parentCodeHash": "e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+        "cellReferencePath": [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        "source": "https://tonapi.io/v2/blockchain/libraries/eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605",
+        "roleAssignment": {
+          "getters": [
+            "get_wallet_data"
+          ],
+          "docs": "https://hub-beta.dedust.io/docs/uranus/reference/meme-wallet",
+          "inferred": true
+        }
+      }
+    }
+  ]
+}

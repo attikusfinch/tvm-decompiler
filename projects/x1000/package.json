@@ -1,0 +1,10 @@
+{
+  "name": "@recovered/x1000",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "node ../tools/cli.mjs build x1000",
+    "test": "node ../tools/cli.mjs test x1000",
+    "fmt": "node ../tools/cli.mjs fmt x1000"
+  }
+}

@@ -1,0 +1,65 @@
+[package]
+name = "classic-dex-recovered"
+version = "0.1.0"
+description = "DeDust Classic DEX: normalized, byte-exact recovered contracts"
+
+[toolchain]
+acton = "1.2.1"
+
+# Build these artifacts from editable sources with npm run build first.
+# Pinned source compilers preserve the deployed bytecode; Acton 1.2 runs tests.
+
+[contracts.ClassicBlank]
+src = "build/ClassicBlank/code.boc"
+depends = []
+
+[contracts.ClassicPoolInstalledV9]
+src = "build/ClassicPoolInstalledV9/code.boc"
+depends = []
+
+[contracts.ClassicLiquidityDeposit]
+src = "build/ClassicLiquidityDeposit/code.boc"
+depends = []
+
+[contracts.ClassicLpWallet]
+src = "build/ClassicLpWallet/code.boc"
+depends = []
+
+[contracts.ClassicOperator]
+src = "build/ClassicOperator/code.boc"
+depends = []
+
+[contracts.ClassicNativeVault]
+src = "build/ClassicNativeVault/code.boc"
+depends = []
+
+[contracts.ClassicJettonVault]
+src = "build/ClassicJettonVault/code.boc"
+depends = []
+
+[contracts.ClassicFactory]
+src = "build/ClassicFactory/code.boc"
+depends = []
+
+[contracts.ClassicVolatilePool]
+src = "build/ClassicVolatilePool/code.boc"
+depends = []
+
+[contracts.ClassicPoolInstalledV8]
+src = "build/ClassicPoolInstalledV8/code.boc"
+depends = []
+
+[test]
+
+[fmt]
+width = 100
+
+[scripts]
+build-exact = "node ../tools/cli.mjs build classic-dex"
+test-exact = "node ../tools/cli.mjs test classic-dex"
+
+[import-mappings]
+acton = ".acton"
+contracts = "contracts"
+tests = "tests"
+wrappers = "wrappers"

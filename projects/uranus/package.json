@@ -1,0 +1,10 @@
+{
+  "name": "@recovered/uranus",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "node ../tools/cli.mjs build uranus",
+    "test": "node ../tools/cli.mjs test uranus",
+    "fmt": "node ../tools/cli.mjs fmt uranus"
+  }
+}

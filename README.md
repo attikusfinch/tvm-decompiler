@@ -1,5 +1,10 @@
 # TVM → FunC / Tolk decompiler
 
+The [normalized contract workspace](projects/README.md) contains four Acton 1.2.1
+projects for all 21 recovered DeDust Classic, CPMM, Uranus and X1000 code families.
+It adds pinned byte-exact source builds, per-project tests, shared libraries and
+reproducible mainnet message evidence. Start with `cd projects && npm ci && npm run verify`.
+
 FunC now has its own separate normalization stage: native mutating cursor loads, operation-derived local names, literal prefix labels, readable message primitives and named send modes. Both languages support `--no-normalize` and expose the rule audit under `normalizations`; partial output skips this stage. See the [FunC rule catalog](docs/func-normalization-patterns.md). Getter method IDs remain explicit in FunC.
 
 Generated FunC includes the full pinned TON v2026.08 `stdlib.fc` with the existing compatibility declarations preserved. The normalizer reads its names, types, effect qualifiers and stack permutations, matching exact opcode sequences through CP0 aliases. Compatible asm helpers become standard calls; helpers with different effects, API order or compiler builtin behavior retain their typed asm under a library-derived `*_tvm` name. Ambiguous matches stay explicit. The [snapshot metadata](src/main/resources/func-stdlib/source.json) records its source, hash and LGPL license; public getter names are not inferred from this library.
