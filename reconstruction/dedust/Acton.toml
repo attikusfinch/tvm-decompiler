@@ -58,6 +58,14 @@ depends = ["ClassicBlank", "ClassicNativeVault", "ClassicJettonVault", "ClassicL
 
 [test]
 
+[contracts.UranusMemeWalletV2]
+src = "UranusMemeWalletV2/main.tolk"
+depends = []
+
+[contracts.UranusMemeWalletV3]
+src = "UranusMemeWalletV3/main.tolk"
+depends = []
+
 [fmt]
 width = 100
 
