@@ -14,13 +14,13 @@
   },
   "sourceSha256": {
     "main.tolk": "5054253b6c18ddbe3088873aa345f58d5ef9bf78e9f3c674cfdb4c2cef850a71",
-    "uranus/UranusMemeV2/main.tolk": "e0f0331a5fdc6df75e59cb1789efc6ade4006283eebc43de3447a862eb0ff90f",
-    "uranus/UranusMemeV2/types.tolk": "c93504abc71b06685060a6c86180f4af880ac0af09ef58b921fd6b709a188e99",
-    "uranus/UranusMemeV2/stdlib-legacy-stateinit.tolk": "5731b562ef9663d1ed1db11b93d4a94b5dafdc410e7c2cbe783a9991430835ba",
-    "uranus/UranusMemeV2/matches.tolk": "705464aca24ad432cb50f9847f75a72c49b66bde04b700b1e47abde5f6fef542",
-    "uranus/UranusMemeV2/incoming-codec.tolk": "478594cee7a154f999b6de2f80ddfcbab8170063fa9f02588fa234142b8107f5",
-    "uranus/UranusMemeV2/deployment-message.tolk": "7d04593e76791503b01d5e0bdc685c07536da4f63903489ed22d7851e84e5b20",
-    "uranus/UranusMemeV2/compat-address.tolk": "d90cd9f86d3c262fd096d3ccc2858cb69e14139d0739fd1a24fa5b2a9b523b25"
+    "uranus/UranusMemeV2/main.tolk": "d3cb3ccbd42716d954fb845476a37969ba04bcaff319559977866c5e3c5db875",
+    "uranus/UranusMemeV2/types.tolk": "af0dd3f7c4309e1d8786a4b5bc04f4b2bfe5c6cb0b5fd4d4ec244ca3fbd732c2",
+    "uranus/UranusMemeV2/stdlib-legacy-stateinit.tolk": "43ed33ed4f89b7394184bff68d6348396832b139e3649ea4b653c9d12946cf1f",
+    "uranus/UranusMemeV2/matches.tolk": "90200b4311aea254317691c93f001eb6e3be155a2d3e5d0843d01deb56b3ec80",
+    "uranus/UranusMemeV2/incoming-codec.tolk": "78e841cacce0470b51ca956f07c5b5ffa6ba9c3519645db2199e207c89917ae1",
+    "uranus/UranusMemeV2/deployment-message.tolk": "cdcda2bb0e8161b8c0790df478b22b4454a734d16d2b1daabaff6a868259268a",
+    "uranus/UranusMemeV2/compat-address.tolk": "bb2c748fb19adeaa8686652496ea2932832a7dc01164c62d3879d866092ead9d"
   },
   "tests": {
     "getters": [

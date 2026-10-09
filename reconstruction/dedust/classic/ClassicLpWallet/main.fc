@@ -1,3 +1,4 @@
+;; decompiled by @fiscaldev
 const int MIN_STORAGE_RESERVE = 10000000;
 const int GAS_RESERVE = 15000000;
 const int OP_TRANSFER = 260734629;

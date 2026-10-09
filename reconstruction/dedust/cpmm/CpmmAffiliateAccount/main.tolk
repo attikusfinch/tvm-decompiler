@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Reconstructed from mainnet code 4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6.
 // Names describe observed behavior; the original identifiers are unknown.
 import "types"

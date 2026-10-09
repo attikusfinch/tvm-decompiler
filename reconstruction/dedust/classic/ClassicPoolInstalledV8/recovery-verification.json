@@ -15,7 +15,7 @@
     "recompiledBytes": 5846
   },
   "sourceSha256": {
-    "dedust/classic/ClassicPoolInstalledV8/main.fc": "f93be72121e81806b9cc10f3e5bfab7b11968c8bb862242fa33f0c2e2b5829ad",
+    "dedust/classic/ClassicPoolInstalledV8/main.fc": "cf4ff3f09c7930c152e615500de63ccb98895a541de3024f3eec12fc6e889582",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

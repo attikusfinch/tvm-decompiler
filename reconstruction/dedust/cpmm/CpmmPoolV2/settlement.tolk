@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "@stdlib/gas-payments"
 import "payment"
 import "payout-config"

@@ -14,12 +14,12 @@
   },
   "sourceSha256": {
     "main.tolk": "1284ec43f99cc5ab54037dec5b30b43079e59ab59b5d7087054dc0890bb31dbe",
-    "x1000/X1000WalletV2/main.tolk": "9c337b89fb90685729c014594e61996bd1cf1419664be8155f4e51f02344326c",
-    "x1000/X1000WalletV2/queues.tolk": "ae2c86bc3164910f62e41f0452ba544dba12e95d53731412da3a95c24e762fa3",
-    "x1000/X1000WalletV2/compat.tolk": "f8570f6ed80fd906dfe14675a9cab52053f1ccd6ca4eb33ed6799e1ad8f14134",
-    "x1000/X1000WalletV2/protocols.tolk": "de1df24370fb681993ccfe2462f18812e5cb58faed0350fb725535230ab20eb7",
-    "x1000/X1000WalletV2/messages.tolk": "dca2c0e9b2d451b8ab46fe45b47eaccff76b11986e5aedbe5bb629cd3c54e667",
-    "x1000/X1000WalletV2/getters.tolk": "b94a3cbab3f3ca72d9e64e3975511563e65012e755e5ee6e85ed6d06bd2a387b"
+    "x1000/X1000WalletV2/main.tolk": "28ee5d360014e4f7e02642fb7dce82127a93c4c0db1047efd35ceb701ccaa9b4",
+    "x1000/X1000WalletV2/queues.tolk": "8fb9085d1be8e198c0ff7e176fa0c1dc33ec86855dd7616478e939d5206437d1",
+    "x1000/X1000WalletV2/compat.tolk": "ae90a41a6619540ce7968e12b4eec34726698f7e12e4589bd7918f1d227762de",
+    "x1000/X1000WalletV2/protocols.tolk": "74ac30b25eb525784f0218b68244a5b22c2f9aad2889d241eb9986a4b9e0f6ef",
+    "x1000/X1000WalletV2/messages.tolk": "73066d80ca78c56e840de49d0c82f842666a2b9754977f15f493e12218cf4bb3",
+    "x1000/X1000WalletV2/getters.tolk": "6a8cad1b029e9e12b8dc869192085c3f1d16984468b136c646af7dc7dfe1eab1"
   },
   "tests": {
     "getters": [

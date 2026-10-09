@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "compat"
 
 @inline_ref

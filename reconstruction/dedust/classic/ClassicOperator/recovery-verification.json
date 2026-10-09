@@ -15,7 +15,7 @@
     "recompiledBytes": 455
   },
   "sourceSha256": {
-    "dedust/classic/ClassicOperator/main.fc": "271b4890dd06500bba7f23b6df7e43c4757c61fcdb016b030859528ff1246bc0",
+    "dedust/classic/ClassicOperator/main.fc": "f857c9af29718ef2775106ba75d71c84c8801c5f70c9e1632af2e9266a558d6b",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

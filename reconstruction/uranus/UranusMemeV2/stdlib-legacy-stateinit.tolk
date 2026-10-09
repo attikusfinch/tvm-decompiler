@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Adapted from TON's LGPL-licensed Tolk standard library (Tolk 1.1).
 // Original: crypto/smartcont/tolk-stdlib/common.tolk at
 // https://github.com/ton-blockchain/ton/blob/90267652ad79ab1492c87864ee8096da42c4c716/crypto/smartcont/tolk-stdlib/common.tolk

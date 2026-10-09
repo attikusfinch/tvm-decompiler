@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Reconstructed from mainnet code 2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825.
 // Names are inferred from the public DeDust ABI; this is not the author's source.
 import "@stdlib/gas-payments"

@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "@stdlib/gas-payments"
 
 // V1 has no minimum processing fee; V2 adds max(gasFee, 10_000_000).

@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "compat"
 
 @method_id(3)

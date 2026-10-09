@@ -15,7 +15,7 @@
     "recompiledBytes": 5691
   },
   "sourceSha256": {
-    "dedust/classic/ClassicVolatilePool/main.fc": "a465b2bf8a5ff1910c6cf29c3508d4196997c89fc967f84721b6a51b1596c6c3",
+    "dedust/classic/ClassicVolatilePool/main.fc": "a8933f1cdaaff877874d9596e8d0aafe99e0c8255bc81cbe1dc4bb428d3cfba1",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

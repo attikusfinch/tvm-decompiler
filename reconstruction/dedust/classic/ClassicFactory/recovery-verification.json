@@ -15,7 +15,7 @@
     "recompiledBytes": 3733
   },
   "sourceSha256": {
-    "dedust/classic/ClassicFactory/main.fc": "eef9cfdf9d28be9b5f9cb1acfc302eff57ae765e0f7aa80f03c9750ebc172d8b",
+    "dedust/classic/ClassicFactory/main.fc": "cc93acc2ee21f376b732e373188b701f21b72314ddd9941ce26fafcbd76c5c66",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

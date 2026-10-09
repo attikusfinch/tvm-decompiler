@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Byte-identical readable recovery of the archived mainnet CPMM Pool V1.
 // Compiler/BOC/behavior evidence is recorded by the reconstruction gate.
 import "../CpmmPoolV2/getters"

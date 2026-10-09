@@ -1,3 +1,4 @@
+;; decompiled by @fiscaldev
 ;; Readable reconstruction of ClassicPoolInstalledV9. Names describe observed behavior; original names are unknown.
 ;; Storage and message codecs, fee rounding, authorization and failure rollback are independently checked.
 #pragma version =0.4.4;

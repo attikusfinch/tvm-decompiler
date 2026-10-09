@@ -15,7 +15,7 @@
     "recompiledBytes": 2104
   },
   "sourceSha256": {
-    "dedust/classic/ClassicLiquidityDeposit/main.fc": "c88d995dc7473c8630530b1d65ca4324452897be2df9f58e2336a0d5cb26f98a",
+    "dedust/classic/ClassicLiquidityDeposit/main.fc": "0aaa2736662a531c284b8c338af37c6ef8c0307b17cb82e3bc7be6df080cc58d",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

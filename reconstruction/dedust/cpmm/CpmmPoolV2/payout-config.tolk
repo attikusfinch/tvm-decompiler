@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 struct PoolPayoutOptions {
     destination: any_address
     extraGas: coins

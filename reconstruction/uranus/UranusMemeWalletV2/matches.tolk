@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "stdlib-legacy-stateinit"
 
 @inline

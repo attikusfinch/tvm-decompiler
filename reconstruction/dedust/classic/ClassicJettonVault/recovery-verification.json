@@ -15,7 +15,7 @@
     "recompiledBytes": 3811
   },
   "sourceSha256": {
-    "dedust/classic/ClassicJettonVault/main.fc": "c76009b6a979570df47378ae6ea09877b108d76c9a74c5da19b3d84864c6bc4d",
+    "dedust/classic/ClassicJettonVault/main.fc": "896a40bde2faab33c48546ea23eeffecb69d5830b7775973df8436a33b69ac0d",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

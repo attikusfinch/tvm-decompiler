@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Storage and message fields are inferred from the executable code.
 // The public SDK documents affiliate IDs and fee BPS, but not these message names.
 @overflow1023_policy("suppress")

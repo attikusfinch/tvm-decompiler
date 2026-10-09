@@ -15,7 +15,7 @@
     "recompiledBytes": 836
   },
   "sourceSha256": {
-    "dedust/classic/ClassicLpWallet/main.fc": "bba0526fa2a76642c6c428c6c309dbd5bd21578e5576110b6802d1c3075a947e",
+    "dedust/classic/ClassicLpWallet/main.fc": "e7e42a4353a03c58e41542a355d41d97cb372f6e0bf2f9c2b7a266ee0255f79c",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

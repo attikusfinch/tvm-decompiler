@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Shared Pool deployment/address logic. This module is not a complete Pool.
 struct ReservedAddressVariantA {}
 struct ReservedAddressVariantB {}

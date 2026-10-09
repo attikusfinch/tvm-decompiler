@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Field order is recovered from the executable cell graph, not guessed from names.
 struct PositionFees {
     xCheckpoint: varuint32

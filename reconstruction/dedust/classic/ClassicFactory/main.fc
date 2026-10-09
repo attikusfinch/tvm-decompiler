@@ -1,3 +1,4 @@
+;; decompiled by @fiscaldev
 #pragma version =0.4.4;
 ;; Recovered behavior names; the original author names are unknown.
 ;; c7: sender, template base, ownership, Blank, Vault dictionary, Pool code/version,

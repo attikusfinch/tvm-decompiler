@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Archived external-out event format; the helper methods return the SENDMSG fee.
 @overflow1023_policy("suppress")
 struct (0x78e79ba4) PoolSwapEvent {

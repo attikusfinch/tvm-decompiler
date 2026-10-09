@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Wire codecs and bounded stack-lifetime primitives. No trade branch or whole method is assembly.
 fun releaseNoHook(
     fields: (

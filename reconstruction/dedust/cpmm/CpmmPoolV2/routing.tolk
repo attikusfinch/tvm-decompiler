@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "payment"
 
 struct PoolSwapPartner { identity: uint256; fee: uint16 }

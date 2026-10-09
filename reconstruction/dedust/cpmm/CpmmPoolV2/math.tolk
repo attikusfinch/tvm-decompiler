@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Integer square root used when the Pool first mints liquidity.
 // The original early return includes negative values; callers supply coin products.
 fun checkedRootCorrection(condition: bool): int

@@ -1,3 +1,4 @@
+;; decompiled by @fiscaldev
 #pragma version =0.4.4;
 ;; Recovered names describe observed behavior; original source names are unknown.
 ;; c7 layout: sender, (factory, blank_code), version, descriptor, locked_ton.

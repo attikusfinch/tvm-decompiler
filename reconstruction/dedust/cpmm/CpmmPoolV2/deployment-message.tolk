@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Compatibility with the legacy Tolk AutoDeployAddress message encoder.
 // The StateInit hashing primitives are attributed in stdlib-legacy-stateinit.tolk.
 import "stdlib-legacy-stateinit"

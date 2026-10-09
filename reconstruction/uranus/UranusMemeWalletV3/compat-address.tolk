@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Preserve the old standard-library StateInit hashes and address representation.
 import "stdlib-legacy-stateinit"
 

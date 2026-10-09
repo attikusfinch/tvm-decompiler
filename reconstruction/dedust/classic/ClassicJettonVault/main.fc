@@ -1,3 +1,4 @@
+;; decompiled by @fiscaldev
 #pragma version =0.4.4;
 ;; Recovered names describe behavior; original names are unknown.
 ;; c7: sender, (factory,blank_code), version, ready, asset, master, wallet, descriptor.

@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Reconstructed from mainnet code dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6.
 // Names describe recovered behavior; the original author's identifiers are unknown.
 import "@stdlib/gas-payments"

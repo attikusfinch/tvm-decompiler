@@ -1,3 +1,4 @@
+;; decompiled by @fiscaldev
 const int SEND_MODE_REGULAR = 0;
 const int SEND_MODE_IGNORE_ERRORS = 2;
 const int SEND_MODE_DESTROY_IF_ZERO = 32;

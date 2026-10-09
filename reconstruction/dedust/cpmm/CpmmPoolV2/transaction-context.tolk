@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Read transaction context where each handler needs it, without extra stack slots.
 struct PoolInboundContext {}
 

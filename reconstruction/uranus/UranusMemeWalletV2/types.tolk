@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 type ForwardPayload = cell | RemainingBitsAndRefs
 
 fun ForwardPayload.unpackFromSlice(mutate s: slice): ForwardPayload {

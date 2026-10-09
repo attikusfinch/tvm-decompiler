@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Wallet/asset registries and resolver scheduling shared by both Pool revisions.
 type AddressLookup = map<uint256, any_address>
 

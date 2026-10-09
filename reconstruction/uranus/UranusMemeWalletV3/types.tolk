@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 type ForwardPayload = cell | RemainingBitsAndRefs
 
 // Consume all inline payload while leaving an empty cursor for the ENDS check.

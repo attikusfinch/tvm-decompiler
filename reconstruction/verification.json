@@ -71,7 +71,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicBlank/main.fc": "e2784827d101b7da5fec55abc25052be0fd8fdaa224c751ed1b54b5d828f141d",
+        "dedust/classic/ClassicBlank/main.fc": "f0882e5f35a873cf848acefcba09b14823d87887839dc90ca90279312084ee82",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -2943,7 +2943,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicPoolInstalledV9/main.fc": "e7171ba1becc744c65f7c36e4226abc29595c312baab707a8e19f376bbd4f6b1",
+        "dedust/classic/ClassicPoolInstalledV9/main.fc": "420b881e85d41491132fe907728b970a1fc82fdb918d7ade3528e3054d7e3ed3",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -11397,7 +11397,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicLiquidityDeposit/main.fc": "c88d995dc7473c8630530b1d65ca4324452897be2df9f58e2336a0d5cb26f98a",
+        "dedust/classic/ClassicLiquidityDeposit/main.fc": "0aaa2736662a531c284b8c338af37c6ef8c0307b17cb82e3bc7be6df080cc58d",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -17460,7 +17460,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicLpWallet/main.fc": "bba0526fa2a76642c6c428c6c309dbd5bd21578e5576110b6802d1c3075a947e",
+        "dedust/classic/ClassicLpWallet/main.fc": "e7e42a4353a03c58e41542a355d41d97cb372f6e0bf2f9c2b7a266ee0255f79c",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -21917,7 +21917,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicOperator/main.fc": "271b4890dd06500bba7f23b6df7e43c4757c61fcdb016b030859528ff1246bc0",
+        "dedust/classic/ClassicOperator/main.fc": "f857c9af29718ef2775106ba75d71c84c8801c5f70c9e1632af2e9266a558d6b",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -24665,7 +24665,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicNativeVault/main.fc": "8cdc3ae235ea4a6fdd1598cb74200b0293c115898addb7148890d173254bb318",
+        "dedust/classic/ClassicNativeVault/main.fc": "78e04cc7fd96d3b2831c87059003ecd33fb5b5eea584e133517c88ca621e1473",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -29331,7 +29331,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicJettonVault/main.fc": "c76009b6a979570df47378ae6ea09877b108d76c9a74c5da19b3d84864c6bc4d",
+        "dedust/classic/ClassicJettonVault/main.fc": "896a40bde2faab33c48546ea23eeffecb69d5830b7775973df8436a33b69ac0d",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -35487,7 +35487,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicFactory/main.fc": "eef9cfdf9d28be9b5f9cb1acfc302eff57ae765e0f7aa80f03c9750ebc172d8b",
+        "dedust/classic/ClassicFactory/main.fc": "cc93acc2ee21f376b732e373188b701f21b72314ddd9941ce26fafcbd76c5c66",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -41214,7 +41214,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicVolatilePool/main.fc": "a465b2bf8a5ff1910c6cf29c3508d4196997c89fc967f84721b6a51b1596c6c3",
+        "dedust/classic/ClassicVolatilePool/main.fc": "a8933f1cdaaff877874d9596e8d0aafe99e0c8255bc81cbe1dc4bb428d3cfba1",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -48568,32 +48568,32 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "238fd2f213008a370c425fedb7595422031b74ec6a83e8a0a0cde77c94af8bfe",
-        "dedust/cpmm/CpmmPoolV1/main.tolk": "849afcad3ea9eef21642eac9cc993ac30e30a75cf1c1693a6c8cffcb8ffb074f",
-        "dedust/cpmm/CpmmPoolV2/transaction-context.tolk": "e1cbfccf5831bb33933eed26ef2b1c826c5dc841ef6075487482eba54d734ee4",
-        "dedust/cpmm/CpmmPoolV2/storage.tolk": "e7750062dbdee5c52fba6db3947a89a45f4089af266497a3407271cd640385b6",
-        "dedust/cpmm/CpmmPoolV2/rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
-        "dedust/cpmm/CpmmPoolV2/wallets.tolk": "57b0fe296cc8439ed3046dbcdfc949108e7d0ae1b7aefb597f47d91d82318a94",
-        "dedust/cpmm/CpmmPoolV2/messages.tolk": "99ce1df230acfdb11c509e8a5a125fdbcbaf67b47d70481a1eab31cf63b36444",
-        "dedust/cpmm/CpmmPoolV1/handlers.tolk": "61e82bfeaf83adc478ecd390ee3ea037e2e31a65b4659530862f166280f773d9",
-        "dedust/cpmm/CpmmPoolV2/claim-handlers.tolk": "a8454c88b436c0cd30ebc4e0cebe8cd289dd85b7144974912d4ed41c61e13aa1",
-        "dedust/cpmm/CpmmPoolV2/payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
-        "dedust/cpmm/CpmmPoolV2/transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
-        "dedust/cpmm/CpmmPoolV2/payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
-        "dedust/cpmm/CpmmPoolV2/settlement.tolk": "38487b08abaeac66fcdb50647f6283ef42534bb49a1a276592ca01de7ae38bee",
-        "dedust/cpmm/CpmmPoolV2/liquidity-handlers.tolk": "d2d9ea9c1e5ea6b41c1926be32cf21aba3084bce05132ee785b446fa5b84d81d",
-        "dedust/cpmm/CpmmPoolV2/deployment-message.tolk": "a73c53103de348d1fa8b8e407a2c69b27ebf2d4451e61a55571f43bfe234eff9",
-        "dedust/cpmm/CpmmPoolV2/stdlib-legacy-stateinit.tolk": "c5d63bf2d540d96c694d31accc85f57ddeec93206be54cf80d46ffaf065bb815",
-        "dedust/cpmm/CpmmPoolV2/math.tolk": "2d1e34cd8ea748e703838a3894ecacddf1d33bbb6a95f9db0080da8e44c760f5",
-        "dedust/cpmm/CpmmPoolV2/events.tolk": "8464731c1dd44e32f14e985b8963ce87465818b24c36742c126cac8e472e49c1",
-        "dedust/cpmm/CpmmPoolV2/payout-basic.tolk": "df7888f40d11af33959f47e1de315ad4ab0dbf6f0e2be82b8df2032995de3f4c",
-        "dedust/cpmm/CpmmPoolV2/compat-address.tolk": "8a624258542425f60322be9da1b2c12472b4b93cf13d9b6c68c403c49ac4aaf5",
-        "dedust/cpmm/CpmmPoolV2/addresses.tolk": "021e568c4ab6e4631d4e9c059480dbd39cf90c39ff967787f8b6595748efa061",
-        "dedust/cpmm/CpmmPoolV2/routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
-        "dedust/cpmm/CpmmPoolV1/transfers-v1.tolk": "3aaecb4c13f3fe89772b84ef1817ae79822f80f51c4be922ed7bd446ebf1d206",
-        "dedust/cpmm/CpmmPoolV1/processing.tolk": "e6fbecda9d3fd2b02e27e55d2fc26e59d7130c00af8ec4fba23836bd7471adfd",
-        "dedust/cpmm/CpmmPoolV2/affiliate-deployment.tolk": "063d6d5e008c8b099ef2e6a940a03bfdb9933d8f337427730939ba9b95a8ee5a",
-        "dedust/cpmm/CpmmPoolV2/reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
-        "dedust/cpmm/CpmmPoolV2/getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c"
+        "dedust/cpmm/CpmmPoolV1/main.tolk": "65ea452b01702b6206fabb98298168bb4e8aa2817df29c8a3f56c19978f3615b",
+        "dedust/cpmm/CpmmPoolV2/transaction-context.tolk": "65e29be6fa9d440bb19d6320a4edc04e1b08436f25daeb785d369f94422818a3",
+        "dedust/cpmm/CpmmPoolV2/storage.tolk": "6d789fb8bbe7fbdfa57a16c422cca0dced89a83a664dfd34ceaf6add43e58770",
+        "dedust/cpmm/CpmmPoolV2/rewards.tolk": "f23deae62264a38af7f7f9d6a1cc45c77b259d4119be1a41014085d6be25680a",
+        "dedust/cpmm/CpmmPoolV2/wallets.tolk": "071d531690aa3080f675a1c52750bb3126fc20695004bc1bf17dfbdab48dd78d",
+        "dedust/cpmm/CpmmPoolV2/messages.tolk": "32cd5c622cfd37b7bfdcca945d808bb87f42f2d7119532753ce9e8e9f21e83fd",
+        "dedust/cpmm/CpmmPoolV1/handlers.tolk": "8b1bd4a5c4291a1ff028b2bcbb0d883e1c5903b2d2606286e2371e7041cae7ff",
+        "dedust/cpmm/CpmmPoolV2/claim-handlers.tolk": "607cf0d95f877f161d41ad35e1dd662313470f51a82071c99ae4641eccbe41a3",
+        "dedust/cpmm/CpmmPoolV2/payout-config.tolk": "0194c7d177d7fa8d2307af9cbf71a017804296920608d259aa90e0ca4e6fac09",
+        "dedust/cpmm/CpmmPoolV2/transfers.tolk": "480a58c3c7694354b96d21ac58ccb85664edf9b51a12a76cac5a64f16ce3d6bd",
+        "dedust/cpmm/CpmmPoolV2/payment.tolk": "b50b6dd059112d06fca0ff9f0ca6ec7e04a2c44db29542b4e7fa4e72edc4c70a",
+        "dedust/cpmm/CpmmPoolV2/settlement.tolk": "f4a3625112b187c12f11f03e81648cf2858b3b268e3fdaec8df03f3a2914d74c",
+        "dedust/cpmm/CpmmPoolV2/liquidity-handlers.tolk": "31a60d42227ea90427ee67ed74ef1532ab7c2fff05e53caef95fab278a8dbfb9",
+        "dedust/cpmm/CpmmPoolV2/deployment-message.tolk": "ed6b8970d18a33727240650ac6f8b0df9bb7104934c3876bda17e5906edb9453",
+        "dedust/cpmm/CpmmPoolV2/stdlib-legacy-stateinit.tolk": "7a6118e5f2138a103a72e9396c5daf45d6270c954eac05667dbf09345fb4b9bb",
+        "dedust/cpmm/CpmmPoolV2/math.tolk": "6dca541ebce7017a0ebfe19a5c4f93c307ba93570f7c7f08a1c9c3bb1236d7f2",
+        "dedust/cpmm/CpmmPoolV2/events.tolk": "10edefbe0d751e6c58eef3f4f85ea65c593527a0f799de47c48fc253b71750de",
+        "dedust/cpmm/CpmmPoolV2/payout-basic.tolk": "2f3f2e798fcf857f7471be3e5cbcdc9334c3462a0e4f656fb39e1305da45e3be",
+        "dedust/cpmm/CpmmPoolV2/compat-address.tolk": "af67b8e2611883fa0d78a4c552ffd77b4340a1ca783971178bcacc3f0b233a94",
+        "dedust/cpmm/CpmmPoolV2/addresses.tolk": "e03744c1f571cb03360c3cbb87eeb67550501d80e4b893248c13d13272299f60",
+        "dedust/cpmm/CpmmPoolV2/routing.tolk": "5869ee8479b9506aab10bb2555ca6dce805a89fd4d1557592e93c63180f52f39",
+        "dedust/cpmm/CpmmPoolV1/transfers-v1.tolk": "39db186df15bf37dea98846a6adb36cd5108e4cc18a6e51715e9666723958109",
+        "dedust/cpmm/CpmmPoolV1/processing.tolk": "8899877b2ed3bd26643ac1ef282aeaca54b33182346fae3ffa5d9ff68616efef",
+        "dedust/cpmm/CpmmPoolV2/affiliate-deployment.tolk": "98320ce1018835877d73c240ec27005101336f8db34ebce1ad1f3f23f893f8d8",
+        "dedust/cpmm/CpmmPoolV2/reward-config.tolk": "3753af6ab27ef701deff13beab32392d93f0fe8aa0887bd344939f5a032e7144",
+        "dedust/cpmm/CpmmPoolV2/getters.tolk": "d137343756723ab817c56b1b43db822c16f75c391eceb97c3169831870f7456a"
       },
       "tests": {
         "getters": [
@@ -67152,31 +67152,31 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "4a83bd98b051829065dc3c487121d6508e87f09d6b53a9dcb625076f40468bc6",
-        "dedust/cpmm/CpmmPoolV2/main.tolk": "e5e0c4a6962894f23d43d7588f1d93baecfd856f8f2ec28e9289281ed86d295a",
-        "dedust/cpmm/CpmmPoolV2/transaction-context.tolk": "e1cbfccf5831bb33933eed26ef2b1c826c5dc841ef6075487482eba54d734ee4",
-        "dedust/cpmm/CpmmPoolV2/storage.tolk": "e7750062dbdee5c52fba6db3947a89a45f4089af266497a3407271cd640385b6",
-        "dedust/cpmm/CpmmPoolV2/rewards.tolk": "eaf90c73eaf63ca10fd6b81d545146d966a9cd2814b2104dd95680ed9ee264b3",
-        "dedust/cpmm/CpmmPoolV2/wallets.tolk": "57b0fe296cc8439ed3046dbcdfc949108e7d0ae1b7aefb597f47d91d82318a94",
-        "dedust/cpmm/CpmmPoolV2/messages.tolk": "99ce1df230acfdb11c509e8a5a125fdbcbaf67b47d70481a1eab31cf63b36444",
-        "dedust/cpmm/CpmmPoolV2/handlers.tolk": "b2cbeb6d98fd60e790b03aa09dda4746f2ef74db8808988442645635cb393a3a",
-        "dedust/cpmm/CpmmPoolV2/claim-handlers.tolk": "a8454c88b436c0cd30ebc4e0cebe8cd289dd85b7144974912d4ed41c61e13aa1",
-        "dedust/cpmm/CpmmPoolV2/payout-config.tolk": "af869971b5f53ce3b5ae98a9472faf0f5f3c71c4125fdc30144696c330e42d03",
-        "dedust/cpmm/CpmmPoolV2/transfers.tolk": "add580afcb0a4f61ba8b65de946710ae4dabc95f1efdff6710b3d385d2e47b52",
-        "dedust/cpmm/CpmmPoolV2/payment.tolk": "41d662fc3115d69a055013b9dac4857ee401fe3132ddb76d8119b2c076d838c4",
-        "dedust/cpmm/CpmmPoolV2/settlement.tolk": "38487b08abaeac66fcdb50647f6283ef42534bb49a1a276592ca01de7ae38bee",
-        "dedust/cpmm/CpmmPoolV2/liquidity-handlers.tolk": "d2d9ea9c1e5ea6b41c1926be32cf21aba3084bce05132ee785b446fa5b84d81d",
-        "dedust/cpmm/CpmmPoolV2/deployment-message.tolk": "a73c53103de348d1fa8b8e407a2c69b27ebf2d4451e61a55571f43bfe234eff9",
-        "dedust/cpmm/CpmmPoolV2/stdlib-legacy-stateinit.tolk": "c5d63bf2d540d96c694d31accc85f57ddeec93206be54cf80d46ffaf065bb815",
-        "dedust/cpmm/CpmmPoolV2/math.tolk": "2d1e34cd8ea748e703838a3894ecacddf1d33bbb6a95f9db0080da8e44c760f5",
-        "dedust/cpmm/CpmmPoolV2/events.tolk": "8464731c1dd44e32f14e985b8963ce87465818b24c36742c126cac8e472e49c1",
-        "dedust/cpmm/CpmmPoolV2/payout-basic.tolk": "df7888f40d11af33959f47e1de315ad4ab0dbf6f0e2be82b8df2032995de3f4c",
-        "dedust/cpmm/CpmmPoolV2/compat-address.tolk": "8a624258542425f60322be9da1b2c12472b4b93cf13d9b6c68c403c49ac4aaf5",
-        "dedust/cpmm/CpmmPoolV2/addresses.tolk": "021e568c4ab6e4631d4e9c059480dbd39cf90c39ff967787f8b6595748efa061",
-        "dedust/cpmm/CpmmPoolV2/routing.tolk": "2f6048c0781f0a4c3ee9611cb7fbe560b83604462ef511da8e75cedc1137fcae",
-        "dedust/cpmm/CpmmPoolV2/processing.tolk": "f91d69d4394e1a161cae325ae56632674eeefd9573bda16f297581d7c1ec6930",
-        "dedust/cpmm/CpmmPoolV2/affiliate-deployment.tolk": "063d6d5e008c8b099ef2e6a940a03bfdb9933d8f337427730939ba9b95a8ee5a",
-        "dedust/cpmm/CpmmPoolV2/reward-config.tolk": "1db402c3f6361b81fd5f0dbd7a5019d4d6b07adfb5f661f36dea4b758aadba88",
-        "dedust/cpmm/CpmmPoolV2/getters.tolk": "6a7bbbca95d76b44039aeb707100a05a77449c575a158123708dc4ccdf2ab98c"
+        "dedust/cpmm/CpmmPoolV2/main.tolk": "8b750f0337dadafabce6f25885900f0b1f462f402eef5e4c7a87a1c785118f71",
+        "dedust/cpmm/CpmmPoolV2/transaction-context.tolk": "65e29be6fa9d440bb19d6320a4edc04e1b08436f25daeb785d369f94422818a3",
+        "dedust/cpmm/CpmmPoolV2/storage.tolk": "6d789fb8bbe7fbdfa57a16c422cca0dced89a83a664dfd34ceaf6add43e58770",
+        "dedust/cpmm/CpmmPoolV2/rewards.tolk": "f23deae62264a38af7f7f9d6a1cc45c77b259d4119be1a41014085d6be25680a",
+        "dedust/cpmm/CpmmPoolV2/wallets.tolk": "071d531690aa3080f675a1c52750bb3126fc20695004bc1bf17dfbdab48dd78d",
+        "dedust/cpmm/CpmmPoolV2/messages.tolk": "32cd5c622cfd37b7bfdcca945d808bb87f42f2d7119532753ce9e8e9f21e83fd",
+        "dedust/cpmm/CpmmPoolV2/handlers.tolk": "4cfc6b5ffbb49beab7378fea5d99fa0bc76aef518ca710d70bca7e7a9429b8da",
+        "dedust/cpmm/CpmmPoolV2/claim-handlers.tolk": "607cf0d95f877f161d41ad35e1dd662313470f51a82071c99ae4641eccbe41a3",
+        "dedust/cpmm/CpmmPoolV2/payout-config.tolk": "0194c7d177d7fa8d2307af9cbf71a017804296920608d259aa90e0ca4e6fac09",
+        "dedust/cpmm/CpmmPoolV2/transfers.tolk": "480a58c3c7694354b96d21ac58ccb85664edf9b51a12a76cac5a64f16ce3d6bd",
+        "dedust/cpmm/CpmmPoolV2/payment.tolk": "b50b6dd059112d06fca0ff9f0ca6ec7e04a2c44db29542b4e7fa4e72edc4c70a",
+        "dedust/cpmm/CpmmPoolV2/settlement.tolk": "f4a3625112b187c12f11f03e81648cf2858b3b268e3fdaec8df03f3a2914d74c",
+        "dedust/cpmm/CpmmPoolV2/liquidity-handlers.tolk": "31a60d42227ea90427ee67ed74ef1532ab7c2fff05e53caef95fab278a8dbfb9",
+        "dedust/cpmm/CpmmPoolV2/deployment-message.tolk": "ed6b8970d18a33727240650ac6f8b0df9bb7104934c3876bda17e5906edb9453",
+        "dedust/cpmm/CpmmPoolV2/stdlib-legacy-stateinit.tolk": "7a6118e5f2138a103a72e9396c5daf45d6270c954eac05667dbf09345fb4b9bb",
+        "dedust/cpmm/CpmmPoolV2/math.tolk": "6dca541ebce7017a0ebfe19a5c4f93c307ba93570f7c7f08a1c9c3bb1236d7f2",
+        "dedust/cpmm/CpmmPoolV2/events.tolk": "10edefbe0d751e6c58eef3f4f85ea65c593527a0f799de47c48fc253b71750de",
+        "dedust/cpmm/CpmmPoolV2/payout-basic.tolk": "2f3f2e798fcf857f7471be3e5cbcdc9334c3462a0e4f656fb39e1305da45e3be",
+        "dedust/cpmm/CpmmPoolV2/compat-address.tolk": "af67b8e2611883fa0d78a4c552ffd77b4340a1ca783971178bcacc3f0b233a94",
+        "dedust/cpmm/CpmmPoolV2/addresses.tolk": "e03744c1f571cb03360c3cbb87eeb67550501d80e4b893248c13d13272299f60",
+        "dedust/cpmm/CpmmPoolV2/routing.tolk": "5869ee8479b9506aab10bb2555ca6dce805a89fd4d1557592e93c63180f52f39",
+        "dedust/cpmm/CpmmPoolV2/processing.tolk": "75ba5aa21542e7babfe8262b19bb02bd086c612c1614887a90d3fccc713b91e2",
+        "dedust/cpmm/CpmmPoolV2/affiliate-deployment.tolk": "98320ce1018835877d73c240ec27005101336f8db34ebce1ad1f3f23f893f8d8",
+        "dedust/cpmm/CpmmPoolV2/reward-config.tolk": "3753af6ab27ef701deff13beab32392d93f0fe8aa0887bd344939f5a032e7144",
+        "dedust/cpmm/CpmmPoolV2/getters.tolk": "d137343756723ab817c56b1b43db822c16f75c391eceb97c3169831870f7456a"
       },
       "tests": {
         "getters": [
@@ -85649,8 +85649,8 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "14daece450547affa3d3666dd5f5c5f1addee0824d0545f3363573367e6f07e9",
-        "uranus/UranusFactoryV3/main.tolk": "f9f86adab67fbbb54d8ea48d1d1dfc8999c494be6cd67dbf68c90ee2ac3906df",
-        "uranus/UranusFactoryV3/types.tolk": "e9d974a23d03b0ce59eb369e0e2cf7b9332b89a78ac3abcd54d4936642701f63"
+        "uranus/UranusFactoryV3/main.tolk": "f46bf317e724e14edbcbc1a7c82d65133aede039cec31f216cdb50fd00f69a7c",
+        "uranus/UranusFactoryV3/types.tolk": "6ed17fb0d13c720766e75c9109693d679019c40629738580eb2ba58176ded242"
       },
       "tests": {
         "getters": [],
@@ -94926,13 +94926,13 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "5054253b6c18ddbe3088873aa345f58d5ef9bf78e9f3c674cfdb4c2cef850a71",
-        "uranus/UranusMemeV2/main.tolk": "e0f0331a5fdc6df75e59cb1789efc6ade4006283eebc43de3447a862eb0ff90f",
-        "uranus/UranusMemeV2/types.tolk": "c93504abc71b06685060a6c86180f4af880ac0af09ef58b921fd6b709a188e99",
-        "uranus/UranusMemeV2/stdlib-legacy-stateinit.tolk": "5731b562ef9663d1ed1db11b93d4a94b5dafdc410e7c2cbe783a9991430835ba",
-        "uranus/UranusMemeV2/matches.tolk": "705464aca24ad432cb50f9847f75a72c49b66bde04b700b1e47abde5f6fef542",
-        "uranus/UranusMemeV2/incoming-codec.tolk": "478594cee7a154f999b6de2f80ddfcbab8170063fa9f02588fa234142b8107f5",
-        "uranus/UranusMemeV2/deployment-message.tolk": "7d04593e76791503b01d5e0bdc685c07536da4f63903489ed22d7851e84e5b20",
-        "uranus/UranusMemeV2/compat-address.tolk": "d90cd9f86d3c262fd096d3ccc2858cb69e14139d0739fd1a24fa5b2a9b523b25"
+        "uranus/UranusMemeV2/main.tolk": "d3cb3ccbd42716d954fb845476a37969ba04bcaff319559977866c5e3c5db875",
+        "uranus/UranusMemeV2/types.tolk": "af0dd3f7c4309e1d8786a4b5bc04f4b2bfe5c6cb0b5fd4d4ec244ca3fbd732c2",
+        "uranus/UranusMemeV2/stdlib-legacy-stateinit.tolk": "43ed33ed4f89b7394184bff68d6348396832b139e3649ea4b653c9d12946cf1f",
+        "uranus/UranusMemeV2/matches.tolk": "90200b4311aea254317691c93f001eb6e3be155a2d3e5d0843d01deb56b3ec80",
+        "uranus/UranusMemeV2/incoming-codec.tolk": "78e841cacce0470b51ca956f07c5b5ffa6ba9c3519645db2199e207c89917ae1",
+        "uranus/UranusMemeV2/deployment-message.tolk": "cdcda2bb0e8161b8c0790df478b22b4454a734d16d2b1daabaff6a868259268a",
+        "uranus/UranusMemeV2/compat-address.tolk": "bb2c748fb19adeaa8686652496ea2932832a7dc01164c62d3879d866092ead9d"
       },
       "tests": {
         "getters": [
@@ -114706,11 +114706,11 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "000969bf6f84a028ef9a66c027689c6d6928af1c61de8187ae01e0fe268aec8b",
-        "uranus/UranusMemeV3/main.tolk": "7485b3c599aeee905ce195b979645dfdeea0f60de28c88b371fe8bab8ee46997",
-        "uranus/UranusMemeV3/types.tolk": "a35fed94298cb2443f0f1e71bbb553d2bb05ca6ecb61f9134da1787a50f5bc31",
-        "uranus/UranusMemeV3/stdlib-legacy-stateinit.tolk": "dc9290fb0127d80da275c8ce91197563ed30573935854840de1de32aecf6c882",
-        "uranus/UranusMemeV3/deployment-message.tolk": "7d04593e76791503b01d5e0bdc685c07536da4f63903489ed22d7851e84e5b20",
-        "uranus/UranusMemeV3/compat-address.tolk": "b613785a99364d95c8c4ff64bb5ae17a97107bae94002a5b85e65ba52d30678a"
+        "uranus/UranusMemeV3/main.tolk": "b8f79e4b2d5a573648e3999efee733be50c8188ae681fb057166ea501f26a68e",
+        "uranus/UranusMemeV3/types.tolk": "55b1d529fe352dc0d6ed28a67b36e9c7bf12621991d5c569de7e299da1bb000b",
+        "uranus/UranusMemeV3/stdlib-legacy-stateinit.tolk": "48b77ffedf8a123399972d1af5ba53b50adddd37543c20b810f74caede6cb095",
+        "uranus/UranusMemeV3/deployment-message.tolk": "cdcda2bb0e8161b8c0790df478b22b4454a734d16d2b1daabaff6a868259268a",
+        "uranus/UranusMemeV3/compat-address.tolk": "abce7c05a4496108cb4570dccff1bfa98e6148aa63c87165fb5c6a47374bf5f0"
       },
       "tests": {
         "getters": [
@@ -136356,11 +136356,11 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "e76d0cb8f295e60060556c5685967b2a61c275445b550f543e98c05c1dd0b296",
-        "uranus/UranusMemeWalletV3/main.tolk": "914a7a5ee813d55476b4e3466122cc88bf52b7d8e8be7cb5d1cb61a719bd7293",
-        "uranus/UranusMemeWalletV3/types.tolk": "d1c810af3825db13c0f9c2e4e6bd5752412367735f2d0757745db8c15ef8001a",
-        "uranus/UranusMemeWalletV3/deployment-message.tolk": "6dc692b04894518374114591336d910ca056194169ddc1622b69eefb2086fcf3",
-        "uranus/UranusMemeWalletV3/stdlib-legacy-stateinit.tolk": "dc9290fb0127d80da275c8ce91197563ed30573935854840de1de32aecf6c882",
-        "uranus/UranusMemeWalletV3/compat-address.tolk": "b613785a99364d95c8c4ff64bb5ae17a97107bae94002a5b85e65ba52d30678a"
+        "uranus/UranusMemeWalletV3/main.tolk": "33935a9c03bb0fdbef4d368c8ef44bf6b049c5314d132ccde6b0cdac7b0c7839",
+        "uranus/UranusMemeWalletV3/types.tolk": "daf87680d464d60bf4c8784e6b80a514c0ed18717731195d29049e6ee2f1c148",
+        "uranus/UranusMemeWalletV3/deployment-message.tolk": "bf5e8969c1b1fd58c5e78d7c1f2209761a3adeb6591c679d1d1c1ca4960b1d1e",
+        "uranus/UranusMemeWalletV3/stdlib-legacy-stateinit.tolk": "48b77ffedf8a123399972d1af5ba53b50adddd37543c20b810f74caede6cb095",
+        "uranus/UranusMemeWalletV3/compat-address.tolk": "abce7c05a4496108cb4570dccff1bfa98e6148aa63c87165fb5c6a47374bf5f0"
       },
       "tests": {
         "getters": [
@@ -141153,12 +141153,12 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "1284ec43f99cc5ab54037dec5b30b43079e59ab59b5d7087054dc0890bb31dbe",
-        "x1000/X1000WalletV2/main.tolk": "9c337b89fb90685729c014594e61996bd1cf1419664be8155f4e51f02344326c",
-        "x1000/X1000WalletV2/queues.tolk": "ae2c86bc3164910f62e41f0452ba544dba12e95d53731412da3a95c24e762fa3",
-        "x1000/X1000WalletV2/compat.tolk": "f8570f6ed80fd906dfe14675a9cab52053f1ccd6ca4eb33ed6799e1ad8f14134",
-        "x1000/X1000WalletV2/protocols.tolk": "de1df24370fb681993ccfe2462f18812e5cb58faed0350fb725535230ab20eb7",
-        "x1000/X1000WalletV2/messages.tolk": "dca2c0e9b2d451b8ab46fe45b47eaccff76b11986e5aedbe5bb629cd3c54e667",
-        "x1000/X1000WalletV2/getters.tolk": "b94a3cbab3f3ca72d9e64e3975511563e65012e755e5ee6e85ed6d06bd2a387b"
+        "x1000/X1000WalletV2/main.tolk": "28ee5d360014e4f7e02642fb7dce82127a93c4c0db1047efd35ceb701ccaa9b4",
+        "x1000/X1000WalletV2/queues.tolk": "8fb9085d1be8e198c0ff7e176fa0c1dc33ec86855dd7616478e939d5206437d1",
+        "x1000/X1000WalletV2/compat.tolk": "ae90a41a6619540ce7968e12b4eec34726698f7e12e4589bd7918f1d227762de",
+        "x1000/X1000WalletV2/protocols.tolk": "74ac30b25eb525784f0218b68244a5b22c2f9aad2889d241eb9986a4b9e0f6ef",
+        "x1000/X1000WalletV2/messages.tolk": "73066d80ca78c56e840de49d0c82f842666a2b9754977f15f493e12218cf4bb3",
+        "x1000/X1000WalletV2/getters.tolk": "6a8cad1b029e9e12b8dc869192085c3f1d16984468b136c646af7dc7dfe1eab1"
       },
       "tests": {
         "getters": [
@@ -148042,7 +148042,7 @@
       },
       "firstDifference": null,
       "sourceSha256": {
-        "dedust/classic/ClassicPoolInstalledV8/main.fc": "f93be72121e81806b9cc10f3e5bfab7b11968c8bb862242fa33f0c2e2b5829ad",
+        "dedust/classic/ClassicPoolInstalledV8/main.fc": "cf4ff3f09c7930c152e615500de63ccb98895a541de3024f3eec12fc6e889582",
         "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
       },
       "tests": {
@@ -156495,8 +156495,8 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "eeb233073f8da40d09fb692a53128e847627a401f8896ea172b89bdd8d90d5e8",
-        "dedust/cpmm/CpmmPosition/main.tolk": "8d5820336ac105e798319bfd7e5a48ac46f376d4b2df681eca7d0d30e47f00a3",
-        "dedust/cpmm/CpmmPosition/types.tolk": "378de35ab098b560daf36663f70cde34c1c5703a478d2fe4a3a064b31d714ee8"
+        "dedust/cpmm/CpmmPosition/main.tolk": "bf70b5c0399f77dab6c67546d3ebab3658fa3238b3582f9d1fb2a6a74aee68b9",
+        "dedust/cpmm/CpmmPosition/types.tolk": "4242cb85e62ec1c4cb6e5749dd98c139c1d64dcdef989239b426b8dec6a6d548"
       },
       "tests": {
         "getters": [
@@ -161633,8 +161633,8 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "9481f09993807e42a3c44763fcb1863a3c4586dd2c95001334e8c32eeb424d0f",
-        "dedust/cpmm/CpmmDeposit/main.tolk": "d6c141c98de8eb30c0b790b573a227e2970042bd70ab5ba8821b0c89a6a24348",
-        "dedust/cpmm/CpmmDeposit/types.tolk": "9e6b0cec12363f6264da608f78f131fdd88804b3a93d11b78b0e6b88fbd114a6"
+        "dedust/cpmm/CpmmDeposit/main.tolk": "090123c1053fac11ae1e9e841563cf4123930d8ff9d2fd413e1aedf2a98ef838",
+        "dedust/cpmm/CpmmDeposit/types.tolk": "cfe52f104c7928aa2f02fd6bb13ffa4397b53b269ce66695dd76973b1caed9fb"
       },
       "tests": {
         "getters": [
@@ -163166,8 +163166,8 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "096ce68cd208137e834dc03262adb101abe588e526c02ed58ee7305a88ba9f87",
-        "dedust/cpmm/CpmmAffiliateAccount/main.tolk": "c7e0f5f95aa36d0a4a8f345e3cdbdc60118e1a35270e432c26689131ae61878a",
-        "dedust/cpmm/CpmmAffiliateAccount/types.tolk": "c6686f8c2c614d336475abebb326954652abc04014e6acde32c40ef74a0c4d38"
+        "dedust/cpmm/CpmmAffiliateAccount/main.tolk": "413373a9dc671b356de007ab167b9b271b9edec4d31c82fd691ffadc1a6536b9",
+        "dedust/cpmm/CpmmAffiliateAccount/types.tolk": "a4c8da5279b3825963a2880a7cf4578cb3e82dd7d754e9cd436671e8d768a37f"
       },
       "tests": {
         "getters": [
@@ -164803,11 +164803,11 @@
       "firstDifference": null,
       "sourceSha256": {
         "main.tolk": "1f14fdc7cde48709459afce06e32ca6886e9a6b690575dfd91915bb925fd1d09",
-        "uranus/UranusMemeWalletV2/main.tolk": "582ebe0ec5c59da8fc70f000da297cfa972cdc3c6faac91703edca645928833e",
-        "uranus/UranusMemeWalletV2/types.tolk": "fecdb21b23b0bfc06131aef176648c449909902740f3499cd62589d533373c9f",
-        "uranus/UranusMemeWalletV2/matches.tolk": "705464aca24ad432cb50f9847f75a72c49b66bde04b700b1e47abde5f6fef542",
-        "uranus/UranusMemeWalletV2/stdlib-legacy-stateinit.tolk": "5731b562ef9663d1ed1db11b93d4a94b5dafdc410e7c2cbe783a9991430835ba",
-        "uranus/UranusMemeWalletV2/deployment-message.tolk": "6dc692b04894518374114591336d910ca056194169ddc1622b69eefb2086fcf3"
+        "uranus/UranusMemeWalletV2/main.tolk": "4816b25ceb5bd791314b25da2fb9322f54714a5d00a08771ff7877a927b3c5a5",
+        "uranus/UranusMemeWalletV2/types.tolk": "d889d02729e73d2767679008d4411ee0fc2674eef1f43d0c838f9dc2a2aae2b2",
+        "uranus/UranusMemeWalletV2/matches.tolk": "90200b4311aea254317691c93f001eb6e3be155a2d3e5d0843d01deb56b3ec80",
+        "uranus/UranusMemeWalletV2/stdlib-legacy-stateinit.tolk": "43ed33ed4f89b7394184bff68d6348396832b139e3649ea4b653c9d12946cf1f",
+        "uranus/UranusMemeWalletV2/deployment-message.tolk": "bf5e8969c1b1fd58c5e78d7c1f2209761a3adeb6591c679d1d1c1ca4960b1d1e"
       },
       "tests": {
         "getters": [

@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 @pure
 fun archivedStateHash(code: cell, data: cell): uint256
     asm(data code) "NEWC x{34_} STSLICECONST STREF STREF HASHBU"

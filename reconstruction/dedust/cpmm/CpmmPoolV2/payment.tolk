@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 import "payout-config"
 
 type PoolForwardPayload = cell | RemainingBitsAndRefs

@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Recovered shared PoolV1/PoolV2 reward logic. This module is not a complete Pool.
 struct PoolReward {
     remainingTime: uint40

@@ -15,7 +15,7 @@
     "recompiledBytes": 2302
   },
   "sourceSha256": {
-    "dedust/classic/ClassicNativeVault/main.fc": "8cdc3ae235ea4a6fdd1598cb74200b0293c115898addb7148890d173254bb318",
+    "dedust/classic/ClassicNativeVault/main.fc": "78e04cc7fd96d3b2831c87059003ecd33fb5b5eea584e133517c88ca621e1473",
     "func-stdlib.fc": "2522b7757d2429a1bc647985817e853d699b86f8662aa957d6cbb1724b3611eb"
   },
   "tests": {

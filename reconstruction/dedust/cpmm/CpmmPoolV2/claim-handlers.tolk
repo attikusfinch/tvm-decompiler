@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Readable fee/reward/state handlers; whole-Pool byte identity is still pending.
 import "@stdlib/gas-payments"
 import "storage"

@@ -1,3 +1,4 @@
+// decompiled by @fiscaldev
 // Reconstructed from the archived code. Descriptive names are recovered roles, not claims about author symbols.
 import "compat"
 import "getters"

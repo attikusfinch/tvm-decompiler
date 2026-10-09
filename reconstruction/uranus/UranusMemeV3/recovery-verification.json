@@ -14,11 +14,11 @@
   },
   "sourceSha256": {
     "main.tolk": "000969bf6f84a028ef9a66c027689c6d6928af1c61de8187ae01e0fe268aec8b",
-    "uranus/UranusMemeV3/main.tolk": "7485b3c599aeee905ce195b979645dfdeea0f60de28c88b371fe8bab8ee46997",
-    "uranus/UranusMemeV3/types.tolk": "a35fed94298cb2443f0f1e71bbb553d2bb05ca6ecb61f9134da1787a50f5bc31",
-    "uranus/UranusMemeV3/stdlib-legacy-stateinit.tolk": "dc9290fb0127d80da275c8ce91197563ed30573935854840de1de32aecf6c882",
-    "uranus/UranusMemeV3/deployment-message.tolk": "7d04593e76791503b01d5e0bdc685c07536da4f63903489ed22d7851e84e5b20",
-    "uranus/UranusMemeV3/compat-address.tolk": "b613785a99364d95c8c4ff64bb5ae17a97107bae94002a5b85e65ba52d30678a"
+    "uranus/UranusMemeV3/main.tolk": "b8f79e4b2d5a573648e3999efee733be50c8188ae681fb057166ea501f26a68e",
+    "uranus/UranusMemeV3/types.tolk": "55b1d529fe352dc0d6ed28a67b36e9c7bf12621991d5c569de7e299da1bb000b",
+    "uranus/UranusMemeV3/stdlib-legacy-stateinit.tolk": "48b77ffedf8a123399972d1af5ba53b50adddd37543c20b810f74caede6cb095",
+    "uranus/UranusMemeV3/deployment-message.tolk": "cdcda2bb0e8161b8c0790df478b22b4454a734d16d2b1daabaff6a868259268a",
+    "uranus/UranusMemeV3/compat-address.tolk": "abce7c05a4496108cb4570dccff1bfa98e6148aa63c87165fb5c6a47374bf5f0"
   },
   "tests": {
     "getters": [

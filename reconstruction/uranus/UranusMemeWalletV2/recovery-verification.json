@@ -14,11 +14,11 @@
   },
   "sourceSha256": {
     "main.tolk": "1f14fdc7cde48709459afce06e32ca6886e9a6b690575dfd91915bb925fd1d09",
-    "uranus/UranusMemeWalletV2/main.tolk": "582ebe0ec5c59da8fc70f000da297cfa972cdc3c6faac91703edca645928833e",
-    "uranus/UranusMemeWalletV2/types.tolk": "fecdb21b23b0bfc06131aef176648c449909902740f3499cd62589d533373c9f",
-    "uranus/UranusMemeWalletV2/matches.tolk": "705464aca24ad432cb50f9847f75a72c49b66bde04b700b1e47abde5f6fef542",
-    "uranus/UranusMemeWalletV2/stdlib-legacy-stateinit.tolk": "5731b562ef9663d1ed1db11b93d4a94b5dafdc410e7c2cbe783a9991430835ba",
-    "uranus/UranusMemeWalletV2/deployment-message.tolk": "6dc692b04894518374114591336d910ca056194169ddc1622b69eefb2086fcf3"
+    "uranus/UranusMemeWalletV2/main.tolk": "4816b25ceb5bd791314b25da2fb9322f54714a5d00a08771ff7877a927b3c5a5",
+    "uranus/UranusMemeWalletV2/types.tolk": "d889d02729e73d2767679008d4411ee0fc2674eef1f43d0c838f9dc2a2aae2b2",
+    "uranus/UranusMemeWalletV2/matches.tolk": "90200b4311aea254317691c93f001eb6e3be155a2d3e5d0843d01deb56b3ec80",
+    "uranus/UranusMemeWalletV2/stdlib-legacy-stateinit.tolk": "43ed33ed4f89b7394184bff68d6348396832b139e3649ea4b653c9d12946cf1f",
+    "uranus/UranusMemeWalletV2/deployment-message.tolk": "bf5e8969c1b1fd58c5e78d7c1f2209761a3adeb6591c679d1d1c1ca4960b1d1e"
   },
   "tests": {
     "getters": [
