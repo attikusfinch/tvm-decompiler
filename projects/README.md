@@ -110,3 +110,4 @@ npm run chain:check   # offline verification of the saved evidence
 JUnit reports and console logs are in `<project>/test-results`. See
 [`NORMALIZATION.md`](NORMALIZATION.md) for the acceptance criteria and completed work.
 The latest successful full run writes a compact [`verification.json`](verification.json).
+The [validation record](VALIDATION.md) also covers clean-checkout builds and deliberate hash-mismatch controls.
