@@ -1,0 +1,648 @@
+{
+  "schemaVersion": 1,
+  "network": "mainnet",
+  "checkedAt": "2026-10-09T16:21:55.847Z",
+  "scope": "Representative real accounts for all 21 recovered code families, with additional checked examples. This is not a census of every deployed instance.",
+  "verification": {
+    "currentCodeFamilies": 19,
+    "historicalStateInitFamilies": 2,
+    "source": "TON Center current account code BOCs and TonAPI raw transaction BOCs; library references resolved by their embedded hashes.",
+    "transactionBocHashesChecked": true,
+    "consensusProofsFetched": false
+  },
+  "contracts": [
+    {
+      "name": "ClassicBlank",
+      "project": "dedust",
+      "codeHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
+      "verifierLink": "https://verifier.ton.org/b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
+      "evidence": "historical-message-state-init",
+      "representative": {
+        "address": "EQALYeIc7hxUsRmLjXgIFEL0bwxLnEPV256T77qWcT86dz7D",
+        "rawAddress": "0:0b61e21cee1c54b1198b8d78081442f46f0c4b9c43d5db9e93efba96713f3a77",
+        "tonscanLink": "https://tonscan.org/address/EQALYeIc7hxUsRmLjXgIFEL0bwxLnEPV256T77qWcT86dz7D",
+        "currentStatus": "active",
+        "currentAccountCodeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+        "historicalCodeHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
+        "historicalInitCodeHash": "b0c7b8d5323cc9ba90fef98f9220fd86bee9382a8910b84f2926c4c9c986ebaf",
+        "usesLibrary": false,
+        "transactionHash": "2dcce4926936142c6e77ec05578baec8489e81faf1121a2ab258c4bb42113460",
+        "transactionLt": "108589260000005",
+        "timestamp": "2026-10-08T09:50:21.000Z"
+      },
+      "note": "Blank was carried in the deployment StateInit. This account now runs ClassicPoolInstalledV9; inspect deployment history for Blank."
+    },
+    {
+      "name": "ClassicPoolInstalledV9",
+      "project": "dedust",
+      "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+      "verifierLink": "https://verifier.ton.org/778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicPoolInstalledV9",
+        "project": "dedust",
+        "address": "EQAAB2EuxGvDwxqlGyAFjjluNde1iN7r5J5wcjBXRrtCHrg_",
+        "rawAddress": "0:0007612ec46bc3c31aa51b20058e396e35d7b588deebe49e7072305746bb421e",
+        "status": "active",
+        "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+        "accountCodeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQAAB2EuxGvDwxqlGyAFjjluNde1iN7r5J5wcjBXRrtCHrg_",
+        "verifierLink": "https://verifier.ton.org/778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3"
+      },
+      "alternatives": [
+        {
+          "name": "ClassicPoolInstalledV9",
+          "project": "dedust",
+          "address": "EQALYeIc7hxUsRmLjXgIFEL0bwxLnEPV256T77qWcT86dz7D",
+          "rawAddress": "0:0b61e21cee1c54b1198b8d78081442f46f0c4b9c43d5db9e93efba96713f3a77",
+          "status": "active",
+          "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+          "accountCodeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQALYeIc7hxUsRmLjXgIFEL0bwxLnEPV256T77qWcT86dz7D",
+          "verifierLink": "https://verifier.ton.org/778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3"
+        },
+        {
+          "name": "ClassicPoolInstalledV9",
+          "project": "dedust",
+          "address": "EQBW3r-sKlhRy9-1xY8pptg45n2sehAreKuGIFGokBE1ZaMi",
+          "rawAddress": "0:56debfac2a5851cbdfb5c58f29a6d838e67dac7a102b78ab862051a890113565",
+          "status": "active",
+          "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+          "accountCodeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQBW3r-sKlhRy9-1xY8pptg45n2sehAreKuGIFGokBE1ZaMi",
+          "verifierLink": "https://verifier.ton.org/778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3"
+        },
+        {
+          "name": "ClassicPoolInstalledV9",
+          "project": "dedust",
+          "address": "EQD5gVtZI_DbX79mME1f8O08w3sLrVpN-HmYklTTt-66C6DT",
+          "rawAddress": "0:f9815b5923f0db5fbf66304d5ff0ed3cc37b0bad5a4df879989254d3b7eeba0b",
+          "status": "active",
+          "codeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+          "accountCodeHash": "778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQD5gVtZI_DbX79mME1f8O08w3sLrVpN-HmYklTTt-66C6DT",
+          "verifierLink": "https://verifier.ton.org/778f0d3fe6482c50888970df5e787f40f3a4ab282170c035a5920877058c99d3"
+        }
+      ]
+    },
+    {
+      "name": "ClassicLiquidityDeposit",
+      "project": "dedust",
+      "codeHash": "80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc",
+      "verifierLink": "https://verifier.ton.org/80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicLiquidityDeposit",
+        "project": "dedust",
+        "address": "EQALIqGLRVJ3OihqMYZGnj6XSRfDA7UcOk00SlR9rAjH_l_a",
+        "rawAddress": "0:0b22a18b4552773a286a3186469e3e974917c303b51c3a4d344a547dac08c7fe",
+        "status": "active",
+        "codeHash": "80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc",
+        "accountCodeHash": "80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQALIqGLRVJ3OihqMYZGnj6XSRfDA7UcOk00SlR9rAjH_l_a",
+        "verifierLink": "https://verifier.ton.org/80edc8d7bbbb6526c3b06ccb7c2d02a82c20d8ccdf431bf4088b1f1470cc94cc"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "ClassicLpWallet",
+      "project": "dedust",
+      "codeHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+      "verifierLink": "https://verifier.ton.org/a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicLpWallet",
+        "project": "dedust",
+        "address": "EQAXPGjhVFddTZeLDvE14TtYswhwaZJ64P-8EWmRWchcYpI6",
+        "rawAddress": "0:173c68e154575d4d978b0ef135e13b58b3087069927ae0ffbc11699159c85c62",
+        "status": "active",
+        "codeHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+        "accountCodeHash": "a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQAXPGjhVFddTZeLDvE14TtYswhwaZJ64P-8EWmRWchcYpI6",
+        "verifierLink": "https://verifier.ton.org/a760d629d5343e76d045017d9dc216fc8a307a8377815feb2b0a5c490e733486"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "ClassicOperator",
+      "project": "dedust",
+      "codeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+      "verifierLink": "https://verifier.ton.org/2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicOperator",
+        "project": "dedust",
+        "address": "EQDcd2LO_Mym1V8PxiOiONmZOqR2WgiOfzGdCwFhD6ndglcu",
+        "rawAddress": "0:dc7762cefccca6d55f0fc623a238d9993aa4765a088e7f319d0b01610fa9dd82",
+        "status": "active",
+        "codeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+        "accountCodeHash": "2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQDcd2LO_Mym1V8PxiOiONmZOqR2WgiOfzGdCwFhD6ndglcu",
+        "verifierLink": "https://verifier.ton.org/2dbbf4ce98dd9d41e2eba5b88f74faed0ffe50136930617bf5973e4972977cc9"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "ClassicNativeVault",
+      "project": "dedust",
+      "codeHash": "875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c",
+      "verifierLink": "https://verifier.ton.org/875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicNativeVault",
+        "project": "dedust",
+        "address": "EQDa4VOnTYlLvDJ0gZjNYm5PXfSmmtL6Vs6A_CZEtXCNICq_",
+        "rawAddress": "0:dae153a74d894bbc32748198cd626e4f5df4a69ad2fa56ce80fc2644b5708d20",
+        "status": "active",
+        "codeHash": "875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c",
+        "accountCodeHash": "875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQDa4VOnTYlLvDJ0gZjNYm5PXfSmmtL6Vs6A_CZEtXCNICq_",
+        "verifierLink": "https://verifier.ton.org/875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "ClassicJettonVault",
+      "project": "dedust",
+      "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+      "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicJettonVault",
+        "project": "dedust",
+        "address": "EQAYqo4u7VF0fa4DPAebk4g9lBytj2VFny7pzXR0trjtXQaO",
+        "rawAddress": "0:18aa8e2eed51747dae033c079b93883d941cad8f65459f2ee9cd7474b6b8ed5d",
+        "status": "active",
+        "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+        "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQAYqo4u7VF0fa4DPAebk4g9lBytj2VFny7pzXR0trjtXQaO",
+        "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+      },
+      "alternatives": [
+        {
+          "name": "ClassicJettonVault",
+          "project": "dedust",
+          "address": "EQDKkumMJN5fyL8-7cBwYg3-MQyQ2CVBEd8UGcLhoPGo6Y4A",
+          "rawAddress": "0:ca92e98c24de5fc8bf3eedc070620dfe310c90d8254111df1419c2e1a0f1a8e9",
+          "status": "active",
+          "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQDKkumMJN5fyL8-7cBwYg3-MQyQ2CVBEd8UGcLhoPGo6Y4A",
+          "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+        },
+        {
+          "name": "ClassicJettonVault",
+          "project": "dedust",
+          "address": "EQDpCriP5d1m1Al6sL9cTAgITP9LJEyXY6IDEaRrCTBQ4xmJ",
+          "rawAddress": "0:e90ab88fe5dd66d4097ab0bf5c4c08084cff4b244c9763a20311a46b093050e3",
+          "status": "active",
+          "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQDpCriP5d1m1Al6sL9cTAgITP9LJEyXY6IDEaRrCTBQ4xmJ",
+          "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+        },
+        {
+          "name": "ClassicJettonVault",
+          "project": "dedust",
+          "address": "EQCnorAqqsjqX1GGKks_xJQLpiy-HKXiwkMwgXiRtcw1w9cD",
+          "rawAddress": "0:a7a2b02aaac8ea5f51862a4b3fc4940ba62cbe1ca5e2c24330817891b5cc35c3",
+          "status": "active",
+          "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQCnorAqqsjqX1GGKks_xJQLpiy-HKXiwkMwgXiRtcw1w9cD",
+          "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+        },
+        {
+          "name": "ClassicJettonVault",
+          "project": "dedust",
+          "address": "EQCq2mMKsiW723g2fo9MtLk7ZVJnV97pRYrEu596_gPtyLlt",
+          "rawAddress": "0:aada630ab225bbdb78367e8f4cb4b93b65526757dee9458ac4bb9f7afe03edc8",
+          "status": "active",
+          "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQCq2mMKsiW723g2fo9MtLk7ZVJnV97pRYrEu596_gPtyLlt",
+          "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+        },
+        {
+          "name": "ClassicJettonVault",
+          "project": "dedust",
+          "address": "EQB8PUn_AIEAZkhI2lmLZyhMAN2deaVPP9sy3R69iaiVBE6Y",
+          "rawAddress": "0:7c3d49ff008100664848da598b67284c00dd9d79a54f3fdb32dd1ebd89a89504",
+          "status": "active",
+          "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQB8PUn_AIEAZkhI2lmLZyhMAN2deaVPP9sy3R69iaiVBE6Y",
+          "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+        },
+        {
+          "name": "ClassicJettonVault",
+          "project": "dedust",
+          "address": "EQAfTq88QP8v3v-ZxEbMI38sdhYJmk9N7dUx5CDuEDCmOW87",
+          "rawAddress": "0:1f4eaf3c40ff2fdeff99c446cc237f2c7616099a4f4dedd531e420ee1030a639",
+          "status": "active",
+          "codeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "accountCodeHash": "a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQAfTq88QP8v3v-ZxEbMI38sdhYJmk9N7dUx5CDuEDCmOW87",
+          "verifierLink": "https://verifier.ton.org/a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f"
+        }
+      ]
+    },
+    {
+      "name": "ClassicFactory",
+      "project": "dedust",
+      "codeHash": "e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+      "verifierLink": "https://verifier.ton.org/e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicFactory",
+        "project": "dedust",
+        "address": "EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "rawAddress": "0:5f0564fb5f604783db57031ce1cf668a88d4d4d6da6de4db222b4b920d6fd800",
+        "status": "active",
+        "codeHash": "e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+        "accountCodeHash": "e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQBfBWT7X2BHg9tXAxzhz2aKiNTU1tpt5NsiK0uSDW_YAJ67",
+        "verifierLink": "https://verifier.ton.org/e64d0059486e3cbe14bd70572295d06d79e847cb4017eac1aa65d82009eaa20c"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "ClassicVolatilePool",
+      "project": "dedust",
+      "codeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+      "verifierLink": "https://verifier.ton.org/1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicVolatilePool",
+        "project": "dedust",
+        "address": "EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r",
+        "rawAddress": "0:3e5ffca8ddfcf36c36c9ff46f31562aab51b9914845ad6c26cbde649d58a5588",
+        "status": "active",
+        "codeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+        "accountCodeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r",
+        "verifierLink": "https://verifier.ton.org/1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1"
+      },
+      "alternatives": [
+        {
+          "name": "ClassicVolatilePool",
+          "project": "dedust",
+          "address": "EQABt8YegyD7VJnZdFVwom8wwqp0E0X8tN2Y6NhrDmbrnSXP",
+          "rawAddress": "0:01b7c61e8320fb5499d9745570a26f30c2aa741345fcb4dd98e8d86b0e66eb9d",
+          "status": "active",
+          "codeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+          "accountCodeHash": "1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQABt8YegyD7VJnZdFVwom8wwqp0E0X8tN2Y6NhrDmbrnSXP",
+          "verifierLink": "https://verifier.ton.org/1275095b6da3911292406f4f4386f9e780099b854c6dee9ee2895ddce70927c1"
+        }
+      ]
+    },
+    {
+      "name": "CpmmPoolV1",
+      "project": "dedust",
+      "codeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+      "verifierLink": "https://verifier.ton.org/87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "CpmmPoolV1",
+        "project": "dedust",
+        "address": "EQAEGspJNRpLvMDXeLrD8QcUNSNAP61jwgFQIJlOEPDCtwwi",
+        "rawAddress": "0:041aca49351a4bbcc0d778bac3f107143523403fad63c2015020994e10f0c2b7",
+        "status": "active",
+        "codeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+        "accountCodeHash": "3997a5c1ee8923e93cf3a6a98ea3ef9482c64dd8aea2ba8365689e14d99c760d",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQAEGspJNRpLvMDXeLrD8QcUNSNAP61jwgFQIJlOEPDCtwwi",
+        "verifierLink": "https://verifier.ton.org/87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36"
+      },
+      "alternatives": [
+        {
+          "name": "CpmmPoolV1",
+          "project": "dedust",
+          "address": "EQBOUKUYz_3gMLHhJLLajoDqU7-jEV4c7TRZE7EArYrKsb9o",
+          "rawAddress": "0:4e50a518cffde030b1e124b2da8e80ea53bfa3115e1ced345913b100ad8acab1",
+          "status": "active",
+          "codeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+          "accountCodeHash": "3997a5c1ee8923e93cf3a6a98ea3ef9482c64dd8aea2ba8365689e14d99c760d",
+          "usesLibrary": true,
+          "tonscanLink": "https://tonscan.org/address/EQBOUKUYz_3gMLHhJLLajoDqU7-jEV4c7TRZE7EArYrKsb9o",
+          "verifierLink": "https://verifier.ton.org/87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36"
+        },
+        {
+          "name": "CpmmPoolV1",
+          "project": "dedust",
+          "address": "EQARheBDwweWstHcwAQreLgRxccZ83oe1ltlKLK3FWi6G-Tk",
+          "rawAddress": "0:1185e043c30796b2d1dcc0042b78b811c5c719f37a1ed65b6528b2b71568ba1b",
+          "status": "active",
+          "codeHash": "87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36",
+          "accountCodeHash": "3997a5c1ee8923e93cf3a6a98ea3ef9482c64dd8aea2ba8365689e14d99c760d",
+          "usesLibrary": true,
+          "tonscanLink": "https://tonscan.org/address/EQARheBDwweWstHcwAQreLgRxccZ83oe1ltlKLK3FWi6G-Tk",
+          "verifierLink": "https://verifier.ton.org/87b566c019a1c6fc691dcc5042559368db755428ef8e0f45eb23ade0118c4c36"
+        }
+      ]
+    },
+    {
+      "name": "CpmmPoolV2",
+      "project": "dedust",
+      "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+      "verifierLink": "https://verifier.ton.org/6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "CpmmPoolV2",
+        "project": "dedust",
+        "address": "EQD026kOv4j6-56O6y8kbaaFZdQhVkh4RbEGrQND7XJMlgLf",
+        "rawAddress": "0:f4dba90ebf88fafb9e8eeb2f246da68565d42156487845b106ad0343ed724c96",
+        "status": "active",
+        "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+        "accountCodeHash": "5851780d2386e989b9ab956da7cec5c69a667b9e525f628dcba5eb02c1ee0367",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQD026kOv4j6-56O6y8kbaaFZdQhVkh4RbEGrQND7XJMlgLf",
+        "verifierLink": "https://verifier.ton.org/6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0"
+      },
+      "alternatives": [
+        {
+          "name": "CpmmPoolV2",
+          "project": "dedust",
+          "address": "EQAW8OqrAF-LGxnOGNHyM_6pAX4r1H3tOWykDkjhSZmP4bZo",
+          "rawAddress": "0:16f0eaab005f8b1b19ce18d1f233fea9017e2bd47ded396ca40e48e149998fe1",
+          "status": "active",
+          "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+          "accountCodeHash": "5851780d2386e989b9ab956da7cec5c69a667b9e525f628dcba5eb02c1ee0367",
+          "usesLibrary": true,
+          "tonscanLink": "https://tonscan.org/address/EQAW8OqrAF-LGxnOGNHyM_6pAX4r1H3tOWykDkjhSZmP4bZo",
+          "verifierLink": "https://verifier.ton.org/6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0"
+        },
+        {
+          "name": "CpmmPoolV2",
+          "project": "dedust",
+          "address": "EQDpZq2FthWCZa0uJTrDPQg_S0JxkH0Pd5ERWh1rOfQlcxSH",
+          "rawAddress": "0:e966ad85b6158265ad2e253ac33d083f4b4271907d0f7791115a1d6b39f42573",
+          "status": "active",
+          "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+          "accountCodeHash": "5851780d2386e989b9ab956da7cec5c69a667b9e525f628dcba5eb02c1ee0367",
+          "usesLibrary": true,
+          "tonscanLink": "https://tonscan.org/address/EQDpZq2FthWCZa0uJTrDPQg_S0JxkH0Pd5ERWh1rOfQlcxSH",
+          "verifierLink": "https://verifier.ton.org/6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0"
+        },
+        {
+          "name": "CpmmPoolV2",
+          "project": "dedust",
+          "address": "EQCZ6SvAmKLY06P-hI9D38mpjvFd_-upHkKB7TjbInGorU8S",
+          "rawAddress": "0:99e92bc098a2d8d3a3fe848f43dfc9a98ef15dffeba91e4281ed38db2271a8ad",
+          "status": "active",
+          "codeHash": "6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0",
+          "accountCodeHash": "5851780d2386e989b9ab956da7cec5c69a667b9e525f628dcba5eb02c1ee0367",
+          "usesLibrary": true,
+          "tonscanLink": "https://tonscan.org/address/EQCZ6SvAmKLY06P-hI9D38mpjvFd_-upHkKB7TjbInGorU8S",
+          "verifierLink": "https://verifier.ton.org/6045e67b617e73486aac445cfcad0dbead6d315ccc8f4aede3f2e23ad14da4b0"
+        }
+      ]
+    },
+    {
+      "name": "UranusFactoryV3",
+      "project": "uranus",
+      "codeHash": "b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+      "verifierLink": "https://verifier.ton.org/b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "UranusFactoryV3",
+        "project": "uranus",
+        "address": "EQA6ivhIOBQJvqO1SY3IvutmluM1d817gZDeEjiaVNBLePd3",
+        "rawAddress": "0:3a8af848381409bea3b5498dc8beeb6696e33577cd7b8190de12389a54d04b78",
+        "status": "active",
+        "codeHash": "b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+        "accountCodeHash": "b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQA6ivhIOBQJvqO1SY3IvutmluM1d817gZDeEjiaVNBLePd3",
+        "verifierLink": "https://verifier.ton.org/b4577491b68c6e37f4b7fbe8cb135e19467fee7653cde48ce28940e4d0ee311a"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "UranusMemeV2",
+      "project": "uranus",
+      "codeHash": "e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+      "verifierLink": "https://verifier.ton.org/e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "UranusMemeV2",
+        "project": "uranus",
+        "address": "EQAO_1qemostkDtMfhp7XU0nOsAkQ_tLUO5YJeNMrj3dRAaH",
+        "rawAddress": "0:0eff5a9e9a8b2d903b4c7e1a7b5d4d273ac02443fb4b50ee5825e34cae3ddd44",
+        "status": "active",
+        "codeHash": "e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698",
+        "accountCodeHash": "722d37be518ee0d4b6714077727ed60724bf379e8f1479c220b853d1af3cf00d",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQAO_1qemostkDtMfhp7XU0nOsAkQ_tLUO5YJeNMrj3dRAaH",
+        "verifierLink": "https://verifier.ton.org/e35b0b2f2c1bab780b30934db9758d3575d453077e71d14f1565b435d505d698"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "UranusMemeV3",
+      "project": "uranus",
+      "codeHash": "a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d",
+      "verifierLink": "https://verifier.ton.org/a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "UranusMemeV3",
+        "project": "uranus",
+        "address": "EQA6dGeKIcHUVQghKGmGe1fEfyfYaYyLC594PkYO5uIbEqT4",
+        "rawAddress": "0:3a74678a21c1d45508212869867b57c47f27d8698c8b0b9f783e460ee6e21b12",
+        "status": "active",
+        "codeHash": "a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d",
+        "accountCodeHash": "1e4f8fcaabefdbbb9b397372d9f021511c272eda2b492ca2d33b817bc3251afe",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQA6dGeKIcHUVQghKGmGe1fEfyfYaYyLC594PkYO5uIbEqT4",
+        "verifierLink": "https://verifier.ton.org/a63e4a802c8b982cd888a357b2c9ee5a722644c2d7e7cdaed350f24fc96eca3d"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "UranusMemeWalletV3",
+      "project": "uranus",
+      "codeHash": "891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+      "verifierLink": "https://verifier.ton.org/891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "UranusMemeWalletV3",
+        "project": "uranus",
+        "address": "EQAIQw-od7Nq8ZJrn40VQHzXOFm3N7XteVgF4ITp-GiiBjzG",
+        "rawAddress": "0:08430fa877b36af1926b9f8d15407cd73859b737b5ed795805e084e9f868a206",
+        "status": "active",
+        "codeHash": "891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+        "accountCodeHash": "e2da88070dcf9d1b2ed4ab9079b8c473625bf320f38423ed86ee03ef5c326858",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQAIQw-od7Nq8ZJrn40VQHzXOFm3N7XteVgF4ITp-GiiBjzG",
+        "verifierLink": "https://verifier.ton.org/891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266"
+      },
+      "alternatives": [
+        {
+          "name": "UranusMemeWalletV3",
+          "project": "uranus",
+          "address": "EQD0uEDfw3_ftK5CywHC5VgVJooNROb0KGamL2x8AgWNStAo",
+          "rawAddress": "0:f4b840dfc37fdfb4ae42cb01c2e55815268a0d44e6f42866a62f6c7c02058d4a",
+          "status": "active",
+          "codeHash": "891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266",
+          "accountCodeHash": "e2da88070dcf9d1b2ed4ab9079b8c473625bf320f38423ed86ee03ef5c326858",
+          "usesLibrary": true,
+          "tonscanLink": "https://tonscan.org/address/EQD0uEDfw3_ftK5CywHC5VgVJooNROb0KGamL2x8AgWNStAo",
+          "verifierLink": "https://verifier.ton.org/891e5228e4300ae3ff22583163bbd50e3e1e8cd2304c0d57164f5318f9da1266"
+        }
+      ]
+    },
+    {
+      "name": "X1000WalletV2",
+      "project": "x1000",
+      "codeHash": "4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+      "verifierLink": "https://verifier.ton.org/4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "X1000WalletV2",
+        "project": "x1000",
+        "address": "EQAFixgyPnv8ejzC5jjobQmbAZxpe1Sbh_rKlk7FsnZPUFZn",
+        "rawAddress": "0:058b18323e7bfc7a3cc2e638e86d099b019c697b549b87faca964ec5b2764f50",
+        "status": "active",
+        "codeHash": "4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+        "accountCodeHash": "4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQAFixgyPnv8ejzC5jjobQmbAZxpe1Sbh_rKlk7FsnZPUFZn",
+        "verifierLink": "https://verifier.ton.org/4609b587ae70c1a4e65550377492cd8e13b4bcc8770d3e49b65aca90c26c56f2"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "ClassicPoolInstalledV8",
+      "project": "dedust",
+      "codeHash": "c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+      "verifierLink": "https://verifier.ton.org/c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "ClassicPoolInstalledV8",
+        "project": "dedust",
+        "address": "EQAAGAl41QO7FGH_D12kw0yJq6Zyb5iu1K-dvVJQGScpRThG",
+        "rawAddress": "0:00180978d503bb1461ff0f5da4c34c89aba6726f98aed4af9dbd525019272945",
+        "status": "active",
+        "codeHash": "c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+        "accountCodeHash": "c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQAAGAl41QO7FGH_D12kw0yJq6Zyb5iu1K-dvVJQGScpRThG",
+        "verifierLink": "https://verifier.ton.org/c0f9d14fbc8e14f0d72cba2214165eee35836ab174130912baf9dbfa43ead562"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "CpmmPosition",
+      "project": "dedust",
+      "codeHash": "dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6",
+      "verifierLink": "https://verifier.ton.org/dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "CpmmPosition",
+        "project": "dedust",
+        "address": "EQD02u9mj0sFixYvRmtXvGUjxxsogW_TIZIocJiuHHskWTFM",
+        "rawAddress": "0:f4daef668f4b058b162f466b57bc6523c71b28816fd32192287098ae1c7b2459",
+        "status": "active",
+        "codeHash": "dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6",
+        "accountCodeHash": "fc5b2e9f921929f816f4becfb64830e5702f3296c5d452288470eb799cc11d56",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQD02u9mj0sFixYvRmtXvGUjxxsogW_TIZIocJiuHHskWTFM",
+        "verifierLink": "https://verifier.ton.org/dd82f24db614798ee7c579f8b3f07f0645d06d65cede368d80d0d74b180d2dd6"
+      },
+      "alternatives": []
+    },
+    {
+      "name": "CpmmDeposit",
+      "project": "dedust",
+      "codeHash": "2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825",
+      "verifierLink": "https://verifier.ton.org/2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825",
+      "evidence": "historical-message-state-init",
+      "representative": {
+        "address": "EQAWoyiHsFnlWnwjpqO96f7m_7CSxAYHSAnFocsdpREFgx85",
+        "rawAddress": "0:16a32887b059e55a7c23a6a3bde9fee6ffb092c406074809c5a1cb1da5110583",
+        "tonscanLink": "https://tonscan.org/address/EQAWoyiHsFnlWnwjpqO96f7m_7CSxAYHSAnFocsdpREFgx85",
+        "currentStatus": "nonexist",
+        "currentAccountCodeHash": null,
+        "historicalCodeHash": "2cac3fddd30969d08df036067108c6e7d69780a9459d931d2eb63d95d5ff6825",
+        "historicalInitCodeHash": "ecc73ba081f8f510e852499b926c3524f1c2b03a9b62063c31e7dac57990f0eb",
+        "usesLibrary": true,
+        "transactionHash": "f7e8ea9e3996f965e59dcf10188b0bbd1ca271fe72ce18507eb304573e38578f",
+        "transactionLt": "108857597000023",
+        "timestamp": "2026-10-09T15:38:47.000Z"
+      },
+      "note": "Deposit was deployed and then destroyed after liquidity settlement. This account is currently nonexistent; inspect its transaction history."
+    },
+    {
+      "name": "CpmmAffiliateAccount",
+      "project": "dedust",
+      "codeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+      "verifierLink": "https://verifier.ton.org/4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "CpmmAffiliateAccount",
+        "project": "dedust",
+        "address": "EQBy-NnIIJCLxZDRB9bQ1-DJEwk9I2u1EfijJdUicONEyZri",
+        "rawAddress": "0:72f8d9c820908bc590d107d6d0d7e0c913093d236bb511f8a325d52270e344c9",
+        "status": "active",
+        "codeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+        "accountCodeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+        "usesLibrary": false,
+        "tonscanLink": "https://tonscan.org/address/EQBy-NnIIJCLxZDRB9bQ1-DJEwk9I2u1EfijJdUicONEyZri",
+        "verifierLink": "https://verifier.ton.org/4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6"
+      },
+      "alternatives": [
+        {
+          "name": "CpmmAffiliateAccount",
+          "project": "dedust",
+          "address": "EQDCUmnRcj5-x50bjhYyfC4cIe2QGz404h8CrtjPmBYiUW3J",
+          "rawAddress": "0:c25269d1723e7ec79d1b8e16327c2e1c21ed901b3e34e21f02aed8cf98162251",
+          "status": "active",
+          "codeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+          "accountCodeHash": "4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6",
+          "usesLibrary": false,
+          "tonscanLink": "https://tonscan.org/address/EQDCUmnRcj5-x50bjhYyfC4cIe2QGz404h8CrtjPmBYiUW3J",
+          "verifierLink": "https://verifier.ton.org/4456fad12a434c4898b05ac65bab5de80db33f275c6020746de8e111a5cda4e6"
+        }
+      ]
+    },
+    {
+      "name": "UranusMemeWalletV2",
+      "project": "uranus",
+      "codeHash": "eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605",
+      "verifierLink": "https://verifier.ton.org/eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605",
+      "evidence": "current-account-code",
+      "representative": {
+        "name": "UranusMemeWalletV2",
+        "project": "uranus",
+        "address": "EQCdKCXBMHSVTrQUjgvPEMVFTRNJvzFVAZ2B4zKvdLRo-SHE",
+        "rawAddress": "0:9d2825c13074954eb4148e0bcf10c5454d1349bf3155019d81e332af74b468f9",
+        "status": "active",
+        "codeHash": "eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605",
+        "accountCodeHash": "21097ae6d15af88099db08eb49b71df933905c86a09c3823fd5f0e1a8b6acdae",
+        "usesLibrary": true,
+        "tonscanLink": "https://tonscan.org/address/EQCdKCXBMHSVTrQUjgvPEMVFTRNJvzFVAZ2B4zKvdLRo-SHE",
+        "verifierLink": "https://verifier.ton.org/eefce5ce3d1e555a5010a309348c965dfaf72ebdf3233b4f691fa3d37bdb5605"
+      },
+      "alternatives": []
+    }
+  ]
+}

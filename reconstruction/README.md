@@ -23,6 +23,13 @@ publication. [publication.json](publication.json) records the public links,
 compiler receipts, source checksums and payment transaction hashes. Payments
 used testnet TON; the archived contract code comes from mainnet.
 
+[mainnet-addresses.json](mainnet-addresses.json) maps every recovered family to
+real mainnet accounts and Tonscan links. Current code or its embedded library
+hash matched 19 families. Blank is documented by a deployment StateInit that
+subsequently installed Pool V9; the representative CPMM Deposit is documented
+by its successful deployment transaction and has since been destroyed after
+liquidity settlement. Their records include the historical transaction hashes.
+
 Readable, byte-identical recovery is verified for **all 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
 and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory/ClassicVolatilePool/ClassicPoolInstalledV8/V9,
