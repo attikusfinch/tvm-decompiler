@@ -19,11 +19,12 @@ import { checkJettonVault } from './dedust-jetton-vault-fixtures.mjs';
 import { checkFactory } from './dedust-factory-fixtures.mjs';
 import { checkUranusWalletV2, checkUranusWalletV3 } from './dedust-uranus-wallet-fixtures.mjs';
 import { checkUranusFactory } from './dedust-uranus-factory-fixtures.mjs';
+import { checkUranusMemeV3 } from './dedust-uranus-meme-fixtures.mjs';
 import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={UranusFactoryV3:checkUranusFactory,UranusMemeWalletV2:checkUranusWalletV2,UranusMemeWalletV3:checkUranusWalletV3,ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,ClassicLiquidityDeposit:checkClassicDeposit,ClassicNativeVault:checkNativeVault,ClassicJettonVault:checkJettonVault,ClassicFactory:checkFactory,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
+const fixtures={UranusMemeV3:checkUranusMemeV3,UranusFactoryV3:checkUranusFactory,UranusMemeWalletV2:checkUranusWalletV2,UranusMemeWalletV3:checkUranusWalletV3,ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,ClassicLiquidityDeposit:checkClassicDeposit,ClassicNativeVault:checkNativeVault,ClassicJettonVault:checkJettonVault,ClassicFactory:checkFactory,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));

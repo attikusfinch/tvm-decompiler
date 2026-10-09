@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {Cell} from '@ton/core';
+import {root,compareBoc,writeJson} from './lib.mjs';
+import {loadTolkSources,compileTolk,tolkVersion} from './tolk.mjs';
+import {checkUranusMemeV3} from './dedust-uranus-meme-fixtures.mjs';
+const project=path.resolve(root,'../reconstruction/dedust'),family='UranusMemeV3';
+const sources=await loadTolkSources(project,family+'/main.tolk'),compiled=await compileTolk({sources});assert.equal(compiled.status,'ok',compiled.message);
+const candidate=Cell.fromBoc(Buffer.from(compiled.codeBoc,'base64'))[0].toBoc({idx:false,crc32:true});
+const original=await fs.readFile(path.join(project,'oracles',family+'.boc')),comparison=compareBoc(original,candidate);assert.equal(comparison.sameSerializedBoc,true);
+await fs.mkdir(path.join(project,'build',family),{recursive:true});await fs.writeFile(path.join(project,'build',family,'code.boc'),candidate);
+const tests=await checkUranusMemeV3(original,candidate);
+await writeJson(path.join(project,family,'recovery-verification.json'),{scope:'Readable byte-identical Uranus Meme V3: lifecycle, curve trading, attribution, fee claims and migration',compiler:await tolkVersion(),comparison,
+    sourceSha256:Object.fromEntries(Object.entries(sources).map(([n,s])=>[n,createHash('sha256').update(s).digest('hex')])),tests});
+console.log(`${family}: exact; ${tests.messages.length} message and ${tests.getters.length} getter probes`);

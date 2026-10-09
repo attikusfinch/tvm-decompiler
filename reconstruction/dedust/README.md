@@ -1,9 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **15 of 21 archived code
+Readable, byte-identical recovery is verified for **16 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
 and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory,
-plus UranusFactoryV3 and UranusMemeWalletV2/V3. The eight CPMM/Uranus contracts use Tolk; the seven Classic
+plus UranusFactoryV3, UranusMemeV3 and UranusMemeWalletV2/V3. The nine CPMM/Uranus contracts use Tolk; the seven Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -24,15 +24,16 @@ The sources describe executable behavior; original names and comments are unknow
 | UranusMemeWalletV2 | 1219 bytes | 15 | 60 |
 | UranusMemeWalletV3 | 1156 bytes | 15 | 60 |
 | UranusFactoryV3 | 1605 bytes | 0 | 84 |
+| UranusMemeV3 | 4719 bytes | 15 | 139 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **125 native tests**. See `verification.json` for per-family results.
+project passes **133 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **6 families** have not passed readable-source acceptance. Their
+The remaining **5 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Uranus Factory V3
@@ -47,7 +48,32 @@ The expected initial data includes an independently calculated SHA256/SHA512 see
 at fixed transaction LT and explicit nonzero block seed; zero seed requests fresh
 entropy from the transaction emulator. Five Acton tests additionally inspect the
 actual deployment message, StateInit address, curve and migration configuration.
-Delivery into the Meme library is covered by the next recovery portion.
+Delivery into the source-built Meme library is covered by the native Meme tests.
+
+## Uranus Meme V3
+
+The complete 4719-byte Tolk build and all seven method dictionary values equal
+mainnet. Named schemas and handlers recover initialization, bonding-curve buys
+and sales, fee attribution, burn, wallet discovery, claims, controller withdrawals
+and migration to CPMM Pool V2. Library references contain hashes only.
+
+`npm run dedust:uranus-meme` checks 139 messages and 15 getters with exact gas.
+Independent expectations calculate floor/ceiling rounding, capped attribution,
+fee splitting, budget boundaries, every outgoing body, sharded StateInit and
+the Pool migration data. Exact exhaustion of available tokens does not graduate;
+an overshooting buy does. The authenticated migration callback ignores its
+reported exit code and accepts repeated callbacks, preserving original behavior.
+
+Eight Acton tests execute actual Factory → Meme → Wallet deployments, sell and
+burn notices, fee claims and a full graduation chain. The migration test delivers
+the Pool's wallet-resolution request and response, its initialization callback,
+TON and token deposits, and Deposit → Pool liquidity joining. The resulting Pool
+has independently expected reserves and active deposits. Every executed library
+is freshly built from readable source; no executable oracle is substituted.
+
+Small field, StateInit/hash and operand-lifetime primitives preserve compiler
+instruction order. Packed zero fields are documented against the recovered CPMM
+schemas. See `UranusMemeV3/recovery-verification.json`.
 
 ## Uranus Meme Wallet V2/V3
 

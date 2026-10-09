@@ -45,13 +45,13 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **15/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **16/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
 ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault,
-ClassicFactory, UranusFactoryV3 and UranusMemeWalletV2/V3.
+ClassicFactory, UranusFactoryV3, UranusMemeV3 and UranusMemeWalletV2/V3.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **125 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **133 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -143,7 +143,15 @@ StateInit. Explicit nonzero block seed makes RNG probes reproducible; a separate
 SHA256/SHA512/LT calculation checks the full expected initial data hash. Tests cover
 inclusive deployment funding, strict parameter limits and all affiliate combinations.
 
-Next: the rest of Classic and the related protocols; **6 families remain**.
+UranusMemeV3 passes complete 4719-byte BOC identity and all seven dictionary
+methods. Independent arithmetic and wire checks cover 139 messages and 15 getters
+with exact gas, attribution caps, inclusive budgets, graduation and authenticated
+migration. Eight Acton tests execute real Factory/Wallet/Pool/Deposit deliveries,
+including the entire liquidity migration and independently expected final reserves.
+Compiler bridges retain field order, StateInit hashing and operand snapshots;
+no original executable code is embedded or substituted.
+
+Next: UranusMemeV2, X1000WalletV2 and three Classic pool revisions; **5 families remain**.
 
 ## Recovery history
 

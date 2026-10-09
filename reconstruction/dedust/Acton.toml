@@ -68,7 +68,11 @@ depends = []
 
 [contracts.UranusFactoryV3]
 src = "UranusFactoryV3/main.tolk"
-depends = []
+depends = ["UranusMemeV3"]
+
+[contracts.UranusMemeV3]
+src = "UranusMemeV3/main.tolk"
+depends = ["UranusMemeWalletV3", "CpmmAffiliateAccount", "CpmmPoolV2"]
 
 [fmt]
 width = 100
