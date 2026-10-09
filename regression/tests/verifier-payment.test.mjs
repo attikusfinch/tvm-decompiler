@@ -1,0 +1,45 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {Address, beginCell, external, storeMessage} from '@ton/core';
+import {expectedPayment, normalizedExternalHash, validateQuote} from '../scripts/verifier-payment.mjs';
+
+const recipient = '0:' + 'aa'.repeat(32), wallet = '0:' + 'bb'.repeat(32), hash = 'cc'.repeat(32);
+const quote = {status: 'payment_required', code_hash: hash, network: 'testnet',
+    payment_address: recipient, amount_nano: '5000000000', comment: 'acton-verify:v1:' + hash};
+const payment = () => ({account: recipient, emulated: false, finality: 'finalized', mc_block_seqno: 123,
+    description: {aborted: false}, in_msg: {source: wallet, destination: recipient, bounced: false,
+        value: '5000000000', message_content: {decoded: {comment: quote.comment}}}});
+
+test('tickets must target the requested code hash in testnet with a positive amount', () => {
+    assert.equal(validateQuote(quote, hash), quote);
+    for (const change of [{network: 'mainnet'}, {code_hash: '00'.repeat(32)}, {comment: 'other'},
+        {amount_nano: '-1'}, {amount_nano: '0'}, {payment_address: 'bad'}])
+        assert.throws(() => validateQuote({...quote, ...change}, hash));
+});
+
+test('only the finalized recipient transaction with correct payer, value and comment is accepted', () => {
+    assert.equal(expectedPayment(payment(), quote, wallet), true);
+    for (const change of [{emulated: true}, {finality: 'pending'}, {mc_block_seqno: 0},
+        {description: {aborted: true}}, {account: wallet}])
+        assert.equal(expectedPayment({...payment(), ...change}, quote, wallet), false);
+    for (const change of [{source: recipient}, {destination: wallet}, {bounced: true},
+        {value: '4999999999'}, {value: null}, {message_content: {decoded: {comment: 'different'}}}]) {
+        const tx = payment(); Object.assign(tx.in_msg, change);
+        assert.equal(expectedPayment(tx, quote, wallet), false);
+    }
+    const tx = payment(); tx.in_msg.message_content = {
+        body: beginCell().storeUint(0, 32).storeStringTail(quote.comment).endCell().toBoc().toString('base64')};
+    assert.equal(expectedPayment(tx, quote, wallet), true);
+    tx.in_msg.value = '5000000001'; assert.equal(expectedPayment(tx, quote, wallet), true);
+});
+
+test('TEP-467 hash ignores init/import fee but retains wallet destination and signed body', () => {
+    const body = beginCell().storeUint(7, 32).endCell();
+    const message = external({to: Address.parse(wallet), body});
+    const boc = msg => beginCell().store(storeMessage(msg)).endCell().toBoc().toString('base64');
+    const baseline = normalizedExternalHash(boc(message), wallet);
+    assert.equal(normalizedExternalHash(boc({...message, init: {code: body, data: body},
+        info: {...message.info, importFee: 123n}}), wallet), baseline);
+    assert.notEqual(normalizedExternalHash(boc({...message, body: beginCell().storeUint(8, 32).endCell()}), wallet), baseline);
+    assert.throws(() => normalizedExternalHash(boc(message), recipient));
+});

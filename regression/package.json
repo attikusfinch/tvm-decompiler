@@ -79,6 +79,9 @@
     "@ton/crypto": "3.3.0",
     "@ton/sandbox": "0.45.0",
     "@ton/tasm": "0.6.1",
-    "func-bin-044": "npm:@ton-community/func-js-bin@0.4.4-newops.1"
+    "@tonconnect/ui": "3.0.2",
+    "func-bin-044": "npm:@ton-community/func-js-bin@0.4.4-newops.1",
+    "func-verifier-js": "npm:@ton-community/func-js@0.9.1",
+    "tolk-verifier-140": "npm:@ton/tolk-js@1.4.0"
   }
 }

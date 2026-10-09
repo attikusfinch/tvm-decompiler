@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Публикация восстановленных контрактов</title>
+<style>
+body{font:16px/1.5 system-ui;background:#111820;color:#e6edf4;margin:0}main{max-width:1100px;margin:48px auto;padding:0 24px}h1{font-size:30px;line-height:1.2}p{color:#bcc9d8}button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:10px 16px;background:#81d9c3;color:#0e2425}button:disabled{opacity:.4;cursor:default}a{color:#9fbfff}table{border-collapse:collapse;width:100%;font-size:14px}td,th{text-align:left;padding:12px 8px;border-bottom:1px solid #2b3746}code{font-size:12px}header{display:flex;justify-content:space-between;gap:24px;align-items:center}.bar{display:flex;align-items:center;gap:16px;margin:24px 0}.notice{padding:16px;background:#1f2c3b;border-radius:8px}#log{white-space:pre-wrap;color:#a5e3d3}.good{color:#81d9c3}.bad{color:#ffadad}small{color:#a2b4c8}footer{margin-top:24px;color:#8fa2b7}@media(max-width:750px){main{margin:24px auto}header,.bar{align-items:flex-start;flex-direction:column}table{font-size:12px}td,th{padding:8px 4px}}
+</style>
+<main>
+<header><div><small>@fiscaldev · восстановленные исходники</small><h1>Публикация в TON Verifier</h1></div><div id="wallet-button"></div></header>
+<p>21 семейство: DeDust DEX, Uranus и X1000. Каждый пакет проверен компилятором verifier и совпадает с сохранённым code hash.</p>
+<div class="notice"><strong>Оплата в testnet</strong><br><span id="cost">Загрузка билетов…</span><br>Подключи кошелёк в тестовой сети. Для каждого нового контракта подтверди платёж; после его финализации исходники загрузятся автоматически.</div>
+<div class="bar"><button id="next" disabled>Подключи тестовый кошелёк</button><button id="refresh">Обновить статусы</button><span id="count"></span></div>
+<div id="log" role="status" aria-live="polite"></div>
+<div style="overflow:auto"><table><thead><tr><th>Контракт</th><th>Компилятор</th><th>Файлы</th><th>Статус</th></tr></thead><tbody id="rows"></tbody></table></div>
+<footer>Локальная очередь передаёт исходники официальному API verifier.ton.org. Кошелёк подтверждает каждый платёж через TON Connect. Существующая публикация ClassicLpWallet остаётся в реестре.</footer>
+</main>
+<script src="/tonconnect-ui.js"></script>
+<script>
+const token='__SESSION_TOKEN__';
+let data, ui, busy=false;
+const labels={'ready':'Готов к публикации','already-verified':'Уже есть в реестре','awaiting-wallet':'Ожидание кошелька','payment-sent':'Платёж отправлен','payment-finalized':'Платёж финализирован','uploading':'Загрузка исходников','checking-registry':'Проверка реестра','published':'Опубликован','upload-uncertain':'Проверка результата загрузки','rejected':'Ошибка сервиса'};
+const el=id=>document.getElementById(id);
+const amount=n=>Number(BigInt(n))/1e9;
+async function api(route,body){const r=await fetch(route,{method:body?'POST':'GET',headers:{'x-session-token':token,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});const result=await r.json();if(!r.ok)throw Error(result.error);return result}
+function log(text){el('log').textContent=text}
+function paint(){
+ const done=data.contracts.filter(c=>['published','already-verified'].includes(c.stage)).length;
+ const ready=data.contracts.filter(c=>c.stage==='ready');
+ el('count').textContent=done+' / '+data.contracts.length+' в реестре';
+ el('cost').textContent=ready.length+' новых контрактов · '+ready.reduce((n,c)=>n+amount(c.ticket.amount_nano??'0'),0)+' тестовых TON + комиссии.';
+ el('rows').replaceChildren(...data.contracts.map(c=>{const tr=document.createElement('tr');const td=document.createElement('td');const a=document.createElement('a');a.href=c.verifierLink;a.target='_blank';a.rel='noreferrer';a.textContent=c.name;td.append(a);tr.append(td);for(const text of [c.language+' '+c.compilerVersion,c.fileCount+' · '+Math.ceil(c.bytes/1024)+' КБ',labels[c.stage]??c.stage]){const cell=document.createElement('td');cell.textContent=text;tr.append(cell)}if(c.error){tr.lastChild.title=c.error;tr.lastChild.className='bad'}else if(['published','already-verified'].includes(c.stage))tr.lastChild.className='good';return tr}));
+ const pending=data.contracts.some(c=>!['ready','published','already-verified'].includes(c.stage));
+ const next=ready[0]; const wallet=ui?.wallet;
+ el('next').disabled=busy||pending||!next||!wallet||wallet.account.chain!=='-3';
+ el('next').textContent=!wallet?'Подключи тестовый кошелёк':wallet.account.chain!=='-3'?'Переключи кошелёк на testnet':pending?'Завершаем текущую публикацию':next?'Опубликовать '+next.name+' · '+amount(next.ticket.amount_nano)+' testnet TON':'Все контракты опубликованы';
+}
+async function refresh(){data=await api('/api/state');paint()}
+el('refresh').onclick=()=>refresh().catch(e=>log(e.message));
+el('next').onclick=async()=>{
+ const item=data.contracts.find(c=>c.stage==='ready');if(!item||!ui?.wallet||busy)return;
+ busy=true;paint();let prepared, signed;
+ try{
+  prepared=await api('/api/action',{action:'prepare',name:item.name,wallet:ui.wallet.account.address,chain:ui.wallet.account.chain});
+  if(prepared.alreadyVerified){log(item.name+': уже опубликован');return}
+  const q=prepared.quote;log(item.name+': подтвердить '+amount(q.amount_nano)+' тестовых TON → '+q.payment_address+'\nКомментарий: '+q.comment);
+  if(q.amount_nano!==item.ticket.amount_nano||q.payment_address!==item.ticket.payment_address){
+   if(!confirm('Билет изменился. Оплатить '+amount(q.amount_nano)+' тестовых TON на '+q.payment_address+'?')){await api('/api/action',{action:'wallet-rejected',name:item.name});return}
+  }
+  signed=await ui.sendTransaction(prepared.transaction);
+  localStorage.setItem('fiscaldev-publication-pending',JSON.stringify({name:item.name,boc:signed.boc}));
+  await api('/api/action',{action:'signed',name:item.name,boc:signed.boc});
+  localStorage.removeItem('fiscaldev-publication-pending');
+  log(item.name+': платёж подтверждён кошельком. Ожидаем финализацию и ответ verifier.');
+ }catch(e){
+  // Only an explicit user rejection proves that no payment was sent.
+  if(prepared&&!signed&&e instanceof TON_CONNECT_UI.UserRejectsError)await api('/api/action',{action:'wallet-rejected',name:item.name});
+  log(e.message+'\nПри неизвестном результате проверяем платёж перед повторным подтверждением.');
+ }finally{busy=false;await refresh()}
+};
+(async()=>{
+ await refresh();
+ ui=new TON_CONNECT_UI.TonConnectUI({manifestUrl:data.manifestUrl,buttonRootId:'wallet-button',language:'ru',analytics:{mode:'off'}});
+ ui.setConnectionNetwork('-3');ui.onStatusChange(()=>paint());paint();
+ const pending=localStorage.getItem('fiscaldev-publication-pending');
+ if(pending){const saved=JSON.parse(pending);const item=data.contracts.find(c=>c.name===saved.name);if(item?.stage==='awaiting-wallet'){await api('/api/action',{action:'signed',name:saved.name,boc:saved.boc});localStorage.removeItem('fiscaldev-publication-pending')}}
+ setInterval(()=>refresh().catch(e=>log(e.message)),3000);
+})().catch(e=>log(e.message));
+</script>
+</html>
