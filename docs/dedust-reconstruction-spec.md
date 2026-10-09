@@ -45,12 +45,12 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **9/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **10/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
-ClassicLpWallet and ClassicLiquidityDeposit.
+ClassicLpWallet, ClassicLiquidityDeposit and ClassicNativeVault.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **89 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **97 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -104,7 +104,15 @@ flow. Local alternative returns preserve the native/jetton decoder's original sc
 opaque throw/tuple/field/builder primitives retain the old code generator's ABI and
 unreachable null slots. All candidate executable code is generated from readable source.
 Tests also preserve first-asset surplus priority and supplied-config authentication.
-Next: the rest of Classic and the related protocols; **12 families remain**.
+ClassicNativeVault passes complete 2302-byte BOC identity and all 14 method
+values. Named FunC recovers TON funding, swap routing, authentic pool/deposit
+payouts, readiness, operator reserve/excess withdrawal, initialization, version
+migration and factory upgrade with the installed zero-argument hook. Seventy
+message and 28 getter/hook probes verify independent serialization/state/fees,
+raw actions, outgoing amounts and exact gas. Eight native Acton tests pass.
+Narrow typed codecs retain legacy stack transfers and inline cell boundaries;
+all executable cells come from source compilation.
+Next: the rest of Classic and the related protocols; **11 families remain**.
 
 ## Recovery history
 

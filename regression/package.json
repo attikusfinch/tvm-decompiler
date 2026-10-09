@@ -63,7 +63,8 @@
     "dispatch:ambiguity": "node scripts/check-dispatch-ambiguity.mjs",
     "schema:ambiguity": "node scripts/check-schema-ambiguity.mjs",
     "tolk:audit": "node scripts/audit-recovery-results.mjs",
-    "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs"
+    "tolk:patterns": "node scripts/catalog-tolk-patterns.mjs",
+    "dedust:native-vault": "node scripts/check-dedust-native-vault.mjs"
   },
   "dependencies": {
     "@ton-community/func-js": "0.11.0",

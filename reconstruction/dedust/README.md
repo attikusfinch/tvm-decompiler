@@ -1,8 +1,8 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **9 of 21 archived code
+Readable, byte-identical recovery is verified for **10 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit. The five CPMM contracts use Tolk; the four Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault. The five CPMM contracts use Tolk; the five Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -17,15 +17,16 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicOperator | 455 bytes | 40 | 36 |
 | ClassicLpWallet | 836 bytes | 17 | 52 |
 | ClassicLiquidityDeposit | 2104 bytes | 40 | 57 |
+| ClassicNativeVault | 2302 bytes | 28 | 70 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **89 native tests**. See `verification.json` for per-family results.
+project passes **97 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **12 families** have not passed readable-source acceptance. Their
+The remaining **11 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -158,6 +159,28 @@ independent amounts, state and wire payload expectations, and exact gas. Five
 native Acton tests also deliver an actual transfer body/amount between two
 canonical wallets and check token conservation, authorization, burn and bounce.
 See `ClassicLpWallet/recovery-verification.json`.
+
+## ClassicNativeVault
+
+`ClassicNativeVault/main.fc` recovers TON swap routing, liquidity funding,
+authenticated pool payouts and deposit refunds, readiness, operator excess
+withdrawal and factory upgrades with immediate execution of the new code's hook.
+The full 2302-byte BOC and all 14 dictionary values equal mainnet, with hash
+`875fac5e08e5062f0f7c5c9f4c989607108e35a9ad88dc563e3e4fc7a3d3e75c`.
+
+Named storage and wire helpers expose the template descriptor, factory/blank-code
+base, version and locked TON. Fee getters retain the archived gas estimates and
+original-forward-fee rounding. A version-4 migration hook retains its historical
+locked balance of 1792093259305502. The known upgrade hook ABI is zero arguments
+and zero results; generic dynamic dispatch is not assumed to share that ABI.
+
+`npm run dedust:native-vault` checks 70 messages and 28 getter/hook probes,
+including independent bodies, amounts, state, fee calculations and exact gas.
+Eight native Acton tests cover Blank initialization, swap and liquidity wire
+formats, authenticated payout/refund, operator reserve and successful/failed
+upgrade hooks. Typed field, tuple, evaluation and bool-serializer operations retain
+the legacy stack ABI and inline cell boundaries. They include no archived
+executable cells. See `ClassicNativeVault/recovery-verification.json`.
 
 ## ClassicLiquidityDeposit
 
