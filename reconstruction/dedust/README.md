@@ -1,9 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **16 of 21 archived code
+Readable, byte-identical recovery is verified for **17 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
 and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory,
-plus UranusFactoryV3, UranusMemeV3 and UranusMemeWalletV2/V3. The nine CPMM/Uranus contracts use Tolk; the seven Classic
+plus UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3. The ten CPMM/Uranus contracts use Tolk; the seven Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -24,16 +24,17 @@ The sources describe executable behavior; original names and comments are unknow
 | UranusMemeWalletV2 | 1219 bytes | 15 | 60 |
 | UranusMemeWalletV3 | 1156 bytes | 15 | 60 |
 | UranusFactoryV3 | 1605 bytes | 0 | 84 |
-| UranusMemeV3 | 4719 bytes | 15 | 139 |
+| UranusMemeV3 | 4719 bytes | 15 | 142 |
+| UranusMemeV2 | 4600 bytes | 11 | 132 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **133 native tests**. See `verification.json` for per-family results.
+project passes **138 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **5 families** have not passed readable-source acceptance. Their
+The remaining **4 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Uranus Factory V3
@@ -57,7 +58,7 @@ mainnet. Named schemas and handlers recover initialization, bonding-curve buys
 and sales, fee attribution, burn, wallet discovery, claims, controller withdrawals
 and migration to CPMM Pool V2. Library references contain hashes only.
 
-`npm run dedust:uranus-meme` checks 139 messages and 15 getters with exact gas.
+`npm run dedust:uranus-meme` checks 142 messages and 15 getters with exact gas.
 Independent expectations calculate floor/ceiling rounding, capped attribution,
 fee splitting, budget boundaries, every outgoing body, sharded StateInit and
 the Pool migration data. Exact exhaustion of available tokens does not graduate;
@@ -74,6 +75,28 @@ is freshly built from readable source; no executable oracle is substituted.
 Small field, StateInit/hash and operand-lifetime primitives preserve compiler
 instruction order. Packed zero fields are documented against the recovered CPMM
 schemas. See `UranusMemeV3/recovery-verification.json`.
+
+## Uranus Meme V2
+
+The older readable Tolk revision compiles to all 4600 frozen BOC bytes and all
+five dictionary values. It gives protocol 30% of the base fee, has no separate
+partner accrual/claim, migrates to Pool V1 and allows controller withdrawal only
+after migration. Peer authentication compares the last 248 address bits and
+basechain; all incoming message tails remain strict. Metadata snake data is inline.
+Buy/sell and positive fee claims discard storage suffixes; burns preserve them.
+
+`npm run dedust:uranus-meme -- 2` verifies 132 messages and 11 getter probes,
+including the two methods absent from V2. The shared expectations independently
+check revision-dependent fees, libraries, authentication, storage, gas and wire
+messages. Five native Acton tests deliver actual old-wallet sell/burn messages,
+check claims/withdrawal timing and execute migration through source-built Pool V1
+and Deposit to the independently expected final reserves.
+
+The incoming codec retains the legacy callback's union padding, following the
+same approach as the already recovered CPMM payment codec. It contains field
+loads and null placement; all lifecycle/trading/migration logic is ordinary Tolk.
+No original executable methods or byte patches are included. See
+`UranusMemeV2/recovery-verification.json`.
 
 ## Uranus Meme Wallet V2/V3
 

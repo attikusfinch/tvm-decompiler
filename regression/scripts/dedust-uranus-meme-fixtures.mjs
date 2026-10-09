@@ -8,13 +8,14 @@ import {root,compareMessages,compareGetters} from './lib.mjs';
 import {loadTolkSources,compileTolk} from './tolk.mjs';
 
 export const checkUranusMemeV3=(o,c)=>checkUranusMeme(o,c,3);
+export const checkUranusMemeV2=(o,c)=>checkUranusMeme(o,c,2);
 
 // Independent integer arithmetic and wire serialization. Dependencies are freshly
 // compiled editable sources; frozen library BOCs only verify their identities.
 export async function checkUranusMeme(oracle,candidate,version=3) {
-    assert.equal(version,3);
+    assert.ok(version===2||version===3);
     const project=path.resolve(root,'../reconstruction/dedust'),libs=Dictionary.empty(Dictionary.Keys.Buffer(32),Dictionary.Values.Cell()),codes={};
-    for(const family of ['UranusMemeWalletV3','CpmmAffiliateAccount','CpmmPoolV2']) {
+    for(const family of ['UranusMemeWalletV'+version,'CpmmAffiliateAccount','CpmmPoolV'+(version===3?2:1)]) {
         const compiled=await compileTolk({sources:await loadTolkSources(project,family+'/main.tolk')});assert.equal(compiled.status,'ok',compiled.message);
         const code=Cell.fromBoc(Buffer.from(compiled.codeBoc,'base64'))[0];assert.ok(code.equals(Cell.fromBoc(await fs.readFile(path.join(project,'oracles',family+'.boc')))[0]));
         codes[family]=code;libs.set(code.hash(),code);
@@ -24,7 +25,7 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
     const authority=Address.parse('EQDDszIM08Ycwx8ycvz5Mn_hQdPj38FtG9bp0XQYw0j5E5D1'),Q=123n,BALANCE=10000000000n,VALUE=2000000000n;
     const empty=beginCell().endCell(),metadata=beginCell().storeStringTail('https://example.invalid/meme.json').endCell();
     const library=code=>beginCell().storeUint(2,8).storeBuffer(code.hash()).endCell({exotic:true});
-    const walletCode=library(codes.UranusMemeWalletV3),poolCode=library(codes.CpmmPoolV2);
+    const walletCode=library(codes['UranusMemeWalletV'+version]),poolCode=library(codes['CpmmPoolV'+(version===3?2:1)]);
     const walletData=o=>beginCell().storeCoins(0).storeAddress(o).storeAddress(address).endCell();
     const walletInit=o=>({splitDepth:8,code:walletCode,data:walletData(o)});
     const wallet=o=>new Address(0,Buffer.concat([o.hash.subarray(0,1),contractAddress(0,walletInit(o)).hash.subarray(1)]));
@@ -35,17 +36,17 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
         poolShare:400,poolFee:50,seed:17n};
     const cfg=o=>beginCell().storeAddress(creator).storeAddress(controller).storeRef(metadata).storeCoins(o.raising).storeCoins(o.liquidity).storeUint(o.seed,128).endCell();
     const migration=o=>beginCell().storeAddress(partnerOwner).storeUint(o.poolShare,16).storeUint(o.poolFee,16).storeAddress(creator).endCell();
-    const state=(patch={})=>{const o={...defaults,...patch};return beginCell().storeBit(o.initialized).storeBit(o.migrated).storeRef(cfg(o)).storeUint(o.baseFee,16)
+    const state=(patch={})=>{const o={...defaults,...patch},b=beginCell().storeBit(o.initialized).storeBit(o.migrated).storeRef(cfg(o)).storeUint(o.baseFee,16)
         .storeBit(o.graduated).storeCoins(o.alpha).storeCoins(o.beta).storeCoins(o.onSell).storeCoins(o.raised).storeCoins(o.current).storeCoins(o.total)
-        .storeCoins(o.creatorFee).storeCoins(o.partnerFee).storeUint(o.partnerShare,16).storeRef(migration(o)).endCell();};
+        .storeCoins(o.creatorFee);if(version===3)b.storeCoins(o.partnerFee).storeUint(o.partnerShare,16).storeRef(migration(o));return b.endCell();};
     function poolState(o) {
         const values={serialize(c,b){b.storeSlice(c.beginParse());},parse(s){return beginCell().storeSlice(s).endCell();}};
         const wallets=Dictionary.empty(Dictionary.Keys.Uint(2),values);
         wallets.set(0,beginCell().storeAddress(address).storeUint(0x127500,40).endCell());
         wallets.set(1,beginCell().storeAddress(null).storeUint(0x127500,40).endCell());
         const token=beginCell().storeUint(2,8).storeAddress(address).endCell();
-        const config=beginCell().storeAddress(null).storeAddress(address).storeAddress(partnerOwner).storeUint(o.poolFee,16).storeUint(o.poolShare,16)
-            .storeMaybeRef(token).storeMaybeRef(null).storeBit(false).storeBit(true).storeMaybeRef(null).storeDict(wallets).endCell();
+        const config=beginCell().storeAddress(null).storeAddress(address).storeAddress(version===3?partnerOwner:creator).storeUint(version===3?o.poolFee:o.baseFee,16).storeUint(version===3?o.poolShare:0,16)
+            .storeMaybeRef(token).storeMaybeRef(null).storeBit(false).storeBit(true).storeMaybeRef(null).storeDict(version===3?wallets:null).endCell();
         const balances=beginCell().storeUint(0,8).storeUint(0,8).storeVarUint(0,5).storeVarUint(0,5).endCell();
         const admin=beginCell().storeAddress(controller).storeMaybeRef(null).storeMaybeRef(null).storeMaybeRef(null).endCell();
         return beginCell().storeRef(config).storeRef(balances).storeRef(admin).storeMaybeRef(null).storeUint(0,16).endCell();
@@ -66,8 +67,8 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
     const rate=a=>a?a.beginParse().skip(256).loadUint(16):0;
     const rates=(p,r)=>{const partnerRate=BigInt(Math.min(rate(p),500)),referrerRate=p?BigInt(Math.min(rate(r),8000)):0n;return {partnerRate,referrerRate,effective:referrerRate>0n?partnerRate*5n/6n:partnerRate};};
     function split(fees,o,p,r) {
-        const {effective,referrerRate}=rates(p,r),base=fees*BigInt(o.baseFee)/(effective+BigInt(o.baseFee)),protocol=base*20n/100n;
-        const partnerFee=base*BigInt(Math.min(o.partnerShare,6000))/10000n,affiliateFees=fees-base,referrerFee=(affiliateFees*6n/5n)*referrerRate/10000n;
+        const {effective,referrerRate}=rates(p,r),base=fees*BigInt(o.baseFee)/(effective+BigInt(o.baseFee)),protocol=base*BigInt(version===3?20:30)/100n;
+        const partnerFee=version===3?base*BigInt(Math.min(o.partnerShare,6000))/10000n:0n,affiliateFees=fees-base,referrerFee=(affiliateFees*6n/5n)*referrerRate/10000n;
         return {creatorFee:base-protocol-partnerFee,partnerFee,protocol,affiliateFee:affiliateFees-referrerFee,referrerFee};
     }
     const ceil=(n,d)=>(n+d-1n)/d;
@@ -151,7 +152,7 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
     const prices=Dictionary.loadDirect(Dictionary.Keys.Uint(32),{serialize(){},parse(s){assert.equal(s.loadUint(8),0xcc);s.skip(32);return {bit:s.loadUintBig(64),cell:s.loadUintBig(64)};}},chainConfig.get(18));
     const price=prices.get(Math.max(...prices.keys().filter(t=>t<=1700000000))),storageFee=((3n*price.cell+970n*price.bit)*157680000n+65535n)>>16n;
     const forwarding=(3n*cellPrice+812n*bitPrice+65535n)>>16n;
-    for(const fee of [0n,987654n]) {const required=gas(22492)+gas(8862)+forwarding+storageFee+orig(fee)+1000000000n,out=purchase(defaults,1000000000n,null,null);
+    for(const fee of [0n,987654n]) {const required=gas(22492)+gas(version===3?8862:9282)+forwarding+storageFee+orig(fee)+1000000000n,out=purchase(defaults,1000000000n,null,null);
         await check('buy funding inclusive boundary '+fee,buy(),{value:required,fee,expected:state(out.updated),actions:buyActions(defaults,out,null,null)});
         await check('buy funding one coin below '+fee,buy(),{value:required-1n,fee,exit:23});}
     const bought=purchase(defaults,1000000000n,null,null),sold=sale(bought.updated,bought.tokens/2n,null,null);
@@ -167,12 +168,19 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
     for(const response of [null,receiver])await check('burn canonical wallet response='+Boolean(response),burn(700n,response),{from:wallet(owner),expected:state({total:defaults.total-700n}),actions:[{mode:66,to:response??owner,body:excess()}]});
     await check('burn unauthorized',burn(700n),{exit:25});
     await check('burn supply underflow',burn(defaults.total+1n),{from:wallet(owner),exit:5});
+    const changedPrefix=wallet(owner).hash;changedPrefix[0]^=0xff;
+    await check('wallet authentication sharding prefix revision',burn(700n),{from:new Address(0,changedPrefix),exit:version===2?0:25,
+        expected:version===2?state({total:defaults.total-700n}):state(),actions:version===2?[{mode:66,to:receiver,body:excess()}]:[]});
+    const withTail=c=>beginCell().storeSlice(c.beginParse()).storeUint(73,8).storeRef(metadata).endCell();
+    await check('burn preserves opaque storage suffix',burn(700n),{from:wallet(owner),storage:withTail(state()),
+        expected:withTail(state({total:defaults.total-700n})),actions:[{mode:66,to:receiver,body:excess()}]});
+    await check('buy storage suffix revision',buy(),{storage:withTail(state()),expected:version===2?state(bought.updated):withTail(state(bought.updated)),actions:buyActions(defaults,bought,null,null)});
     await check('initialize toggles only first bit',init(),{storage:state({initialized:false}),expected:state(),actions:[{type:'reserve',mode:2,amount:10000000n},{mode:130,to:creator,body:excess()}]});
     await check('initialize twice',init(),{exit:24});
     for(const p of [null,partner])for(const r of [null,referrer]) {const o={...defaults,initialized:true},out=purchase(o,1000000000n,p,r);
         await check('initialize initial buy '+Boolean(p)+'/'+Boolean(r),init(1000000000n,p,r),{storage:state({initialized:false}),expected:state(out.updated),
             actions:[{type:'reserve',mode:2,amount:10000000n},...buyActions(o,out,p,r,creator)]});}
-    for(const [op,authorized,field]of [[0xad7269a8,creator,'creatorFee'],[0x7f4bcbf4,partnerOwner,'partnerFee']])for(const to of [null,receiver])for(const response of [null,receiver])for(const earned of [0n,7654321n]) {
+    for(const [op,authorized,field]of [[0xad7269a8,creator,'creatorFee'],...(version===3?[[0x7f4bcbf4,partnerOwner,'partnerFee']]:[])])for(const to of [null,receiver])for(const response of [null,receiver])for(const earned of [0n,7654321n]) {
         const o={...defaults,[field]:earned};
         await check('fee claim '+op+' '+Boolean(to)+'/'+Boolean(response)+' earned='+earned,claim(op,to,response),{from:authorized,storage:state(o),expected:state({...o,[field]:0n}),
             actions:[{type:'reserve',mode:2,amount:BALANCE-earned},...(earned>0n?[{mode:17,to:to??authorized,value:earned,body:payment()}]:[]),{mode:130,to:response??authorized,body:excess()}]});
@@ -180,10 +188,12 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
     }
     for(const migrated of [false,true])for(const raised of [0n,defaults.raising,defaults.raising+1n]) {
         const body=beginCell().storeUint(0xf14b54f3,32).storeUint(Q,64).storeAddress(receiver).endCell();
-        await check('controller sweep migrated='+migrated+' raised='+raised,body,{from:controller,storage:state({migrated,raised}),
-            actions:[{type:'reserve',mode:2,amount:defaults.partnerFee+defaults.creatorFee+(migrated?10000000n:1010000000n+(raised<defaults.raising?raised:defaults.raising))},{mode:130,to:receiver,body:excess()}]});
+        const allowed=version===3||migrated;
+        await check('controller sweep migrated='+migrated+' raised='+raised,body,{from:controller,storage:state({migrated,raised}),exit:allowed?0:32,
+            actions:allowed?[{type:'reserve',mode:2,amount:version===3?defaults.partnerFee+defaults.creatorFee+(migrated?10000000n:1010000000n+(raised<defaults.raising?raised:defaults.raising)):defaults.creatorFee+10000000n},{mode:130,to:receiver,body:excess()}]:[]});
         await check('controller sweep unauthorized '+migrated+' '+raised,body,{storage:state({migrated,raised}),exit:25});
     }
+    if(version===2)await check('partner claim opcode absent in V2',claim(0x7f4bcbf4),{exit:65535});
     function migrationActions(o) {
         const destination=pool(o),amounts=beginCell().storeUint(0xc9a015da,32).storeCoins(o.raising).storeCoins(o.liquidity).storeUint(0x2710,20).endCell();
         const payout=beginCell().storeAddress(creator).storeUint(0,4).storeMaybeRef(null).storeBit(false).storeAddress(null)
@@ -207,7 +217,7 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
         await check('wallet discovery '+(o?.toString()??'none')+' include='+include,body,{actions:[{mode:80,to:owner,body:reply}]});
     }
     await check('excesses body ignored',excess());
-    for(const op of [0x796f5a0c,0x94826557,0x646ad424,0x7bdd97de,0x2c76b973,0xad7269a8,0x7f4bcbf4,0xf14b54f3,0xd53276db,0xce185bd7])
+    for(const op of [0x796f5a0c,0x94826557,0x646ad424,0x7bdd97de,0x2c76b973,0xad7269a8,...(version===3?[0x7f4bcbf4]:[]),0xf14b54f3,0xd53276db,0xce185bd7])
         await check('short recognized body '+op,beginCell().storeUint(op,32).endCell(),{storage:empty,exit:9});
     for(const body of [empty,beginCell().storeUint(42,32).endCell(),beginCell().storeUint(0,31).endCell()])await check('unknown body '+body.bits.length,body,{storage:empty,exit:65535});
     await check('bounce returns before storage and body',empty,{storage:empty,bounced:true});
@@ -218,7 +228,9 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
     const integer=v=>({type:'int',value:String(typeof v==='boolean'?(v?-1:0):v)}),slice=a=>({type:'slice',cellHash:beginCell().storeAddress(a).endCell().hash().toString('hex')}),cell=c=>({type:'cell',cellHash:c.hash().toString('hex')});
     const hashKey=name=>BigInt('0x'+createHash('sha256').update(name).digest('hex'));
     const dict=Dictionary.empty(Dictionary.Keys.BigUint(256),Dictionary.Values.Cell());
-    dict.set(hashKey('uri'),beginCell().storeUint(0,8).storeRef(metadata).endCell());dict.set(hashKey('decimals'),beginCell().storeUint(0,8).storeRef(beginCell().storeStringTail('9').endCell()).endCell());
+    const uri=beginCell().storeUint(0,8),decimals=beginCell().storeUint(0,8);
+    if(version===3){uri.storeRef(metadata);decimals.storeRef(beginCell().storeStringTail('9').endCell());}else{uri.storeSlice(metadata.beginParse());decimals.storeStringTail('9');}
+    dict.set(hashKey('uri'),uri.endCell());dict.set(hashKey('decimals'),decimals.endCell());
     const content=beginCell().storeUint(0,8).storeDict(dict).endCell();
     for(const patch of [{},{initialized:false,migrated:true,graduated:true,raised:1000000000n,current:999999999999n},{partnerFee:0n,partnerShare:65535,baseFee:1000,seed:(1n<<128n)-1n}]) {
         const o={...defaults,...patch},data=state(o),expectations={
@@ -226,10 +238,12 @@ export async function checkUranusMeme(oracle,candidate,version=3) {
             83180:[integer(o.partnerFee),integer(o.partnerShare),slice(partnerOwner),integer(o.poolShare)],
             101289:[integer(o.initialized),integer(o.migrated),slice(controller),slice(creator),integer(o.creatorFee),integer(o.seed),integer(o.graduated),... [o.alpha,o.beta,o.onSell,o.baseFee,o.raised,o.current].map(integer)],
             106029:[integer(o.total),integer(0),slice(null),cell(content),cell(walletCode)]};
-        for(const [method,expected]of Object.entries(expectations)) {const [t]=await compareGetters(oracle,candidate,[{method:Number(method),args:[]}],{data,address,libraries});
+        for(const [method,expected]of Object.entries(expectations)) {if(version===2&&['121862','83180'].includes(method))continue;const [t]=await compareGetters(oracle,candidate,[{method:Number(method),args:[]}],{data,address,libraries});
             assert.equal(t.sameObservedBehavior,true);assert.equal(t.before.gasUsed,t.after.gasUsed);assert.equal(t.before.exitCode,0);assert.deepEqual(t.before.stack,expected,'independent getter '+method);getters.push(t);}
     }
     for(const o of [owner,creator,new Address(-1,owner.hash)]) {const [t]=await compareGetters(oracle,candidate,[{method:103289,args:[{type:'slice',cell:beginCell().storeAddress(o).endCell()}]}],{data:state(),address,libraries});
         assert.equal(t.sameObservedBehavior,true);assert.equal(t.before.gasUsed,t.after.gasUsed);assert.equal(t.before.exitCode,0);assert.deepEqual(t.before.stack,[slice(wallet(o))]);getters.push(t);}
+    if(version===2)for(const method of [83180,121862]) {const [t]=await compareGetters(oracle,candidate,[{method,args:[]}],{data:state(),address,libraries});
+        assert.equal(t.sameObservedBehavior,true);assert.equal(t.before.exitCode,11);getters.push(t);}
     return {getters,messages,dependencies:Object.fromEntries(Object.entries(codes).map(([n,c])=>[n,c.hash().toString('hex')]))};
 }

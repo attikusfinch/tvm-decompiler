@@ -74,6 +74,10 @@ depends = ["UranusMemeV3"]
 src = "UranusMemeV3/main.tolk"
 depends = ["UranusMemeWalletV3", "CpmmAffiliateAccount", "CpmmPoolV2"]
 
+[contracts.UranusMemeV2]
+src = "UranusMemeV2/main.tolk"
+depends = ["UranusMemeWalletV2", "CpmmAffiliateAccount", "CpmmPoolV1"]
+
 [fmt]
 width = 100
 
