@@ -1,9 +1,9 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **17 of 21 archived code
+Readable, byte-identical recovery is verified for **18 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory,
-plus UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3. The ten CPMM/Uranus contracts use Tolk; the seven Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory/ClassicVolatilePool,
+plus UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3. The ten CPMM/Uranus contracts use Tolk; the eight Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -21,6 +21,7 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicNativeVault | 2302 bytes | 28 | 70 |
 | ClassicJettonVault | 3811 bytes | 30 | 74 |
 | ClassicFactory | 3733 bytes | 34 | 73 |
+| ClassicVolatilePool | 5691 bytes | 65 | 71 |
 | UranusMemeWalletV2 | 1219 bytes | 15 | 60 |
 | UranusMemeWalletV3 | 1156 bytes | 15 | 60 |
 | UranusFactoryV3 | 1605 bytes | 0 | 84 |
@@ -31,11 +32,34 @@ Each source-built contract equals its frozen mainnet oracle, including the compl
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **138 native tests**. See `verification.json` for per-family results.
+project passes **147 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **4 families** have not passed readable-source acceptance. Their
+The remaining **3 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
+
+## Classic Pool
+
+`ClassicVolatilePool/main.fc` compiles to all 5691 frozen mainnet bytes and all
+25 method dictionary values with pinned FunC 0.4.4-newops.1. Named source recovers
+both constant-product and stable-curve swaps, LP mint/burn, canonical Vault/Deposit
+proofs, route forwarding, fee accumulation/withdrawal, price collectors, versioned
+upgrades, Blank installation and TEP-64 LP metadata.
+
+`npm run dedust:classic-pool` checks 71 messages and 65 getters with exact gas,
+independent storage and wire expectations. Stable quotes are checked against a
+separate polynomial-root bisection; the recovered contract uses Newton iteration.
+Failed swaps restore c4/c5/c7, clear pending actions, refund the full principal,
+commit the refund and rethrow. Non-cell exception arguments become null callbacks.
+The initial LP rule is preserved: minted liquidity is max(99000, amount0, amount1)
+and the initial supply additionally locks 1000 units.
+
+Nine Acton tests install the Pool through real source-built Blank, deliver actual
+LP credit and StateInit into the recovered LP wallet, burn through its real notice,
+and verify swaps, rollback, collectors and stable-curve rounding. Bounded field,
+type-test and operand-staging primitives retain historical compiler layout; all
+economic and authorization logic is ordinary FunC. See
+`ClassicVolatilePool/recovery-verification.json`.
 
 ## Uranus Factory V3
 

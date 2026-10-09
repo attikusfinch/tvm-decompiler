@@ -45,16 +45,25 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **17/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **18/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
 ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault,
-ClassicFactory, UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3.
+ClassicFactory, ClassicVolatilePool, UranusFactoryV3, UranusMemeV2/V3 and UranusMemeWalletV2/V3.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **138 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **147 tests**. Each whole-CPMM-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
+
+ClassicVolatilePool's readable FunC matches all 5691 BOC bytes and all 25 method
+values. 65 getter and 71 message probes independently check constant-product
+rounding, the stable polynomial root, reserve/LP/protocol-fee accounting, full
+refund after protected failures, canonical peer proofs, routing, price collectors,
+upgrades, metadata, strict/permissive legacy tails and installation through Blank.
+Nine Acton tests execute source-built Blank → Pool → LP Wallet credit and Wallet →
+Pool burn, plus swaps, rejected-swap rollback and stable-curve/collector behavior.
+ClassicPoolInstalledV8/V9 and X1000WalletV2 remain outside readable acceptance.
 
 Pool V2's production entrypoint is `CpmmPoolV2/main.tolk`; `candidate.tolk` is a
 compatibility import. The exact dispatcher fixture adds 113 isolated probes.
