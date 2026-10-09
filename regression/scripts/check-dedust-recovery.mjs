@@ -15,11 +15,12 @@ import { checkOperator } from './dedust-operator-fixtures.mjs';
 import { checkLpWallet } from './dedust-lp-wallet-fixtures.mjs';
 import { checkClassicDeposit } from './dedust-classic-deposit-fixtures.mjs';
 import { checkNativeVault } from './dedust-native-vault-fixtures.mjs';
+import { checkJettonVault } from './dedust-jetton-vault-fixtures.mjs';
 import { loadFuncSources, compileLegacyFunc, legacyFuncVersion } from './func-legacy.mjs';
 
 const project=path.resolve(root,'../reconstruction/dedust');
 const manifest=JSON.parse(await fs.readFile(path.join(project,'oracles.json'),'utf8'));
-const fixtures={ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,ClassicLiquidityDeposit:checkClassicDeposit,ClassicNativeVault:checkNativeVault,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
+const fixtures={ClassicBlank:checkBlank,ClassicOperator:checkOperator,ClassicLpWallet:checkLpWallet,ClassicLiquidityDeposit:checkClassicDeposit,ClassicNativeVault:checkNativeVault,ClassicJettonVault:checkJettonVault,CpmmDeposit:checkDeposit,CpmmAffiliateAccount:checkAffiliate,CpmmPosition:checkPosition,CpmmPoolV1:checkPoolV1,CpmmPoolV2:checkPool};
 const results=[];
 for(const entry of manifest.contracts) {
     const original=await fs.readFile(path.join(project,'oracles',entry.name+'.boc'));

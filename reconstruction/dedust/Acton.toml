@@ -48,6 +48,10 @@ depends = ["ClassicBlank"]
 src = "build/ClassicNativeVault/code.boc"
 depends = ["ClassicBlank"]
 
+[contracts.ClassicJettonVault]
+src = "build/ClassicJettonVault/code.boc"
+depends = ["ClassicBlank"]
+
 [test]
 
 [fmt]

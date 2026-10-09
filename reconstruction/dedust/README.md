@@ -1,8 +1,8 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **10 of 21 archived code
+Readable, byte-identical recovery is verified for **11 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault. The five CPMM contracts use Tolk; the five Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault. The five CPMM contracts use Tolk; the six Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -18,15 +18,16 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicLpWallet | 836 bytes | 17 | 52 |
 | ClassicLiquidityDeposit | 2104 bytes | 40 | 57 |
 | ClassicNativeVault | 2302 bytes | 28 | 70 |
+| ClassicJettonVault | 3811 bytes | 30 | 74 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **97 native tests**. See `verification.json` for per-family results.
+project passes **106 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **11 families** have not passed readable-source acceptance. Their
+The remaining **10 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -159,6 +160,35 @@ independent amounts, state and wire payload expectations, and exact gas. Five
 native Acton tests also deliver an actual transfer body/amount between two
 canonical wallets and check token conservation, authorization, burn and bounce.
 See `ClassicLpWallet/recovery-verification.json`.
+
+## ClassicJettonVault
+
+`ClassicJettonVault/main.fc` recovers jetton-wallet resolution and activation,
+TEP74 notifications with inline/referenced forward payloads, swap routing,
+liquidity funding, authenticated pool/deposit payouts, readiness, cleanup,
+operator excess withdrawal and factory upgrades. The complete 3811-byte BOC
+and all 18 dictionary values equal mainnet, with hash
+`a30f0486b813dfe55f549fa986272349a96335e1e44e7276d4878c870083306f`.
+
+Ordinary FunC `try/catch` expresses the protected notification. Its catch clears
+pending actions, sends the jetton refund, commits and rethrows the original error.
+The refund survives the exception. Underfunded/deep swap requests refund without
+throwing; failed liquidity requests refund and report the original exit. Resolution
+checks the master and inactive state, validates optional owner data and preserves
+the supplied wallet. Constructor master overrides and bounce/cleanup behavior
+retain the archive's validation and suffix rules.
+
+`npm run dedust:jetton-vault` checks 74 messages and 30 getter probes with exact
+gas and independent wire/state/fee expectations. Nine native Acton tests cover
+installation, activation, swap, liquidity, committed error refund, authenticated
+payout, cancellation and upgrade rollback. Liquidity forwarding uses GASCONSUMED;
+its amount is bounded independently and compared exactly between complete codes.
+A fixed callback hash suppresses forward TON on pool payout. Its original payload
+preimage remains unknown; the hash condition is preserved exactly and ordinary
+null, empty and nonempty callbacks are tested. Small typed primitives preserve
+legacy stack/field ABI, empty action-list construction and the static method-138
+PREPAREDICT/CALLXARGS bridge. No archived executable blob is included.
+See `ClassicJettonVault/recovery-verification.json`.
 
 ## ClassicNativeVault
 

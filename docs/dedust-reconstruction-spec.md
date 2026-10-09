@@ -45,12 +45,12 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **10/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **11/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
-ClassicLpWallet, ClassicLiquidityDeposit and ClassicNativeVault.
+ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault and ClassicJettonVault.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **97 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **106 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -112,7 +112,15 @@ message and 28 getter/hook probes verify independent serialization/state/fees,
 raw actions, outgoing amounts and exact gas. Eight native Acton tests pass.
 Narrow typed codecs retain legacy stack transfers and inline cell boundaries;
 all executable cells come from source compilation.
-Next: the rest of Classic and the related protocols; **11 families remain**.
+ClassicJettonVault passes complete 3811-byte BOC identity and all 18 method
+values. Named FunC recovers wallet resolution/activation, TEP74 notification,
+swap/funding, authenticated payouts, cleanup, operator reserve and installed-hook
+upgrade. A normal try/catch clears actions, refunds, commits and rethrows; native
+Acton confirms the outgoing refund survives its nonzero exit. Seventy-four message
+and 30 getter probes verify exact gas and independent wire/state/fee expectations;
+nine native tests pass. A callback hash's preimage is unknown, while its exact
+condition and ordinary callback variants are preserved and tested.
+Next: the rest of Classic and the related protocols; **10 families remain**.
 
 ## Recovery history
 
