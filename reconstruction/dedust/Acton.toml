@@ -52,6 +52,10 @@ depends = ["ClassicBlank"]
 src = "build/ClassicJettonVault/code.boc"
 depends = ["ClassicBlank"]
 
+[contracts.ClassicFactory]
+src = "build/ClassicFactory/code.boc"
+depends = ["ClassicBlank", "ClassicNativeVault", "ClassicJettonVault", "ClassicLiquidityDeposit", "ClassicOperator", "ClassicLpWallet"]
+
 [test]
 
 [fmt]

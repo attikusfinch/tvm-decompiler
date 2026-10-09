@@ -1,8 +1,8 @@
 # DeDust reconstruction
 
-Readable, byte-identical recovery is verified for **11 of 21 archived code
+Readable, byte-identical recovery is verified for **12 of 21 archived code
 families**: CpmmDeposit, CpmmAffiliateAccount, CpmmPosition, CpmmPoolV1, CpmmPoolV2
-and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault. The five CPMM contracts use Tolk; the six Classic
+and ClassicBlank/ClassicOperator/ClassicLpWallet/ClassicLiquidityDeposit/ClassicNativeVault/ClassicJettonVault/ClassicFactory. The five CPMM contracts use Tolk; the seven Classic
 contracts use FunC.
 The sources describe executable behavior; original names and comments are unknown.
 
@@ -19,15 +19,16 @@ The sources describe executable behavior; original names and comments are unknow
 | ClassicLiquidityDeposit | 2104 bytes | 40 | 57 |
 | ClassicNativeVault | 2302 bytes | 28 | 70 |
 | ClassicJettonVault | 3811 bytes | 30 | 74 |
+| ClassicFactory | 3733 bytes | 34 | 73 |
 
 Each source-built contract equals its frozen mainnet oracle, including the complete
 cell graph and BOC bytes with `idx=false, crc32=true`. Differential probes compare
 exits, storage, raw actions, outgoing messages and amounts, and exact gas. Independent
 expectations check decoded results and economic calculations. The shared Acton
-project passes **106 native tests**. See `verification.json` for per-family results.
+project passes **114 native tests**. See `verification.json` for per-family results.
 
 All 21 families also have exact, editable `reference.tasm` instruction references.
-The remaining **10 families** have not passed readable-source acceptance. Their
+The remaining **9 families** have not passed readable-source acceptance. Their
 instruction references do not establish readable recovery.
 
 ## Pool V2
@@ -300,3 +301,24 @@ See `../../docs/dedust-reconstruction-spec.md` for acceptance and remaining work
 
 Deposit ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/deposit
 Position ABI: https://hub-beta.dedust.io/docs/cpmm-v2/reference/position
+
+## ClassicFactory
+
+`ClassicFactory/main.fc` restores the complete code registry, delayed ownership
+transfer, deterministic Blank-backed Vault/Pool/Deposit/Operator deployments and
+version upgrades. All 34 method dictionary entries and the entire 3733-byte BOC
+match. Typed codec/ABI helpers preserve legacy stack order and code-cell boundaries;
+all contract logic is expressed in FunC.
+
+Independent fixtures cover 73 messages and 34 getters, including inline Vault code
+dictionary entries, legacy storage without Operator fields, sorted Pool assets and
+precision fields, strict deployment budgets, sender proofs, canonical StateInit,
+code/version registries, upgrade rollback, and the two-step Deposit installation
+and funding sequence. The second funding amount is checked against an independent
+fee bound; exact observed amount, actions and gas also match the frozen oracle.
+
+Eight native Acton tests deliver actual Factory-to-Blank messages into the recovered
+NativeVault, Operator and LiquidityDeposit implementations. They verify ownership's
+48-hour boundary, canonical deployment messages, registry authorization, deposited
+balances and installed upgrade-hook rollback. See
+`ClassicFactory/recovery-verification.json`.

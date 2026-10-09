@@ -45,12 +45,12 @@ single role or its assembler reference passes.
 
 ## Current accepted results
 
-Readable byte-identical recovery is **11/21 families**: CPMM Deposit,
+Readable byte-identical recovery is **12/21 families**: CPMM Deposit,
 AffiliateAccount, Position, Pool V1, Pool V2, ClassicBlank, ClassicOperator,
-ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault and ClassicJettonVault.
+ClassicLpWallet, ClassicLiquidityDeposit, ClassicNativeVault, ClassicJettonVault and ClassicFactory.
 Pool V2's complete 10032-byte serialized
 BOC and all ten method dictionary values equal the frozen mainnet oracle.
-The shared Acton project passes **106 tests**. Each whole-Pool fixture compares
+The shared Acton project passes **114 tests**. Each whole-Pool fixture compares
 116 message probes and 12 getter probes, including outgoing amounts, exact gas
 and six independently expected self-code responses. No output normalization or
 original executable embedding is used to obtain identity.
@@ -120,7 +120,13 @@ Acton confirms the outgoing refund survives its nonzero exit. Seventy-four messa
 and 30 getter probes verify exact gas and independent wire/state/fee expectations;
 nine native tests pass. A callback hash's preimage is unknown, while its exact
 condition and ordinary callback variants are preserved and tested.
-Next: the rest of Classic and the related protocols; **10 families remain**.
+ClassicFactory passes complete 3733-byte BOC identity and all 34 dictionary entries.
+Its FunC source restores ownership, versioned registries and deterministic deployment
+codecs. 73 independent message probes and 34 getters validate the schema and protocol
+behavior. Eight native Acton tests execute Factory-to-Blank-to-Vault/Operator/Deposit
+lifecycles, including two-step funding and failed migration rollback.
+
+Next: the rest of Classic and the related protocols; **9 families remain**.
 
 ## Recovery history
 
